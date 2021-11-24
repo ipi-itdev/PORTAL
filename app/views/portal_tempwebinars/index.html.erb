@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <style type="text/css">
+
+  #div_container_x{
+
+    z-index: -1;
+  }
+
+
+  #register_button{
+    position: absolute;
+    bottom: 235px;
+    left: 150px;  
+  }
+
+
+  #register_buttonxx{
+  position: absolute;
+  bottom: 12000%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+    padding: 4px 80px;
+    background-color: #4CAF50;
+    color: white;
+  }
+
+
+  #already_button{
+    position: absolute;
+    bottom: 50px;
+    left: 20px;
+    font-size: 15px;
+    
+  }
+
+  #later_button{
+    position: absolute;
+    bottom: 180px;
+    left: -144px;
+    font-size: 15px;
+    
+  }
+    #later_buttonxx{
+    position: absolute;
+    bottom: 95px;
+    left: 50%;
+      transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+    padding: 4px 83px;
+  }
+
+  </style>
+
+
+</head>
+<body onload="myLoadFunc()">
+
+<script>
+function myLoadFunc() {
+  $( "#triggerbutton1" ).click();
+}
+</script>
+
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#webinarModal" style="visibility: hidden;" id="triggerbutton1">
+  Launch
+</button>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="webinarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <img src="/Resbakuna IPI.png"  style="width:100%;height:100%;">
+        </div>
+        <div class="panel-footer">
+           <div class="col-sm-6" >
+            <%= button_to 'Register Now', new_portal_tempwebinar_path, class:'btn btn-success btn-lg btn-block', id:'register_buttonx', method:'get' %>
+          </div>
+          <div class="col-sm-6" >
+            <%= button_to 'Maybe Later', later_reg_path, class:'btn btn-default btn-lg btn-block', id:'later_buttonx', method:'post' %>
+          </div>
+        </div>
+      </div>
+                
+      <br>  
+      <br>
+      <br>
+
+    </div>
+
+
+        
+</div>
+
+
+</body>
+</html>
+

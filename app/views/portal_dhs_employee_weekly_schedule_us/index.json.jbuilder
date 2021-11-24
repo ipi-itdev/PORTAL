@@ -1,0 +1,1 @@
+json.array! @portal_dhs_employee_weekly_schedule_us, partial: 'portal_dhs_employee_weekly_schedule_us/portal_dhs_employee_weekly_schedule_u', as: :portal_dhs_employee_weekly_schedule_u

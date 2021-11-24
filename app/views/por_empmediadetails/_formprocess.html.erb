@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+  
+  .button-container {
+    visibility: hidden;
+  }
+
+
+#desktopslider {
+  width: 10%;
+  position: absolute;
+  bottom: 5px;
+  left: 160px;
+}
+
+
+#mobileslider {
+  width: 20%;
+  position: absolute;
+  bottom: 60px;
+  left: 150px;
+}
+
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+
+#pause {
+  position: absolute;
+  bottom: px;
+  left: 16px;
+}
+
+
+.resume-playback-background {
+    display: none;
+}
+.resume-playback-progress-bar{
+    display: none;
+}
+
+
+#timer_section{
+
+   left: 100px;
+
+}
+
+
+
+
+body + div[is-visible] {
+  display: none !important;
+}
+
+
+
+#goFS {
+  position: absolute;
+  bottom: -40px;
+  left: -135px;
+}
+
+
+
+
+
+</style>
+</head>
+<body>
+
+<div class="container">  <!-- Trigger the modal with a button -->
+
+  <div class="row">
+    <div class="col-sm-1" >
+     <% getempmediapath =PorMedium.where(id: @por_empmediadetail.mediarefno ).pluck_to_hash(:mediapath, :media_seq_refno) %> 
+     <% getytvideoid =  getempmediapath[0][:mediapath].split('/').last %> 
+     <% getempmediapath[0][:media_seq_refno]%>
+
+    
+    </div>
+
+    <div class="col-sm-10" >
+
+
+
+      <%= bootstrap_form_with(model: por_empmediadetail, local: true) do |form| %>
+      <% if por_empmediadetail.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(por_empmediadetail.errors.count, "error") %> prohibited this por_empmediadetail from being saved:</h2>
+
+          <ul>
+          <% por_empmediadetail.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div >
+        <div >
+          <!--start youtube -->
+          <small><i>*Double click the video to view full screen.</i></small>
+      
+
+       
+
+           <div id="ytplayer" align="center"> </div>
+          <!--end youtube -->
+
+
+          <%=  form.hidden_field :id %>
+          <%=  form.hidden_field :employeerefno %>
+          <%=  form.hidden_field :starttime %>
+          <%=  form.hidden_field :mediarefno %>
+          <%=  form.hidden_field :endtime, id: 'endtimetextbox' %>
+          <%= form.hidden_field :media_seq_refno, value: getempmediapath[0][:media_seq_refno]%>
+
+          <input type="submit" name="commit" value="Update Por empmediadetail" class="btn btn-secondary" data-disable-with="Update Por empmediadetail" id="submitbutton" style="visibility: hidden" />
+          <% end %>
+          <div >
+              <button type="button" id="play"><b>►</b></button> 
+              <button type="button" id="pause"><b>⏸</b></button>  
+              <small id="timer_section"><span id="current-time"></span> / <span id="duration"></span> </small>
+          </div>
+           
+
+            <div class="dropdown pc-menu" >
+                <div class="slidecontainer" id="desktopslider">
+                  <input type="range" min="1" max="100" value="50" id="volume-input">
+                </div>
+                    
+            </div>
+
+            <div class="mobile-menu" id="mobileslider">
+
+               <div class="slidecontainer">
+                <input type="range" min="1" max="100" value="50" id="volume-input">
+               </div>
+
+
+
+                  
+            </div>
+
+
+            <br>
+<br>
+<br>
+
+
+
+        </div>
+      </div>
+       
+
+    </div>
+
+     <div class="col-sm-1" >
+
+      <div class="mobile-menu" id="mobileslider">
+          <button id="goFS">Fullscreen</button>
+      </div>
+
+
+     
+    </div>
+
+  </div>  
+
+</div>
+
+<br>
+<br>
+<br>
+
+<script>
+  var goFS = document.getElementById("goFS");
+  goFS.addEventListener("click", function() {
+      var container = document.getElementById("ytplayer");
+      container.requestFullscreen();
+  }, false);
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+
+$('#play').on('click', function () {
+    player.playVideo();
+});
+
+$('#pause').on('click', function () {
+    player.pauseVideo();
+});
+
+$('#volume-input').on('change', function () {
+    player.setVolume($(this).val());
+});
+
+
+  
+</script>
+
+
+
+<!-- start js resume function -->
+<script>
+        // Load the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/player_api ";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // Replace the 'ytplayer' element with an <iframe> and
+        // YouTube player after the API code downloads.
+        var player;
+
+        time_update_interval = 0;
+
+        function onYouTubePlayerAPIReady() {
+            player = new YT.Player('ytplayer', {
+                height: '400px',
+                width: '100%',
+                videoId: '<%= getytvideoid %>' ,  // Youtube videeo ID
+                playerVars: {
+                  'autoplay' : 1,
+                  'controls' : 0,
+                  'modestbranding' : 0,
+                  'rel' : 0,
+                  'showinfo' : 0,
+                  'loop' : 0,
+                  'disablekb' : 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                }
+            });
+        }
+
+
+        // This function is called by initialize()
+        function updateTimerDisplay(){
+            // Update current time text display.
+            $('#current-time').text(formatTime( player.getCurrentTime() ));
+            $('#duration').text(formatTime( player.getDuration() ));
+        }
+
+        function formatTime(time){
+            time = Math.round(time);
+
+            var minutes = Math.floor(time / 60),
+            seconds = time - minutes * 60;
+
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            return minutes + ":" + seconds;
+        }
+
+
+        function onPlayerStateChange() {
+            createCookie('ply_time', player.getCurrentTime(), 1);  // Stats like buffer, Pause and play store time in Cookes 
+
+        }
+
+        function onPlayerReady() {
+            player.seekTo(readCookie('ply_time'));  // On ready get ccokies  and start vide from that.
+
+
+            // Update the controls on load
+            updateTimerDisplay();
+            updateProgressBar();
+
+             // Clear any old interval.
+            clearInterval(time_update_interval);
+
+            // Start interval to update elapsed time display and
+            // the elapsed part of the progress bar every second.
+            time_update_interval = setInterval(function () {
+                updateTimerDisplay();
+                updateProgressBar();
+            }, 1000);
+
+        }
+
+
+
+
+
+        // This function is called by initialize()
+        function updateProgressBar(){
+            // Update the value of our progress bar accordingly.
+            $('#progress-bar').val((player.getCurrentTime() / player.getDuration()) * 100);
+        }
+
+
+        // Progress bar
+
+        $('#progress-bar').on('mouseup touchend', function (e) {
+
+            // Calculate the new time for the video.
+            // new time in seconds = total duration in seconds * ( value of range input / 100 )
+            var newTime = player.getDuration() * (e.target.value / 100);
+
+            // Skip video to new time.
+            player.seekTo(newTime);
+
+        });
+
+
+        document.unload = function() {                              // On docucment unload set cookie
+            createCookie('ply_time', player.getCurrentTime(), 1);
+        }
+
+        window.onbeforeunload = function() {              // On Window unload set cookie
+            createCookie('ply_time', player.getCurrentTime(), 1);
+        }
+
+         /*check video events*/ 
+         function onPlayerStateChange(event) {
+               /*check if video was viewed completely */         
+            if(event.data === 0) {
+
+                $('#endtimetextbox').val('<%= Time.now %>');
+                alert('Thanks for viewing');
+                $('#submitbutton').click();
+            }
+
+             /*check if video was playing */ 
+            if(event.data === 1) {
+                /*alert('Play');*/
+                document.getElementById("pause").style.visibility = "visible";
+                document.getElementById("play").style.visibility = "hidden";
+            }
+
+            /*check if video was paused */ 
+            if(event.data === 2) {
+                /*alert('Paused');*/
+                document.getElementById("pause").style.visibility = "hidden";
+                document.getElementById("play").style.visibility = "visible";
+            }
+
+          }
+
+
+        /* 
+         * Start:-  function to create , read and erase Cookie 
+         */
+
+        function createCookie(name, value, days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            }
+            else
+                var expires = "";
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ')
+                    c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0)
+                    return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            createCookie(name, "", -1);
+        }
+
+        /* 
+         * End:-  function to create , read and erase Cookie 
+         */
+
+    </script>
+    <!-- end  js resume function -->  
+
+
+</body>
+</html>
+
+
+
+
+
+
+

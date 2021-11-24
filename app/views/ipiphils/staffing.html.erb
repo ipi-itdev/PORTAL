@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  
+<style type="text/css">
+
+body{
+	  background-color: white;
+	}	
+	
+.wrapper
+{
+	padding-bottom: 90px;
+}
+
+.divider
+{
+	position: relative;
+	margin-top: 90px;
+	height: 1px;
+}
+
+.div-transparent:before
+{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 5%;
+	right: 5%;
+	width: 90%;
+	height: 1px;
+	background-image: linear-gradient(to right, transparent, rgb(48,49,51), transparent);
+}
+
+.div-arrow-down:after
+{
+	content: "";
+	position: absolute;
+	z-index: 1;
+	top: -7px;
+	left: calc(50% - 7px);
+	width: 14px;
+	height: 14px;
+	transform: rotate(45deg);
+	background-color: white;
+	border-bottom: 1px solid rgb(48,49,51);
+	border-right: 1px solid rgb(48,49,51);
+}
+
+.div-tab-down:after
+{
+	content: "";
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: calc(50% - 10px);
+	width: 20px;
+	height: 14px;
+	background-color: white;
+	border-bottom: 1px solid rgb(48,49,51);
+	border-left: 1px solid rgb(48,49,51);
+	border-right: 1px solid rgb(48,49,51);
+	border-radius: 0 0 8px 8px;
+}
+
+.div-stopper:after
+{
+	content: "";
+	position: absolute;
+	z-index: 1;
+	top: -6px;
+	left: calc(50% - 7px);
+	width: 14px;
+	height: 12px;
+	background-color: white;
+	border-left: 1px solid rgb(48,49,51);
+	border-right: 1px solid rgb(48,49,51);
+}
+.div-dot:after
+{
+
+	content: "";
+	position: absolute;
+	z-index: 1;
+	top: -9px;
+	left: calc(50% - 9px);
+	width: 18px;
+	height: 18px;
+	background-color: goldenrod;
+	border: 1px solid rgb(48,49,51);
+	border-radius: 50%;
+	box-shadow: inset 0 0 0 2px white,
+					0 0 0 4px white;
+}
+
+#fontcolor{
+color:#dd9933;
+
+}
+
+
+#headercolor{
+color:black;
+font-size: 50px;
+
+}
+
+
+.accordion1 {
+  background-color: white;
+ 
+  background-repeat: no-repeat;
+   background-size: 300px 300px;
+  color: black;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+
+  transition: 0.4s;
+ }
+
+.active, .accordion1:hover {
+  background-color: gold;
+   color: black;
+   text-align: center;
+  
+    
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+
+}
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.button {
+
+border-radius: 12px;
+
+}
+
+
+
+
+
+
+
+</style>
+
+
+</head>
+<body>
+<!-- start nav -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	     
+	    <div id = 'test1'class="row">
+	      <!-- Elements visible all the time -->
+	      <div class="col-sm-3" align="left" >
+	      
+	        <%= render 'ipiphils/navigation/header' %>
+	      
+	      </div><!-- col-sm-7 -->
+
+	      <!-- Elements collapses on smaller devices -->
+	     
+
+	       <div class="col-sm-9" align="left">
+	         <%= render 'ipiphils/navigation/collapsible_elements' %>
+	      </div><!-- col-sm-5 -->
+
+	    </div><!-- row -->
+	  </div><!-- container -->
+	</nav>
+
+<!-- end nav -->
+
+
+	<div id="headcolor" style="background-color:#ffd700;">
+		<br>
+		<br>
+		<br>
+			<h2 align="center" id="headercolor"><strong>Staffing & Recruitment</strong></h2>
+		<br>
+		<br>
+		<br>
+	</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2" >
+
+    	    	<!--- empty -->
+
+    </div>
+    <div class="col-sm-8" >
+    	<br>
+    	<h4>IPI uses an outsourcing strategy which is used to staff a project and respond to business objectives. It enables you to get qualified and experienced personnel to suit your requirements working exclusively on-site or offshore. It is a perfect solution for your seasonal or special projects.</h4>
+
+		<h4>We deliver services to develop, maintain, manage and support applications. Our skilled application professionals help manage fluctuating skill needs, skill gaps and change staffing needs to meet aggressive project timelines.</h4>
+  
+
+
+    </div>
+
+
+    <div class="col-sm-2" >
+
+    	<!--- empty -->
+
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+	<div class="divider div-transparent div-dot">
+	</div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2" >
+
+    	    	<!--- empty -->
+
+    </div>
+    <div class="col-sm-8" >
+
+    	<div class="col-sm-6" >
+
+    		<img src="/Consultant1.jpg" class="img-fluid" alt="Responsive image" style="width:100%;height:100%;">
+
+    	</div>
+    	<br>
+    	<div class="col-sm-6" >
+    		<h2>Looking for Consultant?</h2>
+    		<h4>We focus on advising businesses on how best to use information technology to meet their business objectives. We provide people that have the capability to estimate, manage, implement, deploy, and administer IT systems on businesses’ behalf.</h4>
+
+    		<h4>We identify, assess and recruit potential candidates that will best-fit and fill job vacancies within your organization. Our expertise in recruitment and client relationship allow us to provide you with permanent, full-time, direct hire or contractual positions in both IT and non-IT levels, depending on your requirement. Send us your inquiry.</h4>
+
+
+
+    	</div>
+    	
+
+
+    </div>
+
+
+    <div class="col-sm-2" >
+
+    	<!--- empty -->
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+</body>
+</html>

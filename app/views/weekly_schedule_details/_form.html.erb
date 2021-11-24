@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  <style type="text/css">
+    #required_field {
+      position: absolute;
+      bottom: px;
+      left: 7px;
+      font-size: 18px;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <%= bootstrap_form_with(model: weekly_schedule_detail, local: true) do |form| %>
+      <% if weekly_schedule_detail.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <p style="color: red;font-size: 80%;">
+              <% weekly_schedule_detail.errors.full_messages.each do |message| %>
+                <%= message %> <br>
+              <% end %>
+            </p>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <div class="col-sm-6" >        
+          <%= form.hidden_field :WeeklyScheduleRefNo, value: session[:weekly_schedule_id] %>
+          <%= form.hidden_field :ModifiedBy, value: current_user.EmployeeRefNo %>        
+                            
+          <small><%= form.text_field :WorkDate, label: 'Date', :disabled => true %></small>         
+        </div> 
+        
+        <div class="col-sm-6" >
+          <small><%= form.check_box :IsRD, label: 'RD', :disabled => true %></small>        
+        </div>        
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><%= form.time_field :shift_start , label: 'Shift Start', :disabled => true %></small>        
+        </div>
+
+        <div class="col-sm-6" >
+          <small><%= form.time_field :shift_end , label: 'Shift End', :disabled => true %></small>        
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><%= form.time_field :time_in , label: 'Time In', :disabled => true %></small>        
+        </div>
+
+        <div class="col-sm-6" >
+          <small><%= form.time_field :time_out , label: 'Time Out', :disabled => true %></small>        
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><%= form.text_area :Task, class: 'form-control input-sm', style: 'resize: none;', :disabled => true %></small>                
+        </div>
+
+        <div class="col-sm-6" >
+          <small><%= form.text_area :Remarks, class: 'form-control input-sm', style: 'resize: none;' %></small>                
+        </div>
+      </div>      
+
+      <div class="row">
+        <div class="col-sm-12" >
+        </div>
+      </div>
+
+      <br>
+      <br>  
+
+      <div class="row">
+        <div class="col-sm-6" >
+        </div>
+
+        <div class="col-sm-6" >
+          <div class="row">
+            <div class="col-sm-6" >
+              <%= form.submit 'Save', class:'btn btn-success btn-sm btn-block', id: 'submit_detail_but' %>
+            </div>
+
+            <script type="text/javascript">
+              $(document).submit(function() {
+                $( "#submit_detail_but" ).prop('disabled', true);
+              });                      
+            </script>
+
+            <div class="col-sm-6" >
+              <%= link_to 'Back to List', weekly_schedule_details_path, class:'btn btn-primary btn-sm btn-block' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</body>
+</html>

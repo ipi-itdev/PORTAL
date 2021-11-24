@@ -1,0 +1,252 @@
+
+  <div class="container">  
+
+  <div class="row">
+    <div class="col-sm-1" >
+    <% @hash_blank %>
+     
+    <% @getempmediaID %>
+    <% @getempmediaID[0].first.to_s %>
+      <!-- empty -->
+
+      
+
+     <% #mediapath = @mediadtailslast.mediapath %>
+     <% #getytvideoid =  mediapath.split('/').last %>
+    
+    </div>
+
+    <div class="col-sm-10" >
+
+
+ 
+
+     <% string = @getempmediaID[0].last.to_s %> 
+     <% getytvideoid =  string.split('/').last %>
+
+
+      <%= bootstrap_form_with(model: por_empmediadetail, local: true) do |form| %>
+      <% if por_empmediadetail.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(por_empmediadetail.errors.count, "error") %> prohibited this por_empmediadetail from being saved:</h2>
+
+          <ul>
+          <% por_empmediadetail.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <!--start youtube -->
+          <div id="ytplayer" align="center"> </div>
+          <!--end youtube -->
+        </div>
+      </div>
+       
+
+    </div>
+
+     <div class="col-sm-1" >
+      
+      <!-- empty -->
+      
+    </div>
+
+  </div>  
+
+
+
+<!---start modal -->
+<button type="button" id="triggerbutton"  data-toggle="modal" data-target="#myModal"  style="visibility: hidden;"></button>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <!--<button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          <h4 class="modal-title">Good day!</h4> 
+
+        </div>
+        <div class="modal-body">
+          <p><%= @getempmediaID[0][2] %></p>
+
+          <%=  form.hidden_field :employeerefno, :value => current_user.EmployeeRefNo %>
+          <%=  form.hidden_field :starttime, :value => Time.now %>
+          <%=  form.hidden_field :mediarefno, :value => @getempmediaID[0].first.to_s %>
+
+        </div>
+        <div class="modal-footer">
+
+            <div class="col-sm-3" align="left"> 
+              
+              <%= form.submit 'Proceed', class: "btn btn-success  btn-block", method: "post" %>
+
+              <% end %>
+
+            </div>
+
+            <div class="col-sm-3" align="left"> 
+              
+              <!-- empty -->
+            
+            </div>
+
+            <div class="col-sm-3" align="left"> 
+              
+              <!-- empty -->
+
+            </div>
+
+            <div class="col-sm-3" align="right">
+
+              <%= link_to 'Back', pages_path, class: "btn btn-default btn-block" %>
+              
+            </div>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+<!---end modal -->
+
+</div>
+
+
+<!-- start auto trigger modal -->
+<script type="text/javascript">
+    $(window).on('load',function(){
+        $('#triggerbutton').click();
+    }); 
+</script>
+<!-- end auto trigger modal -->
+
+
+<script type='text/javascript'>
+
+(function()
+{
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem('firstLoad') )
+    {
+      localStorage['firstLoad'] = true;
+      window.location.reload();
+    }  
+    else
+      localStorage.removeItem('firstLoad');
+  }
+})();
+
+</script>
+
+
+
+
+<!-- start js resume function -->
+<script>
+        // Load the IFrame Player API code asynchronously.
+     var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/player_api ";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // Replace the 'ytplayer' element with an <iframe> and
+        // YouTube player after the API code downloads.
+        var player;
+        function onYouTubePlayerAPIReady() {
+            player = new YT.Player('ytplayer', {
+                height: '300px',
+                width: '100%',
+                videoId: '<%= getytvideoid %>' ,  // Youtube video ID
+                playerVars: {
+                  'autoplay': 0,
+                  'controls' : 0,
+                  'modestbranding' : 0,
+                  'rel' : 0,
+                  'showinfo' : 0
+                },
+                events: {
+                    
+                }
+
+            });
+
+
+        }
+
+       
+        function onPlayerStateChange() {
+            createCookie('ply_time', player.getCurrentTime(), 1);  // Stats like buffer, Pause and play store time in Cookes 
+
+        }
+
+        function onPlayerReady() {
+            player.seekTo(readCookie('ply_time'));  // On ready get ccokies  and start vide from that.
+        }
+
+        document.unload = function() {                              // On docucment unload set cookie
+            createCookie('ply_time', player.getCurrentTime(), 1);
+        }
+
+        window.onbeforeunload = function() {              // On Window unload set cookie
+            createCookie('ply_time', player.getCurrentTime(), 1);
+        }
+
+
+        /* function onPlayerStateChange(event) {        
+            if(event.data === 0) {          
+                alert('done');
+
+            }
+          } */
+
+
+        /* 
+         * Start:-  function to create , read and erase Cookie 
+         */
+
+        function createCookie(name, value, days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            }
+            else
+                var expires = "";
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ')
+                    c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0)
+                    return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            createCookie(name, "", -1);
+        }
+
+        /* 
+         * End:-  function to create , read and erase Cookie 
+         */ 
+
+    </script>
+    <!-- end  js resume function -->
+

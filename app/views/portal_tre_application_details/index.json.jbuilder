@@ -1,0 +1,1 @@
+json.array! @portal_tre_application_details, partial: 'portal_tre_application_details/portal_tre_application_detail', as: :portal_tre_application_detail

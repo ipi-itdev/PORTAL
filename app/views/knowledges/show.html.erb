@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<p id="notice"><%= notice %></p>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-3" >
+      
+    </div>
+    <div class="col-sm-6" >
+      <h1><strong><%= @knowledge.title %></strong></h1>
+
+       <small>
+        <i>
+        (
+          <% createdday = @knowledge.created_at %>  
+        <%=  createdday.strftime("created on %m/%d/%Y %I:%M%p")%> 
+        by
+        <% createdby = @knowledge.createdby %>
+        <% if createdby.blank?%>
+         <b>Anonymous</b>   
+        <% else %>
+         <b> <%=  PisEmployeeU.where(EmployeeRefNo: createdby).pluck(:FullName).to_sentence %></b>
+        <% end %> 
+        )
+      </i>
+      </small>
+
+      <br>
+      <hr>
+      <p><%= simple_format(@knowledge.content) %></p>
+      <hr>
+
+      <% if @getuserrefno120 == '19'%>
+      <%= button_to 'Edit', edit_knowledge_path(@knowledge), class: "btn btn-primary btn-block", method: 'get' %>
+      <br>
+      <% else %>
+      <br>
+      <% end %>
+
+      <%= button_to 'Back', knowledges_path,  class: "btn btn-default btn-block", method: 'get'  %>
+      <br>
+      <br>  
+
+    </div>
+    <div class="col-sm-3" >
+
+
+    </div>
+
+   
+  </div>
+</div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+

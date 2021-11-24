@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+
+</head>
+<body>
+
+<div class="container-fluid">
+  
+  <div class="row">
+    <div class="col-sm-2" >
+
+    </div>
+    <div class="col-sm-8" >
+
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader">
+          <div class="row">
+            <div class="col-sm-9" >
+              <strong><i class="fas fa-money-check"></i>My TRE </strong>
+            </div>
+
+            <div class="col-sm-3" >
+              <%= link_to '<i class="fa fa-plus" aria-hidden="true"></i>File TRE'.html_safe, create_tre_path, method: 'post', class:'btn btn-primary btn-block btn-sm', data: { confirm: 'Are you sure that you want to create TRE, this will automatically create a record' }  %>
+            </div>
+          </div>
+
+         
+        </div>
+        <div class="panel-body">
+
+          <!--<p id="notice"><%= notice %></p>-->
+          <div class="table table-responsive ">
+          <table class="table" id="tre_expense_table" >
+            <thead>
+              <tr>
+                <th >ID</th>
+                <th >Company</th>
+                <th >Total Amount</th>
+                <th >Date</th>
+                <th >Status</th>
+                <th ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @tre_expenses.each do |tre_expense| %>
+                <tr>
+                  <td ><%= tre_expense.ID %></td>
+                  <td ><%= GenCompanyM.where(CompanyRefNo: tre_expense.CompanyRefNo).pluck(:Description).to_sentence %></td>
+                  <td align="right"><%= number_with_precision(tre_expense.Amount, :precision => 2, :delimiter => ',') %></td>
+                  <td >
+                      <% if tre_expense.Date.blank? == true%>
+                        -
+                      <% else %>
+                        <%= tre_expense.Date.strftime("%m/%d/%Y") %>
+                      <% end %>
+                    
+                  </td>
+                  <td ><%= GenFilingStatusF.where(FilingStatusRefNo: tre_expense.FillingStatusRefNo).pluck(:Description).to_sentence  %> </td>
+                  <td align="left">
+
+                    <% if tre_expense.FillingStatusRefNo.to_i == 1 %>
+
+                      <div class="btn-group btn-group-sm btn-group-block">
+                         <% if tre_expense.Description.blank? == true || tre_expense.Amount <= 0 || tre_expense.Date.blank? == true %>
+
+                          <%= link_to '<i class="far fa-paper-plane"></i>'.html_safe, '/', method: 'post',  class: "btn btn-primary disabled", data: { confirm: 'Once the application was posted, it cannot be amend or canceled.' } %>
+                          <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_tre_expense_path(tre_expense),  class: "btn btn-primary" %>
+                          <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, tre_expense, method: :delete, data: { confirm: 'Are you sure?' },  class: "btn btn-primary" %>
+                        
+                         <% else %>
+
+                            <% if current_user.is_gen_manager == true %>
+                              
+                              <%= link_to '<i class="far fa-paper-plane"></i>'.html_safe, tre_gm_post_path(tre_id: tre_expense.ID), method: 'post',  class: "btn btn-primary", data: { confirm: 'Once the application was posted, it cannot be amend or canceled.' } %>
+
+
+                              <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_tre_expense_path(tre_expense),  class: "btn btn-primary" %>
+                              <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, tre_expense, method: :delete, data: { confirm: 'Are you sure?' },  class: "btn btn-primary" %>
+
+                            <% elsif current_user.is_manager == true %>
+                              <!--start manager-->
+                              <%= link_to '<i class="far fa-paper-plane"></i>'.html_safe, tre_manager_post_path(tre_id: tre_expense.ID), method: 'post',  class: "btn btn-primary", data: { confirm: 'Once the application was posted, it cannot be amend or canceled. This record it will be forwarded to Gen. Manager for approval.' } %>
+                              
+                              <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_tre_expense_path(tre_expense),  class: "btn btn-primary" %>
+                              <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, tre_expense, method: :delete, data: { confirm: 'Are you sure?' },  class: "btn btn-primary" %>
+                              <!--end manager-->
+
+                            <% else %>
+
+                              <%= link_to '<i class="far fa-paper-plane"></i>'.html_safe, post_tre_path(tre_id: tre_expense.ID), method: 'post',  class: "btn btn-primary", data: { confirm: 'Once the application was posted, it cannot be amend or canceled.' } %>
+
+                              <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_tre_expense_path(tre_expense ),  class: "btn btn-primary" %>
+                              <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, tre_expense, method: :delete, data: { confirm: 'Are you sure?' },  class: "btn btn-primary" %>
+
+                            <% end %>
+
+                         <% end %>
+
+   
+
+                      </div>
+
+                     <% else %>
+
+                        <%= link_to 'View', "/tre_expenses/#{tre_expense.ID}?frmtre_ex=test", class: "btn btn-primary btn-sm " %>
+
+                     <% end %> 
+
+                  </td>
+     
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+
+            <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+            <script>
+            $(function(){
+              $("#tre_expense_table").dataTable();
+            })
+            </script>
+
+          </div>
+          
+
+        </div>
+        
+      </div>
+
+    </div>
+    <div class="col-sm-2" >
+
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

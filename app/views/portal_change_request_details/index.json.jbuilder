@@ -1,0 +1,1 @@
+json.array! @portal_change_request_details, partial: 'portal_change_request_details/portal_change_request_detail', as: :portal_change_request_detail

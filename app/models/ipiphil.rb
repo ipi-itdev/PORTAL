@@ -1,0 +1,2 @@
+class Ipiphil < ApplicationRecord
+end

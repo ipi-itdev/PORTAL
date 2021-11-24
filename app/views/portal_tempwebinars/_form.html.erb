@@ -1,0 +1,127 @@
+<style type="text/css">
+  
+#header_one {
+  font-size: 200%;
+}
+
+
+#panelwebinar{
+  box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 1);
+}
+
+#panelheaderwebinar {
+background: rgb(103, 58, 183);
+
+}
+
+#webinar_required{
+  position: absolute;
+  bottom: px;
+  left: 115px;
+  font-size: 15px;
+  color: red;
+}
+
+#submit_button{
+  background: rgb(103, 58, 183);
+}
+
+
+</style>
+
+
+
+<div class="container"> 
+ <div class="row">
+    <div class="col-sm-3" >
+      
+    </div>
+
+    <div class="col-sm-6">
+
+      <div class="panel panel-default" id="panelwebinar">
+        <div class="panel-heading" id="panelheaderwebinar"></div>
+        <div class="panel-body">
+          <%= bootstrap_form_with(model: portal_tempwebinar, local: true) do |form| %>
+
+          <p id="header_one" align="center"><b>TOWN HALL</b></p>
+          <p id="header_one" align="center"><b>On Covid-19 Vaccine Deployment Plan</b></p>
+          <p id="header_two" align="center"><b>In partnership with Department of Health</b></p>
+          <p id="header_two" align="center">June 25, 2021 | 2:00 pm to 4:00pm via Zoom</p>
+        </div>
+      </div>
+  
+
+
+
+      <div class="panel panel-default" id="panelwebinar">
+        <div class="panel-body">
+          <%= form.hidden_field :EmployeeRefNo, value: current_user.EmployeeRefNo %>
+          <%= form.hidden_field :webinar_refno, value: 6 %>
+
+          <% emp_details = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:Description).to_sentence %>
+          <% emp_details1 = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:NickName).to_sentence %>
+          <% getfname  = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:FirstName).to_sentence %>
+          <% get_mobile  = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:MobileNumber).to_sentence %>
+          <% get_email  = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:PersonalEmailAddress).to_sentence %>
+
+          <h4>Name: <%= emp_details %> </h4>
+
+          <% if emp_details1.empty? == true %>
+            <h4>Nickname: <%= getfname %> </h4>
+            <%= form.hidden_field :Nickname, value: getfname %>
+          <% else %>
+            <h4>Nickname: <%= emp_details1 %> </h4>
+            <%= form.hidden_field :Nickname, value:  emp_details1 %>
+          <% end %>
+          <%= form.hidden_field :Name, value: emp_details %>
+          <hr>
+
+          <div class="row">
+            <div class="col-sm-6" >
+              <p id="webinar_required"> *</p>
+              <%= form.text_field :Email, value: get_email, label:'Email Address', placeholder:'Your Answer'  %>
+              
+            </div>
+            <div class="col-sm-6" >
+              <%= form.text_field :Mobilenumber, value: get_mobile, label:'Mobile Number', placeholder:'Your Answer' %>
+            </div>
+          </div>
+
+          <%= form.text_area :PossibleQuestion, label:'Your possible questions to the speaker during the Live Webinar' %>
+
+          <div class="row">
+            <div class="col-sm-12" >
+
+             <input type="submit" name="commit" value=" &#x2714; Submit" class="btn btn-primary  btn-block" id="submit_button" data-disable-with="Saving..."> 
+
+            </div>
+          
+          </div>
+
+
+        </div>
+      </div>
+
+      <% end %>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+    </div>
+
+
+    </div>
+
+    <div class="col-sm-3" >
+      
+    </div>
+ </div>
+
+
+
+
+

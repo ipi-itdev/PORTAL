@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+
+</head>
+<body>
+
+</body>
+</html>
+
+
+<div class="container-fluid">
+
+  <div class="row">
+    
+    <div class="col-sm-1" >
+      <!--- empty --->
+    </div>
+    <div class="col-sm-10" >
+      <div class="panel panel-default" id="panelframe">
+          <div class="panel-heading" align="center" id="panelheader">
+            <div class="row">
+              <div class="col-sm-6" >
+                <h4 align="left"><i class="fas fa-calendar-check"></i>External Leave Applications</h4>
+              </div>
+              <div class="col-sm-3" >
+               
+              </div> 
+              <div class="col-sm-3" >
+          
+              </div>
+            </div>             
+          </div>
+        <div class="panel-body">
+
+          <div class="table table-responsive ">   
+                  <table id="example">
+                    <thead >
+                      <tr>
+                        <th><small>Leave Ref No.</small></th>
+                        <th align="center"><small> Employee Name</small></th>
+                        <th><small>Date Filled</small></th>
+                        <th><small>Leave Type</small></th>
+                        <th><small>Start Date</small></th>
+                        <th><small>End Date</small></th>
+                        <th><small>Total Hour(s)</small></th>
+                        <th><small>Status</small></th>  
+                        <th><small></small></th>  
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                          <% @portal_leave_applications_ext.each do |portal_leave_application| %>
+                            <tr>
+                              <td align="center"><small><%= portal_leave_application.id %></small></td>
+                              <td><small><%= PisEmployeeU.where(EmployeeRefNo: portal_leave_application.employeerefno).pluck(:Description).to_sentence %></small>  </td>
+                              <td><small><%= portal_leave_application.created_at.strftime("%m/%d/%Y") %></small></td>
+                              <td ><small><%=  GenLeaveTypeM.where(LeaveTypeRefNo: portal_leave_application.leavetype_refno).pluck(:Code).to_sentence%></small></td>
+                              <td><small><%= portal_leave_application.startdate.strftime("%m/%d/%Y") %></small></td>
+                              <td><small><%= portal_leave_application.enddate.strftime("%m/%d/%Y") %></small></td>
+                              <td ><small><%= PortalLeaveTimeLookupU.where(leave_value: portal_leave_application.end_hrs).pluck(:description).to_sentence  %></small></td>
+                              <td><small><%= PortalLeaveStatusC.where(status_refno: portal_leave_application.leave_status_refno).pluck(:status_description).to_sentence %></small></td>
+
+                              <td><%= link_to 'View', portal_leave_applications_approver_approver_edit_path(id: portal_leave_application.id), class:'btn btn-sm btn-primary  btn-block' %></td>
+
+                            </tr>
+                          <% end %>
+                                         
+                    </tbody>
+
+
+
+                  </table>
+
+                  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+                  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+                  <script>
+                  $(function(){
+                    $("#example").dataTable();
+                  })
+                  </script>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-1" >
+      <!--- empty --->
+    </div>
+
+  </div>
+
+</div>
+
+<br>
+<br>
+<br> 
+
+
+
+
+

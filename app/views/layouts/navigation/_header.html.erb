@@ -1,0 +1,187 @@
+<%if user_signed_in? == true %>
+      <div id ="showme" class="navbar-header">
+      
+      <div class="row" align="left"> 
+            <div  class="col-sm-5" align="left">
+                  <div class="dropdown pc-menu" align="left" >       
+                   <%= image_tag image_url("logo.png"), id: 'ipidesklogo' %>
+                  </div>
+
+                  <div class="mobile-menu" align="left" >
+      
+                  </div>
+
+            </div>
+
+            <% if session[:currentuser_employeestatusrefno]  == 2 %>
+
+                <div class="col-sm-5" >
+                      <div class="dropdown pc-menu" align="left" >                    
+                       <ul  class="nav navbar-nav">
+                        
+                        <li class="divider-vertical"></li>
+
+                        <li ><%= link_to "", pay_processed_payroll_us_path, class: "fas fa-money-bill-alt",  :method=> :get, :title => 'My Payslip', :rel => 'tooltip'   %></li>
+
+                        <li class="divider-vertical"></li>
+
+                      </ul>
+                            
+                      </div>
+                </div>  
+
+            <% else %>
+
+                <div class="col-sm-5" >
+                      <div class="dropdown pc-menu" align="left" >                    
+                       <ul  class="nav navbar-nav">
+                      
+                      <li class="divider-vertical"></li>
+                      
+                      <li ><%= link_to "", '/pages', class: "fas fa-home",  :method=> :get,:title => 'Home', :rel => 'tooltip'  %></li>
+                      <li class="divider-vertical"></li>
+                      <li ><%= link_to "", pay_processed_payroll_us_path, class: "fas fa-money-bill-alt",  :method=> :get, :title => 'My Payslip', :rel => 'tooltip'   %></li>
+                      <li class="divider-vertical"></li>
+  
+                      <li class="divider-vertical"></li>
+                      <!-- start dl forms -->
+                      <li >
+                            <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="Downloadable Forms" rel="tooltip" >
+                             <div align="center"> <i class="fas fa-download"></i></div>
+                            </a>
+
+                              <ul  class="dropdown-menu" role="menu">
+
+                                <li><%= link_to 'Incident Report Form', '/ipi_forms/Incident Report Form.docx', target: "_blank" %></li>
+                                <li><%= link_to 'IPI Leave Form','/ipi_forms/IPI leave form.xls', target: "_blank"  %></li>
+                                <li><%= link_to 'IPI TIMESHEET & OT FORM', '/ipi_forms/IPI TIMESHEET & OT FORM.doc', target: "_blank" %></li> 
+                                <li><%= link_to 'Pag Ibig Change of Information Form', '/ipi_forms/Pag Ibig Change of Information Form.pdf',  target: "_blank" %></li>
+                                <li><%= link_to 'Pag IBIG Membership Upgrade Form', '/ipi_forms/Pag IBIG Membership Upgrade Form.pdf', target: "_blank" %></li>
+                                <li><%= link_to 'Pag Ibig Multi-Purpose Loan Form', '/ipi_forms/Pag Ibig Multi-Purpose Loan Form.pdf', target: "_blank" %></li>
+                                <li><%= link_to 'Philhealth Member Registration and Update Form', '/ipi_forms/Philhealth Member Registration and Update Form.pdf', target: "_blank" %></li>
+                                <li><%= link_to 'SSS Allocation of Maternity Leave Credits', '/ipi_forms/SSS Allocation of Maternity Leave Credits.pdf', target: "_blank" %></li>
+                                <li><%= link_to 'SSS Maternity Benefit Reimbursement Form', '/ipi_forms/SSS Maternity Benefit Reimbursement Form.pdf', target: "_blank" %></li>
+                                <li><%= link_to 'SSS Maternity Notification Form', '/ipi_forms/SSS Maternity Notification Form.pdf', target: "_blank" %></li>
+                                <li><%= link_to 'SSS Salary Loan Form', '/ipi_forms/SSS Salary Loan Form.pdf', target: "_blank" %></li>
+                                <li><%= link_to 'SSS Sickness Benefit Reimbursement Form', '/ipi_forms/SSS Sickness Benefit Reimbursement Form.pdf' , target: "_blank"%></li>
+                                <li><%= link_to 'SSS Sickness Notification Form', '/ipi_forms/SSS Sickness Notification Form.pdf', target: "_blank" %></li>
+
+                                <%  getPisEmploymentInfoU1 = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:EmployeeGroupRefNo )%>
+
+                                <% getPisEmploymentInfoU = getPisEmploymentInfoU1[0] %>
+
+                                <% if getPisEmploymentInfoU[:EmployeeGroupRefNo] == 1 %>
+                                  <li><%= link_to 'SDE Request Form', '/SDE-Request-Form.docx', target: "_blank" %></li>
+                                <% end %>
+
+                              </ul>
+                      </li >       
+                      <!-- end dl forms -->
+                      <li class="divider-vertical"></li>
+                      <li><%= link_to "", knowledges_path, class: "fas fa-book",  :method=> :get, :title => 'Knowledge base', :rel => 'tooltip'   %>
+                      </li>
+                      <li class="divider-vertical"></li>
+
+                      <!----start TMS -->                      
+                      <li >
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="TMS" rel="tooltip">
+                                <i class="fas fa-calendar-check"></i>
+                          </a>
+
+                          <ul  class="dropdown-menu" role="menu">
+                              <li> <%= link_to "Leave Application", portal_leave_applications_path, :method=> :get %> </li>
+                              <li> <%= link_to "OT Application", portal_ot_applications_path, :method=> :get %> </li>
+                              
+                              <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 2 %>
+                                    <li> <%= link_to "Upload DTR", portal_dtr_uploads_path, :method=> :get %> </li>
+                              <% end %> 
+                          </ul>
+                         
+                      </li>                      
+                      <!----end TMS -->
+
+                      <% if current_user.is_external_approver == true %>
+                            <li class="divider-vertical"></li>
+                            <!----start TMS Approver -->
+                            <li >
+                                  <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="TMS Approval" rel="tooltip">
+                                        <i class="fas fa-user-clock"></i>
+                                  </a>
+
+                                  <ul  class="dropdown-menu" role="menu">                                          
+                                        <li> <%= link_to "Weekly Schedule Remarks", weekly_schedules_path, :method=> :get %> </li>
+                                        <li> <%= link_to "DTR Approval", dtr_applications_path, :method=> :get %> </li>
+                                        <li> <%= link_to "Leave Approval", portal_leave_approvals_path, :method=> :get %> </li>
+                                        <li> <%= link_to "OT Approval", portal_ot_approvals_path, :method=> :get %> </li>
+                                  </ul>
+                            </li>
+                            <!----end TMS Approver-->
+                      <% end %>
+
+                      </ul>
+                            
+                      </div>
+                </div>  
+
+            <% end %>
+
+
+
+
+            <div class="col-sm-2">
+                         
+                        <div class="mobile-menu" >
+                              <%= image_tag image_url("logo.png"), id: 'ipimobilelogo' %>
+                               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapsible-content" aria-expanded="false">
+                                    <span class="sr-only"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                              </button> 
+                             
+                               
+                        </div>
+                          
+                    
+                        
+       
+            </div>
+           
+
+      </div>
+      </div>
+
+
+
+
+<% else %>
+
+      <div id ="x" class="navbar-header">
+      
+            <div class="row" align="center">
+                  <div  class="col-sm-5" align="center"> 
+                        <div class="dropdown pc-menu" align="left" >       
+                      
+                              <!--<span id ='test1' style="font-size:17px;cursor:pointer" onclick="openNav()"><strong>IPI Consultant Portal</strong></span>  Disable Sidebar--->  
+                        </div>
+
+                        <div class="mobile-menu" align="left" >    
+
+                        
+                              <!--<span id ='test1' style="font-size:17px;cursor:pointer" onclick="openNav()"><strong>IPI Consultant Portal</strong></span>  Disable Sidebar--->  
+                        </div>
+        
+                  </div>
+
+                  <div  class="col-sm-6" align="center" >
+                  
+                  </div>     
+
+                  <div class="col-sm-1">
+                       
+                  </div>
+
+            </div>
+      </div>
+      
+<% end %>

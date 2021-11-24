@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @portal_poster.description %>
+</p>
+
+<p>
+  <strong>Date post:</strong>
+  <%= @portal_poster.date_post %>
+</p>
+
+<p>
+  <strong>Poster refno:</strong>
+  <%= @portal_poster.poster_refno %>
+</p>
+
+<p>
+  <strong>Attachedfile:</strong>
+  <%= @portal_poster.attachedfile %>
+  <br>
+ 
+  <img src="<%= @portal_poster.attachedfile %>"></img> 
+</p>
+
+<%= link_to 'Edit', edit_portal_poster_path(@portal_poster) %> |
+<%= link_to 'Back', portal_posters_path %>

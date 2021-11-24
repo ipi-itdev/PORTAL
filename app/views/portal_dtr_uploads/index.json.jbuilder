@@ -1,0 +1,1 @@
+json.array! @portal_dtr_upload, partial: 'portal_dtr_uploads/portal_dtr_upload', as: :portal_dtr_upload

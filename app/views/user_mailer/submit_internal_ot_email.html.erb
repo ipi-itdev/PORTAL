@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+
+
+
+</head>
+  <body >
+  		
+  		<% hashleave_app_details =  PortalLeaveApplication.where(id: @get_leave_app_submit.ids.to_sentence).pluck_to_hash(:id,:employeerefno, :reason, :leavetype_refno, :startdate, :enddate, :end_hrs, :leave_status_refno, :date_filed)%>
+  		<% leave_app_details = hashleave_app_details[0] %> 	
+
+          <p>Hi Ma'am/Sir,</p>
+
+          <p>You have received a Overtime Application</p>
+
+          <h3>Details:</h3>
+
+          <table width="60%" style="border:1px solid #333">
+
+			  <tr style="border:1px solid #333">
+	          <td width="20%" style="border:1px solid #333"><strong>Overtime Reference No.</strong></td>
+	          <td width="80%" align="left" style="border:1px solid #333"><%= leave_app_details[:id] %></td>
+	          </tr>
+
+	          <tr style="border:1px solid #333">
+	          <td width="20%" style="border:1px solid #333"><strong>Employee Name</strong></td>
+	          <td width="80%" align="left" style="border:1px solid #333">
+	          	<% hash_emp_details = PisEmployeeU.where(EmployeeRefNo: leave_app_details[:employeerefno]).pluck_to_hash(:Description, :EmployeeNumber) %>
+
+	          	<% emp_details = hash_emp_details[0]%>
+	          	<%= emp_details[:Description]%> - <%= emp_details[:EmployeeNumber]%>	
+
+	          </td>
+	          </tr>
+
+			  <tr style="border:1px solid #333">
+	          <td width="20%" style="border:1px solid #333"><strong>Status</strong></td>
+	          <td width="80%" align="left" style="border:1px solid #333"><%= PortalLeaveStatusC.where(status_refno: leave_app_details[:leave_status_refno]).pluck(:status_description).to_sentence %></td>
+	          </tr>
+
+	          <tr style="border:1px solid #333">
+	          <td width="20%" style="border:1px solid #333"><strong>Leave Type</strong></td>
+	          <td width="80%" align="left" style="border:1px solid #333"><%=  GenLeaveTypeM.where(LeaveTypeRefNo: leave_app_details[:leavetype_refno]).pluck(:Code).to_sentence %></td>
+	          </tr>
+
+	          <tr style="border:1px solid #333">
+	          <td width="20%" style="border:1px solid #333"><strong>Date Filed</strong></td>
+	          <td width="80%" align="left" style="border:1px solid #333"><%= leave_app_details[:date_filed].strftime("%m/%d/%Y")  %></td>
+	          </tr>
+
+			  <tr style="border:1px solid #333">
+	          <td width="20%" style="border:1px solid #333"><strong>Hour(s)</strong></td>
+	          <td width="80%" align="left" style="border:1px solid #333"><%= PortalLeaveTimeLookupU.where(leave_value: leave_app_details[:end_hrs]).pluck(:description).to_sentence %> </td>
+	          </tr>
+
+	          <tr style="border:1px solid #333">
+	          <td width="20%" style="border:1px solid #333"><strong>Start Date</strong></td>
+	          <td width="80%" align="left" style="border:1px solid #333"><%= leave_app_details[:startdate].strftime("%m/%d/%Y") %> </td>
+	          </tr>
+
+	          <tr style="border:1px solid #333">
+	          <td width="20%" style="border:1px solid #333"><strong>End Date</strong></td>
+	          <td width="80%" align="left" style="border:1px solid #333"><%= leave_app_details[:enddate].strftime("%m/%d/%Y")%></td>
+	          </tr> 
+
+	          <tr style="border:1px solid #333">
+	          <td width="20%" style="border:1px solid #333"><strong>Reason</strong></td>
+	          <td width="80%" align="left" style="border:1px solid #333"><%= leave_app_details[:reason]%></td>
+	          </tr> 
+       
+          </table>
+
+       
+          <hr>
+          <p>This is a system generated email. Please do not reply.</p>
+          <p>IPI Employee Portal.</p>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,2 @@
+class Renew < ApplicationRecord
+end

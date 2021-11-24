@@ -1,0 +1,118 @@
+
+
+ <%= stylesheet_link_tag 'por_surveys'%>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3" >
+      
+    </div>
+    <div class="col-sm-6" >
+      <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-6" >
+                 <div align="center" id="divimage">
+                  <!--- empty -->
+                </div>
+              </div>
+               <div class="col-sm-6" >
+                <br>
+                <br>
+                <br>
+                We're always looking for ways to improve our service.Your feedback is important to us!
+               </div>
+              
+
+            
+            </div>
+            <br>
+  
+            <% current_user.EmployeeRefNo%>
+            <%= form_with(model: por_survey, local: true) do |form| %>
+            <%= form.hidden_field :EmployeeRefNo, :value => current_user.EmployeeRefNo %>       
+            <strong align="left">1. Overall User's Satisfaction (Payslip Portal)</strong>
+            <br>
+            <br>
+
+            <div class="row">
+              <div class="col-sm-1" >
+              </div>
+              <div class="col-sm-2" align="center">
+                <input name="por_survey[answer]" value="" type="hidden">
+                <label for="por_survey_answer_1"><input value="1" name="por_survey[answer]" id="por_survey_answer_1" type="radio"><img src="/VerySatisfied.png" width="50" height="50"></label>
+             
+
+              </div>
+              <div class="col-sm-2" align="center">
+                <label for="por_survey_answer_2"><input value="2" name="por_survey[answer]" id="por_survey_answer_2" type="radio"><img src="/Satisfied.png" width="50" height="50"></label>
+
+              </div>
+              <div class="col-sm-2" align="center">
+                <label for="por_survey_answer_3"><input value="3" name="por_survey[answer]" id="por_survey_answer_3" type="radio"><img src="/Neutral.png" width="50" height="50"></label>
+
+              </div>
+              <div class="col-sm-2" align="center">
+                <label for="por_survey_answer_4"><input value="4" name="por_survey[answer]" id="por_survey_answer_4" type="radio"><img src="/Dissatisfied.png" width="50" height="50"></label>
+           
+              </div>
+              <div class="col-sm-2" align="center">
+                <label for="por_survey_answer_5"><input value="5" name="por_survey[answer]" id="por_survey_answer_5" type="radio"><img src="/VeryDissatisfied.png" width="50" height="50"></label>
+
+              </div>
+              <div class="col-sm-1" >
+              </div>
+            </div>
+
+            <br>
+            <div class="row">
+              <div class="col-sm-12" >
+                <strong>2. Comments/Recommendations</strong>
+                <br>
+                  <%= form.text_area :comments, class: 'form-control', :rows => 3, maxlength: 2000, minlength: 1  %>
+           
+       
+              </div>
+
+           
+            </div>
+      
+            <br>
+            <div align="center">
+              <%= form.submit 'Submit Answer', class:'btn btn-md btn-primary' %> <!-- <%= link_to 'Skip', '/pages', class:'btn btn-md btn-danger' %>--> 
+
+            </div>
+
+        <% end %>
+
+
+
+        </div>
+      </div>
+
+
+
+     
+    </div>
+
+    <div class="col-sm-3" >
+     
+    </div>
+  </div>
+</div> 
+
+<br>
+<br>
+
+
+
+<script type="text/javascript">
+  
+$('img').click(function(){
+    $('.selected').removeClass('selected');
+    $(this).addClass('selected');
+});
+  
+</script>
+ 

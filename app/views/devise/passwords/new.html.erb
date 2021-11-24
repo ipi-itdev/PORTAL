@@ -1,0 +1,127 @@
+<%= stylesheet_link_tag    'password_new', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag  'password_new', 'data-turbolinks-track': 'reload' %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4" >
+  
+    </div>
+    <div class="col-sm-4" >
+      <div class="row">
+        <div class="col-sm-2" >
+          
+        </div>
+
+        <div class="col-sm-8" >
+          <div class="panel panel-default" id="forgotpasspanel">
+            <div class="panel-body">
+                 <img id="ipilogo" src="/assets/ipi_logo_half.png" alt="logo" >
+                 <hr>
+                 <div align="center"><strong >Forgot your password?</strong></div>
+                 <br>
+                <% if current_user.blank? %>
+                    <%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+                      
+                    <div>                            
+                      <p id="desktopbottomleft"> *</p>
+                    <small>  <span><%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control",  label:'Email' %> </span> </small>
+                    </div>
+
+                       
+
+                      <br>
+                      <div class="actions">
+                        <small><%= f.submit "Send reset password instructions", class: 'btn btn-primary  btn-block' %> </small>
+                      </div>
+
+                    <% end %>
+                    <br>
+                    <div align="right">
+                     <small> <%= link_to "Back",'/' %> </small>
+                    </div>
+                                
+                   
+                    
+                                
+                <% else %>            
+
+                      <% xcur = current_user.id %>
+                      <% ycur = User.where(id: xcur).pluck(:encrypted_password).to_sentence %>
+                      <% ycur1 = ycur.to_s %>
+                      <% zcur = "$2a$11$txIf0M5feHeEkP4KGPkdf.5RCka0DHycG.bav3oKhlhzgEj.LTeFW" %>
+
+                      <% if ycur1.to_s ==  zcur.to_s %>
+
+                                <h2 align="left">Welcome! </h2>
+                                <h4>Before you can fully access the portal, we would like to ask you to reset your password.</h4>
+                                <h4><small>*please enter your Email</small></h4>
+                                <br>
+
+                                <%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+                                  <!---  <%= devise_error_messages!%> --->
+
+                                  <div class="field">
+                                    
+                                    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                                  </div>
+
+                                 <div align="center">
+                                      <%= flash[:recaptcha_error] %>
+                                      <%= recaptcha_tags %>
+                                      </div>
+
+                                  <br>
+                                  <div class="actions">
+                                    <%= f.submit "Send me reset password instructions", class: 'btn btn-primary  btn-block' %>
+                                  </div>
+                                <% end %>
+
+
+                        <%else%>
+
+                                <h2 align="center">Forgot your password?</h2>
+                                <br>
+
+                                <%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+                                  <!---  <%= devise_error_messages!%> --->
+
+                                  <div class="field">
+                                    
+                                    <%= f.email_field :email, autofocus: true, autocomplete: "email",label: '_' %>
+                                  </div>
+
+                                      <div align="center" id="recaptcha1">
+                                      <%= flash[:recaptcha_error] %>
+                                      <%= recaptcha_tags %>
+                                      </div>
+
+                                  <br>
+                                  <div class="actions">
+                                    <% f.submit "Send me reset password instructions", class: 'btn btn-primary  btn-block' %>
+                                  </div>
+                                <% end %>
+                            <% end %>
+                        <% end %>        
+
+              
+            </div>
+          </div>
+                    
+        </div>
+
+        <div class="col-sm-2" >
+          
+        </div>
+
+
+      </div>
+  
+    </div>
+
+    <div class="col-sm-4" >
+
+    </div>
+  </div>
+</div> 
+<br>
+<br>

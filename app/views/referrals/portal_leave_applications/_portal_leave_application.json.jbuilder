@@ -1,0 +1,2 @@
+json.extract! portal_leave_application, :id, :leave_application_referece_no, :employeerefno, :workdate, :leavetype_refno, :hours, :credits, :reason, :headertag, :filingstatus_refno, :createdby, :createddate, :modifiedby, :modifieddate, :servercompanycodeid, :is_active, :leave_application_refno, :date_filed, :created_at, :updated_at
+json.url portal_leave_application_url(portal_leave_application, format: :json)

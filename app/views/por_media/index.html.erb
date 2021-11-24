@@ -1,0 +1,152 @@
+<%= stylesheet_link_tag 'por_media'%>
+
+<!--<p id="notice"><%= notice %></p> -->
+
+ <div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-1" >
+      <!--- empty -->
+        
+    </div>
+
+    <div class="col-sm-2" >
+
+        <div class="panel panel-warning" id="float">
+          <div class="panel-heading" align="center" id="panelheader"><h4><i class="fas fa-video"></i> Media</h4></div>
+          <div class="panel-body">
+            
+            <small><%= link_to 'Add New Video', new_por_medium_path %></small>
+            <br>
+            <small><%= link_to 'Back', pages_path %></small>
+
+          </div>
+        </div>      
+    </div>
+
+    <div class="col-sm-8" >
+      <div class="panel panel-warning">
+
+        <div class="panel-body">
+
+            <% if @por_media.blank? %>
+                <h1 align="center"> No Media Available</h1>
+            <% else %>
+                 <!--- empty -->
+            <% end %>
+
+              <% @por_media.each_slice(2) do |lists| %>
+              <% listarray = lists %>
+
+          <table class="table">
+
+            <tbody>
+             <div class="row">
+
+              <!--1st Column -->
+
+              <div class="col-sm-6">
+            
+
+              <% if listarray[0].blank? %>
+                <!--empt -->
+              <% else %>
+
+                <div class="thumbnail">
+                  <div class="caption text-center" >
+                    <div class="position-relative">
+                       <iframe width="100%" height="100%" src= <%="#{listarray[0].mediapath.to_s}"%>> </iframe>
+                       <p align="justify"> <%= listarray[0].title %></p>
+                    </div>
+                  </div>
+
+                  <div class="caption card-footer text-center">
+                    <hr>
+                    <div class="btn-group btn-group-sm" role="group" >
+                      <%= link_to '<i class="far fa-file"></i>'.html_safe, "/por_media/#{listarray[0].id.to_s}" , class:'btn btn-sm btn-primary', :title => 'View', :rel => 'tooltip'%>
+
+                      <%= link_to '<i class="far fa-edit"></i>'.html_safe, "/por_media/#{listarray[0].id.to_s}/edit", class:'btn btn-sm btn-success', :title => 'Edit', :rel => 'tooltip' %>
+
+                      <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, "/por_media/#{listarray[0].id.to_s}", method: :delete, data: { confirm: 'Are you sure to remove this one?' }, class:'btn btn-sm btn-danger', :title => 'Remove', :rel => 'tooltip' %>
+
+                    </div>
+
+                  </div>
+
+                </div> 
+
+              <% end %> 
+
+              </div>
+
+              <!--- end 1st column -->
+
+              <!--- start 2nd column -->
+              <div class="col-sm-6">
+              <% listarray[1]%>
+
+              <% if listarray[1].blank? %>
+
+
+              <% else %>
+
+                <div class="thumbnail">
+                  <div class="caption text-center" >
+                    <div class="position-relative">
+                       <iframe width="100%" height="100%" src= <%="#{listarray[1].mediapath.to_s}"%>> </iframe>
+                       <p> <%= listarray[1].description %></p>
+                    </div>
+                  </div>
+
+                  <div class="caption card-footer text-center">
+                    <hr>
+                    <div class="btn-group btn-group-sm" role="group" >
+                      
+                      <%= link_to '<i class="far fa-file"></i>'.html_safe, "/por_media/#{listarray[1].id.to_s}" , class:'btn btn-sm btn-primary', :title => 'View', :rel => 'tooltip'%>
+
+                      <%= link_to '<i class="far fa-edit"></i>'.html_safe, "/por_media/#{listarray[1].id.to_s}/edit", class:'btn btn-sm btn-success', :title => 'Edit', :rel => 'tooltip' %>
+
+                      <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, "/por_media/#{listarray[1].id.to_s}", method: :delete, data: { confirm: 'Are you sure to remove this one?' }, class:'btn btn-sm btn-danger', :title => 'Remove', :rel => 'tooltip' %>
+
+                    </div>
+
+                  </div>
+
+                </div> 
+
+              <% end %> 
+                
+
+              </div>
+              <!-- end 2nd column -->
+               <div class="col-sm-1">
+                <!---empty -->
+               </div>
+
+            </div> 
+
+
+            </tbody>
+          </table>
+
+          <% end %>
+        </div>
+      </div>
+      
+    </div>
+    
+  </div>
+
+</div>
+
+<br>
+<br>
+<br> 
+
+
+
+
+
+
+
+

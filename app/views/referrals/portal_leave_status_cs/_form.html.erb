@@ -1,0 +1,27 @@
+<%= form_with(model: portal_leave_status_c, local: true) do |form| %>
+  <% if portal_leave_status_c.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(portal_leave_status_c.errors.count, "error") %> prohibited this portal_leave_status_c from being saved:</h2>
+
+      <ul>
+      <% portal_leave_status_c.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :status_description %>
+    <%= form.text_field :status_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status_refno %>
+    <%= form.number_field :status_refno %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

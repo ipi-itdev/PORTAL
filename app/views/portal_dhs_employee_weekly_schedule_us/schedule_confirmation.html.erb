@@ -1,0 +1,85 @@
+<script>
+  $(window).load(function() {
+        $('#sched_modal_button').click();  
+  });
+ 
+</script>
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" style="visibility: hidden;" id="sched_modal_button">
+  .
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+
+        <div class="container-fluid">
+          <div class="row">
+
+
+            <div class="col-sm-12" >
+
+              <div class="panel panel-default">
+                <div class="panel-heading"><b>Set My Fixed Schedule</b></div>
+                <div class="panel-body">
+
+
+                        <%= form_tag('/fixed_sched_set', method:'post') do %>
+
+
+                          <div class="row">
+                            <div class="col-sm-6" >
+                              <br>
+                              <b style="color: red;">*Shift Start</b>
+                              <br>
+                              <%= time_field_tag :shift_start_tag , label: 'Shift Start', min:'2020-01-01', max:'2025-01-01' %>
+                            </div>
+                            
+                            <div class="col-sm-6" >
+                              <br>
+                              <b style="color: red;">*Shift End</b>
+                              <br>
+                              <%= time_field_tag :shift_end_tag , label: 'Shift End', min:'2020-01-01', max:'2025-01-01' %>
+                            </div>
+                          </div>
+
+                          <br>
+                      
+                        <%= button_tag(type: 'submit', class: 'btn btn-success btn-sm btn-block', id: 'fixedschedSave') do %>
+                               Save
+                            <% end %>
+
+                        <% end %>
+
+
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

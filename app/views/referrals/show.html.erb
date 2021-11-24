@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+<!-- <p id="notice"><%= notice %></p> -->
+
+<div class="container">
+  <div class="row">
+              <div class="col-sm-3" >
+              </div>
+                
+              <div class="col-sm-6" >
+                      <br>
+
+                     
+                       <div class="panel panel-default">
+                        <div class="panel-heading"><h4><strong><i class="fas fa-users"></i> Referral Details</strong></h4></div>
+                        <div class="panel-body">
+                              <p>
+                              <strong>Name:</strong>
+                              <%= @referral.name %>
+                            </p>
+
+                            <p>
+                              <strong>Contact Number / Email Address / Social Media:</strong>
+                              <br>
+                              <%= @referral.contact %>
+                            </p>
+
+                             <p>
+                              <strong>Skills:</strong>
+                              <%= @referral.skills %>
+                            </p>
+
+                            <p>
+                              <strong>Remarks:</strong>
+                              <%= @referral.remarks %>
+                            </p>
+
+                        </div>
+                      </div>
+
+                            <%= button_to 'Create New Referral',  new_referral_path, class: 'btn btn-primary  btn-block ', method: 'get' %>
+                            <br> 
+                            <%= button_to 'Back', '/pages', class: 'btn btn-default  btn-block ', method: 'get' %>
+
+                   
+
+
+
+                      
+
+              </div>
+
+            <div class="col-sm-3" >
+               
+            </div>
+      
+      
+  </div>
+</div>
+
+</body>
+</html>
+
+
+

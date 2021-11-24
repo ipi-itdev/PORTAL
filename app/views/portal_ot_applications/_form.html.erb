@@ -1,0 +1,132 @@
+<style type="text/css">   
+  #required_field {         
+    position: absolute;
+    bottom: px;
+    left: 7px;
+    font-size: 18px;
+    color: red;
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1" >      
+    </div>
+
+    <div class="col-sm-10" >
+      <%= bootstrap_form_with(model: portal_ot_application, local: true) do |form| %>
+        <% if portal_ot_application.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+              <% portal_ot_application.errors.full_messages.each do |message| %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% session[:portal_ot_application_id] = @portal_ot_application.id %>
+
+        <div class="panel panel-default" id="panelframe" style="">
+          <div class="panel-heading" id="panelheader" >
+            <i class="fas fa-calendar-check"></i> <strong>OT Application</strong>
+          </div>
+
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-4" >
+                <div class="row">
+                  <div class="col-sm-12" >
+                  <small>
+                    <div class="row">
+                      <div class="col-sm-4" >
+                        <strong>ID: </strong>
+                      </div>
+
+                      <div class="col-sm-8" >
+                        <%=  @portal_ot_application.ID %>
+                      </div>
+                    </div>
+
+                    <br>
+                    
+                    <div class="row">
+                      <div class="col-sm-4" >
+                        <strong>Created Date: </strong>
+                      </div>
+
+                      <div class="col-sm-8" >
+                        <%= @portal_ot_application.DateFiled.strftime("%m/%d/%Y") %>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-4" >
+                        <strong>Created By: </strong>
+                      </div>
+
+                      <div class="col-sm-8" >
+                        <%= PisEmployeeU.where(EmployeeRefNo: @portal_ot_application.CreatedBy).pluck(:Description).to_sentence %>
+                      </div>
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                      <div class="col-sm-4" >
+                        <strong>Status: </strong>
+                      </div>
+
+                      <div class="col-sm-8" >
+                        <%= GenFilingStatusF.where(FilingStatusRefNo: @portal_ot_application.FilingStatusRefNo ).pluck(:Description).to_sentence %>
+                      </div>
+                    </div>
+                  </small>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12" >
+
+                    <br>
+                    <br>
+
+                    <div class="row">
+                      <% if @portal_ot_application.FilingStatusRefNo.to_i != 40 && @portal_ot_application.FilingStatusRefNo.to_i != 2 %>
+                        <div class="col-sm-6" >
+                          <%= link_to "Request", post_ot_path(ot_id: portal_ot_application.ID), method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to request this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i> Please wait..." } %>
+                        </div>
+                      <% end %>
+
+                      <div class="col-sm-6" >
+                        <%= link_to 'Cancel', portal_ot_application, method: :delete, data: { confirm: 'Are you sure you want to cancel this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i> Please wait..." },  class: "btn btn-primary btn-block" %>                                       
+                      </div>
+                    </div>
+
+                    <br>
+
+                    <%= link_to 'Back to List', portal_ot_applications_path, class:'btn btn-primary  btn-block' %>
+                  </div>
+                </div>               
+              </div>
+
+              <% if mobile_device == "mobile" %>
+                <div class="col-sm-8" >
+              <% else %>
+              <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;" >
+              <% end %>
+
+                <iframe src="/portal_ot_application_details?ot_application_id=<%= @get_edit_id.to_param %>" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end #  end of form%>      
+    </div>
+
+    <div class="col-sm-1" >      
+    </div>
+  </div>
+</div>
+
+<br>
+<br>

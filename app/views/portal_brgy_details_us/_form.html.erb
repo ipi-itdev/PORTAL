@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<body onload="myFunctionBrgy()">
+
+
+<div class="container-fluid" >
+  
+  <div class="row">
+    <div class="col-sm-4s" >
+      
+    </div>
+    <div class="col-sm-4" >
+      
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none" id="brgy_but">
+        .
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+   
+            <div class="modal-body">
+
+              <%= bootstrap_form_with(model: portal_brgy_details_u, local: true) do |form| %>
+                <% if portal_brgy_details_u.errors.any? %>
+                  <div id="error_explanation">
+                    <!--<h2><%= pluralize(portal_brgy_details_u.errors.count, "error") %> prohibited this portal_brgy_details_u from being saved:</h2> -->
+
+                    <ul>
+                    <% portal_brgy_details_u.errors.full_messages.each do |message| %>
+
+                    <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+
+                  <%= form.hidden_field :EmployeeRefNo, value: current_user.EmployeeRefNo %>
+               
+                  <%= form.hidden_field :EmployeeNumber, value: current_user.EmployeeNumber %>
+
+                  <h4 style="color: red;">
+                    <div class="form-group">
+                      <label class="required" for="portal_brgy_details_u_BrgyContactNum">Please indicate your Barangay Contact Number and/or BHERT Hotlines:
+                      </label>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+
+                        <input class="form-control" type="text" name="portal_brgy_details_u[BrgyContactNum]" id="portal_brgy_details_u_BrgyContactNum">
+                      </div>  
+                    </div>
+                  </h4>
+
+
+                
+                  <%= form.hidden_field :DateCreated, value: Time.now + 8.hours %>
+               
+                  <%= form.submit 'Submit', class: "btn btn-primary btn-md btn-block" %>
+                
+              <% end %>
+
+            </div>
+
+        </div>
+      </div>
+
+
+    </div>
+    <div class="col-sm-4" >
+      
+    </div>
+  </div>
+
+
+
+</div>
+
+
+<script>
+function myFunctionBrgy() {
+  $("#brgy_but").click();
+}
+</script>
+
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,133 @@
+<style type="text/css">   
+    #required_field {         
+      position: absolute;
+      bottom: px;
+      left: 7px;
+      font-size: 18px;
+      color: red;
+    }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1" >      
+    </div>
+
+    <div class="col-sm-10" >
+      <%= bootstrap_form_with(model: portal_tre_application, local: true) do |form| %>
+        <% if portal_tre_application.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+              <% portal_tre_application.errors.full_messages.each do |message| %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+      <% session[:portal_tre_application_id] = @portal_tre_application.ID %>
+      
+      <div class="panel panel-default" id="panelframe" style="">
+        <div class="panel-heading" id="panelheader" >
+          <i class="fas fa-money-check"></i> <strong>TRE Application</strong>
+        </div>
+
+        <div class="panel-body">
+           <div class="row">
+            <div class="col-sm-4" >
+               <div class="row">
+                <div class="col-sm-12" >
+
+                  <div class="row">
+                    <div class="col-sm-6" >
+                      <strong><small>ID:</small> </strong> <%=  @portal_tre_application.ID %>
+                      <br>                    
+                    </div>
+
+                    <div class="col-sm-6" >        
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12" >
+                    </div>
+                  </div>
+                  <br>
+                  
+                  <div class="row">
+                    <div class="col-sm-12" >
+                      <small><b>Created Date: </b></small><%= @portal_tre_application.DateFiled.strftime("%m/%d/%Y") %>
+                    </div>
+                  </div>              
+
+                  <div class="row">
+                    <div class="col-sm-12" >
+                        <small><b>Created By:</b> <%= PisEmployeeU.where(EmployeeRefNo: @portal_tre_application.CreatedBy).pluck(:Description).to_sentence %></small>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12" >
+                      <small><b>Status:</b> </small><%= GenFilingStatusF.where(FilingStatusRefNo: @portal_tre_application.FilingStatusRefNo ).pluck(:Description).to_sentence %>
+                    </div>                    
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12" >
+
+                  <br>
+                  <br>
+
+              <div class="row">
+                <% if @portal_tre_application.FilingStatusRefNo.to_i != 40 && @portal_tre_application.FilingStatusRefNo.to_i != 2 %>
+                  <div class="col-sm-6" >
+                    <%= link_to "Request", post_tre_path(tre_id: portal_tre_application.ID), method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to request this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i> Please wait..." } %>
+                  </div>
+                <% end %>
+
+                <div class="col-sm-6" >
+                  <%= link_to 'Cancel', portal_tre_application, method: :delete, data: { confirm: 'Are you sure you want to cancel this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i> Please wait..." },  class: "btn btn-primary btn-block" %>                                       
+                </div>
+              </div>
+              <br>
+
+                  <%= link_to 'Back to List', portal_tre_applications_path, class:'btn btn-primary  btn-block' %>
+                </div>
+
+              </div>
+
+               <% end #  end of form%>
+
+            </div>
+
+
+            <% if mobile_device == "mobile" %>
+              <div class="col-sm-8" >
+            <% else %>
+            <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;" >
+            <% end %>
+
+              <iframe src="/portal_tre_application_details?tre_application_id=<%= @get_edit_id.to_param %>" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      
+    </div>
+
+    <div class="col-sm-1" >
+      
+    </div>
+
+  </div>
+</div>
+
+<br>
+<br>

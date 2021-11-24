@@ -1,0 +1,37 @@
+<%= form_with(model: portal_poster, local: true) do |form| %>
+  <% if portal_poster.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(portal_poster.errors.count, "error") %> prohibited this portal_poster from being saved:</h2>
+
+      <ul>
+      <% portal_poster.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_post %>
+    <%= form.date_select :date_post %>
+  </div>
+
+  <div class="field">
+    <%= form.label :poster_refno %>
+    <%= form.number_field :poster_refno %>
+  </div>
+
+  <div class="field">
+    <%= form.label :attachedfile %>
+    <%= form.file_field :attachedfile %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

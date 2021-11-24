@@ -1,0 +1,97 @@
+<style type="text/css">
+  img {
+  width: 100%;
+  height: 100%;
+}
+
+
+</style>
+
+<script>
+  $(window).load(function() {
+        $('#modalbutton').click();
+        $('#submit_button').hide();
+
+  });
+ 
+</script>
+
+
+
+<!-- Button trigger modal -->
+<button type="button"  data-toggle="modal" data-target="#exampleModal" id="modalbutton" style="visibility: hidden;" onclick="setTimeout(myTimerFunction, 10000);">
+  .
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+
+
+
+        
+        <%= form_with(model: portal_empposter_detail, local: true) do |form| %>
+    
+            <%= form.hidden_field :employeerefno, value: current_user.EmployeeRefNo %>
+              
+              <% @get_poster_not_viewed.each do |get_poster_not_viewed|%>
+
+              <% get_poster_not_viewed.poster_refno %>
+
+              <%= form.hidden_field :poster_refno, value: get_poster_not_viewed.poster_refno %>
+
+              <img src="<%= get_poster_not_viewed.attachedfile %>" /> </img>
+
+              <% end %>
+
+              <div class="container-fluid">
+
+                <div class="row">
+                  <div class="col-sm-4" >
+                    
+                  </div>
+                  <div class="col-sm-4" >
+                     <%= form.submit 'Close', id:'submit_button' , class: 'btn btn-danger btn-block btn-sm'%>
+                  </div>
+
+                  <div class="col-sm-4" >
+                    
+                  </div>
+
+                </div>
+
+              </div>
+
+           
+
+        <% end %>
+
+
+        <p align="right" id="timer_section"> <span id="countdowntimer">10 </span> second(s)</p>
+
+        <script type="text/javascript">
+            var timeleft = 11;
+            var downloadTimer = setInterval(function(){
+            timeleft--;
+            document.getElementById("countdowntimer").textContent = timeleft;
+            if(timeleft <= 0)
+                clearInterval(downloadTimer);
+            },1000);
+        </script>
+
+      </div>  
+
+    </div>
+  </div>
+</div>
+
+<script>
+function myTimerFunction() {
+  //$('#submit_button').click();
+  $('#submit_button').show();
+  $('#timer_section').hide();
+}
+</script>

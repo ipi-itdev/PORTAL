@@ -1,0 +1,1 @@
+json.array! @portal_leave_approval, partial: 'portal_leave_approvals/portal_leave_approval', as: :portal_leave_approval

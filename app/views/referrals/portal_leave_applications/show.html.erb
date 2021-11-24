@@ -1,0 +1,284 @@
+<div class="container-fluid">
+<%= form_tag('/show_submit') do %>
+
+  <% if @portal_leave_application.errors.any? %>
+    <div id="error_explanation">
+
+      <% @portal_leave_application.errors.full_messages.each do |message| %>
+        <%= flash[:notice]= message %>
+      <% end %>
+ 
+    </div>
+  <% end %>
+
+
+
+  
+  <div class="row">
+
+    
+    <div class="col-sm-2" >
+      
+    </div>
+
+     <div class="col-sm-8" >
+
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader">
+
+          <div class="row">
+              <div class="col-sm-6" >
+                
+                <h4 align="left"><i class="fas fa-calendar-check"></i>Leave Application Form</h4>
+       
+              </div>
+              <div class="col-sm-4" >
+
+                
+              </div>
+              <div class="col-sm-2" >
+
+                  <%= link_to 'Back', portal_leave_applications_path, class:'btn btn-default btn-block btn-sm' %>
+                
+              </div>
+          </div>
+        
+        </div>
+
+        <small>
+        <!--- start panel body --->
+        <div class="panel-body">
+
+          <div class="row">
+            <div class="col-sm-6" >
+              <strong>Reference No: </strong> <%= @portal_leave_application.id %>
+              <br>
+              <br>
+              <strong>Employee Name:</strong> 
+              <br>
+              <% hash_emp_details = PisEmployeeU.where(EmployeeRefNo: @portal_leave_application.employeerefno).pluck_to_hash(:Description, :EmployeeNumber) %>
+              <% emp_details = hash_emp_details[0]%>
+
+              <%= emp_details[:Description]%> - <%= emp_details[:EmployeeNumber]%> 
+
+            </div>
+
+            <div class="col-sm-6" align="left">
+              <strong>Date Filed: </strong><%= @portal_leave_application.created_at.strftime("%m/%d/%Y")%>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6" >
+                <br>
+                <strong>Application Status: </strong> 
+                <br>
+                <%= PortalLeaveStatusC.where(status_refno: @portal_leave_application.leave_status_refno).pluck(:status_description).to_sentence %> 
+                <br>
+                <br>
+            </div>
+
+            <div class="col-sm-6" align="left">
+              <% if @portal_leave_application.leave_status_refno == 4 || @portal_leave_application.leave_status_refno == 5%>
+              <br>
+                <strong>Remarks: </strong>
+                <%= @portal_leave_application.remarks %> 
+              <%end%>
+            </div>
+          </div>
+
+
+
+
+          <div class="row">
+            <div class="col-sm-12" >
+                
+                <div class="row">
+                    <div class="col-sm-6" align="left">
+                     <strong>Leave Type: </strong> <%= GenLeaveTypeM.where(LeaveTypeRefNo: @portal_leave_application.leavetype_refno).pluck(:Description).to_sentence %>
+                  
+                    </div>
+                    <div class="col-sm-6" >
+
+                       <strong>Hour(s): </strong><%= PortalLeaveTimeLookupU.where(leave_value: @portal_leave_application.end_hrs).pluck(:description).to_sentence %>
+                      
+                    </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6" align="left">
+                     <strong>Start Date: </strong><%= @portal_leave_application.startdate.strftime("%m/%d/%Y")%>
+                  
+                    </div>
+                    <div class="col-sm-6" >
+
+                       <strong>End Date: </strong><%= @portal_leave_application.enddate.strftime("%m/%d/%Y")%>
+                      
+                    </div>
+
+                </div> 
+                <br>
+                <br>
+                <strong>Reason:</strong>
+                <br>
+                <%= @portal_leave_application.reason %> 
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <div class="row">
+              <div class="col-sm-6" >
+
+                <% if @portal_leave_application.leave_status_refno == 2 || @portal_leave_application.leave_status_refno == 3 %>
+
+                  <%= hidden_field_tag :id, @portal_leave_application.id %> 
+                  <%= hidden_field_tag :modifiedby, current_user.EmployeeRefNo %>
+                  <input id="status_value" name="status_value" type="checkbox" value="5" /><strong>Cancel Application?</strong>
+                  <br>
+
+                       
+                <% else %>
+                  <!--empty -->
+                <% end %>
+
+              </div>
+
+              <div class="col-sm-6" >
+
+                <% if @portal_leave_application.leave_status_refno == 2 || @portal_leave_application.leave_status_refno == 3 %>
+
+       
+                 
+
+                  <div id="remarks_area">
+                    <strong>Remarks:</strong>
+                    <br>
+                    <textarea name="remarks" id="remarks" rows="4" width="100%" style="min-width: 100%" onfocusout="myFunction_2()"></textarea>
+                  </div>
+
+                <% else %>
+                  <!--empty -->
+                <% end %>
+
+              </div>
+              
+          </div>
+
+          <br>
+          <br>
+          <div class="row">
+              <div class="col-sm-6" align="left">
+                <% if @portal_leave_application.leave_status_refno == 5 || @portal_leave_application.leave_status_refno == 4 || @portal_leave_application.leave_status_refno == 1%>
+                  <!--- empty -->
+                <% else %>
+                  <%= submit_tag 'Apply', class:'btn btn-primary btn-block', id: 'submit_button' %>
+                <% end %>
+
+                
+                
+                <% end %>
+
+              </div>
+              <div class="col-sm-2" >
+
+                
+              </div>
+              <div class="col-sm-4" align="">
+
+             
+                
+              </div>
+          </div>
+
+        </div>
+        <!--- end panel body --->
+        </small>
+      </div>
+
+
+
+     
+    </div>
+
+
+    <div class="col-sm-2" >
+      
+    </div>
+
+
+
+  </div>
+
+</div>
+
+<br>
+<br>
+<br>
+
+<script>
+
+  if ($("#status_value").checked ) 
+    {
+      $( "#submit_button" ).prop('disabled', false);
+      $( "#remarks" ).prop('disabled', false);      
+
+    }
+  
+  else
+    {
+      $( "#submit_button" ).prop('disabled', true);
+      $( "#remarks_area" ).hide();
+    }
+
+</script>
+
+
+
+<script>
+
+document.getElementById("status_value").addEventListener("focusout", myFunction_1);
+
+  function myFunction_1(){
+   var x = document.getElementById("status_value");
+   if (x.checked)
+   
+    {
+
+      $( "#submit_button" ).prop('disabled',true);
+      $( "#remarks_area" ).show();   
+
+    }
+
+    else
+
+    {
+      $( "#submit_button" ).prop('disabled', true);
+      $('#remarks').val('');
+      $( "#remarks_area" ).hide();
+      
+    }
+
+  }
+
+</script>
+
+
+
+<script>
+function myFunction_2() {
+  var x = document.getElementById("remarks").value;
+  if(x == '')
+  {
+    alert("Please enter your remarks.");
+    $( "#submit_button" ).prop('disabled', true);
+  }
+  else
+  {
+     $( "#submit_button" ).prop('disabled', false);
+  }
+}
+</script>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+  <body>
+
+  		<% @get_tre_reference_no %>
+
+  		<% get_tre_rec = TreExpense.where(ID: @get_tre_reference_no ) %>
+
+  		<% get_tre_rec.each do |get_tre_rec1| %>
+
+
+        <p>Hi Ma'am/Sir,</p>
+
+        <p>You have received a TRE Application</p>
+
+        <h3>Details:</h3>
+
+        <table width="60%" style="border:1px solid #333">
+
+        <tr style="border:1px solid #333">
+            <td width="20%" style="border:1px solid #333"><strong>Reference No.</strong></td>
+            <td width="80%" align="left" style="border:1px solid #333"><%= get_tre_rec1.ID %></td>
+            </tr>
+
+            <tr style="border:1px solid #333">
+            <td width="20%" style="border:1px solid #333"><strong>Created by:</strong></td>
+            <td width="80%" align="left" style="border:1px solid #333">
+
+
+
+              <% hash_emp_details = PisEmployeeU.where(EmployeeRefNo: get_tre_rec1.CreatedBy).pluck_to_hash(:Description, :EmployeeNumber) %>
+
+              <% emp_details = hash_emp_details[0]%>
+              <%= emp_details[:Description]%> - <%= emp_details[:EmployeeNumber]%>  
+
+            </td>
+            </tr>
+
+            <tr style="border:1px solid #333">
+            <td width="20%" style="border:1px solid #333"><strong>Created on: </strong></td>
+            <td width="80%" align="left" style="border:1px solid #333"><%= get_tre_rec1.CreatedDate %></td>
+            </tr>
+
+            <tr style="border:1px solid #333">
+            <td width="20%" style="border:1px solid #333"><strong>Status</strong></td>
+            <td width="80%" align="left" style="border:1px solid #333"><%= GenFilingStatusF.where(FilingStatusRefNo: get_tre_rec1.FillingStatusRefNo ).pluck(:Description).to_sentence %></td>
+            </tr>
+
+       
+          </table>
+          <hr>
+          <p>This is a system generated email. Please do not reply.</p>
+          <p>IPI Employee Portal.</p>
+
+  		<% end %>
+
+
+  </body>
+</html>

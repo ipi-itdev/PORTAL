@@ -1,0 +1,12 @@
+production:
+ adapter: sqlserver
+ dataserver: sql5041.site4now.net
+  #L-HRD-RRB\SQL2014  
+  #MADDISON\SQL2014
+host: localhost
+port: 1433
+username: DB_9B2FF8_eportal_admin
+password: Passw0rd
+database: DB_9B2FF8_eportal
+encoding: utf8
+

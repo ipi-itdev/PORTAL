@@ -1,0 +1,1 @@
+json.partial! "portal_change_requests/portal_change_request", portal_change_request: @portal_change_request

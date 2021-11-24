@@ -1,0 +1,21 @@
+// Place all the styles related to the portal_survey_covid19s controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#survey_required{
+  position: absolute;
+  bottom: px;
+  left: 41px;
+  font-size: 15px;
+  color: red;
+}
+
+
+#covid_survey_header{
+	background-color: lightblue;
+	background-image: url("/workdark.jpg");
+}
+
+
+

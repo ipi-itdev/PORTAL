@@ -1,0 +1,42 @@
+<%= form_with(model: payslipsetting, local: true) do |form| %>
+  <% if payslipsetting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(payslipsetting.errors.count, "error") %> prohibited this payslipsetting from being saved:</h2>
+
+      <ul>
+      <% payslipsetting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :payslipsetting_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value %>
+    <%= form.text_field :value, id: :payslipsetting_value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :path %>
+    <%= form.text_field :path, id: :payslipsetting_path %>
+  </div>
+
+  <div class="field">
+    <%= form.label :show %>
+    <%= form.check_box :show, id: :payslipsetting_show %>
+  </div>
+
+  <div class="field">
+    <%= form.label :note %>
+    <%= form.text_area :note, id: :payslipsetting_note %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

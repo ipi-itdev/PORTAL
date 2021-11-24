@@ -1,0 +1,88 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+#div_container_x{
+  position: absolute; 
+  top:55px;
+  bottom: px;
+  left: 0px;
+  width:100%; height:87%;
+  z-index: -1;
+}
+
+
+#div_container_orig{
+  position: absolute;
+  top:60px;
+  bottom: px;
+  left: 0px;
+  color: red;
+  width:100%; height:79%;
+}
+
+
+
+</style>
+
+
+</head>
+<body onload="launchpisauditButton()" >
+  <br>
+  <br>
+    
+  <div  id="div_container_x">
+
+    <iframe  src="<%= @pisaudit_link %>" style="position:absolute; top: 0; left:0; bottom:0; right:0; width:100%; height:101%; border:none; margin:0; " frameBorder="0" > 
+    </iframe>
+      
+  </div>
+
+</div>
+
+
+
+<br>
+<br>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="pisauditButton" style="visibility:hidden;">.</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <h2 align="center">Please update your employee information.</h2>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Answer Now</button>
+        <%= link_to 'Answer Later', ans_pis_later_path, method: 'post',class: 'btn btn-secondary', id: 'closelaterButton'%>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function launchpisauditButton() {
+  document.getElementById("pisauditButton").click();
+}
+</script>
+
+<script type="text/javascript">
+  $('#closelaterButton').click(function() {
+    $('#exampleModal').modal('hide');
+});
+</script>
+
+
+
+</body>
+</html>
+
+
+

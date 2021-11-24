@@ -1,0 +1,211 @@
+Received: from HKAPR02MB4465.apcprd02.prod.outlook.com (2603:1096:203:c6::13)
+ by HK0PR02MB2882.apcprd02.prod.outlook.com with HTTPS; Mon, 22 Nov 2021
+ 02:01:34 +0000
+Received: from HK0PR02MB2771.apcprd02.prod.outlook.com (2603:1096:203:66::16)
+ by HKAPR02MB4465.apcprd02.prod.outlook.com (2603:1096:203:c6::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.21; Mon, 22 Nov
+ 2021 02:01:33 +0000
+Received: from HK0PR02MB2771.apcprd02.prod.outlook.com
+ ([fe80::4e5:5af8:9407:7bed]) by HK0PR02MB2771.apcprd02.prod.outlook.com
+ ([fe80::4e5:5af8:9407:7bed%3]) with mapi id 15.20.4713.025; Mon, 22 Nov 2021
+ 02:01:33 +0000
+From: Juan Francisco Ramos <juan.francisco.ramos@prulifeuk.com.ph>
+To: Jhamila M Okla <jhamila.okla@prulifeuk.com.ph>, Kevin Earle Cruz
+	<kevin.earle.cruz@prulifeuk.com.ph>
+Subject: Re: [FOR APPROVAL] Leave November 23, 2021
+Thread-Topic: [FOR APPROVAL] Leave November 23, 2021
+Thread-Index: AdffPcmseKeoFA5DRYK2qDN0wbqFowAAHErgAAGoDVU=
+Date: Mon, 22 Nov 2021 02:01:33 +0000
+Message-ID:
+ <HK0PR02MB2771A9F219C243058450D127F09F9@HK0PR02MB2771.apcprd02.prod.outlook.com>
+References:
+ <HK0PR02MB2882DFC61F4ECE0D4679CF40F29F9@HK0PR02MB2882.apcprd02.prod.outlook.com>
+ <HK0PR02MB310802A2BB5FCE7857A2CE48A19F9@HK0PR02MB3108.apcprd02.prod.outlook.com>
+In-Reply-To:
+ <HK0PR02MB310802A2BB5FCE7857A2CE48A19F9@HK0PR02MB3108.apcprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Exchange-Organization-AuthMechanism: 04
+X-MS-Exchange-Organization-AuthSource: HK0PR02MB2771.apcprd02.prod.outlook.com
+X-Mentions: kevin.earle.cruz@prulifeuk.com.ph
+X-MS-Has-Attach:
+X-MS-Exchange-Organization-Network-Message-Id:
+ d513715a-dc2f-45a7-a56a-08d9ad5c0211
+X-MS-TNEF-Correlator:
+X-MS-Exchange-Organization-RecordReviewCfmType: 0
+msip_labels:
+ MSIP_Label_efead094-560e-463c-bb19-c3c75b05d1f6_Enabled=True;MSIP_Label_efead094-560e-463c-bb19-c3c75b05d1f6_SiteId=7007305e-2664-4e6b-b9a4-c4d5ccfd1524;MSIP_Label_efead094-560e-463c-bb19-c3c75b05d1f6_SetDate=2021-11-22T01:14:00.0000000Z;MSIP_Label_efead094-560e-463c-bb19-c3c75b05d1f6_Name=Restricted(PRU);MSIP_Label_efead094-560e-463c-bb19-c3c75b05d1f6_ContentBits=0;MSIP_Label_efead094-560e-463c-bb19-c3c75b05d1f6_Method=Standard
+x-ms-publictraffictype: Email
+x-ms-exchange-organization-originalclientipaddress:
+ 2001:fd8:17c8:1d27:55b8:6b70:7688:7bcd
+x-ms-exchange-organization-originalserveripaddress: ::1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=prulifeuk.com.ph;
+x-microsoft-antispam: BCL:0;
+x-ms-traffictypediagnostic: HKAPR02MB4465:
+x-ms-office365-filtering-correlation-id: d513715a-dc2f-45a7-a56a-08d9ad5c0211
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:-1;SRV:;IPV:NLI;SFV:SKI;H:HK0PR02MB2771.apcprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:;DIR:INB;
+x-ms-exchange-crosstenant-network-message-id:
+ d513715a-dc2f-45a7-a56a-08d9ad5c0211
+x-ms-exchange-crosstenant-originalarrivaltime: 22 Nov 2021 02:01:33.0814 (UTC)
+x-ms-exchange-crosstenant-fromentityheader: Hosted
+x-ms-exchange-crosstenant-id: 7007305e-2664-4e6b-b9a4-c4d5ccfd1524
+x-ms-exchange-transport-crosstenantheadersstamped: HKAPR02MB4465
+x-ms-oob-tlc-oobclassifiers: OLM:2657;
+x-ms-exchange-crosstenant-mailboxtype: HOSTED
+x-ms-exchange-crosstenant-userprincipalname:
+ DLodISF5x7c5CpAyJNYnAnxEVhJkb5On3VWEEMFV+8AXJyG0lqo0BmCTqHmS8qdUo98vV4hqnMruVQ2ZcnErVoqcDyg2frVd0C4JooMxlLfpjbnzvkBXfgKp4b/PgKrv
+x-ms-exchange-transport-endtoendlatency: 00:00:01.5365661
+x-ms-exchange-processed-by-bccfoldering: 15.20.4713.024
+x-ms-exchange-atpmessageproperties: SA|SL
+x-ms-exchange-crosstenant-authsource: HK0PR02MB2771.apcprd02.prod.outlook.com
+x-ms-exchange-crosstenant-authas: Internal
+X-Microsoft-Antispam-Mailbox-Delivery:
+ ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506458)(944626604)(920097)(425001)(930097);
+X-Microsoft-Antispam-Message-Info:
+ wNq368t0tAOzOHEJbJRwsJECQ8NjMXsRCyxrxpl8/H2VWaWDqxflrML8YXR+QEaZlBfe5VZNXvUAfSjElfJy/gbkQdoG8T88unQKp7Rt63MepUsgZ3b18FNtBJOUKDFYduXl3nBT/b/0iLmGbI+fObhui04IgUnV4DTQ8XHH1GFze8Vh2gPhIkOoYPDTbA90MBeilY/eFkfBr2Jr8au6HzjFo5jCOxb/QGTQ43GP4CXTOmgbaItO6DjkNfmGHlj+3GseafYNRh+Lra7GobJY36kL1k4vrntgwmdj140pAtGAlOlX/PDBD8v2AMoQnZ/qm7GO6wAUvJedg3nTZVhHZ6upPMRVwa4SUak3RoH/gv7pIBGNyXkSgkQeodAjBB5lL5fZh/xqXK00c6CWfZdtuCRQZbK4FFXJNDaDF7IhWnlOt/x/n7EhEhj7g8iEwkEIZvTlrujY7nH3mJ3ml+6q8zawmFWWMvcbUOk6bkIqQkd4Wm/gEhQNOeaofC7WtXCh434c+OgRZya9xOU9lS+7jUwhGNUyNHHYhjgFGLC8ncDF0q6lhOSqtKKuYAymT+Jo0t+EJKysMM88dCbvRwBkSMainy1eeEvG3zn9Du5+/sO+WpLgop/n/slyhDisASQidU1FvxinGzG5HekT6anxsi33fwlnV4xjWbAEXwn9d+3mAtFGbb6Qa9SqgSiWlGmAGbm6DsEUdG+buHnEm+dqx+q1Rwyz1TLq1kGlPty1fKFaPcIabK0H7/nc5qyH4gOW
+Content-Type: multipart/alternative;
+	boundary="_000_HK0PR02MB2771A9F219C243058450D127F09F9HK0PR02MB2771apcp_"
+MIME-Version: 1.0
+
+--_000_HK0PR02MB2771A9F219C243058450D127F09F9HK0PR02MB2771apcp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Approving this @Kevin Earle Cruz<mailto:kevin.earle.cruz@prulifeuk.com.ph>
+
+Get Outlook for iOS<https://aka.ms/o0ukef>
+  _____
+
+From: Jhamila M Okla <jhamila.okla@prulifeuk.com.ph>
+Sent: Monday, November 22, 2021 9:15:08 AM
+To: Kevin Earle Cruz <kevin.earle.cruz@prulifeuk.com.ph>; Juan Francisco Ra=
+mos <juan.francisco.ramos@prulifeuk.com.ph>
+Subject: RE: [FOR APPROVAL] Leave November 23, 2021
+
+
+Approving this, Earle.
+
+
+
+Thank you!
+
+
+
+From: Kevin Earle Cruz <kevin.earle.cruz@prulifeuk.com.ph>
+Sent: Monday, 22 November 2021 9:14 am
+To: Juan Francisco Ramos <juan.francisco.ramos@prulifeuk.com.ph>; Jhamila M=
+ Okla <jhamila.okla@prulifeuk.com.ph>
+Subject: [FOR APPROVAL] Leave November 23, 2021
+
+
+
+Good Morning Sir Jetty and Miss @Jhamila<mailto:jhamila.okla@prulifeuk.com.=
+ph>
+
+Requesting for your approval of my leave for tomorrow November 23, 2021
+I apologize for the short notice this is due to my brother coming home to t=
+he Philippines
+
+Thank you for your understanding
+
+Thanks,
+Earle Cruz
+
+
+--_000_HK0PR02MB2771A9F219C243058450D127F09F9HK0PR02MB2771apcp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+<div>
+<div>
+<div dir=3D"ltr" style=3D"color: rgb(0, 0, 0); background-color: rgb(255, 2=
+55, 255);">
+Approving this <a id=3D"OWAAM153304" href=3D"mailto:kevin.earle.cruz@prulif=
+euk.com.ph" class=3D"ms-outlook-mobile-mention mention">
+@Kevin Earle Cruz</a></div>
+</div>
+<div id=3D"ms-outlook-mobile-signature">
+<div><br>
+</div>
+Get <a href=3D"https://aka.ms/o0ukef">Outlook for iOS</a></div>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Jhamila M Okla &lt;jh=
+amila.okla@prulifeuk.com.ph&gt;<br>
+<b>Sent:</b> Monday, November 22, 2021 9:15:08 AM<br>
+<b>To:</b> Kevin Earle Cruz &lt;kevin.earle.cruz@prulifeuk.com.ph&gt;; Juan=
+ Francisco Ramos &lt;juan.francisco.ramos@prulifeuk.com.ph&gt;<br>
+<b>Subject:</b> RE: [FOR APPROVAL] Leave November 23, 2021</font>
+<div>&nbsp;</div>
+</div>
+<style>
+<!--
+@font-face
+	{font-family:"Cambria Math"}
+@font-face
+	{font-family:Calibri}
+p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif}
+span.x_EmailStyle20
+	{font-family:"Calibri",sans-serif;
+	color:windowtext}
+.x_MsoChpDefault
+	{font-size:10.0pt}
+@page WordSection1
+	{margin:72.0pt 72.0pt 72.0pt 72.0pt}
+div.x_WordSection1
+	{}
+-->
+</style>
+<div lang=3D"EN-PH" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:b=
+reak-word">
+<div class=3D"x_WordSection1">
+<p class=3D"x_MsoNormal"><span style=3D"">Approving this, Earle.</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">Thank you!</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"">&nbsp;</span></p>
+<div>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0c=
+m 0cm 0cm">
+<p class=3D"x_MsoNormal"><b><span lang=3D"EN-US">From:</span></b><span lang=
+=3D"EN-US"> Kevin Earle Cruz &lt;kevin.earle.cruz@prulifeuk.com.ph&gt;
+<br>
+<b>Sent:</b> Monday, 22 November 2021 9:14 am<br>
+<b>To:</b> Juan Francisco Ramos &lt;juan.francisco.ramos@prulifeuk.com.ph&g=
+t;; Jhamila M Okla &lt;jhamila.okla@prulifeuk.com.ph&gt;<br>
+<b>Subject:</b> [FOR APPROVAL] Leave November 23, 2021</span></p>
+</div>
+</div>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal"><span lang=3D"EN-US">Good Morning Sir Jetty and Mi=
+ss <a id=3D"OWAAM48C024F9D31D4F5E9C2914E9E3E19801" href=3D"mailto:jhamila.o=
+kla@prulifeuk.com.ph">
+<span style=3D"font-family:&quot;Calibri&quot;,sans-serif; text-decoration:=
+none">@Jhamila</span></a><br>
+<br>
+Requesting for your approval of my leave for tomorrow November 23, 2021<br>
+I apologize for the short notice this is due to my brother coming home to t=
+he Philippines</span></p>
+<p class=3D"x_MsoNormal"><span lang=3D"EN-US">Thank you for your understand=
+ing<br>
+<br>
+Thanks,<br>
+Earle Cruz</span></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_HK0PR02MB2771A9F219C243058450D127F09F9HK0PR02MB2771apcp_--

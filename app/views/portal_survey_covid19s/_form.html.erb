@@ -1,0 +1,253 @@
+<%= stylesheet_link_tag    'portal_survey_covid19s', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+
+<div class="container-fluid">
+
+<%= bootstrap_form_with(model: portal_survey_covid19, local: true) do |form| %>
+  <% if portal_survey_covid19.errors.any? %>
+    <div id="error_explanation">
+  
+      <ul>
+      <% portal_survey_covid19.errors.full_messages.each do |message| %>
+        <!--<%= message %> --->
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="row">
+    <div class="col-sm-3" >
+
+    </div>
+
+    <div class="col-sm-6" >
+
+
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading"  id="covid_survey_header">
+          <h1 style="color: white;  ;">COVID-19 Leadership Check-in</h1>
+
+          <p style="color: white;">The goal of this survey is to enable us to get a pulse on how our employees are feeling given the current events and measure the impact that current changes are having on you. Your honest feedback will be highly appreciated.</p>
+         
+        <p id="survey_required"><b> *Required</b></p>
+        <br>
+
+        </div>
+        <div class="panel-body">
+
+          <div class="panel panel-default">
+            <div class="panel-heading"> <p id="survey_required"> *</p><p><b>1.</b>  I am worried that the current situation with COVID-19 will have a huge impact on my personal life or will cause a lot of changes in my personal life.  </p> </div>
+            <div class="panel-body">
+              <%= form.radio_button :q1_0,1, label:'Strongly disagree' %>
+              <%= form.radio_button :q1_0,2, label:'Disagree' %>
+              <%= form.radio_button :q1_0,3, label:'Neutral' %>
+              <%= form.radio_button :q1_0,4, label:'Agree' %>
+              <%= form.radio_button :q1_0,5, label:'Strongly agree' %>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p id="survey_required"> *</p>
+              <p><b>1.1</b> Is this something you would want to discuss with your Immediate Superior or HRC?</p></div>
+            <div class="panel-body">
+              <%= form.radio_button :q1_1,1, label:'Yes' %>
+              <%= form.radio_button :q1_1,0, label:'No' %>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p id="survey_required"> *</p>
+              <p><b>2.</b> I am worried that the Company and/or my employment will be affected by the COVID-19 situation. *</p></div>
+            <div class="panel-body">
+              <%= form.radio_button :q2_0,1, label:'Strongly disagree' %>
+              <%= form.radio_button :q2_0,2, label:'Disagree' %>
+              <%= form.radio_button :q2_0,3, label:'Neutral' %>
+              <%= form.radio_button :q2_0,4, label:'Agree' %>
+              <%= form.radio_button :q2_0,5, label:'Strongly agree' %>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+
+              <p><b>2.1</b> How do you think it may affect the Company and/or your employment?</p></div>
+            <div class="panel-body">
+              <%= form.text_field :q2_1, label:'Your Answer' %>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p id="survey_required"> *</p>
+              <p><b>3.</b> I would like the leadership team to communicate how the Company will handle business complications due to coronavirus.</p></div>
+            <div class="panel-body">
+
+              <%= form.radio_button :q3_0,1, label:'Strongly disagree' %>
+              <%= form.radio_button :q3_0,2, label:'Disagree' %>
+              <%= form.radio_button :q3_0,3, label:'Neutral' %>
+              <%= form.radio_button :q3_0,4, label:'Agree' %>
+              <%= form.radio_button :q3_0,5, label:'Strongly agree' %>
+  
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+
+              <p><b>4.</b> How many times per week would you like to receive this information?</p></div>
+            <div class="panel-body">
+
+              <%= form.check_box :q4_1, label: 'Everyday' %>
+              <%= form.check_box :q4_2, label:'Every other day (M-W-F)' %>
+              <%= form.check_box :q4_3, label:'2x a week (T-Th)' %>
+              <%= form.check_box :q4_4, label:'Once a week'%>
+              <%= form.check_box :q4_5, label:'Other', onclick: 'myFunction()'%>
+              <%= form.text_field :q4_6, label:'Your Answer'%>
+
+            </div>
+          </div>
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p id="survey_required"> *</p>
+              <p><b>5.</b> I am confident that the Company’s leadership team will be able to successfully manage the business through this crisis.</p></div>
+            <div class="panel-body">
+              <%= form.radio_button :q5_0,1, label:'Strongly disagree' %>
+              <%= form.radio_button :q5_0,2, label:'Disagree' %>
+              <%= form.radio_button :q5_0,3, label:'Neutral' %>
+              <%= form.radio_button :q5_0,4, label:'Agree' %>
+              <%= form.radio_button :q5_0,5, label:'Strongly agree' %>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading"><p><b>5.1</b> In what aspects can the leadership team improve on how they respond to this crisis?</p></div>
+            <div class="panel-body">
+              <%= form.text_field :q5_1, label:'Your Answer' %>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+
+              <p id="survey_required"> *</p>
+              <p><b>6. </b> The Company is able to provide me the necessary support to help me through this period.</p></div>
+            <div class="panel-body">
+
+              <%= form.radio_button :q6_0,1, label:'Strongly disagree' %>
+              <%= form.radio_button :q6_0,2, label:'Disagree' %>
+              <%= form.radio_button :q6_0,3, label:'Neutral' %>
+              <%= form.radio_button :q6_0,4, label:'Agree' %>
+              <%= form.radio_button :q6_0,5, label:'Strongly agree' %>
+  
+            </div>
+          </div>
+
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading"><p><b>6.1 </b> In what other ways can the Company provide support to you as an employee?</p></div>
+            <div class="panel-body">
+              <%= form.text_field :q6_1, label:'Your Answer' %>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p id="survey_required"> *</p>
+              <p><b>7. </b>  Outside of work, I have the right support network to help me through this period.</p></div>
+            <div class="panel-body">
+
+              <%= form.radio_button :q7_0,1, label:'Strongly disagree' %>
+              <%= form.radio_button :q7_0,2, label:'Disagree' %>
+              <%= form.radio_button :q7_0,3, label:'Neutral' %>
+              <%= form.radio_button :q7_0,4, label:'Agree' %>
+              <%= form.radio_button :q7_0,5, label:'Strongly agree' %>
+  
+            </div>
+          </div>
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading"><p><b>8. </b> What is your single greatest work-related concern right now?</p></div>
+            <div class="panel-body">
+              <%= form.text_field :q8_0, label:'Your Answer' %>
+            </div>
+          </div>
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading"><p><b>9. </b> What is your name? (optional)</p></div>
+            <div class="panel-body">
+              <%= form.text_field :q9_0, label:'Your Answer' %>
+            </div>
+          </div>
+
+
+
+          <div class="panel panel-default">
+            <div class="panel-heading"><p><b>10. </b> If you would like us to reach you, kindly indicate your mobile number and/or email below:</p></div>
+            <div class="panel-body">
+              <%= form.text_field :q10_0, label:'Your Answer' %>
+            </div>
+          </div>
+
+
+
+
+
+            <%= form.hidden_field :employeerefno, value: current_user.EmployeeRefNo %>
+
+
+            <%= form.submit 'Submit', class:'btn btn-primary btn-block' %>
+            <% end %>
+
+        </div>
+      </div>
+
+ 
+     
+
+    </div>
+
+    <div class="col-sm-3" >
+
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+
+
+<script>
+
+  var checkBox = document.getElementById("portal_survey_covid19_q4_5");
+  if (checkBox.checked == true)
+  {
+    document.getElementById("portal_survey_covid19_q4_6").disabled = false;
+  } else 
+  {
+     document.getElementById("portal_survey_covid19_q4_6").disabled = true;
+  }
+
+</script>
+
+<script>
+function myFunction() {
+  var checkBox = document.getElementById("portal_survey_covid19_q4_5");
+  if (checkBox.checked == true)
+  {
+    document.getElementById("portal_survey_covid19_q4_6").disabled = false;
+  } else 
+  {
+    $('#portal_survey_covid19_q4_6').val('');
+     document.getElementById("portal_survey_covid19_q4_6").disabled = true;
+  }
+}
+</script>

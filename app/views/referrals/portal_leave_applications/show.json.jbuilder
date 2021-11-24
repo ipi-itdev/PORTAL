@@ -1,0 +1,1 @@
+json.partial! "portal_leave_applications/portal_leave_application", portal_leave_application: @portal_leave_application

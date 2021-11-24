@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <style type="text/css">
+  
+  #btn_crl{
+  position: absolute; 
+  bottom: -20px;
+  left: 170px;
+  }
+
+  #btn_crl3{
+  position: absolute; 
+  bottom: -20px;
+  left: 170px;
+  }
+
+
+
+  #image1{
+    background-image: url("/1.PNG");
+    height: 100%;
+    width:100%;
+  }
+
+
+  #div_container_webinar{
+
+      z-index: -1;
+    }
+
+
+
+#register_button{
+  position: absolute;
+  bottom: 110px;
+  left: 47px;
+  padding: 4px 52px;
+  background-color: #4CAF50;
+  color: white;
+
+}
+
+
+#register_button_mobile{
+  /*position: absolute;
+  left: 55px;*/
+  padding: 4px 37px;
+  background-color: #4CAF50;
+  color: white;
+  position: absolute;
+  bottom: 8500%;
+  /*top: 50%;*/
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+
+
+
+
+</style>
+
+
+
+  <%= stylesheet_link_tag 'page', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+</head> 
+
+<body onload="onloadpageFunction()">
+
+<% if user_signed_in? == true %>
+
+
+
+<div class="container" >
+      <div class="row" >
+
+        <div class="col-sm-8" >
+
+          <% if @gettodayis == @getuserbday%>
+                <h2><strong>Hello, <%= @getfname %>!</strong></h2> 
+               <div class="row">
+                <div class="col-sm-4" >
+                    
+                    <div class="dialog-birthday_message" align="left">
+                      <div id="birthday_container" class="birthday_container" align="left">
+                      <div class="balloons" align="left">
+                        <div class="balloon" align="center"><strong>H</strong></div>
+                        <div class="balloon" align="center"><strong>A</strong></div>
+                        <div class="balloon" align="center"><strong>P</strong></div>
+                        <div class="balloon" align="center"><strong>P</strong></div>
+                        <div class="balloon" align="center"><strong>Y</strong></div>
+                      </div>
+                     </div>
+                    </div>
+                </div>
+                <div class="col-sm-6" >
+                  <div class="dialog-birthday_message" align="left">
+                      <div id="birthday_container" class="birthday_container" align="left">
+                      <div class="balloons" align="left">
+                        <div class="balloon" align="center"><strong>B</strong></div>
+                        <div class="balloon" align="center"><strong>I</strong></div>
+                        <div class="balloon" align="center"><strong>R</strong></div>
+                        <div class="balloon" align="center"><strong>T</strong></div>
+                        <div class="balloon" align="center"><strong>H</strong></div>
+                        <div class="balloon" align="center"><strong>D</strong></div>
+                        <div class="balloon" align="center"><strong>A</strong></div>
+                        <div class="balloon" align="center"><strong>Y</strong></div>
+                      </div>
+                     </div>
+                    </div>
+                </div>
+            
+              </div>
+            
+           
+          <% else %>
+
+          
+            <h2><strong>Hello, <%= @getfname %>!</strong></h2> 
+            
+   
+
+          <% end  %> 
+
+        </div>
+
+         
+
+          <div class="col-sm-4">
+
+             <div class="dropdown pc-menu"  align="center">
+              <b>Today is <%= @datetodayis %></b> 
+             </div>
+
+              <div class="mobile-menu" align="left">
+                <b>Today is <%= @datetodayis %></b> 
+              </div>
+
+          </div>
+
+
+
+        </div>
+
+
+    <!--advertisement -->
+
+    <div class="row">
+  
+      <div class="col-sm-12" align="center" >
+        <hr>
+         <%= link_to image_tag("/assets/banner2.jpg", id:'hide',:class => 'responsive', :title => 'Refer a Friend', :rel => 'tooltip'), new_referral_path, :title => 'Refer a Friend', :rel => 'tooltip'  %>
+
+         
+      </div>
+ 
+    </div>
+
+    <!--end advertisement -->
+
+    
+    <div class="row" >
+    
+
+    <div class="col-sm-8" >
+
+
+
+
+          <div class="mobile-menu" align="left" >
+
+            <!--- vac final list -->
+
+            <% if @vac_finalist ==  true %>
+
+              <%= link_to 'SIVC Vaccine Waiver', '/SIVC_Vaccinee_Waiver of Liability.pdf', target: "_blank", class:"btn btn-primary btn-lg btn-block" %>
+
+            <% end %>
+
+            <br>
+            <!--- vac final list --->
+
+
+            <!---start Weeksched mobile -->
+
+            <% if @getPisEmploymentInfoU[:EmployeeGroupRefNo] == 1 || @check_emp_client_acct.to_i == 180 || @check_emp_client_acct.to_i == 181 || @check_emp_client_acct.to_i == 1390 || @check_emp_client_acct.to_i == 1391 || @check_emp_client_acct.to_i == 179 || @check_emp_client_acct.to_i == 2432  || @check_emp_client_acct.to_i == 3490%>
+                <%= link_to 'My Weekly Schedule', '/portal_dhs_employee_weekly_schedule_us', class:"btn btn-primary btn-lg btn-block" %>
+                <div>
+                  <%= render 'pages/weeksched' %>
+                </div>
+
+            <% end %>
+
+            <!---end  Weeksched mobile -->
+	           <br>	
+     
+
+		          <%= link_to 'Daily Health Survey', '/ODHD',class: 'btn btn-primary btn-block btn-lg' %>
+
+
+              <!-- hrc survey -->
+              <% if @srvy_checker ==  false %>
+                <br>
+                <%= button_to 'HRC Effectiveness Survey', hrc_effectiveness_survey_path, class: 'btn btn-primary btn-block btn-lg', method: "get"%>
+                <br>
+              <% end %>
+              <!-- hrc survey --> 
+              
+              <% hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:EmployeeGroupRefNo ) %>
+
+              <% @PisEmploymentInfoU4 = hashPisEmploymentInfoU[0] %>
+
+              <% if @PisEmploymentInfoU4[:EmployeeGroupRefNo] == 1 %>
+                <!--pisaduit -->
+                <% if current_user.done_pisaudit != true %>
+                  <%= link_to 'Employee Information Update', '/pisaudit',class: 'btn btn-primary btn-block btn-lg', method: 'get' %>
+                <% end %>
+                <br>
+                <!--pisaduit -->
+              <% end %>
+
+
+             <!-- <button type="button" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#13thModalmobile">My 13th Month Pay</button>-->
+
+ 
+              <% if current_user.DoneBRGY == false %>
+                <%= link_to 'Barangay Hotlines', '/BRGY',class: 'btn btn-primary btn-block btn-lg', method: 'get' %>
+              <% end %>  		
+
+             	 <br>
+
+            <!---webinar mobile-->
+
+            <div class="panel panel-default" id="panelframe" align="center">
+
+                
+                  <img src="/HotlineIPI.jpg" class="img-fluid" alt="Responsive image" style="width:100%;height:100%;">
+                   <div  class="panel-body" align="justify">
+                    <p>Our hotlines are open during weekdays, <b>8:30 AM – 5:00 PM</b>.  Feel free to send us a message after business hours and we will prioritize your concern on the next working day (for non-emergency).</p>
+                   </div>
+              
+            </div>
+
+
+        <!--- start vac campaign -->
+        <!--- end vac campaign -->
+
+
+	
+        <!--- start VACCINATION JOURNEY.png -->
+        <div class="panel panel-default" id="panelframe" align="center">     
+
+            <img src="/VACCINATION JOURNEY.png"  style="width:100%;height:100%;">
+            
+        </div>
+        <!--- end VACCINATION JOURNEY.png -->
+
+
+
+
+          </div>
+
+
+          <!--- start faq -->
+
+            <div class="panel panel-default" id="panelframe" align="center">     
+
+                  <%= render 'pages/faq' %>
+                
+            </div>
+
+          <!--- end faq -->
+
+
+        
+        <!-----start webinar poster --->
+        <div class="panel panel-default"  id="panelframe">
+            <div  class="panel-body">
+                <%= render 'pages/webinarposter' %>
+            </div>
+        </div>
+        <!-----end webinar poster --->
+
+
+        
+          <!--- start announcement section -->  
+          <div class="panel panel-default" id="panelframe">
+            <div  class="panel-heading" id="panelheader">
+              <strong><i class="fas fa-bullhorn"></i><strong> Announcements </strong> </strong> 
+            </div> 
+
+        
+
+            <table class="table   table-responsive " width="100%">
+
+              <tr>
+           
+                <% @getannouncements.each do |announcement|%>
+                <td width="100%">
+                   <% if announcement.IsImportant == true %>
+                    <strong><%= link_to announcement.title, announcement, class:"text-danger" %> <%= image_tag("/important.png", :alt => "important", width: "50", height:"50") %></strong>
+                    <br>
+                     <small>Posted on: <% announcedate = announcement.created_at.to_date %> <%= announcedate.strftime("%B %d, %Y ")%> @ <% announcetime = announcement.created_at.to_time %> <%= announcetime.strftime("%I:%M%p")%>
+
+                     </small>
+                  <% else %>
+                    <strong><%= link_to announcement.title, announcement %> </strong>
+                    <br>
+                     <small>Posted on: <% announcedate = announcement.created_at.to_date %> <%= announcedate.strftime("%B %d, %Y ")%> @ <% announcetime = announcement.created_at.to_time %> <%= announcetime.strftime("%I:%M%p")%> 
+                     </small>
+                  <% end %>
+
+                  <!---
+                  <strong><h1><%= link_to announcement.title, announcement %></h1></strong>
+                  <small>by: <%= PisEmployeeU.where(EmployeeRefno: announcement.EmployeeRefNo).pluck(:Description).to_sentence %> | <%= announcement.created_at.to_datetime %></small>
+                  <hr>
+                  <%=  raw sanitize(announcement.message[0..100])%> <%= link_to 'Continue Reading...', announcement %> --->
+                 
+                </td>
+              </tr>
+                <% end %>
+            </table>
+           
+
+                <div align="center">
+                    <%= link_to 'See All Announcements', announcements_path %>
+                </div>
+       
+          </div>
+
+            <!-- end announcement section -->
+
+
+
+            <!---start poster section -->
+                  <div class="panel panel-default" id="panelframe">
+
+                        <div  class="panel-body">
+				                    <%= render 'pages/poster' %>           
+                        </div>
+                  </div>
+          <!---end poster section -->
+
+
+          <!---start holiday section -->
+            <div  class="panel panel-default" id="panelframe">
+            <div class="panel-heading" id="panelheader">
+            <h4><strong><i class="fas fa-calendar-alt"></i> <%= Time.current.year %> Holidays</strong></h4></div>
+            <div  class="panel-body">
+            <table class="table  table-hover table-responsive table-bordered">
+            <th><small><i>The following were declared by virtue of Proclamation No. 269, unless otherwise specified:
+            * (SNWH) Special Non-Working Holiday 
+            </i></small>
+            </th>
+               <tr>
+                 <% @getholidays.each do |holiday|%>
+                
+                 <td>
+                    
+                    <% holiday1 = holiday.HolidayDate.to_date %>
+                    <strong><%= holiday1.strftime("%B %d, %Y - %A") %></strong>
+                    <br>
+                    <% if holiday.HolidayTypeRefNo == 1 %>
+                    <%= holiday.Description%> (SNWH)
+                    <% else %>
+                    <%= holiday.Description%>
+
+                   <% end %> 
+                 </td>
+                 
+                 
+               </tr>
+
+                <% end %> 
+            </table>
+
+            </div>
+            </div>
+
+            <!--- end holiday section -->
+    </div>
+
+
+    <div class="col-sm-4" >
+
+        <div class="dropdown pc-menu" align="left" >
+
+            <!--- vac final list -->
+            <% if @vac_finalist ==  true %>
+
+              <%= link_to 'SIVC Vaccine Waiver', '/SIVC_Vaccinee_Waiver of Liability.pdf', target: "_blank", class:"btn btn-primary btn-lg btn-block" %>
+
+            <% end %>
+
+            <br>
+            <!--- vac final list --->
+
+            <!---start Weeksched desktop -->
+
+            <% if @getPisEmploymentInfoU[:EmployeeGroupRefNo] == 1 || @check_emp_client_acct.to_i == 180 || @check_emp_client_acct.to_i == 181 || @check_emp_client_acct.to_i == 1390 || @check_emp_client_acct.to_i == 1391 || @check_emp_client_acct.to_i == 179 || @check_emp_client_acct.to_i == 2432  || @check_emp_client_acct.to_i == 3490%>
+
+                <%= link_to 'My Weekly Schedule', '/portal_dhs_employee_weekly_schedule_us', class:"btn btn-primary btn-lg btn-block" %>
+
+                <div>
+                  <%= render 'pages/weeksched' %>
+                </div>
+              
+            <% end %>
+            <!---end  Weeksched desktop -->
+           <br>
+  	       <%= link_to 'Daily Health Survey', '/ODHD',class: 'btn btn-primary btn-block btn-lg' %>
+
+
+          <!-- hrc survey -->
+          <% if @srvy_checker ==  false %>
+            <br>
+            <%= button_to 'HRC Effectiveness Survey', hrc_effectiveness_survey_path, class: 'btn btn-primary btn-block btn-lg', method: "get"%>
+            <br>
+          <% end %>
+          <!-- hrc survey -->
+           
+            
+          <% hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:EmployeeGroupRefNo ) %>
+
+          <% @PisEmploymentInfoU3 = hashPisEmploymentInfoU[0] %>
+
+          <% if @PisEmploymentInfoU3[:EmployeeGroupRefNo] == 1 %> 
+            <!--pisaduit -->
+            <% if current_user.done_pisaudit != true %>
+              <%= link_to 'Employee Information Update', '/pisaudit',class: 'btn btn-primary btn-block btn-lg', method: 'get' %>
+            <% end %>
+            <br>
+            <!--pisaduit -->
+          <% end %>
+
+         <!-- <button type="button" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#13thModaldesk">My 13th Month Pay</button> -->
+       
+  		    <% if current_user.DoneBRGY == false %>
+             <%= link_to 'Barangay Hotlines', '/BRGY',class: 'btn btn-primary btn-block btn-lg', method: 'get' %>
+          <% end %>  
+          <br>
+
+
+              <!--- start webinar  desktop --->     
+              <!--- end webinar  desktop --->
+
+   
+            <div class="panel panel-default" id="panelframe" align="center">
+              <img src="/HotlineIPI.jpg"  style="width:100%;height:100%;">
+               <div  class="panel-body" align="justify">
+                <p>Our hotlines are open during weekdays, <b>8:30 AM – 5:00 PM</b>.  Feel free to send us a message after business hours and we will prioritize your concern on the next working day (for non-emergency).</p>
+               </div>
+            </div>
+
+  	
+          <!--- start VACCINATION JOURNEY.png -->
+          <div class="panel panel-default" id="panelframe" align="center">     
+              <img src="/VACCINATION JOURNEY.png"  style="width:100%;height:100%;">
+          </div>
+          <!--- end VACCINATION JOURNEY.png -->
+
+
+        </div> 
+
+
+        <!--- start vac campaign -->
+        <div class="panel panel-default" id="panelframe" align="center">     
+          <%= render 'pages/covidbulletin' %>
+        </div>
+        <!--- end vac campaign -->
+
+
+      <!--- start Telemedicine  --->     
+      <div class="panel panel-default" id="panelframe" align="center">
+        <img src="/Telemed_IPI.png"  style="width:100%;height:100%;">
+        <img src="/Counselling1.png"  style="width:100%;height:100%;">
+      </div>
+      <!--- end Telemedicine  --->
+
+
+
+    <!--- start video  --->     
+    <div class="panel panel-default" id="panelframe" align="center">
+
+          <img src="/content_covid.jpg" style="height: 100%; width: 100%;"  >
+          <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#VideoModal" onclick="playVid()">Watch This Video</button>
+
+    </div>
+    <!--- end video  --->
+
+    <!--- start slider --->
+    <div class="panel panel-default" id="panelframe" align="center">
+      <%= render 'pages/slider' %>
+    </div>  
+    <!--- end slider --->
+
+
+      <div  class="panel panel-warning" id="logopanel">
+              <div  class="panel-body" align="center">
+
+              <img src="/35years.jpg" class="responsive" id="#ipi32logo" alt="ipi32" >
+              <hr>
+              <h4 align="center"><strong>Quick Links</strong></h4>
+              <hr>
+              <%= link_to "My Payslip", pay_processed_payroll_us_path,  :method=> :get %>
+              <%= link_to "Refer a Friend", new_referral_path, id:'hide' %>
+              <br>
+              <%= link_to "Contact Us", new_contactpage_path %>
+              <br>
+              <%= link_to "Knowledge base", knowledges_path %>
+              <br>
+              <br>
+              Help/Support? <%= link_to "Go to our Support Portal", "http://support.ipiphil.com", target: "_blank" %>
+              <br>
+              <%= link_to "Open New Ticket", "http://support.ipiphil.com/open.php", target: "_blank" %>
+              <br>
+              <%= link_to "Check Ticket Status", "http://support.ipiphil.com/view.php", target: "_blank" %>
+              </div>
+        </div>
+    </div>
+  </div>
+
+
+
+<% else #when user is not log in%> 
+
+<div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm-8" >
+      <div class="jumbotron" style="background-color:white;">
+      <h2 class="display-1"><strong>IPI Employee Portal</strong></h2>
+              <p class="lead"></p>
+              <hr class="my-4">
+              <small><p><i>"We are committed to: EXCELLENCE, SERVICE and PROFESSIONALISM" </i></p></small>
+              <div class="row">
+              <div class="col-sm-4" > 
+                <%= button_to "Login", new_user_session_path, class: "btn btn-primary  btn-block btn-lg"%>
+
+              </div>
+              <div class="col-sm-4" ></div>
+              <div class="col-sm-4" ></div>
+              </div>
+                   
+      </div>
+      </div>
+
+      <div class="col-sm-4" align="center">
+          <img src="/assets/IPI301.png" class="img-fluid" alt="Responsive image" style="width:350px;height:350px;">
+      </div>
+
+          <br>
+  </div>
+
+</div>  
+
+
+</div>
+   
+<% end %>
+
+<BR>
+<BR>
+<BR>
+<BR>
+
+
+<!-- Modal poster-->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <img src="/keep physical and mental healthy.png" class="img-fluid" alt="Responsive image" style="width:100%;height:100%;">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--- modal poster -->
+
+
+
+
+<!---- start modal video --->
+
+<!-- Modal -->
+<div class="modal fade" id="VideoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+
+        <video width="320" height="240" controls style=" width: 100%; height: 100%"  id="CovidVideo" >
+          <source src="/Hygiene & Sanitation in the Workplace May20, 2020.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"  onclick="pauseVid()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!---- end modal video --->
+
+
+<!-- 13Modal -->
+<!--<div class="modal fade" id="13thModalmobile" tabindex="-1" role="dialog" aria-labelledby="13thModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <iframe src="/thirteenmonth" style="border:none;" title="IframeExpenseDetails" height="510px" width="100%"></iframe>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+<!-- 13Modal -->
+<!--<div class="modal fade" id="13thModaldesk" tabindex="-1" role="dialog" aria-labelledby="13thModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <iframe src="/thirteenmonth" style="border:none;" title="IframeExpenseDetails" height="510px" width="100%"></iframe> 
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+<!--- hrc winners -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#winnerModal" id="winnerbutton" style="visibility: hidden;">
+  .
+</button>
+
+<!-- Modal -->
+<!--<div class="modal fade" id="winnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+           <img src="/hrc_winners.png"  style="width:100%;height:100%;">
+      </div>
+      <div class="modal-footer">
+        <%= link_to 'Close', '/update_user_ad', method: 'post', class:"btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!--- hrc winners -->
+
+
+<script> 
+var vid = document.getElementById("CovidVideo"); 
+
+function playVid() { 
+  vid.play(); 
+} 
+
+function pauseVid() { 
+  vid.pause(); 
+} 
+</script> 
+
+
+<script>
+  //onload page
+function onloadpageFunction() {
+
+  
+  <% if current_user.had_viewed_ads != true %>
+      $("#winnerbutton").click();
+  <% end %>
+
+}
+</script>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+
+<style type="text/css">
+ 
+#write, #doc {
+    display:none
+}
+#write.selected, #doc.selected {
+    display:inline;
+} 
+
+
+
+
+</style>
+
+
+
+</head>
+<body>
+
+
+
+<div class="container-fluid">
+ 
+  <div class="row">
+    <div class="col-sm-3" >
+
+    </div>
+
+    <div class="col-sm-6" >
+
+              <%= link_to 'View Article', @knowledge  %>
+              <%= bootstrap_form_with(model: knowledge, local: true) do |form| %>
+              
+              <div class="field">
+                <%= form.text_field :title, id: :knowledge_title, label: '*Title' %>
+              </div>
+
+              
+
+               <div class="field">
+                <%= form.text_field :summary, id: :knowledge_summary, label:'*Summary' %>
+              </div>
+
+              <hr>
+
+              <h5><strong>*How you will display your article?</strong></h5>
+
+
+            
+                  <%= radio_button("knowledge", "source", "write", checked: true) %> Write my own article
+                  <br>
+                  <div id= "write">
+              
+                   
+                      <%= form.trix_editor :content, id: :knowledge_content %>
+                    
+                  </div>
+                  <br>
+                   <%= radio_button("knowledge", "source", "doc") %> Upload Document
+                  <br>
+                  <div id=doc>
+                    <br>
+                     <div class="field">
+                     <%= form.file_field :attachment %>  <%= knowledge.attachment %>
+                    </div>
+
+                  </div>
+
+                  <div class="field">
+                     <%= form.hidden_field :createdby, :value => current_user.id, :readonly => 'true' %>
+                  </div>
+
+                  <br>
+                  
+                  <hr>
+                <%= form.submit "Save", class: "btn btn-primary  btn-block" %>
+                <br>
+                <% end %>
+                <%= button_to 'Back', knowledges_path ,class: "btn btn-secondary  btn-block",  :method=> :get %>
+
+    </div>
+
+    <div class="col-sm-3" >
+      <br>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          Author:
+          <br>
+          <%= z = PisEmployeeU.where(EmployeeRefNo: @usuario_actual).pluck(:Fullname).to_sentence %>
+          <br>
+          <%= x = User.where(id: 34)%>
+          
+       
+
+
+        </div>
+      </div>
+    
+     
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+  
+$("input[type=radio]").change(function (e) {
+    $("#write, #doc").removeClass("selected");
+    $("#" + $(e.currentTarget).val()).addClass("selected");
+})
+
+
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

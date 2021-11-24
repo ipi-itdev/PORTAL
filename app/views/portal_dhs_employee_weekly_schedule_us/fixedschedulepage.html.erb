@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4" >
+      
+    </div>
+
+    <div class="col-sm-4" >
+
+      <div class="panel panel-default">
+        <div class="panel-heading"><b>Set My Fixed Schedule</b></div>
+        <div class="panel-body">
+
+
+                <%= form_tag('/set_fixed_sched', method:'post') do %>
+
+
+                  <div class="row">
+                    <div class="col-sm-6" >
+                      <br>
+                      <b style="color: red;">*Shift Start</b>
+                      <br>
+                      <%= time_field_tag :shift_start_tag , label: 'Shift Start', min:'2020-01-01', max:'2025-01-01' %>
+                    </div>
+                    
+                    <div class="col-sm-6" >
+                      <br>
+                      <b style="color: red;">*Shift End</b>
+                      <br>
+                      <%= time_field_tag :shift_end_tag , label: 'Shift End', min:'2020-01-01', max:'2025-01-01' %>
+                    </div>
+                  </div>
+
+                  <br>
+              
+
+                <%= button_tag(type: 'submit', class: 'btn btn-success btn-sm btn-block', id: 'fixedschedSave') do %>
+                       Save
+                    <% end %>
+
+                <% end %>
+
+                <%= link_to 'Back', '/portal_dhs_employee_weekly_schedule_us', id:'fixedschedlink', class: 'btn  btn-sm btn-block'%>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-sm-4" >
+      
+    </div>
+
+  </div>
+</div>
+

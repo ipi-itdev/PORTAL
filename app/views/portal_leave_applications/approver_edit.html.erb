@@ -1,0 +1,356 @@
+<style type="text/css">
+  
+  #asterisk_rem{
+    color: red;
+  }
+
+</style>
+
+<div class="container-fluid">
+<%= form_tag('/portal_leave_applications/approver/approver_submit') do %>
+  
+  <div class="row">
+
+    <div class="col-sm-2" >
+      
+    </div>
+
+     <div class="col-sm-8" >
+
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader">
+
+          <div class="row">
+              <div class="col-sm-6" align="left">
+                
+                <strong ><i class="fas fa-calendar-check"></i>Leave Application Form</strong>
+       
+              </div>
+              <div class="col-sm-4" >
+
+                
+              </div>
+              <div class="col-sm-2" >
+
+                   <%= link_to 'Back', portal_leave_applications_approver_approver_index_path, class:'btn btn-primary btn-block btn-sm' %>
+                
+              </div>
+          </div>
+
+        </div>
+        <small>
+        <!--- start panel body --->
+        <div class="panel-body">
+
+          <div class="row">
+            <div class="col-sm-6" >
+              <% session[:TabSelect] = @tab %> 
+
+              <strong>Reference No: </strong> <%= @get_approver_emp_leave_details[0][:id]%>
+              <%= hidden_field_tag :modifiedby, current_user.EmployeeRefNo %>
+              <br>
+              <br>
+              <strong>Employee Name:</strong> 
+              <br>
+              <% hash_emp_details = PisEmployeeU.where(EmployeeRefNo: @get_approver_emp_leave_details[0][:employeerefno] ).pluck_to_hash(:Description, :EmployeeNumber)%>
+              <% emp_details = hash_emp_details[0] %>
+              <%= emp_details[:Description] %> - <%= emp_details[:EmployeeNumber]%>
+            </div>
+
+            <div class="col-sm-6" align="left">
+              <strong>Date Filed: </strong><%= @get_approver_emp_leave_details[0][:created_at].strftime("%m/%d/%Y") %>
+            </div>
+          </div>
+
+          <br>
+          <div class="row">
+            <div class="col-sm-6" >
+              <strong>Application Status: </strong> 
+                <br>
+                <%= PortalLeaveStatusC.where(status_refno: @get_approver_emp_leave_details[0][:leave_status_refno]).pluck(:status_description).to_sentence %> 
+
+             
+            </div>
+
+            <div class="col-sm-6" align="left">
+              <% if @get_approver_emp_leave_details[0][:leave_status_refno] == 4 || @get_approver_emp_leave_details[0][:leave_status_refno] == 4%>
+                 <strong>Remarks: </strong><%= @get_approver_emp_leave_details[0][:remarks] %> 
+              <% end %>
+            </div>
+          </div>  
+  
+          <br>
+          <div class="row">
+            <div class="col-sm-12" >
+                <div class="row">
+                    <div class="col-sm-6" >
+                      <strong>Type of Leave: </strong> 
+                      <br>
+                      <%= GenLeaveTypeM.where(LeaveTypeRefNo: @get_approver_emp_leave_details[0][:leavetype_refno]).pluck(:Description).to_sentence %>
+                    </div>
+                    <div class="col-sm-6" >
+
+                       <strong>Hour(s): </strong><%= @get_approver_emp_leave_details[0][:end_hrs]%>
+                      
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-6" >
+                      <strong>Start Date: </strong><%= @get_approver_emp_leave_details[0][:startdate].strftime("%m/%d/%Y")%>
+                    </div>
+                    <div class="col-sm-6" >
+
+                       <strong>End Date: </strong><%= @get_approver_emp_leave_details[0][:enddate].strftime("%m/%d/%Y")%>
+                      
+                    </div>
+
+                </div>
+
+                <br>
+                <strong>Reason:</strong>
+                <br>
+                <%= @get_approver_emp_leave_details[0][:reason] %>
+                <br>
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-6" >
+
+                      <% if @get_approver_emp_leave_details[0][:leave_status_refno].to_i == 1 || @get_approver_emp_leave_details[0][:leave_status_refno].to_i == 3 || @get_approver_emp_leave_details[0][:leave_status_refno].to_i == 5%>
+                        <%= hidden_field_tag :id, @get_approver_emp_leave_details[0][:id].to_i %>
+                        <input id="status_value" name="status_value" type="checkbox" value="5" /><strong>Cancel Application?</strong>
+
+                        <script>
+
+                          if ($("#status_value").checked ) 
+                            {
+                              $( "#submit_button" ).prop('disabled', false);
+                              $( "#remarks" ).prop('disabled', false);      
+
+                            }
+                          
+                          else
+                            {
+                              $( "#submit_button" ).prop('disabled', true);
+                              $( "#remarks_area" ).hide();
+                            }
+
+                        </script>
+
+                        <script>
+
+                        document.getElementById("status_value").addEventListener("focusout", myFunction_1);
+
+                          function myFunction_1(){
+                           var x = document.getElementById("status_value");
+                           if (x.checked)
+                           
+                            {
+
+                              $( "#submit_button" ).prop('disabled',true);
+                              $( "#remarks_area" ).show();   
+
+                            }
+
+                            else
+
+                            {
+                              $( "#submit_button" ).prop('disabled', true);
+                              $('#remarks').val('');
+                              $( "#remarks_area" ).hide();
+                              
+                            }
+
+                          }
+
+                        </script>
+
+                      <% elsif @get_approver_emp_leave_details[0][:leave_status_refno].to_i == 4 %>
+
+                          <!-- no value -->
+
+                          <script type="text/javascript">
+                            
+                             $('#remarks').hide();
+                             $( "#submit_button" ).hide();
+                             $( "#submit_button" ).prop('disabled',true);
+
+                          </script>
+
+                          
+
+                      <% else %>
+
+                        <strong>Approve/Disapproved:</strong>
+
+                        <%= hidden_field_tag :id, @get_approver_emp_leave_details[0][:id]%>
+                        <%= select_tag :status_value, options_from_collection_for_select(PortalLeaveStatusC.where(status_refno: 3).or(PortalLeaveStatusC.where(status_refno: 4)), :status_refno, :status_description,  prompt: "Select something" )%>
+
+                        
+                      <% end %>
+
+                    </div>
+                    <div class="col-sm-6" >
+
+                      <div id="remarks_area">
+
+                        <b id="asterisk_rem">*</b><strong>Remarks:</strong>
+                        <br>
+                        <textarea name="remarks" id="remarks" rows="4" width="100%" style="min-width: 100%" onfocusout="myFunction_2()"></textarea>
+                      </div>
+
+                       
+                      
+                     </div>
+
+                </div>
+
+                
+
+
+            </div>
+
+          </div>
+          <br>
+          <div class="row">
+              <div class="col-sm-6" align="left">
+                   <% if @get_approver_emp_leave_details[0][:leave_status_refno].to_i == 1 || @get_approver_emp_leave_details[0][:leave_status_refno].to_i  == 2 || @get_approver_emp_leave_details[0][:leave_status_refno].to_i  == 3 %>
+                    <%= submit_tag 'Apply', class:'btn btn-primary btn-block', id:'submit_button'%>
+                  <% else %>
+                    <!-- nothing to do -->
+                  <% end %>
+
+                <% end %>
+            
+              </div>
+              <div class="col-sm-2" >
+                <!--- empty -->
+              </div>
+              <div class="col-sm-4" align="">
+
+                 
+                
+              </div>
+          </div>
+
+        </div>
+        <!--- end panel body --->
+      </small>
+      </div>
+
+    </div>
+
+    <div class="col-sm-2" >
+        
+    </div>
+
+  </div>
+
+</div>
+  
+<br>
+<br>
+<br>
+
+<script type="text/javascript">
+
+  var checkBox = document.getElementById("status_value");
+  if (checkBox.checked == true){
+    
+  } else {
+      $( "#submit_button" ).prop('disabled', true);
+  }
+
+</script>
+
+
+
+
+
+<script>
+
+  if ($( "#status_value :selected" ).val() == '3')
+    {
+      $( "#submit_button" ).prop('disabled', false);
+       $( "#remarks_area" ).hide();
+    }
+  else
+    {
+      /*do nothing */
+      $( "#portal_leave_application_end_hrs" ).prop('disabled', false);
+    }
+
+</script>
+
+
+
+
+<script>
+$( "#status_value" ).change(function () {
+
+
+     if ($( "#status_value :selected" ).val() == '3')
+      {
+          $('#remarks').val('');
+          $( "#remarks_area" ).hide();
+          $( "#submit_button" ).prop('disabled', false);
+      
+        
+      }
+
+  else
+      { 
+           //alert("Please enter your remarks.");
+            $( "#submit_button" ).prop('disabled', true);
+            $( "#remarks_area" ).show();
+
+
+      }
+
+  })
+
+</script>
+
+
+<script>
+
+  $( "#remarks" ).focusout(function() {
+
+  /*alert( "Handler for .change() called." );*/
+
+  if ($( "#status_value :selected" ).val() == '3')
+      {
+        alert("Please enter your remarks.");
+        $( "#submit_button" ).prop('disabled', true);
+      }
+
+  else
+      { 
+          $( "#submit_button" ).prop('disabled', false);
+
+      }
+});
+
+</script> 
+
+<script>
+function myFunction_2() {
+  var x = document.getElementById("remarks").value;
+  if(x == '')
+  {
+    alert("Please enter your remarks.");
+    $( "#submit_button" ).prop('disabled', true);
+  }
+  else
+  {
+     $( "#submit_button" ).prop('disabled', false);
+  }
+}
+</script>
+
+
+
+

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  <style type="text/css">
+    #required_field {
+      position: absolute;
+      bottom: px;
+      left: 7px;
+      font-size: 18px;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <%= bootstrap_form_with(model: portal_change_request_detail, local: true) do |form| %>
+      <% if portal_change_request_detail.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <p style="color: red;font-size: 80%;">
+              <% portal_change_request_detail.errors.full_messages.each do |message| %>
+                <%= message %> <br>
+              <% end %>
+            </p>
+          </ul>
+        </div>
+      <% end %>
+
+      <ul><p style="color: red;font-size: 80%;"><%= flash.now[:message] = "#{@warning}" %></p></ul>
+
+      <div class="row">
+        <div class="col-sm-6" >      
+          <%= form.hidden_field :EmployeeProfileChangeRequestRefNo, value: session[:portal_change_request_id] %>
+          <%= form.hidden_field :EmployeeRefNo, value: current_user.EmployeeRefNo %>
+          <%= form.hidden_field :CreatedDate, value: DateTime.now + 8.hours %>
+          <%= form.hidden_field :CreatedBy, value: current_user.EmployeeRefNo %>
+          <%= form.hidden_field :ModifiedDate, value: DateTime.now + 8.hours %>
+          <%= form.hidden_field :ModifiedBy, value: current_user.EmployeeRefNo %>
+          <%= form.hidden_field :IsActive, value: true %>
+          <%= form.hidden_field :ServerCompanyCodeID, value: '1-1' %>        
+          
+          <p id="required_field"> *</p>                                          
+          <small><%= form.collection_select :ChangeRequestTypeRefNo, ChangeRequestType.where(IsActive: 1), :ChangeRequestTypeRefNo, :Description, label: 'Change Request Type' %></small>
+
+          <script type="text/javascript">
+              $('#portal_change_request_detail_ChangeRequestTypeRefNo').on('change', function() {
+                populateField()              
+              });
+          </script>
+        </div>        
+      </div> 
+      
+      <div id="row-statutory">
+        <div class="row">
+          <div class="col-sm-6" >
+            <small><%= form.text_field :TIN, label: 'TIN', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+
+          <div class="col-sm-6" >
+            <small><%= form.text_field :SSS, label: 'SSS', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>  
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6" >
+            <small><%= form.text_field :Philhealth, label: 'PhilHealth', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>          
+
+          <div class="col-sm-6" >
+            <small><%= form.text_field :Pagibig, label: 'PAGIBIG', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div> 
+        </div> 
+      </div>    
+
+      <div id="row-address">
+        <div class="row">
+          <div class="col-sm-12" >
+            <p id="required_field"> *</p>
+            <small><%= form.text_area :CurrentAddress, label: 'Current Address', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+        </div>        
+        
+        <div class="row">
+          <div class="col-sm-6">     
+            <%= form.check_box :IsChecked, label: 'Same as current address?' %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12" >
+            <p id="required_field"> *</p>
+            <small><%= form.text_area :PermanentAddress, label: 'Permanent Address', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          $('#portal_change_request_detail_IsChecked').on('change', function() {
+            if(this.checked) {
+              document.getElementById("portal_change_request_detail_PermanentAddress").value = document.getElementById("portal_change_request_detail_CurrentAddress").value
+            }
+            else {
+              document.getElementById("portal_change_request_detail_PermanentAddress").value = ''
+            }            
+          });
+        </script>
+      </div>
+
+      <div id="row-contact">
+        <div class="col-sm-6" >
+          <small><%= form.text_field :TelephoneNumber, label: 'Telephone Number', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :MobileNumber, label: 'Mobile Number', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+      </div>
+
+      <div id="row-email">
+        <div class="row">
+          <div class="col-sm-12" >
+            <p id="required_field"> *</p>
+            <small><%= form.text_field :PersonalEmailAddress, label: 'Personal Email Address', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+        </div>
+      </div>
+
+      <div id="row-emergency">
+        <div class="row">
+          <div class="col-sm-8" >
+            <p id="required_field"> *</p>
+            <small><%= form.text_field :EmergencyName, label: 'Name', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12" >   
+            <p id="required_field"> *</p>       
+            <small><%= form.text_area :EmergencyAddress, label: 'Address', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+        </div>        
+
+        <div class="row">
+          <div class="col-sm-6" >
+            <p id="required_field"> *</p>
+            <small><%= form.text_field :EmergencyRelationship, label: 'Relationship', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+
+          <div class="col-sm-6" >
+            <p id="required_field"> *</p>
+            <small><%= form.text_field :EmergencyContactNumber, label: 'Contact Number', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+        </div> 
+      </div>
+
+      <div id="row-dependent">
+        <div class="row">    
+          <div class="col-sm-8" >
+            <p id="required_field"> *</p>
+            <small><%= form.text_field :DepName, label: 'Name', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+        </div>
+         
+        <div class="row"> 
+          <div class="col-sm-6" >
+            <p id="required_field"> *</p>
+            <small><%= form.text_field :DepRelationship, label: 'Relationship', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+
+          <div class="col-sm-6" >
+            <p id="required_field"> *</p>
+            <small><%= form.date_field :DepBirthDate, label: 'Birthdate', min: '2020-01-01', max: '2030-01-01' %></small> 
+          </div>
+        </div>        
+      </div>
+
+      <div id="row-education">
+        <div class="row"> 
+          <div class="col-sm-12" >
+            <p id="required_field"> *</p>
+            <small><%= form.text_field :School, label: 'School', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+        </div>
+          
+        <div class="row">
+          <div class="col-sm-6" >
+            <p id="required_field"> *</p>
+            <small><%= form.text_field :Course, label: 'Course', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+        
+
+          <div class="col-sm-6" >
+            <p id="required_field"> *</p>
+            <small><%= form.number_field :YearGraduated, label: 'Year Graduated', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          </div>
+        </div>
+      </div>
+
+      <div id="row-requirment">  
+        <div class="row">
+          <div class="col-sm-6" >
+            <p id="required_field"> *</p>
+            <small><%= form.collection_select :RequirementRefNo, RequirementType.where(IsActive: 1), :RequirementRefNo, :Description, label: 'Requirement Type' %></small>          
+          </div> 
+        </div>           
+
+        <div class="row">
+          <div class="col-sm-6" >
+            <p id="required_field"> *</p>
+            <small><%= form.file_field :AttachmentFile, label: 'Attach File', onchange: "myFunction_hidediv()", :accept => 'image/jpeg,image/jpg,image/png,image/gif,application/pdf' %></small>
+
+            <script type="application/javascript">
+                $('input[type="file"]').change(function(e){
+                    var fileName = e.target.files[0].name;
+                    $('.custom-file-label').html(fileName);
+                });
+            </script>
+
+            <script>
+              function myFunction_hidediv() {
+                var x = document.getElementById("portal_change_request_detail_AttachmentFile").value;
+                $("#div_filepath").hide();
+              }
+            </script>  
+
+            <div id="div_filepath">
+              <small><a href="<%= @portal_change_request_detail.AttachmentFile%>" target="_blank"> <%= @portal_change_request_detail.AttachmentFile_identifier %> </a> </small>
+            </div>
+
+            <small><%= form.hidden_field :AttachmentFile_cache %></small>    
+          </div>
+        </div> 
+      </div>     
+      
+      <script type="text/javascript">
+        populateField();
+
+        function populateField() {          
+          document.getElementById('row-requirment').setAttribute("style", "display: none")
+          document.getElementById('row-statutory').setAttribute("style", "display: none")
+          document.getElementById('row-address').setAttribute("style", "display: none")
+          document.getElementById('row-contact').setAttribute("style", "display: none")
+          document.getElementById('row-email').setAttribute("style", "display: none")
+          document.getElementById('row-emergency').setAttribute("style", "display: none")
+          document.getElementById('row-education').setAttribute("style", "display: none")
+          document.getElementById('row-dependent').setAttribute("style", "display: none")
+          document.getElementById("portal_change_request_detail_RequirementRefNo").value = 0
+          document.getElementById("portal_change_request_detail_IsChecked").checked = false
+          
+          if (document.getElementById("portal_change_request_detail_ChangeRequestTypeRefNo").value == 1)
+            {                           
+              document.getElementById('row-address').setAttribute("style", "display: block")
+            }
+          else if (document.getElementById("portal_change_request_detail_ChangeRequestTypeRefNo").value == 2)
+            {                           
+              document.getElementById('row-contact').setAttribute("style", "display: block")
+            }
+          else if (document.getElementById("portal_change_request_detail_ChangeRequestTypeRefNo").value == 3)
+            {                 
+              document.getElementById('row-email').setAttribute("style", "display: block")
+            }
+          else if (document.getElementById("portal_change_request_detail_ChangeRequestTypeRefNo").value == 4)
+            {
+              document.getElementById('row-emergency').setAttribute("style", "display: block")
+            }  
+          else if (document.getElementById("portal_change_request_detail_ChangeRequestTypeRefNo").value == 5)
+            {
+              document.getElementById('row-statutory').setAttribute("style", "display: block")
+            }  
+          else if (document.getElementById("portal_change_request_detail_ChangeRequestTypeRefNo").value == 6)
+            {                
+              document.getElementById('row-dependent').setAttribute("style", "display: block")
+            }
+          else if (document.getElementById("portal_change_request_detail_ChangeRequestTypeRefNo").value == 7)
+            {                
+              document.getElementById('row-education').setAttribute("style", "display: block")
+            }
+          else if (document.getElementById("portal_change_request_detail_ChangeRequestTypeRefNo").value == 8)
+            {                
+              document.getElementById('row-requirment').setAttribute("style", "display: block")
+            }                                  
+        }
+      </script>
+
+      <br>
+      <br>  
+
+      <div class="row">
+        <div class="col-sm-6" >
+        </div>
+
+        <div class="col-sm-6" >
+          <div class="row">
+            <div class="col-sm-6" >
+              <%= form.submit 'Save', class:'btn btn-success btn-sm btn-block', id: 'submit_detail_but' %>
+            </div>
+
+            <script type="text/javascript">
+              $(document).submit(function() {
+                $( "#submit_detail_but" ).prop('disabled', true);
+              });                      
+            </script>
+
+            <div class="col-sm-6" >
+              <%= link_to 'Back to List', portal_change_request_details_path, class:'btn btn-primary btn-sm btn-block' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</body>
+</html>

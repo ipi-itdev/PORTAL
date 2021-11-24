@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+</head>
+<body onload="hidedivFunction()">
+
+
+<div class="container-fluid">
+
+  <%= bootstrap_form_with(model: portal_dhs_employee_weekly_schedule_u, local: true) do |form| %>
+  <% if portal_dhs_employee_weekly_schedule_u.errors.any? %>
+    <div id="error_explanation">
+      <!--<h2><%= pluralize(portal_dhs_employee_weekly_schedule_u.errors.count, "error") %> prohibited this portal_dhs_employee_weekly_schedule_u from being saved:</h2> -->
+
+      <ul align='center'>
+      <% portal_dhs_employee_weekly_schedule_u.errors.full_messages.each do |message| %>
+        <li align='center' style="color: red;"><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-sm-4" >
+
+
+    </div>
+
+    <div class="col-sm-4" >
+
+      <i class="fa fa-calendar" aria-hidden="true"></i><strong>Edit My Schedule</strong>
+      <br>
+      <br>
+
+      <div class="row">
+        <div class="col-sm" >
+           <b>Workdate:</b> <%= @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%m/%d/%Y") %>
+        </div>
+        <div class="col-sm" >
+           <%= form.check_box :IsRD,  onclick: "myFunction1()", label: 'Is My Restday?', id:'checkbox'%>
+        </div>
+      </div>
+
+
+      <br>
+      <div class="row">
+        <div class="col-sm-12" >
+          <%= form.datetime_field :shift_start , label: 'Shift Start', min:'2020-01-01', max:'2025-01-01' %>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-sm-12" >
+
+          <%= form.datetime_field :shift_end, label: 'Shift End',  min:'2020-01-01', max:'2025-01-01'%>
+          <br>
+        
+          <%= form.submit 'Save', class:'btn btn-success btn-block btn-sm', id:'save_sched_button'%>
+          <br>
+          <%= link_to 'Back', portal_dhs_employee_weekly_schedule_us_path, class:'btn btn-secondary btn-block btn-sm', id: 'back_sched_button' %>
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+    <div class="col-sm-4" >
+
+    </div>
+
+
+
+  </div>
+</div>
+
+
+<% end %>
+
+
+<script type="text/javascript">
+    //onload check if checkbox checked
+    if (document.getElementById('checkbox').checked) {
+
+          $("#portal_dhs_employee_weekly_schedule_u_shift_start").val('');
+          $("#portal_dhs_employee_weekly_schedule_u_shift_end").val('');
+          document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start").disabled = true;
+          document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end").disabled = true;
+        } 
+        else 
+        {
+            //alert("You didn't check it! Let me check it for you.");
+        }
+</script>
+
+
+
+
+<script type="text/javascript">
+  
+  function myFunction1() 
+  {
+    
+    if($("#checkbox").prop('checked') == true)
+    {
+      //checked  
+
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end").val('');
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start").disabled = true;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end").disabled = true;
+
+    }
+    else
+    {
+      //NOT checked
+
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start").disabled = false;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end").disabled = false;
+
+    }
+  }
+
+
+  //onload func
+  function hidedivFunction() {
+    $("#savingsaveschedmsg").hide();
+  }
+
+
+  //on click save button
+  document.getElementById('save_sched_button').onclick = function() {
+    $("#back_sched_button").prop('disabled', true);
+    //$("#save_sched_button").prop('disabled', true);
+    $( "#timeoutdisabled_button" ).show();
+    //$( "#save_sched_button" ).hide();
+    $("#savingsaveschedmsg").show();
+
+  }
+</script>
+
+</body>
+</html>

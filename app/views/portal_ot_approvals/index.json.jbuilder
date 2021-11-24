@@ -1,0 +1,1 @@
+json.array! @portal_ot_approval, partial: 'portal_ot_approvals/portal_ot_approval', as: :portal_ot_approval

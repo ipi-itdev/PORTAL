@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <%= stylesheet_link_tag 'pay_processed_payroll_u'%>
+   
+</head>
+
+<body>
+
+
+
+<h1 align="left"><%= @getfcurrentuser%></h1>
+<h3 align="center">Employee Payslip</h3>
+
+
+  <div class="container-fluid">
+
+
+        <div class="row">
+          <div class="col-sm-3" ></div>
+          <div class="col-sm-6"  align="center"><i><small>To view your pay slip, select payroll period and click "Search" button.</small></i></div>
+          <div class="col-sm-2" ></div>
+   
+        </div>
+
+
+        <br>
+
+        <div class="container-fluid">
+
+
+        <div class="row">
+                <div class="col-sm-4" align="right" >
+            
+                    <div class="dropdown pc-menu" align="right" >
+                       <strong> <font id="asterisk">*</font> Payroll Period:</strong>    
+                    </div>
+
+                    <div class="mobile-menu" align=" left" >
+                       <strong> <font id="asterisk">*</font> Payroll Period:</strong>    
+                    </div>
+
+                </div>
+
+
+                <div class="col-sm-2" align="left">
+             
+
+                  <%= form_tag(pay_processed_payroll_us_path, method: :get) do %>
+                  <%= collection_select( :search, 'PayDate', @getpayrollperiodrecord, :PayDate, :PayDate , {:prompt => true}, {:class => 'form-control'}) %>
+
+                <br>
+                </div>
+
+                <div class="mobile-menu" align=" left" >
+                  <br>
+                </div>
+
+
+
+         
+                <div class="col-sm-2" >
+                <%= submit_tag 'Search ', class: "btn btn-primary  btn-block"  %> 
+                <% end %>
+                </div>
+
+                <div class="mobile-menu" align=" left" >
+                  <br>
+                </div>
+
+  
+                 <div class="col-sm-2" align="left"> 
+                <% if @a == 'NO' %>
+                <%= button_to "Generate PDF", pay_processed_payroll_us_path, class: "btn btn-primary  btn-block disabled", :disabled => true, method: :get%>
+                <% else %>
+                <%= link_to "Generate PDF", @pdfpath, class: "btn btn-primary  btn-block",target: "_blank", :title => 'Generate PDF', :rel => 'tooltip'  %>
+                <% end %>
+
+                 </div>
+
+
+        </div>
+ 
+
+
+        </div>
+
+    <hr>
+
+  <div class="row">
+    <div class="col-sm-8" >
+      <!---start mobile -->
+      <div class="mobile-menu"  >
+
+        <table width="100%">
+            <tr>
+              <td width="50%"><strong></strong></td>
+             
+              <td width="50%" align="left"><b><small></small></b></td>
+            </tr>
+            <tr>
+              <td><strong>Employee Number:</strong></td>
+              <td align="left">
+                <span ><%= @PisEmployeeU[:EmployeeNumber]  %></span></td>
+            </tr>
+            <tr>
+              <td><strong>Employee Name:</strong></td>
+              <td align="left">
+                <span ><%=  @PisEmployeeU[:Description] %>
+
+                </span></td>
+            </tr>
+            <tr>
+
+              <% if @PisEmploymentInfoU[:EmployeeGroupRefNo] == 1 #checkdepartment%>
+
+                 <td><strong>Department:</strong></td>
+                <td align="left">
+                  <span >
+                    <%= GenDepartmentM.where(DepartmentRefNo: @PisEmploymentInfoU[:DepartmentRefNo]).pluck(:Description).to_sentence%>
+                  </span>
+                </td>
+
+              <% else %>
+
+                <td><strong>Client Name:</strong></td>
+                <td align="left">
+                  <span ><%= GenClientAccountM.where(ClientAccountRefno: @PisEmploymentInfoU[:ClientAccountRefNo]).pluck(:Description).to_sentence %> 
+
+                    </span>
+                  </td>
+
+
+              <% end %>
+
+
+              
+            </tr>
+
+
+            <% if @PisEmploymentInfoU[:EmployeeGroupRefNo] == 1 #check Department%>
+
+              <tr>
+                <td><strong>Position:</strong></td>
+                <td> <%= @get_job_position_int %> </td>
+              </tr>
+
+
+            <% else %>
+
+              <tr>
+                <td><strong>Position:</strong></td>
+                <td> <%= @PisEmploymentInfoU[:JobPosition] %> </td>
+              </tr>
+
+            <% end %>
+
+
+
+      </table>
+      </div>
+      <!-- end mobile -->
+
+      <!--- start desk -->
+      <div class="dropdown pc-menu" align="left" >
+        <table width="100%">
+            <tr>
+              <td width="23%"><strong></strong></td>
+             
+              <td width="70%" align="left"><b><small></small></b></td>
+            </tr>
+            <tr>
+              <td><strong>Employee Number:</strong></td>
+              <td align="left">
+                <span ><%= @PisEmployeeU[:EmployeeNumber]  %></span></td>
+            </tr>
+            <tr>
+              <td><strong>Employee Name:</strong></td>
+              <td align="left">
+                <span > <%=  @PisEmployeeU[:Description] %>
+
+                </span></td>
+            </tr>
+            <tr>
+
+              <% if @PisEmploymentInfoU[:EmployeeGroupRefNo] == 1 #check Department%>
+
+                 <td><strong>Department:</strong></td>
+                <td align="left">
+                  <span >
+                     <%= GenDepartmentM.where(DepartmentRefNo: @PisEmploymentInfoU[:DepartmentRefNo]).pluck(:Description).to_sentence%>
+
+                    </span></td>
+
+              <% else %>
+
+                <td><strong>Client Name:</strong></td>
+                <td align="left">
+                  <span ><%= GenClientAccountM.where(ClientAccountRefno: @PisEmploymentInfoU[:ClientAccountRefNo]).pluck(:Description).to_sentence %> 
+                    </span>
+                  </td>
+
+              <% end %>
+            </tr>
+
+
+            <% if @PisEmploymentInfoU[:EmployeeGroupRefNo] == 1 #check Department%>
+
+              <tr>
+                <td><strong>Position:</strong></td>
+                <td> <%= @get_job_position_int %> </td>
+              </tr>
+
+
+            <% else %>
+
+              <tr>
+                <td><strong>Position:</strong></td>
+                <td> <%= @PisEmploymentInfoU[:JobPosition] %> </td>
+              </tr>
+
+            <% end %>
+
+
+            
+
+      </table>
+                        
+      </div>
+
+      <!--- end desk -->
+
+
+      
+    </div>
+    
+    <div class="col-sm-4" >
+        <table width="100%">
+            <tr>
+              <td width="50%"><strong></strong></td>
+             
+              <td width="50%" align="left"><b><small></small></b></td>
+            </tr>
+
+            <tr>
+              <td><strong>Payroll Period:</strong></td>
+              <td align="left">
+                <span ><%= @payrolldate %></span>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td><strong>Cut-off Date:</strong></td>
+              <td align="left">
+                <span ><%= @cutoffdates  %></span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Payroll Rate:</strong></td>
+              <td align="left">
+                <span ><%= @PayrollRate.to_sentence %>
+
+                </span> 
+              </td>
+            </tr>
+            <tr>
+              <td><strong> </strong></td>
+              <td align="left">
+               
+              </td>
+            </tr>
+            <tr>
+              
+            </tr>
+
+            <tr>
+              <!-----Start Leaves Section  MODAL -->
+              <td id="hide">
+                <% if @PisEmploymentInfoU[:EmployeeGroupRefNo] == 1 %>
+
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#13thModal">
+                    My 13th Month Pay
+                  </button>
+
+                <% end %>
+
+
+
+              <!-- 13Modal -->
+              <div class="modal fade" id="13thModal" tabindex="-1" role="dialog" aria-labelledby="13thModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+
+                    <div class="modal-body">
+                      <iframe src="/thirteenmonth" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              </td>
+              <td align="left" >
+                <span >
+                  <a id="myBtnx" class ="pointer" ><i><u>*See Leave Balances</u></i></a>
+                  <!-- The Modal -->
+                  <div id="myModal" class="modal">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                        <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h4 class="modal-title" align="center"><strong>Leave Balances</strong></h4>
+                        </div>
+
+                        <div class="modal-body">
+
+
+           
+                          <table width="100%" >
+                            <tr>
+
+                           
+                            <div class="dropdown pc-menu">
+                              <div class="row">
+                            
+                                <div class="col-sm-4" align="center"><strong>Type of Leave</strong></div>
+                                <div class="col-sm-4" align="center"><strong>Total Leaves Available</strong></div>
+                                <div class="col-sm-4" align="center"><strong>Used Leaves</strong></div>
+                              </div>
+                            </div>
+                            </tr>
+                          </table>
+
+        
+
+                      <table width="100%" class="table">
+
+
+                        <% getleavetype = ViewLeaveDetailsPortal.where(EmployeeRefNo: @emprefno) #start outer loop %>
+                        <% counter = 0 %>
+                        <% getleavetype.each do |type1|%>
+                        <% counter = counter++1 %>
+                      <tr>
+
+                      <td>
+                      
+                      <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                           <div class="row">
+
+
+                            <div class="col-sm-4"  >
+                              <small> 
+                                 <strong><a id="leavelabel" data-toggle="collapse" href= #<%= "#{counter}"%>> <%= type1.LeaveType%></a> </strong> 
+                                 
+                              </small>
+                            </div>
+
+                            <div class="mobile-menu">
+                              <div class="col-sm-4" align="center">
+                     
+                                  <% getleaveavail1 = type1.LeaveAvailables.to_f %>
+                                  <small><strong>Available Leaves: <%=  getleaveavail1.to_s(:currency).gsub("$",'')%> day/s</strong></small>
+               
+                              </div>
+                            </div>
+
+                             <div class="dropdown pc-menu">
+                              <div class="col-sm-4" align="center" >
+                                <small>
+                                  <% getleaveavail1 = type1.LeaveAvailables.to_f %>
+                                  <strong><%=  getleaveavail1.to_s(:currency).gsub("$",'')%> day/s</strong>
+                                </small>
+                              </div>
+                            </div>
+
+                            <div class="col-sm-4" align="center">
+                               <small><u> <strong> <a id="leavelabel" data-toggle="collapse" href= #<%= "#{counter}"%>> View </a> </strong> 
+                                    </u> </small>
+                            </div>
+                    
+                          </div>
+                        </h4>
+                      </div>
+                      <br>
+                      <div id = <%="#{counter}"%> class="panel-collapse collapse">
+
+                          <div><small><strong>Used Leaves Details:</strong></small></div>
+
+
+                        <table width="100%" class="table table-bordered">
+                                    <tr>
+                                      <small>
+                                      <td width="20%" align="left"><b><strong>Date Filed</strong></b></td>
+                                      <td width="5%" align="left"><b><strong>Hrs.</strong></b></td>
+                                      <td width="30%" align="left"><b><strong>Reason</strong></b></td>
+                                      </small>  
+                                    </tr> 
+
+                                    <% getleaves = TmsLeaveApplicationU.where(EmployeeRefNo: @emprefno, LeaveTypeRefNo: type1.LeaveTypeRefNo, FilingStatusRefNo: 4 ) #start inner loop%>
+                                    <% getleaves.each do |type2|%>
+
+                                    <tr>
+                                      <td width="20%" align="left"><b><small>
+                                        <%  getworkdate1 = type2.WorkDate %>
+                                        <%= getworkdate1.to_date.strftime("%m/%d/%Y") %>
+                                        </small></b>
+                                      </td>
+                                      <td width="5%" align="left"><b><small><%= type2.Hours %></small></b></td>
+                                      <td width="30%" align="left"><b><small><%= type2.Reason %></small></b></td>  
+                                    </tr>                                  
+                            <% end #END OF INNER LOOP%>
+                        </table>
+                      </div>
+
+                      </div>
+                      </div>
+
+                      </td>
+                
+                      </tr>
+                 
+                       <% end # end of OUTER loop%>  
+
+                      </table>
+
+
+                      </div><!--- end modal body -->
+
+
+                      </div><!---- end modal content -->
+                 
+                      </div>
+                      </div>
+                      </span>
+                      </td>
+                      </tr>
+                      </table>
+                      </div>
+                      </div> 
+
+                       <%= javascript_include_tag 'pay_processed_payroll_u' %>
+
+                      <hr>
+
+
+  <% if @getemppay.blank?%>
+
+  <div class="row">
+    <div class="col-sm-2" >
+     <!---empty-->
+    </div>
+
+     <div class="col-sm-8" align="center">
+      <br>
+      <br>
+      <br>
+
+          <h1>No Payroll Record.</h1>      
+    </div>
+
+    <div class="col-sm-2" >
+     <!---empty-->
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  
+  <%else%>
+
+        <!---third row-->
+ 
+
+          <div class="row">
+              
+              <div class="col-sm-4" >
+              
+              <table width="100%">
+                <tr>
+                  <td width="50%"><strong>Basic Rate</strong></td>
+                 
+                  <td width="40%" align="right"><%=  number_with_precision( @hashBasicPay[0][:BasicRate], :precision => 2, :delimiter => ',')%> </td>
+                </tr>
+
+              </table>
+              <br>
+
+                
+
+              <table width="100%">
+
+                     
+
+                     <tr>
+                      <td width="50%"><strong></strong></td>
+                     
+                      <td width="40%" align="right"><b><small></small></b></td>
+                    </tr>
+
+                    <tr>
+                      <td width="50%"><strong>Earnings</strong></td>
+                     
+                      <td width="40%" align="right"><b><small></small></b></td>
+                    </tr>
+                    <tr>
+                      <td>Basic Pay:</td>
+                      <td align="right">
+                        <span >
+                          <%= number_with_precision(@hashBasicPay[0][:BasicPay], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                    </tr>
+                    <tr>
+                      <td>ECOLA:</td>
+                      <td align="right">
+                        <span >
+                          <%= number_with_precision(@hashBasicPay[0][:E], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                    </tr>
+                    <tr>
+                      <td> <!--- empty ---></td>
+                      <td align="right">
+                        
+                      </td>
+                    </tr>
+                  </table>
+
+          
+                  <br>
+                
+                 <!--  start condition checker if there are any Earnings value -->   
+                <% if @totalearnings <=0 %>
+
+                  <table id="hidden" width="100%">
+                    <tr>
+                      <td width="50%"><strong></strong></td>
+                      <td width="30%" align="right"><b><small></small></b></td>
+                      <td width="20%" align="right"><b><small></small></b></td>
+                    </tr>
+            
+                  </table>
+
+
+                  <% else %>
+
+                  <!--   -->   
+                  <table id="Earningstable" width="100%">
+                    <tr>
+                      <td width="50%"><strong>Other Earnings</strong></td>
+                      <td width="30%" align="right"><b><small></small></b></td>
+                      <td width="20%" align="right"><b><small>Amount</small></b></td>
+                    </tr>
+              
+                    <!-- condition checking if other income tax exist  -->
+                  <% if @getifotherincometaxexist <= 0 %>
+
+                    <tr id="hidden">
+                      
+                    </tr>
+
+                  <% else %>  
+
+                     <tr> <%  hashgetTAxableEarn = ViewEmployeePayItemHistory.where(ProcessedPayrollRefNo: @payrollrefid, EmployeeRefNo: @emprefno, IsTaxable: 1, IsDeduction: 0 ) %>
+
+                       <% hashgetTAxableEarn.each do |hashgetTAxableEarn|%>
+
+                      <td>  
+
+                        <%= hashgetTAxableEarn.PayItem %> (Tax)
+                      </td>
+                      <td> <!--empty --></td>
+                      <td align="right">
+                        <span ><%= hashgetTAxableEarn.PAYITEMAMOUNT %></span>
+                      </td>
+                    </tr>
+                    <% end %>
+                  <% end %>  
+
+                    <tr>
+                      <td></td>
+                      <td align="right">
+                        <span >
+                        </span></td>
+                    </tr>
+
+                    <!-- condition checking if other non income tax exist  -->
+                    <% if @getifotherincomenontaxexist <= 0 %>
+                    
+                    <tr id="hidden"">
+                      
+                    </tr>  
+
+                    <% else %>
+
+                     <tr>  <% hashgetNonTaxableEarn = ViewEmployeePayItemHistory.where(ProcessedPayrollRefNo: @payrollrefid, EmployeeRefNo: @emprefno, IsTaxable: 0, IsDeduction: 0 ) %>
+
+                       <% hashgetNonTaxableEarn.each do |hashgetNonTaxableEarn|%>
+
+                      <td><%= hashgetNonTaxableEarn.PayItem %> (Non-Tax) </td>
+                      <td><small></small></td>
+                      <td align="right">
+                        <span ><%= hashgetNonTaxableEarn.PAYITEMAMOUNT %></span>
+                      </td>
+                    </tr>
+                      <% end %>
+                    <% end %>  
+
+                  </table>
+
+
+                       <!-- start grandtotal other earnings -->
+                  <table id="Earningstable" width="100%">
+                    <tr>
+                      <td width="50%"><strong>Total Earnings</strong></td>
+                      <td width="30%" align="right"><b><small></small></b></td>
+                      <td width="20%" align="right"><b> <%= number_with_precision(@totalearnings, :precision => 2, :delimiter => ',')  %> </b></td>
+                    </tr>
+                   </table> 
+                    <!-- end grandtotal other earnings -->
+
+
+                  <% end %>
+
+            
+
+                  <!--  end of condition checker if there are any Earnings value --> 
+             
+
+                  <br>
+                  
+                  <!-- Start Overtime --->
+                  <% if  @getovertimeexist <= 0 %>
+
+                  <table id="hidden"  width="100%">
+                    <tr>
+                      <!-- empty --->
+                    </tr>
+                  </table>
+
+                  <% else %>
+
+                   <table  width="100%">
+                    <tr>
+                      <td width="50%"><strong>Overtime</strong></td>
+                      <td width="30%" align="right"><b>Hrs.</b></td>
+                      <td width="20%" align="right"><b>Amount</b></td>
+                    </tr>
+
+                 
+
+                    <%@getOTs.each do|ots| %>
+                    <tr>
+                      <td width="50%"><%= ots.OTCode%> (<%= number_with_precision(ots.Rate, :precision => 2, :delimiter => ',')%>)</td>
+                      <td width="30%" align="right"><%= number_with_precision(ots.Hours, :precision => 2, :delimiter => ',')%></small></td>
+                      <td width="20%" align="right"><%= number_with_precision(ots.OTPay, :precision => 2, :delimiter => ',') %></td>
+
+                       <% end %>
+                    </tr>
+
+                   
+                  </table>
+                  <div>
+                    <table  width="100%">
+                    <tr>
+                      <td width="50%"><strong>Total Overtime:</strong></td>
+                      <td width="30%" align="right"><b><small></small></b></td>
+                      <td width="20%" align="right"><%= number_with_precision(@getovertimeexist, :precision => 2, :delimiter => ',') %></td>
+                    </tr>
+                  </table>
+                
+                  </div>
+
+                  <% end %>
+
+
+                  <!--- End Overtime -->
+
+                  <br>
+            
+          </div>
+
+            <div class="col-sm-4" >
+              <table width="100%">
+                    <tr>
+                      <td width="50%"><strong>Deductions</strong></td>
+                      <td width="30%" align="right"><b><small>Hrs.</small></b></td>
+                      <td width="20%" align="right"><b><small>Amount</small></b></td>
+                    </tr>
+                    <tr>
+                      <td>Absences:</td>
+                      <td align="right">
+                        <span >
+                           <%= number_with_precision(@DeductTmsTimeSummaryHdrC[:AH], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                      <td align="right">
+                        <span>
+                          <%= number_with_precision(@DeductPayProcessedPayrollC[:AH], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                    </tr>
+                    <tr>
+                      <td>Late/Tardiness</td>
+                      <td align="right">
+                        <span>
+                           <%= number_with_precision(@DeductTmsTimeSummaryHdrC[:LH], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                      <td align="right">
+                        <span >
+                          <%= number_with_precision(@DeductPayProcessedPayrollC[:LH], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                    </tr>
+                    <tr>
+                      <td>Undertime</td>
+                      <td align="right">
+                        <span >
+                           <%= number_with_precision(@DeductTmsTimeSummaryHdrC[:UT], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                      <td align="right">
+                        <span >
+                           <%= number_with_precision(@DeductPayProcessedPayrollC[:UT], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                    </tr>
+                    <tr>
+                      <td>LWOP</td>
+                      <td align="right">
+                        <span >
+                          <%= number_with_precision(@DeductTmsTimeSummaryHdrC[:LWOP], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                      <td align="right">
+                        <span >
+                          <%= number_with_precision(@DeductPayProcessedPayrollC[:LWOP], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                    </tr>
+                    <tr>
+                      <td>SSS Contribution</td>
+                      <td align="right">
+                        <span ></span></td>
+                      <td align="right">
+                        <span id="MainContent_SSS">
+                           <%= number_with_precision(@DeductPayProcessedPayrollC[:SSS_EE], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>PhilHealth Contribution</td>
+                      <td align="right">
+                        <span ></span></td>
+                      <td align="right">
+                        <span id="MainContent_Philhealth">
+                          <%= number_with_precision(@DeductPayProcessedPayrollC[:PhilHealth_EE], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>PAGIBIG Contribution</td>
+                      <td align="right">
+                        <span ></span></td>
+                      <td align="right">
+                        <span id="MainContent_PagIBIG">
+                           <%= number_with_precision(@DeductPayProcessedPayrollC[ :Pagibig_EE], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Withholding Tax</td>
+                      <td align="right">
+                        <span ></span></td>
+                      <td align="right">
+                        <span id="MainContent_WithholdingTax">
+                          <%= number_with_precision(@DeductPayProcessedPayrollC[ :WithHoldingTax], :precision => 2, :delimiter => ',') %>
+                        </span></td>
+                      <td></td>
+                    </tr>
+        
+
+                    <tr>
+                      <td colspan="3" style="padding-left: 15px;">
+
+
+                      </td>
+                    </tr>
+                  </table>
+
+                  <br>
+
+                  <!-- START OTHER DEDUCTION -->
+                  <% totalded = [@getotherdeductiontotals[0][:D_Total_OtherDeduction].to_f, @getotherdeductiontotals[0][:D_Total_FixedDeduction].to_f].sum %>
+
+                  <% if  totalded <= 0 %>
+                    <!--empty -->                  
+                  <% else %>
+
+                    <table width="100%">
+                      <tr>
+                        <td width="60%"><strong>Other Deduction </strong></td>
+                        <td width="20%" align="right"><b><small></small></b></td>
+                        <td width="20%" align="right"><b><small>Amount</small></b></td>
+                      </tr>
+
+         
+                          <% @getotherdeductiontaxable.each do | getotherdeductiontaxable|%>
+                       
+			<tr>
+			 <td align="left">
+                          <%= getotherdeductiontaxable.PayItem %>
+                        </td>
+                        <td>
+                          <!--empty -->
+                        </td>
+
+                        <td align="right"> 
+                           <%= getotherdeductiontaxable.PAYITEMAMOUNT %>
+                        </td>
+                          
+                      </tr>
+
+			<% end %>
+                      
+                        <% @getotherdeductionnontaxable.each do | getotherdeductionnontaxable|%>
+                       
+		      <tr>
+			 <td align="left">
+                          <%= getotherdeductionnontaxable.PayItem %>
+                        </td>
+
+                        <td><!--empty --></td>
+
+                        <td align="right"> 
+                           <%= getotherdeductionnontaxable.PAYITEMAMOUNT %>
+                        </td>
+                          
+                      </tr>
+
+			<% end  %>
+                    </table>
+                  <% end %>
+                  <!-- End OTHER DEDUCTION -->
+
+                  <br>
+
+                    <% if @getnumberofloans <= 0 %>
+                    <table id="hidden" width="100%">
+                       <tr>
+                       <td width="50%" align="left"><b>Loans</b></th> 
+                       <td width="30%" align="right"><b><small>Bal.</smallx></b></th> 
+                       <td width="20%" align="right"><b><small>Amount</smallx></b></th>     
+                      </tr>
+                  </table>
+
+                      <% else %>
+
+                  <table width="100%">
+                   
+                       <tr>
+                       <td width="50%" align="left"><b>Loans</b></th> 
+                       <td width="30%" align="right"><b><small>Bal.</small></b></th> 
+                       <td width="20%" align="right"><b><small>Amount</small></b></th>     
+                      </tr>
+
+
+                        
+                    <tr>
+                      <% @getsetloan.each do |ff|%>
+                      <td >
+
+                          <% getloanapprefno = ff.LoanApplicationRefNo %>
+                          <% getloantype = PayLoanApplicationU.where(LoanApplicationRefNo: getloanapprefno, EmployeeRefNo: @emprefno).pluck(:LoanTypeRefNo).to_sentence %>
+                          <% if  getloantype.to_i == 1 %>
+                          <%= "SSS "%>
+                          <% elsif getloantype.to_i == 2 %>
+                          <%= "PAGIBIG " %>
+                          <% elsif getloantype.to_i == 3 %>
+                          <%= "Clear Loan " %>
+                          <% elsif getloantype.to_i == 4 %>
+                          <%= "Provident Fund " %>
+                          <% elsif getloantype.to_i == 7 %>
+                          <%= "Bank Salary Loan " %>
+                          <% else %>
+                          <%= "Others" %>
+                       
+                          <% end %>
+
+
+                      </td>
+
+                      <td align="right"> 
+                         <% loanbal = ff.LoanBalance%>
+                         <%= number_with_precision(loanbal.to_f, :precision => 2, :delimiter => ',') %>
+                      </td>
+
+                       <td align="right"> 
+                         <% loandeduc = ff.LoanDeduction%>    
+                         <%= number_with_precision(loandeduc.to_f, :precision => 2, :delimiter => ',') %>            
+                      </td>
+                    </tr>
+                     <% end %>
+                  </table>
+
+
+                      <% end %>
+                  
+                  <% if @getnumberofloans <= 0 %>
+                  <table id = "hidden" width="100%">
+                    <tr>
+                      <td width="50%"><strong></strong></td>
+                      <td width="30%" align="right"><b><small></small></b></td>
+                      <td width="20%" align="right"><b><small></small></b></td>
+                    </tr>
+                    
+                  </table>
+
+                  <% else %>
+
+                  <table width="100%">
+                    <tr>
+                      <td width="50%"><strong></strong></td>
+                      <td width="30%" align="right"><b><small></small></b></td>
+                      <td width="20%" align="right"><b><small></small></b></td>
+                    </tr>
+                    <tr>
+                      <td><STRONG>TOTAL LOANS</STRONG></td>
+                      <td align="right"><%=number_with_precision(@getloanbalsum.to_f, :precision => 2, :delimiter => ',') %>
+                        
+                      </td>
+                      
+                      <td align="right"><%=number_with_precision(@getloanamtsum.to_f, :precision => 2, :delimiter => ',')%>
+                      </td>
+                    </tr>
+                  </table>
+
+                    <% end %>
+
+                  <br>
+            
+
+          </div>
+
+            <div class="col-sm-4" >
+              <table width="100%">
+                    <tr>
+                      <td width="50%"><strong><span >GROSS PAY:</span></strong></td>
+                      <td align="right"><strong>
+                        <span ><%= number_with_precision(@GrandTotals[:GrossNetPay], :precision => 2, :delimiter => ',') %></span>
+                      </strong></td>
+                    </tr>
+
+                     <tr>
+                      <td width="50%"><strong><span >DEDUCTIONS:</span></strong></td>
+                      <td align="right"><strong>
+                        <span ><%= number_with_precision(@GrandTotals[:TotalDeductions], :precision => 2, :delimiter => ',') %></span>
+                      </strong></td>
+                    </tr>
+
+                    <tr>
+                      <td width="50%"><strong><span >TAXABLE INCOME:</span></strong></td>
+                      <td align="right"><strong>
+                        <span ><%= number_with_precision(@GrandTotals[:TaxableIncome], :precision => 2, :delimiter => ',') %></span>
+                      </strong></td>
+                    </tr>
+
+                    <tr>
+                      <td width="50%"><strong><span id="totallabel">NET PAY:</span></strong></td>
+                      <td align="right"><strong>
+                      <span id="totallabel"><%= number_with_precision(@GrandTotals[:NetPay], :precision => 2, :delimiter => ',') %></span> 
+                    </strong></td>
+                    </tr>
+
+                    
+                  </table>
+
+                  <br>
+                  <br>
+          
+           </div>
+          </div>
+        </div>
+
+        <!---end third row-->
+
+  <%end %>
+
+
+
+ <div class="row">
+    <div class="col-sm-3" >
+      
+    </div>
+    <div class="col-sm-6"  align="center">
+      <small><i>*Please <%= link_to "Contact Us", new_contactpage_path, target: "_blank"   %> if you have any inquiries or questions.</i></small> 
+    </div>
+    <div class="col-sm-3">
+     
+    </div>
+
+
+  </div>
+
+<br>
+<br>
+<br>
+
+<script type="text/javascript">
+
+  // Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtnx");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
+
+</script>
+
+
+
+
+
+
+
+</body> 
+</html>

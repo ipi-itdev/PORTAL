@@ -1,0 +1,37 @@
+// Place all the styles related to the LeaveCredits controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+* {box-sizing: border-box}
+
+/* Style tab links */
+.tablink {
+  background-color: white;
+  color: black;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 12px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: white;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: black;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+#Home {background-color: white; }
+#News {background-color: white;}
+#Contact {background-color: white;}
+#About {background-color: orange;}
+

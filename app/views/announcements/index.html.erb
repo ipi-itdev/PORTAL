@@ -1,0 +1,167 @@
+<%if current_user.IsAdmin == true #is Admin%>
+
+  <div class="container-fluid">
+  
+  <div class="row">
+    <div class="col-sm-2" >
+
+    </div>
+
+    <div class="col-sm-8" >
+      <h2> </h2>
+      <div class="panel panel-info" id="panelframe">
+        <div class="panel-heading" id='panelheader'><h1 align="center"><i class="fas fa-bullhorn"></i>Announcements</h1></div>
+        <div class="panel-body">
+          <!--<p id="notice"><%= notice %></p> -->
+
+              <div class="row">
+                <div class="col-sm-3" >
+                  <%= link_to 'New Announcement', new_announcement_path, class:'btn  btn-success btn-block' %>
+                </div>
+                <div class="col-sm-9" >
+            
+                </div>
+              </div>
+          
+            
+
+              <div class="table-responsive">   
+                  <table class="table   table-responsive " width="100%"">
+                    <thead>
+                    <tr>
+           
+                      <th></th>
+                      <th>Announce to</th>
+                      <th>Post?</th>
+                      <th colspan="4"></th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <% @announcements.each do |announcement| %>
+                      <tr>
+      
+                        <td>
+
+                          <% if announcement.IsImportant == true %>
+                            <h1><%= link_to announcement.title, announcement, class:"text-danger" %> <%= image_tag("/important.png", :alt => "important", width: "70", height:"70") %></h1>
+                             <small>Posted by: IPI<%= PisEmployeeU.where(EmployeeRefno: announcement.EmployeeRefNo).pluck(:Description).to_sentence %>, <% announcedate = announcement.created_at.to_date %> <%= announcedate.strftime("%B %d, %Y ")%> @ <% announcetime = announcement.created_at.to_time %> <%= announcetime.strftime("%I:%M%p")%>
+                              
+                             </small>
+                          <% else %>
+                            <h1><%= link_to announcement.title, announcement %> </h1>
+                             <small>Posted by: IPI<%= PisEmployeeU.where(EmployeeRefno: announcement.EmployeeRefNo).pluck(:Description).to_sentence %>, <% announcedate = announcement.created_at.to_date %> <%= announcedate.strftime("%B %d, %Y ")%> @ <% announcetime = announcement.created_at.to_time %> <%= announcetime.strftime("%I:%M%p")%>
+                              
+                             </small>
+                          <% end %>
+                          
+                          <!--<%= raw sanitize(announcement.message[0..100]) %> <%= link_to 'Continue Reading...', announcement %> -->
+                 
+                        </td>
+                        
+                        <td>
+
+                
+                            
+                        </td>
+                        <td><%= announcement.post %></td>
+     
+                        <td><%= link_to '', edit_announcement_path(announcement), class: "fas fa-edit", :title => 'Edit', :rel => 'tooltip' %></td>
+                        <td><%= link_to '', announcement, method: :delete, class: "fas fa-trash-alt", :title => 'Remove', :rel => 'tooltip' ,data: { confirm: 'Are you sure?' } %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                    
+                  </table>
+              </div>
+  
+        </div>
+        <div class="panel-footer">
+        </div>
+      </div>
+
+    
+    </div>
+
+    <div class="col-sm-2" >
+     
+    </div>
+  </div>
+</div>
+
+<%else #not admin%>
+<div class="container-fluid">
+  
+  <div class="row">
+    <div class="col-sm-2" >
+
+    </div>
+
+    <div class="col-sm-8" >
+      <h2> </h2>
+      <div class="panel panel-info" id="panelframe">
+        <div class="panel-heading" id='panelheader'><h1 align="center"><i class="fas fa-bullhorn"></i>Announcements</h1></div>
+        <div class="panel-body">
+          <!--<p id="notice"><%= notice %></p> -->
+
+     
+                  <table class=" table   table-responsive " width="100% ">
+                    <thead>
+                    <tr>
+           
+                      <th></th>
+                      <th></th>
+                      <th colspan="3"></th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <% @announcements.each do |announcement| %>
+                      <tr>
+      
+                        <td>
+
+                          <% if announcement.IsImportant == true %>
+                            <h1><%= link_to announcement.title, announcement, class:"text-danger" %> <%= image_tag("/important.png", :alt => "important", width: "70", height:"70") %></h1>
+                             <small>Posted by: IPI, <% announcedate = announcement.created_at.to_date %> <%= announcedate.strftime("%B %d, %Y ")%> @ <% announcetime = announcement.created_at.to_time %> <%= announcetime.strftime("%I:%M%p")%>
+                              
+                             </small>
+                          <% else %>
+                            <h1><%= link_to announcement.title, announcement %> </h1>
+                             <small>Posted by: IPI, <% announcedate = announcement.created_at.to_date %> <%= announcedate.strftime("%B %d, %Y ")%> @ <% announcetime = announcement.created_at.to_time %> <%= announcetime.strftime("%I:%M%p")%>
+                              
+                             </small>
+                          <% end %>
+                          
+                          <!--<%= raw sanitize(announcement.message[0..100]) %> <%= link_to 'Continue Reading...', announcement %> -->
+                 
+                        </td>
+              
+                        
+     
+                       
+                      </tr>
+                    <% end %>
+                  </tbody>
+                    
+                  </table>
+        
+  
+        </div>
+        <div class="panel-footer">
+        </div>
+      </div>
+
+    
+    </div>
+
+    <div class="col-sm-2" >
+     
+    </div>
+  </div>
+</div>
+<% end %>
+
+<br>
+<br>
+<br>

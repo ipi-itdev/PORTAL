@@ -1,0 +1,126 @@
+<div class="container-fluid">
+
+
+
+  <div class="row">
+    <div class="col-sm-1" >
+      <!--- empty -->
+        
+    </div>
+
+    <div class="col-sm-2" >
+
+        <div class="panel panel-warning" id="panelframex" style="position:fixed;">
+          <div class="panel-heading" align="center" id="panelheader"><h4><i class="fas fa-video"></i> Add New Video</h4></div>
+          <div class="panel-body" align="left">
+            
+            <small><%= link_to 'Back', por_media_path %></small>
+           
+          </div>
+        </div>      
+    </div>
+
+
+    <div class="col-sm-8" >
+      <div class="panel panel-warning" id="panelframe">
+
+         <%= bootstrap_form_with(model: por_medium, local: true) do |form| %>
+          <% if por_medium.errors.any? %>
+            <div id="error_explanation">
+              <ul>
+              <% por_medium.errors.full_messages.each do |message| %>
+                        <div class="alert1" role="alert" align="center">
+                          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                          <p class="alert" align = 'center'><%= message %></p>
+                        </div>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+        <div class="panel-body">
+
+           <div class="row">
+
+            <div class="col-sm-6" >
+              <%= form.text_field :title, label: '*Title' %>
+
+            </div>
+            <div class="col-sm-6" >
+              <%= form.text_area :description, label: '*Description / Disclaimer' %>
+              
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6" >
+              <%= form.text_field :mediapath, label: '*Media path' %>
+            </div>
+            <div class="col-sm-2" >
+              <br>
+              <%= form.check_box :isactive, label: 'Is Active?' %>
+            </div>
+            <div class="col-sm-2" >
+              <br>
+              <%= form.check_box :isrequired, label: 'Is Required?'%>
+          
+            </div>
+                    <div class="col-sm-2" >
+              <br>
+              <%= form.number_field :media_seq_refno, label: 'Sequence No.', min: '1'%>
+          
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3" >
+                <%= form.submit 'Save', class: "btn btn-primary btn-block" %>
+            </div>
+            <div class="col-sm-3" >
+
+            </div>
+            <div class="col-sm-6" >
+
+            
+          
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="col-sm-1" >
+          
+       <% end %> 
+      <!---empty -->
+    </div>
+
+    
+  </div>
+
+
+</div>
+
+<br>
+<br>
+<br> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

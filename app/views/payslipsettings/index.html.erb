@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Payslipsettings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Value</th>
+      <th>Path</th>
+      <th>Show</th>
+      <th>Note</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payslipsettings.each do |payslipsetting| %>
+      <tr>
+        <td><%= payslipsetting.description %></td>
+        <td><%= payslipsetting.value %></td>
+        <td><%= payslipsetting.path %></td>
+        <td><%= payslipsetting.show %></td>
+        <td><%= payslipsetting.note %></td>
+        <td><%= link_to 'Show', payslipsetting %></td>
+        <td><%= link_to 'Edit', edit_payslipsetting_path(payslipsetting) %></td>
+        <td><%= link_to 'Destroy', payslipsetting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Payslipsetting', new_payslipsetting_path %>

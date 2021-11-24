@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+
+</head>
+<body>
+
+<div class="container-fluid">
+  
+  <div class="row">
+    <div class="col-sm-2" >
+
+    </div>
+    <div class="col-sm-8" >
+
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader">
+          <div class="row">
+            <div class="col-sm-9" >
+              <strong><i class="fas fa-money-check"></i>My TRE (Processed)</strong>
+            </div>
+
+            <div class="col-sm-3" >
+            
+            </div>
+          </div>
+
+         
+        </div>
+        <div class="panel-body">
+
+          <!--<p id="notice"><%= notice %></p>-->
+          <div class="table table-responsive ">
+          <table class="table" id="tre_expense_table" >
+            <thead>	
+              <tr>
+              	<th >ID</th>
+                <th >Employee</th>
+                <th >Duration</th>
+                <th >Total Amount</th>
+                <th >Replenishment Date</th>
+                <th >Date Received</th>
+                <th >Status</th>
+                <th ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @tre_processed.each do |tre_processed| %>
+                <tr>
+
+                	<td ><%= tre_processed.ID %></td>
+                	<td ><%= PisEmployeeU.where(EmployeeRefNo: tre_processed.CreatedBy ).pluck(:Description).to_sentence %></td>
+                	<td ><%= tre_processed.CreatedDate.strftime("%m/%d/%Y") %></td>
+                	<td ><%=  number_with_precision(tre_processed.Amount, :precision => 2, :delimiter => ',')%></td>
+                	<td ><%= tre_processed.ReplenishDate.strftime("%m/%d/%Y") %></td>
+                	<td >
+                		<% if tre_processed.ReceivedDate.blank? == true %>
+                			-
+                		<% else %>
+                			<%= tre_processed.ReceivedDate.strftime("%m/%d/%Y")	%>
+                		<% end %>
+                		
+                	</td>
+                	<td ><%=  GenFilingStatusF.where(FilingStatusRefNo: tre_processed.FillingStatusRefNo).pluck(:Description).to_sentence %></td>
+                	<td ><%= link_to 'View', tre_processed_show_path(tre_expense_id: tre_processed.ID ),  class: "btn btn-primary btn-sm" %></td>
+                 					
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+
+            <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+            <script>
+            $(function(){
+              $("#tre_expense_table").dataTable();
+            })
+            </script>
+
+          </div>
+          
+
+        </div>
+        
+      </div>
+
+    </div>
+    <div class="col-sm-2" >
+
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

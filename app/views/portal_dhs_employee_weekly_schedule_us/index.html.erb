@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+
+<style>
+
+
+@media screen and (min-width: 500px) {
+  .mobile-menu {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .pc-menu {
+    display: none !important;
+  }
+}
+
+#timestamp {
+  font-size: 9px;
+}
+
+
+</style>
+
+
+</head>
+<body onload="onloadFunction()">
+
+
+
+
+<div class="container-fluid">
+
+
+<!-- <p id="notice" align="center" style="color: red;"><%= notice %></p> -->
+
+
+
+  <div class="row">
+    <div class="col-sm-3" >
+      
+    </div>
+    <div class="col-sm-6" >
+      <div class="panel panel-default" id="panelframe">
+
+        <div class="panel-heading" id="panelheader">
+
+          <strong>My Weekly Schedule</strong>
+        </div>
+
+        <div class="panel-body">
+
+          <div class="row">
+            <div class="col-sm-6" >
+
+                <table style="width:100%">
+                  
+                  <tr>
+                    <td>
+                      <div id="fix_sched_div">
+                        <%= hidden_field_tag :employeerefno, current_user.EmployeeRefNo %>
+                        <%= link_to 'Set default schedule'.html_safe, '/fixedschedulepage', class:'btn btn-primary btn-sm' %>                        
+                      </div>
+                    </td>
+
+                    <td align="center">
+
+                        <%= link_to 'My Timesheet'.html_safe, '/weekschedhist', class:'btn btn-primary btn-sm' %>
+
+                    </td>
+            
+                  </tr>
+        
+                </table>
+
+            </div>
+
+
+          </div>
+
+
+        <!---mobile -->
+        <div class="mobile-menu">
+
+
+        <table class="table table-bordered table-condensed" >
+
+          <tbody>
+            <% @weeksched.each do |weeksched|%>
+            
+            
+              <tr align="left">
+
+                <td>
+
+
+                  <% if weeksched.shift_start.blank? == false && weeksched.shift_end.blank? == false &&  weeksched.time_in.blank? == false && weeksched.IsRD == false %>
+
+                  <% else %>
+                    <small><%= link_to '<i class="far fa-edit" style="color: green;"></i>'.html_safe, "/portal_dhs_employee_weekly_schedule_us/#{weeksched.ID}/edit", :title => 'Edit Schedule', :rel => 'tooltip' %></small>
+                    <% weeksched.ID %>
+                  <% end %>
+                  
+
+
+                </td>
+
+                <td>
+                  <small>Workdate:</small>
+                  <br>
+                  Shifts:
+                  <br>
+                  Logs:
+                </td>
+
+                <td>
+                <small ><%= weeksched.WorkDate.to_date.strftime("%m/%d/%Y %a ") %>   </small>
+                <br>
+                  <% if weeksched.shift_start.blank? == true %>
+                      <!--nothing to do -->
+                  <% else %>
+                    <small id="timestamp"><%= weeksched.shift_start.strftime("%m/%d %H:%M") %></small>
+                  <% end %> 
+                  /
+                  <% if weeksched.shift_end.blank? == true %>
+                      <!--nothing to do -->
+                  <% else %>
+                    <small id="timestamp"><%= weeksched.shift_end.strftime("%m/%d %H:%M") %></small>
+                  <% end %>
+                <br>
+
+                  <% if weeksched.time_in.blank? == true %> 
+                    -
+                  <% else %>
+                    <small id="timestamp"><%= weeksched.time_in.strftime("%m/%d %H:%M") %></small>
+                  <% end %>
+                  /
+                  <% if weeksched.time_out.blank? == true  %>
+                  -
+                  <% else %>  
+                    <small id="timestamp"><%= weeksched.time_out.strftime("%m/%d %H:%M") %></small>
+                  <% end %>
+
+
+                </td>
+
+
+              </tr>
+
+
+              <% end %>
+            
+
+        </table>
+          
+
+        </div>
+        <!---mobile -->
+
+        <!---desktop--->
+        <div class="pc-menu">
+
+        <table  class="table table-bordered table-condensed">
+          <thead class="thead-dark" >
+            <div>
+            <tr align="center">
+              <th align="left"><small>Work Date</small></th>
+              <th align="center"><small>Is Rest Day?</small></th>
+              <th><small>Shift Start</small></th>
+              <th><small>Shift End</small></th>
+              <th><small>Time-in</small></th>
+              <th><small>Time-out</small></th>
+            </tr>
+            </div>
+
+          </thead>
+          <tbody>
+            <% @weeksched.each do |weeksched|%>
+            
+            
+              <tr align="left">
+
+                <td> 
+                  <small><%= weeksched.WorkDate.to_date.strftime("%m/%d/%Y %A ") %>  </small>
+                  <br>
+
+                  <% if weeksched.shift_start.blank? == false && weeksched.shift_end.blank? == false &&  weeksched.time_in.blank? == false && weeksched.IsRD == false %>
+
+                  <% else %>
+                    <small><%= link_to '<i class="far fa-edit"></i>'.html_safe, "/portal_dhs_employee_weekly_schedule_us/#{weeksched.ID}/edit", :title => 'Edit Schedule', :rel => 'tooltip' %></small>
+                    <% weeksched.ID %>
+                  <% end %>
+
+                </td>
+
+                <td align="center">
+                  <small>
+                    <% if weeksched.IsRD == true %>
+                      Yes
+                    <% else %>
+                      No
+                    <% end %>
+                  
+                    
+                  </small>
+                </td>
+
+                <td>
+                  <% if weeksched.shift_start.blank? == true %>
+                      <!--nothing to do -->
+                  <% else %>
+                    <small><%= weeksched.shift_start.strftime("%m/%d %H:%M") %></small>
+                  <% end %> 
+                  
+                </td>
+
+                <td>
+
+                  <% if weeksched.shift_end.blank? == true %>
+                      <!--nothing to do -->
+                  <% else %>
+                    <small><%= weeksched.shift_end.strftime("%m/%d %H:%M") %></small>
+                  <% end %> 
+                  
+                </td>
+
+                  <!-- start time in -->
+                <td>
+                  
+                  <% if weeksched.time_in.blank? == true %> 
+                    -
+                  <% else %>
+                    <small><%= weeksched.time_in.strftime("%m/%d %H:%M") %></small>
+                  <% end %>
+            
+                </td>
+                  <!-- end time in -->
+
+                  <!-- start time out -->
+                <td>
+
+                  <% if weeksched.time_out.blank? == true  %>
+                  -
+                  <% else %>  
+                    <small><%= weeksched.time_out.strftime("%m/%d %H:%M") %></small>
+                  <% end %>
+
+
+                </td>
+                  <!-- end time out -->
+
+              </tr>
+
+
+              <% end %>
+            
+
+        </table>           
+        </div>
+        <!---desktop--->
+
+
+        </div>
+      </div>
+
+
+
+      <br>
+
+
+    </div>
+
+    <div class="col-sm-3" >
+
+      <!-- empty -->
+
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  document.getElementById('fixed_sched_true').onclick = function() {
+    //$("#fixedschedButton").click();
+    $("#fixedschedlink").click();
+    //alert("test");
+    
+};
+</script>
+
+<script type="text/javascript">
+  document.getElementById('fixed_sched_false').onclick = function() {
+    $("#submit_button").click();
+};
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+

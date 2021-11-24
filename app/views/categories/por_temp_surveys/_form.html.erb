@@ -1,0 +1,912 @@
+<%= stylesheet_link_tag 'por_temp_surveys'%>
+
+
+<% current_user.EmployeeRefNo %>
+<%=bootstrap_form_with(model: por_temp_survey, local: true) do |form| %>
+
+  
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2" >
+
+    </div>
+    <div class="col-sm-8" >
+      <div class="panel panel-primary">
+        <div class="panel-heading" align="center"><h1>HRC Effectiveness Survey</h1></div>
+   
+        <div class="panel-body">
+          
+            <h4 align="justify">
+            We, at the HR Communications (HR and ECRG) department, wants to know how well we are serving our employees.  It starts and ends with questions about your employee care experience.  Please feel free to suggest improvements in any area.</h4>
+            <br>
+            <h4>Thank you for your honest opinions.</h4>
+            <br> 
+            <%= form.hidden_field :EmployeeRefNo, :value => current_user.EmployeeRefNo %>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12" >
+                  <p align="justify"><strong>I. This section deals with the general level of service provided by the HRC department. Please rate your satisfaction level in each area.  Use a scale of 1 to 5 with 1 being “poor”, 3 being “satisfactory” and 5 being “excellent”.  You may write your comments or suggestions following each item.</strong></p>
+                </div>
+              </div>
+            </div>
+             <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12" >
+                    <br>
+                   <p>A. Access and Availability</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred1"><strong>1. Are available to meet personally with you.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q1, '1', label:'1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q1, '2', label:'2'%>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q1, '3', label:'3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q1, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q1, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C1, label:'Comments or suggestions for improvement:' %> </small>
+                </div>
+              </div>
+            </div>
+  
+     
+
+            <!-- start q2 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred2"><strong>2. Are available to speak by phone with you. </strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q2, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q2, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q2, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q2, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q2, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C2, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q2 -->
+
+            <!-- start q3 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred3"><strong>3. Are available on the days and hours you need.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q3, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q3, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q3, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q3, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q3, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C3, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q3 -->
+            <br>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12" >
+                   <p>B. Reliability</p>
+                </div>
+              </div>
+            </div>
+
+
+             <!-- start q4 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred4"><strong>4. Exhibit solid understanding of HRC issues.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q4, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q4, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q4, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q4, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q4, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C4, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+
+             <!-- end q4 -->
+
+            
+            <!-- start q5 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred5"><strong>5. Provide accurate, helpful information.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q5, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q5, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q5, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q5, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q5, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C5, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q5 -->
+                        <br>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12" >
+                   <p>C. Customer Relations</p>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- start q6 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred6"><strong>6. Treat you with courtesy and respect.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q6, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q6, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q6, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q6, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q6, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <%= form.text_area :C6, label:'Comments or suggestions for improvement:' %>
+                </div>
+              </div>
+            </div>
+            <!-- end q6 -->
+
+            <!-- start q7 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred7"><strong>7. Treat requests and/or concerns with.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q7, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q7, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q7, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q7, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q7, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C7, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q7 -->
+
+            <!-- start q8 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred8"><strong>8. Respond to your inquiries in a timely manner.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q8, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q8, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q8, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q8, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q8, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C8, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q8 -->
+            <br>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12" >
+                   <p>D. Communication of Information</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- start q9 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred9"><strong>9. Adequately communicate changes in benefits.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q9, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q9, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q9, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q9, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q9, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C9, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q9 -->
+
+            <!-- start q10 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred10"><strong>10. Provide information when you need it and/or in a timely manner.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q10, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q10, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q10, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q10, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q10, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C10, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q10 -->
+
+            <!-- start q11 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred11"><strong>11. Provide information that is accurate and requiresno rework.</span></strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q11, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q11, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q11, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q11, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q11, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C11, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q11 -->
+            <br>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12" >
+                  <p align="justify"><strong>II. This section deals with a variety of programs and services offered through the HRC department.  Please rate your satisfaction level with the way they are handled / implemented.  Use a scale of 1 to 5 with 1 being “not satisfactory”, 3 being “fairly satisfied” and 5 being “extremely satisfied” Use the area following each item to indicate how these programs or services could be improved.</strong></p>
+                </div>
+              </div>
+            </div>
+     
+            <br>
+
+            <!-- start q12 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred12"><strong>1. Pre-employment requirements.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q12, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q12, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q12, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q12, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q12, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C12, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q12 -->
+
+            <!-- start q13 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p id="coloritred13"><strong>2. New employee orientation.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q13, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q13, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q13, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q13, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q13, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C13, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q13 -->
+
+            <!-- start q14 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p align="justify" id="coloritred14"><strong>3. Employee handbook.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q14, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q14, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q14, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q14, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q14, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C14, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q14 -->
+
+            <!-- start q15 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p align="justify" id="coloritred15"><strong>4. Advice on employee/personnel issues.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q15, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q15, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q15, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q15, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q15, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C15, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q15 -->
+
+            <!-- start q16 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-1" >
+                    
+                    </div>
+                    <div class="col-sm-5" align="left">
+                       <p align="justify" id="coloritred16"><strong>5. Benefits information.</strong><span id="asterisksurvey">*</span></p>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q16, '1' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                       <%= form.radio_button :Q16, '2' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q16, '3' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q16, '4' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        <%= form.radio_button :Q16, '5' %>
+                    </div>
+                    <div class="col-sm-1" align="center">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-1" >
+         
+                </div>
+                <div class="col-sm-11" >
+                  <small><%= form.text_area :C16, label:'Comments or suggestions for improvement:' %></small>
+                </div>
+              </div>
+            </div>
+            <!-- end q15 -->
+
+
+
+              <%= form.text_area :C17, label:' III. Use this space to indicate any suggestions to enhance productivity and customer experience.' %>
+
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12" align="center">
+                  <h3>Thank you! 😊 </h3>
+                </div>
+              </div>
+            </div>
+
+            <br>
+            <br>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-4" >
+                </div>
+                <div class="col-sm-4" >
+                    <%= form.submit 'Submit', class:'btn btn-primary btn-block'  %>
+                <% end %>
+                </div>
+                <div class="col-sm-4" >
+                </div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-sm-2" >
+  
+    </div>
+  </div>
+</div>
+<br>
+<br> 
+<br>
+
+<% if por_temp_survey.errors.any? #start error message popup%>
+    <div id="error_explanation" >
+
+
+      <% por_temp_survey.errors.full_messages.each do |message| %>
+ 
+      <div class="alert1" role="alert" align="center" id="hide">
+          <p class="alert" align = 'center'>
+
+            <%if message == 'Q1 cant be blank'%>
+              <span style="color:red;" >A.1. is required field.</span>
+              <script>
+                document.getElementById("coloritred1").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q2 cant be blank'%>
+              <span style="color:red;">A.2. is required field.</span>
+              <script>
+                document.getElementById("coloritred2").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q3 cant be blank'%>
+              <span style="color:red;">A.3. is required field.</span>
+              <script>
+                document.getElementById("coloritred3").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q4 cant be blank'%>
+              <span style="color:red;">B.4. is required field.</span>
+              <script>
+                document.getElementById("coloritred4").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q5 cant be blank'%>
+              <span style="color:red;">B.5. is required field.</span>
+              <script>
+                document.getElementById("coloritred5").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q6 cant be blank'%>
+              <span style="color:red;">C.6. is required field.</span>
+              <script>
+                document.getElementById("coloritred6").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q7 cant be blank'%>
+              <span style="color:red;">C.7. is required field.</span>
+              <script>
+                document.getElementById("coloritred7").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q8 cant be blank'%>
+              <span style="color:red;">C.8. is required field.</span>
+              <script>
+                document.getElementById("coloritred8").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q9 cant be blank'%>
+              <span style="color:red;">D.9. is required field.</span>
+              <script>
+                document.getElementById("coloritred9").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q10 cant be blank'%>
+              <span style="color:red;">D.10. is required field.</span>
+              <script>
+                document.getElementById("coloritred10").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q11 cant be blank'%>
+              <span style="color:red;">D.11. is required field.</span>
+              <script>
+                document.getElementById("coloritred11").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q12 cant be blank'%>
+              <span style="color:red;">II.1. is required field.</span>
+              <script>
+                document.getElementById("coloritred12").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q13 cant be blank'%>
+              <span style="color:red;">II.2. is required field.</span>
+              <script>
+                document.getElementById("coloritred13").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q14 cant be blank'%>
+              <span style="color:red;">II.3. is required field.</span>
+              <script>
+                document.getElementById("coloritred14").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q15 cant be blank'%>
+              <span style="color:red;">II.4. is required field.</span>
+              <script>
+                document.getElementById("coloritred15").style.color = "red";
+              </script>
+
+            <% elsif  message == 'Q16 cant be blank'%>
+              <span style="color:red;">II.5. is required field.</span>
+              <script>
+                document.getElementById("coloritred16").style.color = "red";
+              </script>
+
+            <% else %>
+              <span style="color:red;">Please complete the survey.</span>
+              
+            <% end %>
+
+          </p>
+
+      </div>     
+   
+      <% end %>
+
+    </div>
+  <% end #end error message popup%>

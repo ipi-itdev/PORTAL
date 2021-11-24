@@ -1,0 +1,2 @@
+class PortalEmpposterDetail < ApplicationRecord
+end

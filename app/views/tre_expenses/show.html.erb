@@ -1,0 +1,208 @@
+<p id="notice"><%= notice %></p>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-sm-1" >
+      
+    </div>
+
+    <div class="col-sm-10" >
+
+      <% session[:tre_expense_id] = @tre_expense.ID %>
+
+      <div class="panel panel-default" id="panelframe" style="">
+        <div class="panel-heading" id="panelheader" >
+          <i class="fas fa-money-check"></i> <strong>My TRE</strong>
+        </div>
+        <div class="panel-body">
+
+           <div class="row">
+
+            <div class="col-sm-4" >
+
+               <div class="row">
+
+                <div class="col-sm-12" >
+                  <div class="row">
+                    <div class="col-sm-6" >
+                      <strong>ID: </strong> <%=  @tre_expense.ID %>
+                    </div>
+                    <div class="col-sm-6" >
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-sm-12" >
+                   <strong>Company:</strong> <%= GenCompanyM.where(CompanyRefNo: @tre_expense.CompanyRefNo).pluck(:Description).to_sentence %>
+                   <br>
+                   <strong>Description: </strong><%= @tre_expense.Description %>
+                   <br>
+                   <strong>Total Amount: </strong><%= @tre_expense.Amount %> 
+                   <br>
+                	 <strong>Created On: </strong><%= @tre_expense.CreatedDate.strftime("%m/%d/%Y") %> 
+
+                    </div>
+
+                  </div>
+
+                 
+
+                  <div class="row">
+
+                    <div class="col-sm-12" >
+                    	
+                      <strong>Created By: </strong><%= PisEmployeeU.where(EmployeeRefNo: @tre_expense.CreatedBy).pluck(:Description).to_sentence %></small>
+                         
+                    </div>
+
+
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-sm-12" >
+                      
+                      <strong>Status: </strong><%= GenFilingStatusF.where(FilingStatusRefNo: @tre_expense.FillingStatusRefNo ).pluck(:Description).to_sentence %>
+                         
+                    </div>
+
+
+                  </div>
+
+
+                  <br>
+
+                </div>
+
+              </div>
+
+
+              <div class="row">
+
+                <div class="col-sm-12" >
+
+                <% if @tre_expense.FillingStatusRefNo == 4 || @tre_expense.FillingStatusRefNo == 23 || @tre_expense.FillingStatusRefNo == 25 %>
+
+                      <% if current_user.is_gen_manager == true #gen_manager%>
+
+                        <%= form_tag('/tre_gm_submit') do %>
+                        <strong>Approved/Disapproved?</strong> <%= select_tag :filing_status, options_from_collection_for_select(GenFilingStatusF.where(FilingStatusRefNo: 25).or(GenFilingStatusF.where(FilingStatusRefNo: 26)), :FilingStatusRefNo, :Description,  prompt: "Select something" )%>
+
+                        <%= hidden_field_tag :tre_ref_no, @tre_expense.ID %>
+                        <br>
+                        <br>    
+                        <%= submit_tag 'Apply', class:'btn btn-primary  btn-block', id:'submit_button'%>
+                        <%= link_to 'Back', index_managers_tre_path,  class:'btn btn-default  btn-block'%>
+                        <% end %>
+
+                      <% elsif current_user.is_manager == true#manager%>
+
+                        <%= form_tag('/tre_manager_submit') do %>
+                        <strong>Approved/Disapproved?</strong> <%= select_tag :filing_status, options_from_collection_for_select(GenFilingStatusF.where(FilingStatusRefNo: 23).or(GenFilingStatusF.where(FilingStatusRefNo: 24)), :FilingStatusRefNo, :Description,  prompt: "Select something" )%>
+
+                        <%= hidden_field_tag :tre_ref_no, @tre_expense.ID %>
+                        <br>
+                        <br>
+                        <%= submit_tag 'Apply', class:'btn btn-primary  btn-block', id:'submit_button'%>
+                        <%= link_to 'Back to List', index_managers_tre_path,  class:'btn btn-default  btn-block'%>
+                        <% end %>
+
+                      <% elsif current_user.is_ceo == true#ceo %>
+
+                        <%= form_tag('/tre_ceo_submit') do %>
+                        <strong>Approved/Disapproved?</strong> <%= select_tag :filing_status, options_from_collection_for_select(GenFilingStatusF.where(FilingStatusRefNo: 29).or(GenFilingStatusF.where(FilingStatusRefNo: 30)), :FilingStatusRefNo, :Description,  prompt: "Select something" )%>
+
+                        <%= hidden_field_tag :tre_ref_no, @tre_expense.ID %>
+                        <br>
+                        <br>
+                        <%= submit_tag 'Apply', class:'btn btn-primary  btn-block', id:'submit_button'%>
+                        <%= link_to 'Back to List', index_managers_tre_path,  class:'btn btn-default  btn-block'%>
+
+                        <% end %>
+
+                      <% else %>
+
+                          <% if current_user.is_gen_manager == true || current_user.is_gen_manager == true %>
+
+                              <%= link_to 'Back to List', '/index_managers_tre',  class:'btn btn-default  btn-block'%>
+
+                          <% else %>
+
+                            <%= link_to 'Back to List', tre_expenses_path,  class:'btn btn-default  btn-block'%>
+
+                          <% end %>
+
+
+                      <% end %>
+
+                <% else %>
+
+                  <%= link_to 'Back to List', tre_expenses_path,  class:'btn btn-default  btn-block'%>
+
+                <% end %>
+
+  
+                  <br>
+                  <br>
+                  <br>
+                 
+                </div>
+ 
+
+              </div>
+
+
+            </div>
+
+
+            <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;">
+
+              <iframe src="/tre_expense_details?expense_id=<%= @get_edit_id.to_param %>" style="border:none;" title="IframeExpenseDetails" height="430px" width="100%"></iframe>
+
+            </div>
+
+          </div>
+
+      
+
+        </div>
+
+
+      </div>
+      
+    </div>
+
+    <div class="col-sm-1" >
+      
+    </div>
+
+  </div>
+</div>
+
+<br>
+<br>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+

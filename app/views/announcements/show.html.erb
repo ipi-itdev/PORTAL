@@ -1,0 +1,111 @@
+<style type="text/css">
+	
+	img {
+    max-width: 100%;
+    height: auto ;
+}
+
+
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}	
+
+
+</style>
+
+
+
+<div class="container-fluid">
+  
+  <div class="row">
+    <div class="col-sm-2" >
+
+    </div>
+
+    <div class="col-sm-8" >
+  
+		  <div class="xxpanel panel-info" id="xxxannounceshowpanel">
+
+		    <div class="xxpanel-body">
+		    	
+		    		
+
+
+
+				<% if @announcement.with_attachment == true %>
+				 <div class="dropdown pc-menu" align="left" >   
+
+					<div  class="videoWrapper">
+	
+						<iframe src= "/portal<%= @announcement.attachment_path %>" ></iframe>
+					</div>
+				</div>
+
+					<div class="mobile-menu" align="left" >
+      						<%= link_to 'Click Here', "/portal#{@announcement.attachment_path}", target: "_blank"  %>
+                  	               </div>
+
+
+				<% else %>
+					
+
+					  <%= raw @announcement.message %>
+					
+
+				<% end %>
+
+			
+
+		    </div>
+		    <% if current_user.IsAdmin == true %>
+
+		    	<div class="panel-footer">
+
+		    		<div class="btn-group">
+	                 	
+						<%= link_to 'Back', announcements_path, class:'btn btn-md btn-primary' %>
+	               </div> 
+
+			  
+
+		    	</div>
+
+		    <%else%>
+		    	<div class="panel-footer">
+
+					<%= link_to 'Back', announcements_path, class:'btn btn-md btn-primary' %>
+
+		    	</div>
+
+		    <%end %>
+
+		  </div>
+
+    
+    </div>
+
+    <div class="col-sm-2" >
+     
+    </div>
+  </div>
+</div>
+<br>
+<br>
+
+
+
+  
+
+
+
+
