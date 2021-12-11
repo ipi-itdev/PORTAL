@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<body onload="onloadpageFunc()">
+
+<!--- hrc winners/ads -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#winnerModal" id="ads_modal" style="visibility: hidden;">
+  .
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="winnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog " role="document" >
+    <div class="modal-content">
+      <div class="modal-body">
+           <%= render 'portal_temp_ads/new_ads' %>
+      </div>
+    </div>
+  </div>
+</div>
+<!--- hrc winners /ads -->
+
+
+<script>
+  //onload page
+function onloadpageFunc() {
+      $("#ads_modal").click();
+}
+</script>
+
+</body>
+</html>

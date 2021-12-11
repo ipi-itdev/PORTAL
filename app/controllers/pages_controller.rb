@@ -1,7 +1,8 @@
 class PagesController < ApplicationController
 before_action :authenticate_user!
 
-prepend_before_action :tempsurvey_checker
+prepend_before_action :check_user_viewed_ads
+#prepend_before_action :tempsurvey_checker
 prepend_before_action :check_covidbulletin
 #prepend_before_action :check_webinar_reg
 prepend_before_action :check_vaccampaign
@@ -597,6 +598,15 @@ prepend_before_action :check_current_user
 
     end
     #check covid bulletins
+
+      
+  def check_user_viewed_ads
+
+    if current_user.had_viewed_ads.blank? == true
+      redirect_to '/portal_temp_ads/new'
+    end
+    
+  end
 
 
 

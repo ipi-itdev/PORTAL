@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'portal_temp_ads/new'
   resources :portal_covidbulletins
   get 'portal_tempwebinars/thank_you'
   get 'Covid_9_Vax_Program', to: 'knowledges#Covid_9_Vax_Program'  
@@ -278,6 +279,9 @@ Rails.application.routes.draw do
   #tre tre_expenses
   post 'create_tre', to: 'portal_tre_applications#create_tre'
   post 'post_tre', to: 'portal_tre_applications#post_tre'
+
+  #update_user_had viewed ads
+  post '/update_user_viewed_ads', to: 'portal_temp_ads#update_user_viewed_ads'    
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

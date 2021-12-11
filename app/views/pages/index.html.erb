@@ -288,51 +288,14 @@
 
         
           <!--- start announcement section -->  
-          <div class="panel panel-default" id="panelframe">
-            <div  class="panel-heading" id="panelheader">
-              <strong><i class="fas fa-bullhorn"></i><strong> Announcements </strong> </strong> 
-            </div> 
+          <!-- end announcement section -->
 
-        
-
-            <table class="table   table-responsive " width="100%">
-
-              <tr>
-           
-                <% @getannouncements.each do |announcement|%>
-                <td width="100%">
-                   <% if announcement.IsImportant == true %>
-                    <strong><%= link_to announcement.title, announcement, class:"text-danger" %> <%= image_tag("/important.png", :alt => "important", width: "50", height:"50") %></strong>
-                    <br>
-                     <small>Posted on: <% announcedate = announcement.created_at.to_date %> <%= announcedate.strftime("%B %d, %Y ")%> @ <% announcetime = announcement.created_at.to_time %> <%= announcetime.strftime("%I:%M%p")%>
-
-                     </small>
-                  <% else %>
-                    <strong><%= link_to announcement.title, announcement %> </strong>
-                    <br>
-                     <small>Posted on: <% announcedate = announcement.created_at.to_date %> <%= announcedate.strftime("%B %d, %Y ")%> @ <% announcetime = announcement.created_at.to_time %> <%= announcetime.strftime("%I:%M%p")%> 
-                     </small>
-                  <% end %>
-
-                  <!---
-                  <strong><h1><%= link_to announcement.title, announcement %></h1></strong>
-                  <small>by: <%= PisEmployeeU.where(EmployeeRefno: announcement.EmployeeRefNo).pluck(:Description).to_sentence %> | <%= announcement.created_at.to_datetime %></small>
-                  <hr>
-                  <%=  raw sanitize(announcement.message[0..100])%> <%= link_to 'Continue Reading...', announcement %> --->
-                 
-                </td>
-              </tr>
-                <% end %>
-            </table>
-           
-
-                <div align="center">
-                    <%= link_to 'See All Announcements', announcements_path %>
-                </div>
-       
-          </div>
-
-            <!-- end announcement section -->
+          
+        <!--Job Posting -->
+        <div class="panel panel-default" id="panelframe">
+          <%= render 'pages/jobposting' %>
+        </div>
+        <!--Job Posting -->
 
 
 
