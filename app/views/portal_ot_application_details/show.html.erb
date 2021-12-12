@@ -75,6 +75,18 @@
       </div>
     </div>
 
+    <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 2 %>                            
+      <div class="row">
+        <div class="col-sm-3" >
+              <strong>Attached File: </strong>
+        </div>
+
+        <div class="col-sm-9" >
+              <small><a href="<%= @portal_ot_application_detail.AttachmentFile%>" target="_blank"> <%= @portal_ot_application_detail.AttachmentFile_identifier %> </a> </small>
+        </div>
+      </div>
+    <% end %>
+
 
     <div class="row">
       <div class="col-sm-3" >

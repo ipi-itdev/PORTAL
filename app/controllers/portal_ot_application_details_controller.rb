@@ -56,6 +56,6 @@ class PortalOtApplicationDetailsController < ApplicationController
     end
 
     def portal_ot_application_detail_params
-      params.fetch(:portal_ot_application_detail, {}).permit(:ID, :OvertimeApplicationRefNo, :WorkDate, :StartTime, :EndTime, :Task, :CreatedBy, :ModifiedBy, :CreatedDate, :ModifiedDate, :IsActive, :ServerCompanyCodeID)
+      params.fetch(:portal_ot_application_detail, {}).permit(:ID, :OvertimeApplicationRefNo, :WorkDate, :StartTime, :EndTime, :Task, :CreatedBy, :ModifiedBy, :CreatedDate, :ModifiedDate, :IsActive, :ServerCompanyCodeID, :AttachmentFile)
     end
 end

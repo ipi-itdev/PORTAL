@@ -65,6 +65,34 @@
         </div>
       </div>
 
+      <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 2 %>                            
+        <div class="row">
+          <div class="col-sm-6" >
+            <small><%= form.file_field :AttachmentFile, label: 'Attach File', onchange: "myFunction_hidediv()", :accept => 'image/jpeg,image/jpg,image/png,image/gif,application/pdf' %></small>
+
+            <script type="application/javascript">
+                $('input[type="file"]').change(function(e){
+                    var fileName = e.target.files[0].name;
+                    $('.custom-file-label').html(fileName);
+                });
+            </script>
+
+            <script>
+              function myFunction_hidediv() {
+                var x = document.getElementById("portal_ot_application_detail_AttachmentFile").value;
+                $("#div_filepath").hide();
+              }
+            </script>  
+
+            <div id="div_filepath">
+              <small><a href="<%= @portal_ot_application_detail.AttachmentFile%>" target="_blank"> <%= @portal_ot_application_detail.AttachmentFile_identifier %> </a> </small>
+            </div>
+
+            <small><%= form.hidden_field :AttachmentFile_cache %></small>    
+          </div>
+        </div>
+      <% end %>
+
       <div class="row">
         <div class="col-sm-12" >
         </div>

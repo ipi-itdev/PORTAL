@@ -27,7 +27,7 @@ class PortalLeaveApplicationDetailsController < ApplicationController
     @portal_leave_application_detail = PortalLeaveApplicationDetail.new(portal_leave_application_detail_params)
 
     if @portal_leave_application_detail.WorkDate != @portal_leave_application_detail.EndDate && @portal_leave_application_detail.EndDate.blank? == false && @portal_leave_application_detail.WorkDate.blank? == false
-      errmsg = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_InsertLeaves #{@portal_leave_application_detail.LeaveApplicationRefNo}, #{@portal_leave_application_detail.CreatedBy}, '#{@portal_leave_application_detail.WorkDate.to_date}', '#{@portal_leave_application_detail.EndDate.to_date}', #{@portal_leave_application_detail.LeaveTypeRefNo}, #{@portal_leave_application_detail.LeaveCreditTypeRefNo}, '#{@portal_leave_application_detail.Reason}', '#{@portal_leave_application_detail.AsSL}'")
+      errmsg = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_InsertLeaves #{@portal_leave_application_detail.LeaveApplicationRefNo}, #{@portal_leave_application_detail.CreatedBy}, '#{@portal_leave_application_detail.WorkDate.to_date}', '#{@portal_leave_application_detail.EndDate.to_date}', #{@portal_leave_application_detail.LeaveTypeRefNo}, #{@portal_leave_application_detail.LeaveCreditTypeRefNo}, '#{@portal_leave_application_detail.Reason}', '#{@portal_leave_application_detail.AsSL}', '#{@portal_leave_application_detail.AsEL}'")
 
       respond_to do |format|        
         if errmsg.rows[0][0] != ''
@@ -72,6 +72,6 @@ class PortalLeaveApplicationDetailsController < ApplicationController
     end
 
     def portal_leave_application_detail_params
-      params.fetch(:portal_leave_application_detail, {}).permit(:ID, :LeaveApplicationRefNo, :LeaveTypeRefNo, :LeaveCreditTypeRefNo, :WorkDate, :Reason, :AttachmentFile, :CreatedBy, :ModifiedBy, :CreatedDate, :ModifiedDate, :IsActive, :ServerCompanyCodeID, :EndDate, :AsSL)
+      params.fetch(:portal_leave_application_detail, {}).permit(:ID, :LeaveApplicationRefNo, :LeaveTypeRefNo, :LeaveCreditTypeRefNo, :WorkDate, :Reason, :AttachmentFile, :CreatedBy, :ModifiedBy, :CreatedDate, :ModifiedDate, :IsActive, :ServerCompanyCodeID, :EndDate, :AsSL, :AsEL)
     end
 end

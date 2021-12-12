@@ -51,7 +51,7 @@
                   <td ><%= portal_ob_view.ID %></td>
                   <td ><%= portal_ob_view.DateFiled.strftime("%m/%d/%Y") %></td>
                   <td ><%= portal_ob_view.Duration %></td>
-                  <td ><%= portal_ob_view.Status %></td>
+                  <td><small><%=  GenFilingStatusF.where(FilingStatusRefNo: portal_ob_view.FilingStatusRefNo).pluck(:Description).to_sentence %></small></td>        
                   <td align="left">
 
                     <% if portal_ob_view.FilingStatusRefNo.to_i == 1 %>

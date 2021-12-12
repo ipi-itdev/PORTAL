@@ -32,13 +32,17 @@ class PortalLeaveApplicationDetail < ApplicationRecord
 		read_attribute(:AsSL)
 	end
 
+	def asel
+		read_attribute(:AsEL)
+	end
+
 	def createdby
 		read_attribute(:CreatedBy)
 	end
 
 	def CheckLeave
 		if workdate.blank? == false
-			errmsg = ActiveRecord::Base.connection.exec_query("Select errmsg = dbo.PORTAL_FN_LeaveValidation(0, #{leaveapplicationrefno}, #{createdby}, '#{workdate.to_date}', #{leavecredittyperefno}, #{leavetyperefno}, '#{assl}')")
+			errmsg = ActiveRecord::Base.connection.exec_query("Select errmsg = dbo.PORTAL_FN_LeaveValidation(0, #{leaveapplicationrefno}, #{createdby}, '#{workdate.to_date}', #{leavecredittyperefno}, #{leavetyperefno}, '#{assl}', '#{asel}')")
 
 			if errmsg.rows[0][0] != ''
 				errors[:base] << errmsg.rows[0][0]
@@ -48,7 +52,7 @@ class PortalLeaveApplicationDetail < ApplicationRecord
 
 	def CheckLeaveEdit
 		if workdate.blank? == false		
-			errmsg = ActiveRecord::Base.connection.exec_query("Select errmsg = dbo.PORTAL_FN_LeaveValidation(#{id}, #{leaveapplicationrefno}, #{createdby}, '#{workdate.to_date}', #{leavecredittyperefno}, #{leavetyperefno}, '#{assl}')")
+			errmsg = ActiveRecord::Base.connection.exec_query("Select errmsg = dbo.PORTAL_FN_LeaveValidation(#{id}, #{leaveapplicationrefno}, #{createdby}, '#{workdate.to_date}', #{leavecredittyperefno}, #{leavetyperefno}, '#{assl}', '#{asel}')")
 
 			if errmsg.rows[0][0] != ''
 				errors[:base] << errmsg.rows[0][0]

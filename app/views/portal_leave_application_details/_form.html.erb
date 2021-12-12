@@ -67,6 +67,7 @@
                 else              
                   {
                     $('#portal_leave_application_detail_AsSL').prop('checked', false)
+                    $('#portal_leave_application_detail_AsEL').prop('checked', false)
                     document.getElementById('row-AsSL').setAttribute("style", "display: none")
                   }              
               });
@@ -136,12 +137,28 @@
         </div>
       </div>
 
-      <div class="row">
-        <div id="row-AsSL" class="col-sm-6" style="display: none;">     
+      <div id="row-AsSL" class="row" style="display: none;">
+        <div class="col-sm-6" >   
           <%= form.check_box :AsSL, label: 'Is Sick Leave?' %>
         </div>
 
+        <div class="col-sm-6" >
+          <%= form.check_box :AsEL, label: 'Is Emergency?' %>
+        </div>
+
         <script type="text/javascript">
+          $('#portal_leave_application_detail_AsSL').click(function(){
+              if($(this).is(':checked')){
+                $('#portal_leave_application_detail_AsEL').prop('checked', false)
+              }
+          });
+
+          $('#portal_leave_application_detail_AsEL').click(function(){
+              if($(this).is(':checked')){
+                $('#portal_leave_application_detail_AsSL').prop('checked', false)
+              }
+          });
+
           if (document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 17 || document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 18)
             {                  
               document.getElementById('row-AsSL').setAttribute("style", "display: block")
@@ -149,12 +166,10 @@
           else              
             {
               $('#portal_leave_application_detail_AsSL').prop('checked', false)
+              $('#portal_leave_application_detail_AsEL').prop('checked', false)
               document.getElementById('row-AsSL').setAttribute("style", "display: none")
             }
-        </script>
-
-        <div class="col-sm-6" >
-        </div>
+        </script>        
       </div>
 
       <br>
