@@ -203,11 +203,7 @@
 
 
               <!-- hrc survey -->
-              <% if @srvy_checker ==  false %>
-                <br>
-                <%= button_to 'HRC Effectiveness Survey', hrc_effectiveness_survey_path, class: 'btn btn-primary btn-block btn-lg', method: "get"%>
-                <br>
-              <% end %>
+
               <!-- hrc survey --> 
               
               <% hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:EmployeeGroupRefNo ) %>
@@ -379,11 +375,7 @@
 
 
           <!-- hrc survey -->
-          <% if @srvy_checker ==  false %>
-            <br>
-            <%= button_to 'HRC Effectiveness Survey', hrc_effectiveness_survey_path, class: 'btn btn-primary btn-block btn-lg', method: "get"%>
-            <br>
-          <% end %>
+
           <!-- hrc survey -->
            
             
