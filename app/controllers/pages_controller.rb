@@ -1,6 +1,8 @@
 class PagesController < ApplicationController
 before_action :authenticate_user!
 
+
+prepend_before_action :check_user_tagconfirm
 prepend_before_action :check_user_viewed_ads
 #prepend_before_action :tempsurvey_checker
 prepend_before_action :check_covidbulletin
@@ -607,6 +609,16 @@ prepend_before_action :check_current_user
     end
     
   end
+
+  
+  #check_user_tagconfirm
+  def check_user_tagconfirm
+    if current_user.TagConfirmed != true
+      redirect_to '/winner' 
+    end
+  end
+  #check_user_tagconfirm
+
 
 
 

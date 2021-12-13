@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get '/winner', to: 'por_temp_surveys#winner'
   get 'portal_temp_ads/new'
   resources :portal_covidbulletins
   get 'portal_tempwebinars/thank_you'
@@ -212,6 +213,9 @@ Rails.application.routes.draw do
 
   #hrc_effectiveness_survey
   get'/hrc_effectiveness_survey', to: 'por_temp_surveys#hrc_effectiveness_survey'
+
+  #confirm winner
+  post '/confirm_winner', to: 'por_temp_surveys#confirm_winner' 
 
   #for non existing routes
   get '*path' => redirect('/')

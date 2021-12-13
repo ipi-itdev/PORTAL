@@ -92,30 +92,23 @@ class PorTempSurveysController < ApplicationController
 
   end
 
-  # PATCH/PUT /por_temp_surveys/1
-  # PATCH/PUT /por_temp_surveys/1.json
-  #def update
-  #  respond_to do |format|
-  #    if @por_temp_survey.update(por_temp_survey_params)
-  #      format.html { redirect_to @por_temp_survey, notice: 'Por temp survey was successfully updated.' }
-  #      format.json { render :show, status: :ok, location: @por_temp_survey }
-  #    else
-  #      format.html { render :edit }
-  #      format.json { render json: @por_temp_survey.errors, status: :unprocessable_entity }
-  #    end
-  #  end
-  #end
+  
+  #winner page
+  def winner
+    #winner page
+  end
+  #winner page
 
-  # DELETE /por_temp_surveys/1
-  # DELETE /por_temp_surveys/1.json
-  #def destroy
-  #  @por_temp_survey.destroy
-  #  respond_to do |format|
-  #    format.html { redirect_to por_temp_surveys_url, notice: 'Por temp survey was successfully destroyed.' }
-  #    format.json { head :no_content }
-  #  end
-  #end
 
+  #confirm winner
+  def confirm_winner
+    update_user_tagconfirm = User.where(EmployeeRefNo: current_user.EmployeeRefNo)
+    update_user_tagconfirm.update(TagConfirmed: 1)
+    redirect_to pages_path
+  end
+  #confirm winner
+
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_por_temp_survey
