@@ -200,12 +200,9 @@
      
 
 		          <%= link_to 'Daily Health Survey', '/ODHD',class: 'btn btn-primary btn-block btn-lg' %>
-
-              <br>
               <br>
               <!-- emp satisfaction survey --> 
               <% if @emp_satis_srvy_checker != true %>
-              <br>
               <%= link_to 'Employee Satisfaction Survey', '/portal_employee_satisfaction_surveys/intro',class: 'btn btn-primary btn-block btn-lg' %>
               <br>
               <% end %>
@@ -380,7 +377,6 @@
           <br>
           <!-- emp satisfaction survey --> 
           <% if @emp_satis_srvy_checker != true %>
-          <br>
           <%= link_to 'Employee Satisfaction Survey', '/portal_employee_satisfaction_surveys/intro',class: 'btn btn-primary btn-block btn-lg' %>
           <br>
           <% end %>
