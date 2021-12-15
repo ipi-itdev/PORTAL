@@ -1,0 +1,1 @@
+json.array! @portal_employee_satisfaction_surveys, partial: 'portal_employee_satisfaction_surveys/portal_employee_satisfaction_survey', as: :portal_employee_satisfaction_survey

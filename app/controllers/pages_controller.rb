@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 before_action :authenticate_user!
 
-
+prepend_before_action :emp_satis_survey_checker
 prepend_before_action :check_user_tagconfirm
 prepend_before_action :check_user_viewed_ads
 #prepend_before_action :tempsurvey_checker
@@ -91,13 +91,10 @@ prepend_before_action :check_current_user
         
       ##end weeksched
 
-
-
-
     @vac_finalist = PortalTempVacfinallist.where(EmployeeNumber: current_user.EmployeeNumber).exists?
 
     @srvy_checker = PorTempSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? 
-
+    @emp_satis_srvy_checker =  PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? 
 
 
   end
@@ -618,6 +615,29 @@ prepend_before_action :check_current_user
     end
   end
   #check_user_tagconfirm
+
+
+  #check emp_satis_survey
+  private
+  def emp_satis_survey_checker
+    #false
+    if current_user.answer_survey_later != true
+      emp_satis_surveycheck = PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists?
+      if emp_satis_surveycheck.blank? == true
+        redirect_to '/portal_employee_satisfaction_surveys/intro' 
+      end
+
+    else # answered survey later is true check later survey date 
+      emp_satis_surveycheck = PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists?
+      if emp_satis_surveycheck.blank? == true
+        if Date.today  >= current_user.LaterSurveyDate  
+        redirect_to '/portal_employee_satisfaction_surveys/intro' 
+        end
+      end
+    end
+    
+  end
+  #check emp_satis_survey
 
 
 
