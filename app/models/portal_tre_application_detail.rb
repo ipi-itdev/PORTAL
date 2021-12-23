@@ -3,7 +3,7 @@ class PortalTreApplicationDetail < ApplicationRecord
 
 	mount_uploader :AttachmentFile, AttachmentUploader
 
-	validates :WorkDate, :EntryRefNo, :ClientAccountRefNo, :Amount, presence: true
+	validates :WorkDate, :EntryRefNo, :ClientAccountRefNo, presence: true
 
 	validate :Validate, on: :create
 	validate :ValidateEdit, on: :update
@@ -33,7 +33,10 @@ class PortalTreApplicationDetail < ApplicationRecord
 	end
 
 	def Validate
-		if workdate.blank? == false 
+		if amount == nil
+			errors[:base] << "Amount is required."
+
+		elsif workdate.blank? == false 
 			errmsg = ActiveRecord::Base.connection.exec_query("Select errmsg = dbo.PORTAL_FN_TREValidation(0, #{createdby}, #{clientaccountrefno}, '#{workdate.to_date}', #{entryrefno}, #{amount})")
 
 			if errmsg.rows[0][0] != ''
