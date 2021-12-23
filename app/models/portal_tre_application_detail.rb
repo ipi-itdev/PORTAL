@@ -46,7 +46,10 @@ class PortalTreApplicationDetail < ApplicationRecord
 	end
 
 	def ValidateEdit
-		if workdate.blank? == false 
+		if amount == nil
+			errors[:base] << "Amount is required."
+
+		elsif workdate.blank? == false 
 			errmsg = ActiveRecord::Base.connection.exec_query("Select errmsg = dbo.PORTAL_FN_TREValidation(#{id}, #{createdby}, #{clientaccountrefno}, '#{workdate.to_date}', #{entryrefno}, #{amount})")
 
 			if errmsg.rows[0][0] != ''
