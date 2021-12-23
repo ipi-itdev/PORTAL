@@ -47,21 +47,16 @@ class PortalTreApplicationsController < ApplicationController
   end
 
   def destroy
-    #get_tre_details_rec = PortalTreApplicationDetail.where(TreApplicationRefNo: @portal_tre_application.id)
-    #get_tre_details_rec.destroy_all
-    
-    #get_tre_rec = PortalTreApplication.where(treApplicationRefNo: @portal_tre_application.id)
-    #get_tre_rec.destroy_all
+    #portal_tre_application_rec = PortalTreApplication.where(ID: @portal_tre_application.id)
+     
+    #portal_tre_application_rec.each do |portal_tre_application_rec1|
+    #  portal_tre_application_rec1.FilingStatusRefNo = 3
+    #  portal_tre_application_rec1.save
+    #end
 
-    portal_tre_application_rec = PortalTreApplication.where(ID: @portal_tre_application.id)
-      
-    portal_tre_application_rec.each do |portal_tre_application_rec1|
-      portal_tre_application_rec1.FilingStatusRefNo = 3
-      portal_tre_application_rec1.save
-    end
+    #ActiveRecord::Base.connection.execute("exec dbo.TMS_SP_TMSCancel @Type = 'tre', @ID = #{@portal_tre_application.id}")
+    ActiveRecord::Base.connection.execute("exec dbo.pTMSApplicationApproval @TMSType = 5, @ID = #{@portal_tre_application.id}, @UserRefNo = -1, @Status = 3, @Remarks = ''")
 
-    ActiveRecord::Base.connection.execute("exec dbo.TMS_SP_TMSCancel @Type = 'tre', @ID = #{@portal_tre_application.id}")
-  
     flash[:notice] = "Record has been canceled."
     redirect_to portal_tre_applications_path
   end
@@ -86,15 +81,16 @@ class PortalTreApplicationsController < ApplicationController
       redirect_to edit_portal_tre_application_path(id: params[:tre_id])
 
     else      
-      portal_tre_application_rec = PortalTreApplication.where(ID: params[:tre_id])
-    
-      portal_tre_application_rec.each do |portal_tre_application_rec1|
-        portal_tre_application_rec1.FilingStatusRefNo = 40
-        portal_tre_application_rec1.save
-      end
+      #portal_tre_application_rec = PortalTreApplication.where(ID: params[:tre_id])
 
-      ActiveRecord::Base.connection.execute("exec dbo.TMS_SP_TMSPost @Type = 'tre', @ID = #{params[:tre_id]}")
+      #portal_tre_application_rec.each do |portal_tre_application_rec1|
+      #  portal_tre_application_rec1.FilingStatusRefNo = 40
+      #  portal_tre_application_rec1.save
+      #end
 
+      #ActiveRecord::Base.connection.execute("exec dbo.TMS_SP_TMSPost @Type = 'tre', @ID = #{params[:tre_id]}")
+      ActiveRecord::Base.connection.execute("exec dbo.pTMSApplicationApproval @TMSType = 5, @ID = #{params[:tre_id]}, @UserRefNo = -1, @Status = 40, @Remarks = ''")
+      
       flash[:notice] = "Record has been requested."
       redirect_to portal_tre_applications_path
     end
