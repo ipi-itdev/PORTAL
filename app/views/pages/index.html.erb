@@ -202,10 +202,7 @@
 		          <%= link_to 'Daily Health Survey', '/ODHD',class: 'btn btn-primary btn-block btn-lg' %>
               <br>
               <!-- emp satisfaction survey --> 
-              <% if @emp_satis_srvy_checker != true %>
-              <%= link_to 'Employee Satisfaction Survey', '/portal_employee_satisfaction_surveys/intro',class: 'btn btn-primary btn-block btn-lg' %>
-              <br>
-              <% end %>
+
               <!-- emp satisfaction survey -->
               
               <% hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:EmployeeGroupRefNo ) %>
@@ -376,10 +373,7 @@
   	       <%= link_to 'Daily Health Survey', '/ODHD',class: 'btn btn-primary btn-block btn-lg' %>
           <br>
           <!-- emp satisfaction survey --> 
-          <% if @emp_satis_srvy_checker != true %>
-          <%= link_to 'Employee Satisfaction Survey', '/portal_employee_satisfaction_surveys/intro',class: 'btn btn-primary btn-block btn-lg' %>
-          <br>
-          <% end %>
+
           <!-- emp satisfaction survey -->
            
             

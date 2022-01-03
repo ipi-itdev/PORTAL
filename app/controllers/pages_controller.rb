@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 before_action :authenticate_user!
 
-prepend_before_action :emp_satis_survey_checker
+#prepend_before_action :emp_satis_survey_checker
 prepend_before_action :check_user_tagconfirm
 prepend_before_action :check_user_viewed_ads
 #prepend_before_action :tempsurvey_checker
@@ -94,7 +94,7 @@ prepend_before_action :check_current_user
     @vac_finalist = PortalTempVacfinallist.where(EmployeeNumber: current_user.EmployeeNumber).exists?
 
     @srvy_checker = PorTempSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? 
-    @emp_satis_srvy_checker =  PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? 
+    #@emp_satis_srvy_checker =  PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? 
 
 
   end
