@@ -3,7 +3,16 @@ class PortalTreApplicationDetail < ApplicationRecord
 
 	mount_uploader :AttachmentFile, AttachmentUploader
 
-	validates :WorkDate, :EntryRefNo, :ClientAccountRefNo, presence: true
+	HUMANIZED_ATTRIBUTES = {
+		:WorkDate => "Date",
+		:AttachmentFile => "Attach File"
+	}
+
+	def self.human_attribute_name(attr, options = {}) # 'options' wasn't available in Rails 3, and prior versions.
+		HUMANIZED_ATTRIBUTES[attr.to_sym] || super
+	end
+
+	validates :WorkDate, :EntryRefNo, :ClientAccountRefNo, :AttachmentFile, presence: true
 
 	validate :Validate, on: :create
 	validate :ValidateEdit, on: :update
