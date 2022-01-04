@@ -33,10 +33,6 @@
             <th ><small><b>Date</b></small></th>      
             <th ><small><b>Credits</b></small></th>
             <th ><small><b>Reason</b></small></th>
-            <% if @employee_group == '2' %>
-              <th ><small><b>As SL</b></small></th>   
-              <th ><small><b>As EL</b></small></th>      
-            <% end %>
             <th ></th>
           </tr>
         </thead>
@@ -44,15 +40,11 @@
         <tbody>
           <% @portal_leave_application_details.each do |portal_leave_application_detail| %>
             <tr>
-              <td><small><%= portal_leave_application_detail.ID %></small></td>
-              <td><small><%=  GenLeaveTypeM.where(LeaveTypeRefNo: portal_leave_application_detail.LeaveTypeRefNo).pluck(:Description).to_sentence %></small></td>                      
+              <td><small><%= portal_leave_application_detail.ID %></small></td>              
+              <td><small><%= ActiveRecord::Base.connection.exec_query("SELECT LeaveType FROM dbo.PORTAL_FN_GetLeaveTypeDesc(#{portal_leave_application_detail.ID})").rows[0][0] %></small></td>                      
               <td ><small><%= portal_leave_application_detail.WorkDate.strftime("%m/%d/%Y") %></small></td>
               <td><small><%=  PortalLeaveApplicationCredit.where(LeaveCreditTypeRefNo: portal_leave_application_detail.LeaveCreditTypeRefNo).pluck(:Description).to_sentence %></small></td>        
               <td><small><%= portal_leave_application_detail.Reason %></small></td>
-              <% if @employee_group == '2' %>
-                <td ><small><%= portal_leave_application_detail.AsSL %></small></td>
-                <td ><small><%= portal_leave_application_detail.AsEL %></small></td>
-              <% end %>
 
               <td align="center">
                   <% if get_filing_stat.to_i == 1 && @leaveapproval != 1 %>                
