@@ -63,10 +63,16 @@
                 if (document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 17 || document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 18)
                   {                  
                     document.getElementById('row-AsSL').setAttribute("style", "display: block")
+                    document.getElementById('slDiv').setAttribute("style", "display: block")
+                  }
+                else if (document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 2)
+                  {
+                    document.getElementById('row-AsSL').setAttribute("style", "display: block")
+                    document.getElementById('slDiv').setAttribute("style", "display: none")
                   }
                 else              
                   {
-                    $('#portal_leave_application_detail_AsSL').prop('checked', false)
+                    $('#portal_leave_application_detail_AsSL').prop('checked', false)                   
                     $('#portal_leave_application_detail_AsEL').prop('checked', false)
                     document.getElementById('row-AsSL').setAttribute("style", "display: none")
                   }              
@@ -137,13 +143,13 @@
         </div>
       </div>
 
-      <div id="row-AsSL" class="row" style="display: none;">
-        <div class="col-sm-6" >   
-          <%= form.check_box :AsSL, label: 'Is Sick Leave?' %>
+      <div id="row-AsSL" class="row" style="display: none;">      
+        <div class="col-sm-6">
+          <%= form.check_box :AsEL, label: 'Is Emergency?' %>
         </div>
 
-        <div class="col-sm-6" >
-          <%= form.check_box :AsEL, label: 'Is Emergency?' %>
+        <div class="col-sm-6" id="slDiv"  >   
+          <%= form.check_box :AsSL, label: 'Is Sick Leave?' %>
         </div>
 
         <script type="text/javascript">
@@ -162,6 +168,12 @@
           if (document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 17 || document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 18)
             {                  
               document.getElementById('row-AsSL').setAttribute("style", "display: block")
+              document.getElementById('slDiv').setAttribute("style", "display: block")
+            }
+          else if (document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 2)
+            {
+              document.getElementById('row-AsSL').setAttribute("style", "display: block")
+              document.getElementById('slDiv').setAttribute("style", "display: none")
             }
           else              
             {
