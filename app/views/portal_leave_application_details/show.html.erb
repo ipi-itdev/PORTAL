@@ -31,7 +31,7 @@
       </div>
 
       <div class="col-sm-9" >
-           <%=  GenLeaveTypeM.where(LeaveTypeRefNo: @portal_leave_application_detail.LeaveTypeRefNo).pluck(:Description).to_sentence %>
+        <%= ActiveRecord::Base.connection.exec_query("SELECT LeaveType FROM dbo.PORTAL_FN_GetLeaveTypeDesc(#{@portal_leave_application_detail.ID})").rows[0][0] %>
       </div>
     </div>
 
@@ -47,11 +47,11 @@
 
     <div class="row">
       <div class="col-sm-3" >
-        <strong>Leave Type: </strong>
+        <strong>Credit: </strong>
       </div>
 
-      <div class="col-sm-9" >
-        <%=  PortalLeaveApplicationCredit.where(LeaveCreditTypeRefNo: @portal_leave_application_detail.LeaveCreditTypeRefNo).pluck(:Description).to_sentence %>
+      <div class="col-sm-9" >        
+        <%= PortalLeaveApplicationCredit.where(LeaveCreditTypeRefNo: @portal_leave_application_detail.LeaveCreditTypeRefNo).pluck(:Description).to_sentence %>
       </div>
     </div>
 
