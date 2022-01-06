@@ -127,6 +127,13 @@
               </small></hr>
             </ul>
           </li>
+        <% end %>
+
+        
+        <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 1 %>                            
+          <li class="mobile-menu">
+            <strong><%= link_to ' TRE', portal_tre_applications_path, :method=> :get %></strong>
+          </li>
         <% end %> 
 
           <li class="mobile-menu">
