@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,4 +106,155 @@
 <br>
 
 </body>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+
+</head>
+<body>
+
+<div class="container-fluid">
+  
+  <div class="row">
+    <div class="col-sm-2" >
+
+    </div>
+    <div class="col-sm-8" >
+
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader">
+          <div class="row">
+            <div class="col-sm-8" >
+              <strong><i class="fas fa-calendar-check"></i>OT Application</strong>
+            </div>
+
+            <% if mobile_device == "mobile" %>
+              <br>
+              <div class="col-sm-4" >
+                <div class="btn-group">
+                  <%= link_to '<i class="fa fa-plus" aria-hidden="true"></i>'.html_safe, create_ot_path, method: 'post', class:'btn btn-primary', "data-toggle" => "tooltip", "data-placement" => "top", "title" => "File OT" %>
+                  <%= button_tag '<i class="fa fa-info-circle"></i>'.html_safe, method: 'post', class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "User Manual", id: 'usermanual' %>
+                </div>
+              </div>
+            <% else %>
+              <div class="col-sm-3" >
+                <%= link_to '<i class="fa fa-plus" aria-hidden="true"></i>File OT'.html_safe, create_ot_path, method: 'post', class:'btn btn-primary btn-block btn-sm', "data-toggle" => "tooltip", "data-placement" => "top", "title" => "File OT" %>
+              </div>
+
+              <div class="col-sm-1" >              
+                <%= button_tag '<i class="fa fa-info-circle"></i>'.html_safe, method: 'post', class: "btn btn-primary btn-block btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "User Manual", id: 'usermanual' %>
+              </div> 
+            <% end %>
+          </div>
+
+         
+        </div>
+        <div class="panel-body">
+
+          <!--<p id="notice"><%= notice %></p>-->
+          <div class="table table-responsive ">
+          <table class="table" id="portal_ot_view_table" >
+            <thead>
+              <tr>
+                <th >ID</th>
+                <th >Created Date</th>
+                <th >Duration</th>
+                <th >Status</th>
+                <th ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <% @portal_ot_applications.each do |portal_ot_view| %>
+                <tr>
+                  <td ><%= portal_ot_view.ID %></td>
+                  <td ><%= portal_ot_view.DateFiled.strftime("%m/%d/%Y") %></td>
+                  <td ><%= portal_ot_view.Duration %></td>
+                  <td><small><%=  GenFilingStatusF.where(FilingStatusRefNo: portal_ot_view.FilingStatusRefNo).pluck(:Description).to_sentence %></small></td>        
+                  <td align="left">
+
+                    <% if portal_ot_view.FilingStatusRefNo.to_i == 1 %>
+                      <div class="btn-group btn-group-sm btn-group-block">
+                        <%= link_to '<i class="far fa-paper-plane"></i>'.html_safe, post_ot_path(ot_id: portal_ot_view.ID), method: 'post',  class: "btn btn-primary", data: { confirm: 'Are you sure you want to request this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i>" }, "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Request" %>
+                        <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_portal_ot_application_path(portal_ot_view ),  class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Edit" %>
+                        <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, portal_ot_view, method: :delete, data: { confirm: 'Are you sure you want to delete this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i>" },  class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Delete" %>    
+                      </div>
+
+                    <% elsif portal_ot_view.FilingStatusRefNo.to_i == 40 || portal_ot_view.FilingStatusRefNo.to_i == 2 %>
+                      <div class="btn-group btn-group-sm btn-group-block">
+                        <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_portal_ot_application_path(portal_ot_view ),  class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Edit" %>
+                        <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, portal_ot_view, method: :delete, data: { confirm: 'Are you sure you want to delete this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i>" },  class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Delete" %>    
+                      </div>
+                      
+                    <% else %>
+                        <%= link_to 'View', "/portal_ot_applications/#{portal_ot_view.ID}?frmtre_ex=test", class: "btn btn-primary btn-sm ", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "View" %>
+
+                    <% end %> 
+
+                  </td>
+      
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+          <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+          <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+          <script>
+          $(function(){
+            $("#portal_ot_view_table").dataTable();
+          })
+          </script>
+
+          </div>   
+
+        </div>
+        
+      </div>
+
+    </div>
+    <div class="col-sm-2" >
+
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" style="width: 50%; position: absolute; left: 25%;">
+    <span class="close">&times;</span>
+    <iframe  src="\manuals\otapplication.pdf"  style="border:none;" title="IframeExpenseDetails" height="500px" width="100%"> </iframe>
+  </div>
+</div>
+
+<script>
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("usermanual");
+  var span = document.getElementsByClassName("close")[0];
+
+  btn.onclick = function() {
+  modal.style.display = "block";
+  }
+
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+</body>
+>>>>>>> 539cff80... TMS Update : User Manual Update
 </html>
