@@ -18,13 +18,27 @@
       <div class="panel panel-default" id="panelframe">
         <div class="panel-heading" id="panelheader">
           <div class="row">
-            <div class="col-sm-9" >
+            <div class="col-sm-8" >
               <strong><i class="fas fa-calendar-check"></i>Leave Application</strong>
             </div>
 
-            <div class="col-sm-3" >
-              <%= link_to '<i class="fa fa-plus" aria-hidden="true"></i>File Leave'.html_safe, create_leave_path, method: 'post', class:'btn btn-primary btn-block btn-sm', "data-toggle" => "tooltip", "data-placement" => "top", "title" => "File Leave" %>
-            </div>
+            <% if mobile_device == "mobile" %>
+              <br>
+              <div class="col-sm-4" >
+                <div class="btn-group">
+                  <%= link_to '<i class="fa fa-plus" aria-hidden="true"></i>'.html_safe, create_leave_path, method: 'post', class:'btn btn-primary', "data-toggle" => "tooltip", "data-placement" => "top", "title" => "File Leave" %>
+                  <%= button_tag '<i class="fa fa-info-circle"></i>'.html_safe, method: 'post', class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "User Manual", id: 'usermanual' %>
+                </div>
+              </div>
+            <% else %>
+              <div class="col-sm-3" >
+                <%= link_to '<i class="fa fa-plus" aria-hidden="true"></i>File Leave'.html_safe, create_leave_path, method: 'post', class:'btn btn-primary btn-block btn-sm', "data-toggle" => "tooltip", "data-placement" => "top", "title" => "File Leave" %>
+              </div> 
+
+              <div class="col-sm-1" >              
+                <%= button_tag '<i class="fa fa-info-circle"></i>'.html_safe, method: 'post', class: "btn btn-primary btn-block btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "User Manual", id: 'usermanual' %>
+              </div>    
+            <% end %>       
           </div>
 
          
@@ -51,7 +65,7 @@
                   <td ><%= portal_leave_view.ID %></td>
                   <td ><%= portal_leave_view.DateFiled.strftime("%m/%d/%Y") %></td>
                   <td ><%= portal_leave_view.Duration %></td>
-                  <td><%=  GenFilingStatusF.where(FilingStatusRefNo: portal_leave_view.FilingStatusRefNo).pluck(:Description).to_sentence %></td>        
+                  <td><small><%=  GenFilingStatusF.where(FilingStatusRefNo: portal_leave_view.FilingStatusRefNo).pluck(:Description).to_sentence %></small></td>        
                   <td align="left">
 
                     <% if portal_leave_view.FilingStatusRefNo.to_i == 1 %>
@@ -101,6 +115,34 @@
 <br>
 <br>
 <br>
+
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" style="width: 50%; position: absolute; left: 25%;">
+    <span class="close">&times;</span>
+    <iframe  src="\manuals\leaveapplication.pdf"  style="border:none;" title="IframeExpenseDetails" height="500px" width="100%"> </iframe>
+  </div>
+</div>
+
+<script>
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("usermanual");
+  var span = document.getElementsByClassName("close")[0];
+
+  btn.onclick = function() {
+  modal.style.display = "block";
+  }
+
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
 
 </body>
 </html>
