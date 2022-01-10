@@ -20,7 +20,7 @@ class PortalTempwebinarsController < ApplicationController
       update_user = User.where(EmployeeRefNo: current_user.EmployeeRefNo)
       update_user.update(webinareg_later: 1)
 
-      get_fillingstatus_exists = PortalTempwebinar.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:fillingstatusrefno).to_sentence
+      get_fillingstatus_exists = PortalTempwebinar.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:webinar_refno).to_sentence
 
       if get_fillingstatus_exists.to_i == 6
         #flash[:notice] = "Record Already Exists1"
