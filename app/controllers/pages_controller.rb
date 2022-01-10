@@ -6,7 +6,7 @@ prepend_before_action :check_user_tagconfirm
 prepend_before_action :check_user_viewed_ads
 #prepend_before_action :tempsurvey_checker
 prepend_before_action :check_covidbulletin
-#prepend_before_action :check_webinar_reg
+prepend_before_action :check_webinar_reg
 prepend_before_action :check_vaccampaign
 prepend_before_action :checker_oldpass, only: [:index] # Change this to be any actions you want to protect.
 prepend_before_action :checkadminloggedin, only: [:index]
@@ -527,15 +527,11 @@ prepend_before_action :check_current_user
         
     #start check_webinar_reg
     def check_webinar_reg
-
       user_webinareg_value = User.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:webinareg_later).to_sentence
 
-      if user_webinareg_value == 'true'
-        #nothing to do
-      else
+      if user_webinareg_value != 'true'
         redirect_to portal_tempwebinars_path
       end
-    
     end
     # end check_webinar_reg
 
