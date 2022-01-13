@@ -19,13 +19,12 @@ class PorSurveysController < ApplicationController
   # GET /por_surveys/new
   def new
     
- 
     surveycheck = PorSurvey.exists?(EmployeeRefNo: current_user.EmployeeRefNo)
 
     if surveycheck == false
       @por_survey = PorSurvey.new
     else
-      redirect_to '/pages' and return
+      redirect_to pages_path and return
     end
 
 
@@ -43,7 +42,7 @@ class PorSurveysController < ApplicationController
 
     respond_to do |format|
       if @por_survey.save
-        format.html { redirect_to '/pages', notice: 'Thank You!' }
+        format.html { redirect_to pages_path, notice: 'Thank You!' }
         format.json { render :show, status: :created, location: @por_survey }
       else
         flash[:notice] = "Please complete the survey."
@@ -74,7 +73,7 @@ class PorSurveysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def por_survey_params
-      params.require(:por_survey).permit(:EmployeeRefNo, :answer, :comments)
+      params.require(:por_survey).permit(:EmployeeRefNo, :answer, :comments, :SupportFeedback, :SupportRating)
     end
 
 
