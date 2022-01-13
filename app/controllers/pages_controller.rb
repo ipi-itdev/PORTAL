@@ -155,22 +155,15 @@ prepend_before_action :check_current_user
 
     private
     def checksurvey
-
       if user_signed_in? == false
-
         redirect_to '/sign_in' and return
-
       else
         porsurveychecker = PorSurvey.exists?(EmployeeRefNo: current_user.EmployeeRefNo)
-
         if porsurveychecker == true
-          
         else
           redirect_to '/por_surveys/new' and return
         end
-        
       end
-
     end
 
     ##start privacychecker

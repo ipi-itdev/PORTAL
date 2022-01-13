@@ -2,6 +2,43 @@
 
  <%= stylesheet_link_tag 'por_surveys'%>
 
+<style type="text/css">
+
+#por_survey_answer_1a{
+  display: none;
+  width: 5px;
+  height: 5px;
+  cursor: pointer
+}
+
+#por_survey_answer_2a{
+  display: none;
+  width: 30%;
+  height: 30%;
+}
+
+#por_survey_answer_3a{
+  display: none;
+  width: 30%;
+  height: 30%;
+  cursor: pointer
+}
+
+#por_survey_answer_4a{
+  display: none;
+  width: 30%;
+  height: 30%;
+}
+
+#por_survey_answer_5a{
+  display: none;
+ 
+}
+
+
+
+</style> 
+
 
 <div class="container-fluid">
   <div class="row">
@@ -9,7 +46,7 @@
       
     </div>
     <div class="col-sm-6" >
-      <div class="panel panel-default">
+      <div class="panel panel-default" id="panelframe">
         <div class="panel-body">
             <div class="row">
               <div class="col-sm-6" >
@@ -29,36 +66,69 @@
             </div>
             <br>
   
-            <% current_user.EmployeeRefNo%>
+            <% current_user.EmployeeRefNo %>
             <%= form_with(model: por_survey, local: true) do |form| %>
             <%= form.hidden_field :EmployeeRefNo, :value => current_user.EmployeeRefNo %>       
-            <strong align="left">1. Overall User's Satisfaction (Payslip Portal)</strong>
+            <strong align="left">Employee Satisfaction in Employee Portal</strong><strong style="color: red;">*</strong>
             <br>
             <br>
 
             <div class="row">
               <div class="col-sm-1" >
               </div>
-              <div class="col-sm-2" align="center">
-                <input name="por_survey[answer]" value="" type="hidden">
-                <label for="por_survey_answer_1"><input value="1" name="por_survey[answer]" id="por_survey_answer_1" type="radio"><img src="/VerySatisfied.png" width="50" height="50"></label>
+              <div class="col-sm-2" align="justify">
+                <!--<input name="por_survey[answer]" value="" type="hidden">-->
+                <label for="por_survey_answer_1"><input value="1" name="por_survey[answer]" id="por_survey_answer_1" type="radio" ><img src="/VerySatisfied.png" width="50" height="50" class="section1">Very Satisfied</label>
              
 
               </div>
-              <div class="col-sm-2" align="center">
-                <label for="por_survey_answer_2"><input value="2" name="por_survey[answer]" id="por_survey_answer_2" type="radio"><img src="/Satisfied.png" width="50" height="50"></label>
+              <div class="col-sm-2" align="justify">
+                <label for="por_survey_answer_2"><input value="2" name="por_survey[answer]" id="por_survey_answer_2" type="radio" ><img src="/Satisfied.png" width="50" height="50" class="section1">Satisfied</label>
 
               </div>
-              <div class="col-sm-2" align="center">
-                <label for="por_survey_answer_3"><input value="3" name="por_survey[answer]" id="por_survey_answer_3" type="radio"><img src="/Neutral.png" width="50" height="50"></label>
+              <div class="col-sm-2" align="justify">
+                <label for="por_survey_answer_3"><input value="3" name="por_survey[answer]" id="por_survey_answer_3" type="radio" ><img src="/Neutral.png" width="50" height="50" class="section1">Neutral</label>
 
               </div>
-              <div class="col-sm-2" align="center">
-                <label for="por_survey_answer_4"><input value="4" name="por_survey[answer]" id="por_survey_answer_4" type="radio"><img src="/Dissatisfied.png" width="50" height="50"></label>
+              <div class="col-sm-2" align="justify">
+                <label for="por_survey_answer_4"><input value="4" name="por_survey[answer]" id="por_survey_answer_4" type="radio" ><img src="/Dissatisfied.png" width="50" height="50" class="section1">Dissatisfied</label>
            
               </div>
-              <div class="col-sm-2" align="center">
-                <label for="por_survey_answer_5"><input value="5" name="por_survey[answer]" id="por_survey_answer_5" type="radio"><img src="/VeryDissatisfied.png" width="50" height="50"></label>
+              <div class="col-sm-2" align="justify">
+                <label for="por_survey_answer_5"><input value="5" name="por_survey[answer]" id="por_survey_answer_5" type="radio" ><img src="/VeryDissatisfied.png" width="50" height="50" class="section1">Very Dissatisfied</label>
+
+              </div>
+              <div class="col-sm-1" >
+              </div>
+            </div>
+            <br>
+            <!--- support ratings -->
+            <strong align="left">Employee Satisfaction in Employee Portal Support</strong><strong style="color: red;">*</strong>
+            <br>
+            <br>
+            <div class="row">
+              <div class="col-sm-1" >
+              </div>
+              <div class="col-sm-2" align="justify">
+                <input name="por_survey[SupportRating]" value="" type="hidden">
+                <label for="por_survey_answer_1a"><input value="1" name="por_survey[SupportRating]" id="por_survey_answer_1a" type="radio"><img src="/VerySatisfied.png" width="50" height="50" class="section2">Very Satisfied</label>
+             
+
+              </div>
+              <div class="col-sm-2" align="justify">
+                <label for="por_survey_answer_2a"><input value="2" name="por_survey[SupportRating]" id="por_survey_answer_2a" type="radio"><img src="/Satisfied.png" width="50" height="50" class="section2">Satisfied</label>
+
+              </div>
+              <div class="col-sm-2" align="justify">
+                <label for="por_survey_answer_3a"><input value="3" name="por_survey[SupportRating]" id="por_survey_answer_3a" type="radio"><img src="/Neutral.png" width="50" height="50" class="section2">Neutral</label>
+
+              </div>
+              <div class="col-sm-2" align="justify">
+                <label for="por_survey_answer_4a"><input value="4" name="por_survey[SupportRating]" id="por_survey_answer_4a" type="radio"><img src="/Dissatisfied.png" width="50" height="50" class="section2">Dissatisfied</label>
+           
+              </div>
+              <div class="col-sm-2" align="justify">
+                <label for="por_survey_answer_5a"><input value="5" name="por_survey[SupportRating]" id="por_survey_answer_5a" type="radio"><img src="/VeryDissatisfied.png" width="50" height="50" class="section2">Very Dissatisfied</label>
 
               </div>
               <div class="col-sm-1" >
@@ -66,21 +136,20 @@
             </div>
 
             <br>
+
             <div class="row">
               <div class="col-sm-12" >
-                <strong>2. Comments/Recommendations</strong>
+                <strong>Your Comments/Recommendations </strong>
                 <br>
-                  <%= form.text_area :comments, class: 'form-control', :rows => 3, maxlength: 2000, minlength: 1  %>
-           
-       
+                  <%= form.text_area :comments, class: 'form-control', :rows => 3, maxlength: 2000, minlength: 1, placeholder: 'Your Comments/Recommendations'  %>
               </div>
-
-           
             </div>
+            
       
             <br>
             <div align="center">
-              <%= form.submit 'Submit Answer', class:'btn btn-md btn-primary' %> <!-- <%= link_to 'Skip', '/pages', class:'btn btn-md btn-danger' %>--> 
+              <%= form.submit 'Submit Answer', class:'btn btn-md btn-primary btn-block', data: { disable_with: "Please wait..." } %>  
+              <!--<%= link_to 'Skip', pages_path, class:'btn btn-md btn-danger', data: { disable_with: "Please wait..." } %> -->
 
             </div>
 
@@ -107,12 +176,22 @@
 
 
 
+
 <script type="text/javascript">
   
-$('img').click(function(){
-    $('.selected').removeClass('selected');
+$('.section1').click(function(){
+    $('.section1').removeClass('selected');
     $(this).addClass('selected');
 });
   
 </script>
- 
+
+
+<script type="text/javascript">
+  
+$('.section2').click(function(){
+    $('.section2').removeClass('selected');
+    $(this).addClass('selected');
+});
+  
+</script>

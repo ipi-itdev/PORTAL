@@ -23,11 +23,9 @@ class PortalTempwebinarsController < ApplicationController
       get_fillingstatus_exists = PortalTempwebinar.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:webinar_refno).to_sentence
 
       if get_fillingstatus_exists.to_i == 6
-        #flash[:notice] = "Record Already Exists1"
-           
-           redirect_to portal_tempwebinars_warning_path
+        flash[:notice] = "Record Already Exists1"
+           redirect_to '/pages'
       else
-
 
             #flash[:notice] = "Sorry but you had already cancelled a previous registraion "
             @portal_tempwebinar = PortalTempwebinar.new
