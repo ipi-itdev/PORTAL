@@ -11,7 +11,7 @@ prepend_before_action :check_vaccampaign
 prepend_before_action :checker_oldpass, only: [:index] # Change this to be any actions you want to protect.
 prepend_before_action :checkadminloggedin, only: [:index]
 prepend_before_action :privacychecker, only: [:index]
-#prepend_before_action :checksurvey
+prepend_before_action :checksurvey
 #prepend_before_action :covid_survey_checker
 prepend_before_action :check_pisaudit
 prepend_before_action :check_BRGY
