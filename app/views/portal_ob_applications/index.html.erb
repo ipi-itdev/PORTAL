@@ -124,5 +124,43 @@
 <br>
 <br>
 
+<<<<<<< HEAD
+=======
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" style="width: 50%; position: absolute; left: 25%;">
+    <span class="close">&times;</span>
+    <iframe  src="\manuals\obapplication.pdf"  style="border:none;" title="IframeExpenseDetails" height="500px" width="100%"> </iframe>
+  </div>
+</div>
+
+<script>
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("usermanual");
+  var span = document.getElementsByClassName("close")[0];
+
+  <% if mobile_device == "mobile" %>
+    btn.onclick = function() {
+      window.open("/manuals/obapplication.pdf");
+    }
+
+  <% else %>
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  <% end %>
+</script>
+
+>>>>>>> 57caa0ea... TMS Update : Manual Mobile View Fix
 </body>
 </html>
