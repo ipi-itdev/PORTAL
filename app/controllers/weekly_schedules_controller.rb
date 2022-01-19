@@ -8,7 +8,7 @@ class WeeklySchedulesController < ApplicationController
 
   def edit
     @get_edit_id = WeeklySchedule.find(params[:id])    
-  end
+  end  
 
   private
     def set_weekly_schedule

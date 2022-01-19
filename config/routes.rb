@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   get 'tmsdetailremove/index'
   resources :portal_dtr_upload_details
   resources :portal_dtr_uploads
+  resources :portal_dtr_histories
   resources :portal_dhs_employee_weekly_schedule_us
   resources :portal_employee_profiles
   resources :portal_leave_status_cs
@@ -128,6 +129,36 @@ Rails.application.routes.draw do
   end
 
   post '/privacies/acknowledgeprivacy', to: 'privacies#acknowledgeprivacy'
+
+  #weekschedhist
+  get 'weekschedhist', to: 'portal_dhs_employee_weekly_schedule_us#weekschedhist'
+
+  #dtrreport
+  get 'dtrreport', to: 'portal_dtr_histories#dtrreport'
+
+  #odhd
+  get 'ODHD', to: 'dhs#ODHD'
+
+  get 'BRGY', to: 'dhs#BRGY'
+
+  ##pisaudit
+  get 'pisaudit', to: 'pisaudit#pisaudit'
+
+  ##schedule_confirmation
+  get 'schedule_confirmation', to: 'portal_dhs_employee_weekly_schedule_us#schedule_confirmation'
+
+  #emptimeout
+  get 'emptimeout', to: 'portal_dhs_employee_weekly_schedule_us#emptimeout'
+
+  #fixedschedule_page
+  get 'fixedschedulepage', to: 'portal_dhs_employee_weekly_schedule_us#fixedschedulepage'
+
+  ##vasurvey portal_vacsurvey_us
+  get 'vacsurvey', to: 'portal_vacsurvey_us#vacsurvey'
+
+
+
+  #############
 
   #update leave submit 
   post '/portal_leave_applications/leave_submit', to: 'portal_leave_applications#submit_application'

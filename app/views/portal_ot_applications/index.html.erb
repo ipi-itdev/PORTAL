@@ -131,20 +131,30 @@
   var btn = document.getElementById("usermanual");
   var span = document.getElementsByClassName("close")[0];
 
-  btn.onclick = function() {
-  modal.style.display = "block";
-  }
+  <% if mobile_device == "mobile" %>
+    btn.onclick = function() {
+      window.open("/manuals/otapplication.pdf");
+    }
 
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
+  <% else %>
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
 
-  window.onclick = function(event) {
-    if (event.target == modal) {
+    span.onclick = function() {
       modal.style.display = "none";
     }
-  }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  <% end %>
 </script>
 
 </body>
+=======
+>>>>>>> parent of 45055d0e... TMS Manuals
+>>>>>>> ffc70f3b3c8dcaa671b000a8fd289edd30be24e2
 </html>
