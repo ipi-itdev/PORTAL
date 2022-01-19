@@ -304,7 +304,7 @@ Rails.application.routes.draw do
 
   #tms approval
   post 'approve_dtr', to: 'dtr_applications#approve_dtr'
-
+  post 'back_dtr', to: 'dtr_applications#back_dtr'
   post 'approve_leave', to: 'portal_leave_approvals#approve_leave'
   post 'disapprove_leave', to: 'portal_leave_approvals#disapprove_leave'
 
