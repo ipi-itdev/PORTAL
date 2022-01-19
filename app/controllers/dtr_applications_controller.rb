@@ -59,7 +59,7 @@ class DtrApplicationsController < ApplicationController
   def back_dtr
     if params[:Remarks].blank? == true
       flash[:notice] = "Remarks is required."
-      redirect_to dtr_applications_path
+      redirect_to edit_dtr_application_path(params[:dtr_application_employeerefno])
     else
     #ActiveRecord::Base.connection.exec_query("EXEC dbo.TMS_SP_PortalDTRApproval #{current_user.EmployeeRefNo}, #{params[:dtr_id]}, #{params[:dtr_employee]}")
     ActiveRecord::Base.connection.execute("exec dbo.pTMSApplicationApproval @TMSType = 1, @ID =  #{params[:dtr_detail_id]}, @UserRefNo = '#{current_user.EmployeeRefNo}', @Status = 1, @Remarks = '#{params[:Remarks].sub("'","''")}'")
