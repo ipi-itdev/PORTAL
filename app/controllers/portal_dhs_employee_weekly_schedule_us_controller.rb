@@ -152,18 +152,10 @@ end
 
   def timein
     #update_rec = PortalDhsEmployeeWeeklyScheduleU.find_by(ID: params[:id_rec])
-    errmsg = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_PostOBValidation #{params[:ob_id]}")
     ActiveRecord::Base.connection.execute("exec dbo.spTimeinLogs @EmployeeRefNo = #{params[:emprefno_rec]}, @ID = #{params[:id_rec]}")
-
-    if errmsg.rows[0][0] != ''
-      flash[:notice] = errmsg.rows[0][0]
-      redirect_to '/pages'
-    else
-      flash[:notice] = 'Time-in Saved'
-      redirect_to '/pages'
-    end    
+    flash[:notice] = 'Time-in Saved'
+    redirect_to '/pages'
   end
-
 
 
   def timeout
