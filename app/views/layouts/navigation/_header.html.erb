@@ -133,12 +133,6 @@
                       </li>                      
                       <!----end TMS -->
 
-                      <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 1 %>                            
-                            <li class="divider-vertical"></li>
-                            <!--- start TRE -->
-                            <li ><%= link_to "", portal_tre_applications_path, class: "fas fa-money-check",  :method=> :get, :title => 'TRE', :rel => 'tooltip'   %></li>                              
-                            <!--- end TRE -->
-                      <% end %> 
 
                       </ul>
                             
