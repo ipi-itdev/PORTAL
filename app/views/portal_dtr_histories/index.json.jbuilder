@@ -1,0 +1,1 @@
+json.array! @portal_dtr_history, partial: 'portal_dtr_histories/portal_dtr_history', as: :portal_dtr_history

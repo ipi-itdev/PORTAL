@@ -31,6 +31,7 @@
                 </div>  
 
             <% else %>
+<<<<<<< HEAD
 
                 <div class="col-sm-5" >
                       <div class="dropdown pc-menu" align="left" >                    
@@ -99,6 +100,104 @@
                               
                               <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 2 %>
                                     <li> <%= link_to "Upload DTR", portal_dtr_uploads_path, :method=> :get %> </li>
+=======
+            <div class="col-sm-7" >
+                  <div class="dropdown pc-menu" align="left" >                    
+                        <ul  class="nav navbar-nav">
+                    
+                              <li class="divider-vertical"></li>
+                              <li ><%= link_to "", pages_path, class: "fas fa-home",  :method=> :get,:title => 'Home', :rel => 'tooltip'  %></li>
+
+                              <li class="divider-vertical"></li>
+                              <li ><%= link_to "", pay_processed_payroll_us_path, class: "fas fa-money-bill-alt",  :method=> :get, :title => 'My Payslip', :rel => 'tooltip'   %></li>
+
+                              <li class="divider-vertical"></li>
+                              <li><%= link_to "", knowledges_path, class: "fas fa-book",  :method=> :get, :title => 'Knowledge base', :rel => 'tooltip'   %></li>
+
+                              <li class="divider-vertical"></li>
+                              <li >
+                                    <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="Downloadable Forms" rel="tooltip" >
+                                          <i class="fas fa-download"></i>
+                                    </a>
+
+                                    <ul  class="dropdown-menu" role="menu">
+                                          <li><%= link_to 'Incident Report Form', '/pits_forms/Incident Report Form.docx', target: "_blank" %></li>
+                                          <li><%= link_to 'Pag Ibig Change of Information Form', '/pits_forms/Pag Ibig Change of Information Form.pdf',  target: "_blank" %></li>
+                                          <li><%= link_to 'Pag IBIG Membership Upgrade Form', '/pits_forms/Pag IBIG Membership Upgrade Form.pdf', target: "_blank" %></li>
+                                          <li><%= link_to 'Pag Ibig Multi-Purpose Loan Form', '/pits_forms/Pag Ibig Multi-Purpose Loan Form.pdf', target: "_blank" %></li>
+                                          <li><%= link_to 'Philhealth Member Registration and Update Form', '/pits_forms/Philhealth Member Registration and Update Form.pdf', target: "_blank" %></li>
+                                          <li><%= link_to 'PITS DTR', '/pits_forms/PITS DTR.doc', target: "_blank" %></li>
+                                          <li><%= link_to 'PITS LEAVE FORM','/pits_forms/PITS LEAVE FORM.xls', target: "_blank"  %></li>
+                                          <li><%= link_to 'SSS Allocation of Maternity Leave Credits', '/pits_forms/SSS Allocation of Maternity Leave Credits.pdf', target: "_blank" %></li>
+                                          <li><%= link_to 'SSS Maternity Benefit Reimbursement Form', '/pits_forms/SSS Maternity Benefit Reimbursement Form.pdf', target: "_blank" %></li>
+                                          <li><%= link_to 'SSS Maternity Notification Form', '/pits_forms/SSS Maternity Notification Form.pdf', target: "_blank" %></li>
+                                          <li><%= link_to 'SSS Salary Loan Form', '/pits_forms/SSS Salary Loan Form.pdf', target: "_blank" %></li>
+                                          <li><%= link_to 'SSS Sickness Benefit Reimbursement Form', '/pits_forms/SSS Sickness Benefit Reimbursement Form.pdf' , target: "_blank"%></li>
+                                          <li><%= link_to 'SSS Sickness Notification Form', '/pits_forms/SSS Sickness Notification Form.pdf', target: "_blank" %></li>
+                                    </ul>
+                              </li>
+
+                              <li class="divider-vertical"></li>
+                              <!----start TMS -->
+                              <li >
+                                    <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="TMS" rel="tooltip">
+                                          <i class="fas fa-calendar-check"></i>
+                                    </a>
+
+                                    <ul  class="dropdown-menu" role="menu">                                          
+                                          <li> <%= link_to "Leave Credits", leave_credits_index_path, :method=> :get %> </li>                                          
+                                          <li> <%= link_to "Leave Application", portal_leave_applications_path, :method=> :get %> </li>
+                                          <li> <%= link_to "OT Application", portal_ot_applications_path, :method=> :get %> </li>
+
+                                          <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 1 %>                            
+                                            <li> <%= link_to "OB Application", portal_ob_applications_path, :method=> :get %> </li>                                         
+                                          <% end %> 
+
+                                          <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 2 %>                                                                        
+                                            <li> <%= link_to "DTR Timesheet", portal_dhs_employee_weekly_schedule_us_path, :method=> :get %> </li>
+                                            <li> <%= link_to "Upload DTR", portal_dtr_uploads_path, :method=> :get %> </li>                                         
+                                          <% end %> 
+                                    </ul>
+                              </li>
+                              <!----end TMS -->
+
+                              <% if current_user.is_external_approver == true %>
+                                    <li class="divider-vertical"></li>
+                                    <!----start TMS Approver -->
+                                    <li >
+                                          <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="TMS Approval" rel="tooltip">
+                                                <i class="fas fa-user-clock"></i>
+                                          </a>
+
+                                          <ul  class="dropdown-menu" role="menu">                                          
+                                                <li> <%= link_to "Weekly Schedule Remarks", weekly_schedules_path, :method=> :get %> </li>
+                                                <li> <%= link_to "DTR Approval", dtr_applications_path, :method=> :get %> </li>
+                                                <li> <%= link_to "Leave Approval", portal_leave_approvals_path, :method=> :get %> </li>
+                                                <li> <%= link_to "OT Approval", portal_ot_approvals_path, :method=> :get %> </li>
+                                          </ul>
+                                    </li>
+                                    <!----end TMS Approver-->
+
+                                    <li class="divider-vertical"></li>
+                                    <!----start Reports -->
+                                    <li >
+                                          <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="Reports" rel="tooltip">
+                                                <i class="fas fa-file"></i>
+                                          </a>
+
+                                          <ul  class="dropdown-menu" role="menu">                                          
+                                                <li> <%= link_to "DTR History", portal_dtr_histories_path, :method=> :get %> </li>                                                
+                                          </ul>
+                                    </li>
+                                    <!----end Reports-->
+                              <% end %>
+
+                              <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 1 %>                            
+                                    <li class="divider-vertical"></li>
+                                    <!--- start TRE -->
+                                    <li ><%= link_to "", portal_tre_applications_path, class: "fas fa-money-check",  :method=> :get, :title => 'TRE', :rel => 'tooltip'   %></li>                              
+                                    <!--- end TRE -->
+>>>>>>> 4cdbef5b... DTR Report : Report Module
                               <% end %> 
                           </ul>
                          

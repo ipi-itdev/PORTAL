@@ -88,10 +88,10 @@
       SAVE
     </button>
 
-    <% hashPisEmployeeU = PisEmployeeU.where(EmployeeRefNo: session[:weekly_schedule_employeerefno] ).pluck_to_hash(:EmployeeNumber,:Description)
+    <% hashPisEmployeeU = PisEmployeeU.where(EmployeeRefNo: session[:portal_dtr_history_employeerefno] ).pluck_to_hash(:EmployeeNumber,:Description)
       getPisEmployeeU = hashPisEmployeeU[0]  %>
 
-    <% hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: session[:weekly_schedule_employeerefno], IsActive: 1).pluck_to_hash(:ClientAccountRefNo, :PayFrequencyRefNo , :BasicRate, :EmployeeGroupRefNo, :JobPosition,:DepartmentRefNo, :PayrollRateRefNo, :JobPositionRefNo )%>  
+    <% hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: session[:portal_dtr_history_employeerefno], IsActive: 1).pluck_to_hash(:ClientAccountRefNo, :PayFrequencyRefNo , :BasicRate, :EmployeeGroupRefNo, :JobPosition,:DepartmentRefNo, :PayrollRateRefNo, :JobPositionRefNo )%>  
 
     <% getPisEmploymentInfoU = hashPisEmploymentInfoU[0] %>
 
@@ -185,7 +185,7 @@
         <td>
           <!--*** CONTENT GOES HERE ***-->
           <div class='page'>
-            <% get_emp_dhs = DtrApprove.where(EmployeeRefNo: session[:weekly_schedule_employeerefno], WorkDate: session[:WorkDateFrom_session]..session[:WorkDateTo_session] ) %>
+            <% get_emp_dhs = DtrApprove.where(EmployeeRefNo: session[:portal_dtr_history_employeerefno], WorkDate: session[:WorkDateFrom_session]..session[:WorkDateTo_session] ) %>
               
               <table style="border: 1px solid black;border-collapse: collapse;" width="100%" >
                  <thead>

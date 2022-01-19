@@ -78,11 +78,15 @@
 
                   
                   <%= form_tag(dtrreport_path, method: :get) do %>
+                    <% if params[:portal_dtr_history_employeerefno] != nil %>
+                      <% session[:portal_dtr_history_employeerefno] = params[:portal_dtr_history_employeerefno]%>
+                    <% end %>
+                    
                     <div class="row">
                       <div class="col-sm-12" align="left">
                         <tr>
                           <td>Employee : </td>
-                          <td align="left"><%=  PisEmployeeU.where(EmployeeRefNo: session[:weekly_schedule_employeerefno]).pluck(:Description).to_sentence %></td>
+                          <td align="left"><%=  PisEmployeeU.where(EmployeeRefNo: session[:portal_dtr_history_employeerefno]).pluck(:Description).to_sentence %></td>
                         </tr>
                       </div>    
                     </div>
@@ -123,7 +127,7 @@
                 <br>
                 <br>
                 <%= submit_tag 'Search ', class: "btn btn-success  btn-block btn-sm", id: 'submit_button_tag'  %>
-                <%= link_to 'Back ',weekly_schedules_path,class: "btn btn-secondary  btn-block btn-sm", id: 'submit_button_tag'  %>
+                <%= link_to 'Back ',portal_dtr_histories_path,class: "btn btn-secondary  btn-block btn-sm", id: 'submit_button_tag'  %>
    
                 <% end %>
       
@@ -150,7 +154,7 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-    <iframe  src="/weekly_schedules/<%= @get_existing_sched.ids.first %>"  style="border:none;" title="IframeExpenseDetails" height="500px" width="100%"> </iframe>
+    <iframe  src="/portal_dtr_histories/<%= @get_existing_sched.ids.first %>"  style="border:none;" title="IframeExpenseDetails" height="500px" width="100%"> </iframe>
   </div>
 
 </div>

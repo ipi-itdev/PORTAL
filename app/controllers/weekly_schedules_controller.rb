@@ -8,6 +8,7 @@ class WeeklySchedulesController < ApplicationController
 
   def edit
     @get_edit_id = WeeklySchedule.find(params[:id])    
+<<<<<<< HEAD
   end
 
 <<<<<<< HEAD
@@ -46,6 +47,9 @@ class WeeklySchedulesController < ApplicationController
         end
     #pdf generation ends here
   end
+=======
+  end  
+>>>>>>> 4cdbef5b... DTR Report : Report Module
 
 >>>>>>> 890d5edb... DTR Update: DTR Report Update
   private

@@ -101,6 +101,7 @@
           </a>
 
           <ul  class="dropdown-menu" role="menu">
+<<<<<<< HEAD
             <hr><small>
               <li> <%= link_to "Leave Application", portal_leave_applications_path, :method=> :get %> </li>                    
               <li> <%= link_to "OT Application", portal_ot_applications_path, :method=> :get %> </li>
@@ -108,6 +109,21 @@
               <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 2 %> 
                 <li> <%= link_to "Upload DTR", portal_dtr_uploads_path, :method=> :get %> </li>
               <% end %> 
+=======
+            <hr><small>          
+            <li> <%= link_to "Leave Credits", leave_credits_index_path, :method=> :get %> </li>            
+            <li> <%= link_to "Leave Application", portal_leave_applications_path, :method=> :get %> </li>
+            <li> <%= link_to "OT Application", portal_ot_applications_path, :method=> :get %> </li>
+
+            <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 1 %>                            
+              <li> <%= link_to "OB Application", portal_ob_applications_path, :method=> :get %> </li>                                         
+            <% end %> 
+
+            <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 2 %>                            
+              <li> <%= link_to "DTR Timesheet", portal_dhs_employee_weekly_schedule_us_path, :method=> :get %> </li>
+              <li> <%= link_to "Upload DTR", portal_dtr_uploads_path, :method=> :get %> </li>
+            <% end %> 
+>>>>>>> 4cdbef5b... DTR Report : Report Module
             </small></hr>
           </ul>
         </li>        
@@ -127,7 +143,23 @@
               </small></hr>
             </ul>
           </li>
+<<<<<<< HEAD
         <% end %>
+=======
+
+          <li class="mobile-menu">
+            <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="Reports" rel="tooltip" >
+            <strong>Reports</strong>
+            </a>
+
+            <ul  class="dropdown-menu" role="menu">
+              <hr><small>
+              <li> <%= link_to "DTR History", portal_dtr_histories_path, :method=> :get %> </li>
+              </small></hr>
+            </ul>
+          </li>
+        <% end %> 
+>>>>>>> 4cdbef5b... DTR Report : Report Module
 
         
         <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 1 %>                            
