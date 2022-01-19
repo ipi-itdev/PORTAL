@@ -5,8 +5,14 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
   # GET /portal_dhs_employee_weekly_schedule_us
   # GET /portal_dhs_employee_weekly_schedule_us.json
   def index
-    @weeksched = PortalDhsEmployeeWeeklyScheduleU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsNew: 1, IsActive: 1)
-
+    if PortalDhsEmployeeWeeklyScheduleU.where(EmployeeRefNo: current_user.EmployeeRefNo, BackToEmployee: 1).count == 0
+      @weeksched = PortalDhsEmployeeWeeklyScheduleU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsNew: 1, IsActive: 1)
+      @foredit = 0
+    else
+      @weeksched = PortalDhsEmployeeWeeklyScheduleU.where(EmployeeRefNo: current_user.EmployeeRefNo, BackToEmployee: 1)
+      @foredit = 1
+    end
+    
     @get_fixed_sched_test = User.where(EmployeeRefNo: current_user.EmployeeRefNo)
 
     @get_fixed_sched = User.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:fixed_sched)
@@ -19,11 +25,10 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
 
 def weekschedhist
   @testssss = current_user.EmployeeRefNo
-
-    @get_existing_sched = PortalDhsEmployeeWeeklyScheduleU.where(WorkDate: (params[:WorkDateFrom])..params[:WorkDateTo], EmployeeRefNo: current_user.EmployeeRefNo ).order(:WorkDate)
+  
+  @get_existing_sched = PortalDhsEmployeeWeeklyScheduleU.where(WorkDate: (params[:WorkDateFrom])..params[:WorkDateTo], EmployeeRefNo: current_user.EmployeeRefNo ).order(:WorkDate)
 
     #set workdate
-
     @get_count_existing_sched = @get_existing_sched.count
 
     if @get_count_existing_sched <= 0
@@ -43,6 +48,8 @@ end
   # GET /portal_dhs_employee_weekly_schedule_us/1
   # GET /portal_dhs_employee_weekly_schedule_us/1.json
   def show
+
+    render :layout => false
 
     @emprefno = current_user.EmployeeRefNo
     @set_workdate_from = session[:WorkDateFrom_session]   
@@ -145,9 +152,16 @@ end
 
   def timein
     #update_rec = PortalDhsEmployeeWeeklyScheduleU.find_by(ID: params[:id_rec])
+    errmsg = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_PostOBValidation #{params[:ob_id]}")
     ActiveRecord::Base.connection.execute("exec dbo.spTimeinLogs @EmployeeRefNo = #{params[:emprefno_rec]}, @ID = #{params[:id_rec]}")
-    flash[:notice] = 'Time-in Saved'
-    redirect_to '/pages'
+
+    if errmsg.rows[0][0] != ''
+      flash[:notice] = errmsg.rows[0][0]
+      redirect_to '/pages'
+    else
+      flash[:notice] = 'Time-in Saved'
+      redirect_to '/pages'
+    end    
   end
 
 
@@ -215,7 +229,7 @@ end
 
     if params[:shift_start_tag] >= params[:shift_end_tag]
 
-            flash[:notice] = "Invalid Shift Start / End."
+            flash[:notice] = "Invalid Shift Start / End"
             redirect_to '/fixedschedulepage'
 
     else
@@ -226,57 +240,50 @@ end
             flash[:notice] = "Shift Start/End is blank"
             redirect_to '/fixedschedulepage'
 
-          else
+          else          
+                get_rec_to_be_fixedsched = PortalDhsEmployeeWeeklyScheduleU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsNew: 1, IsActive: 1, IsRD: 0, time_in: nil, time_out: nil)
+
+                get_the_hrs =  params[:shift_start_tag].to_time
+                get_the_hrs1 = get_the_hrs.strftime('%H')
+
+                get_the_mins =  params[:shift_start_tag].to_time
+                get_the_mins1 = get_the_mins.strftime('%M')
+
+                get_the_sec =  params[:shift_start_tag].to_time
+                get_the_sec1 = get_the_sec.strftime('%M')
 
 
-            get_rec_to_be_fixedsched = PortalDhsEmployeeWeeklyScheduleU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsNew: 1, IsActive: 1, IsRD: 0, time_in: nil, time_out: nil)
+                get_the_hrs_end =  params[:shift_end_tag].to_time
+                get_the_hrs1_end = get_the_hrs_end.strftime('%H')
 
-            get_the_hrs =  params[:shift_start_tag].to_time
-            get_the_hrs1 = get_the_hrs.strftime('%H')
+                get_the_mins_end =  params[:shift_end_tag].to_time
+                get_the_mins1_end  = get_the_mins_end.strftime('%M')
 
-            get_the_mins =  params[:shift_start_tag].to_time
-            get_the_mins1 = get_the_mins.strftime('%M')
+                get_the_sec_end =  params[:shift_end_tag].to_time
+                get_the_sec1_end  = get_the_sec_end.strftime('%M')
 
-            get_the_sec =  params[:shift_start_tag].to_time
-            get_the_sec1 = get_the_sec.strftime('%M')
+                #ActiveRecord::Base.connection.execute("exec PORTAL_SP_update_leaveapp_refno @RefNo = #{portal_leave_application_auto.id}")
 
+                get_rec_to_be_fixedsched.each do |get_rec_to_be_fixedsched|
 
-            get_the_hrs_end =  params[:shift_end_tag].to_time
-            get_the_hrs1_end = get_the_hrs_end.strftime('%H')
+                  get_rec_to_be_fixedsched.shift_start = get_rec_to_be_fixedsched.WorkDate.to_time.strftime('%Y-%m-%d %H:%M:%S')
+                  get_rec_to_be_fixedsched.shift_end = get_rec_to_be_fixedsched.WorkDate.to_time.strftime('%Y-%m-%d %H:%M:%S')
 
-            get_the_mins_end =  params[:shift_end_tag].to_time
-            get_the_mins1_end  = get_the_mins_end.strftime('%M')
+                  get_rec_to_be_fixedsched.shift_start  = get_rec_to_be_fixedsched.shift_start.change(hour: get_the_hrs1.to_i, min: get_the_mins1.to_i ) 
+                  get_rec_to_be_fixedsched.shift_end = get_rec_to_be_fixedsched.shift_end.change(hour: get_the_hrs1_end.to_i, min: get_the_mins1_end.to_i)
 
-            get_the_sec_end =  params[:shift_end_tag].to_time
-            get_the_sec1_end  = get_the_sec_end.strftime('%M')
+                  get_rec_to_be_fixedsched.save
 
-            #ActiveRecord::Base.connection.execute("exec PORTAL_SP_update_leaveapp_refno @RefNo = #{portal_leave_application_auto.id}")
+                end
 
-            get_rec_to_be_fixedsched.each do |get_rec_to_be_fixedsched|
+                get_user_rec = User.where(EmployeeRefNo:current_user.EmployeeRefNo)
+                get_user_rec.update(fixed_sched: 1)
+              
+                flash[:notice] = "Default Schedule Saved"
 
-              get_rec_to_be_fixedsched.shift_start = get_rec_to_be_fixedsched.WorkDate.to_time.strftime('%Y-%m-%d %H:%M:%S')
-              get_rec_to_be_fixedsched.shift_end = get_rec_to_be_fixedsched.WorkDate.to_time.strftime('%Y-%m-%d %H:%M:%S')
+                redirect_to portal_dhs_employee_weekly_schedule_us_url
 
-
-              get_rec_to_be_fixedsched.shift_start  = get_rec_to_be_fixedsched.shift_start.change(hour: get_the_hrs1.to_i, min: get_the_mins1.to_i ) 
-
-              get_rec_to_be_fixedsched.shift_end = get_rec_to_be_fixedsched.shift_end.change(hour: get_the_hrs1_end.to_i, min: get_the_mins1_end.to_i)
-
-
-              get_rec_to_be_fixedsched.save
-
-            end
-
-            get_user_rec = User.where(EmployeeRefNo:current_user.EmployeeRefNo)
-            get_user_rec.update(fixed_sched: 1)
-          
-            flash[:notice] = "Default Schedule Saved"
-
-            redirect_to portal_dhs_employee_weekly_schedule_us_url
-          
-            
           end
-
       
     end
 
@@ -305,7 +312,7 @@ end
 
     if params[:shift_start_tag] >= params[:shift_end_tag]
 
-            flash[:notice] = "Invalid Shift Start / End."
+            flash[:notice] = "Invalid Shift Start / End"
             redirect_to '/fixed_sched_set'
 
     else
@@ -347,11 +354,8 @@ end
               get_rec_to_be_fixedsched.shift_start = get_rec_to_be_fixedsched.WorkDate.to_time.strftime('%Y-%m-%d %H:%M:%S')
               get_rec_to_be_fixedsched.shift_end = get_rec_to_be_fixedsched.WorkDate.to_time.strftime('%Y-%m-%d %H:%M:%S')
 
-
               get_rec_to_be_fixedsched.shift_start  = get_rec_to_be_fixedsched.shift_start.change(hour: get_the_hrs1.to_i, min: get_the_mins1.to_i ) 
-
               get_rec_to_be_fixedsched.shift_end = get_rec_to_be_fixedsched.shift_end.change(hour: get_the_hrs1_end.to_i, min: get_the_mins1_end.to_i)
-
 
               get_rec_to_be_fixedsched.save
 
@@ -372,7 +376,12 @@ end
     
   end
 
-
+  def request_dtr    
+    ActiveRecord::Base.connection.execute("exec dbo.pTMSApplicationApproval @TMSType = 1, @ID =  0, @UserRefNo = '#{current_user.EmployeeRefNo}', @Status = 40, @Remarks = ''")
+    
+    flash[:notice] = "DTR requested."
+    redirect_to pages_path
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

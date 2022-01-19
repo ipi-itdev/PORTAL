@@ -47,8 +47,11 @@
       <div class="panel panel-default" id="panelframe">
 
         <div class="panel-heading" id="panelheader">
-
-          <strong>My Weekly Schedule</strong>
+          <% if @foredit == 0 %>
+            <strong>My Weekly Schedule</strong>
+          <% else %>                                                  
+            <strong>DTR Timesheet</strong>
+          <% end %>          
         </div>
 
         <div class="panel-body">
@@ -62,14 +65,18 @@
                     <td>
                       <div id="fix_sched_div">
                         <%= hidden_field_tag :employeerefno, current_user.EmployeeRefNo %>
-                        <%= link_to 'Set default schedule'.html_safe, '/fixedschedulepage', class:'btn btn-primary btn-sm' %>                        
+                        <% if @foredit == 0 %>
+                          <%= link_to 'Set default schedule'.html_safe, '/fixedschedulepage', class:'btn btn-primary btn-sm' %>
+                        <% else %>                                                  
+                          <%= link_to "Request DTR", request_dtr_path(), method: 'post',  class: "btn btn-primary btn-sm", data: { confirm: 'Are you sure you sure you want to request this DTR?', disable_with: "<i class='fa fa-spinner fa-spin'></i> Please wait..." } %>
+                        <% end %>
                       </div>
                     </td>
 
                     <td align="center">
-
-                        <%= link_to 'My Timesheet'.html_safe, '/weekschedhist', class:'btn btn-primary btn-sm' %>
-
+                        <% if @foredit == 0 %>
+                          <%= link_to 'My Timesheet'.html_safe, '/weekschedhist', class:'btn btn-primary btn-sm' %>
+                        <% end %>
                     </td>
             
                   </tr>
@@ -95,9 +102,7 @@
               <tr align="left">
 
                 <td>
-
-
-                  <% if weeksched.shift_start.blank? == false && weeksched.shift_end.blank? == false &&  weeksched.time_in.blank? == false && weeksched.IsRD == false %>
+                  <% if weeksched.shift_start.blank? == false && weeksched.shift_end.blank? == false &&  weeksched.time_in.blank? == false && weeksched.IsRD == false && @foredit == 0 %>
 
                   <% else %>
                     <small><%= link_to '<i class="far fa-edit" style="color: green;"></i>'.html_safe, "/portal_dhs_employee_weekly_schedule_us/#{weeksched.ID}/edit", :title => 'Edit Schedule', :rel => 'tooltip' %></small>
@@ -187,7 +192,7 @@
                   <small><%= weeksched.WorkDate.to_date.strftime("%m/%d/%Y %A ") %>  </small>
                   <br>
 
-                  <% if weeksched.shift_start.blank? == false && weeksched.shift_end.blank? == false &&  weeksched.time_in.blank? == false && weeksched.IsRD == false %>
+                  <% if weeksched.shift_start.blank? == false && weeksched.shift_end.blank? == false &&  weeksched.time_in.blank? == false && weeksched.IsRD == false && @foredit == 0 %>
 
                   <% else %>
                     <small><%= link_to '<i class="far fa-edit"></i>'.html_safe, "/portal_dhs_employee_weekly_schedule_us/#{weeksched.ID}/edit", :title => 'Edit Schedule', :rel => 'tooltip' %></small>
