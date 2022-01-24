@@ -49,7 +49,7 @@ end
   # GET /portal_dhs_employee_weekly_schedule_us/1.json
   def show
 
-    render :layout => false
+    #render :layout => false
 
     @emprefno = current_user.EmployeeRefNo
     @set_workdate_from = session[:WorkDateFrom_session]   
