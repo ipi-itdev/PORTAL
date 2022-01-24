@@ -5,4 +5,4 @@ production:
   database: DB_9B2FF8_POLUSLIVE
   username: <%= Rails.application.credentials.username %>
   password: <%= Rails.application.credentials.password %>
-  timeout: 10000
+  timeout: 15000
