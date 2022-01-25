@@ -62,7 +62,7 @@ class Weeksched < Prawn::Document
 				data3 = ViewConvertPortalDhsEmployeeWeeklyScheduleU.where(EmployeeRefNo: @emprefno, WorkDate: @set_workdate_from..@set_workdate_to ).pluck(:WorkDate_date,:task,:shif_start_datetime, :shif_end_datetime, :time_in_datetime,:time_out_datetime )
 
 
-				table(data3,:cell_style => { size: 10 },:column_widths => [150, 260, 102,102,102,102],:cell_style => { size: 9 }) do
+				table(data3,:cell_style => { size: 10 },:column_widths => [150, 260, 102,102,102,102]) do
 				columns(1..5).style(:align => :left)
 			end
 			move_down 5
