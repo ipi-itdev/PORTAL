@@ -67,7 +67,7 @@
 
                   <div class="row">
                     <div class="col-sm-12" >
-                      <small><b>Status:</b> </small><%= GenFilingStatusF.where(FilingStatusRefNo: @portal_tre_application.FilingStatusRefNo ).pluck(:Description).to_sentence %>
+                      <small><b>Status:</b> <%= GenFilingStatusF.where(FilingStatusRefNo: @portal_tre_application.FilingStatusRefNo ).pluck(:Description).to_sentence %></small>
                     </div>                    
                   </div>
 
