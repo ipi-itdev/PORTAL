@@ -84,18 +84,24 @@ class PortalVacsurveyUsController < ApplicationController
 
 
 
-def vacdepsurvey
+  def vacdepsurvey
 
-  get_vacdepsuvey_exist =  PortalVacsurveyU.where(EmployeeRefNo:current_user.EmployeeRefNo, HasDependents: 1).exists?
+    get_vacdepsuvey_exist =  PortalVacsurveyU.where(EmployeeRefNo:current_user.EmployeeRefNo, HasDependents: 1).exists?
 
-   if get_vacdepsuvey_exist == true
-      @vacdepsurvey_link = "https://vactest.pitsph.com/Home/Dependents#?pkey=1_#{current_user.EmployeeRefNo}_0"
-   else
-      redirect_to '/pages'
-   end
+     if get_vacdepsuvey_exist == true
+        @vacdepsurvey_link = "https://vactest.pitsph.com/Home/Dependents#?pkey=1_#{current_user.EmployeeRefNo}_0"
+     else
+        redirect_to '/pages'
+     end
 
-  
-end
+  end
+
+
+  ##boostersurvey page
+  def booster_survey
+    @boostersurvey_link = "https://booster.pitsph.com/#?pkey=1_#{current_user.EmployeeRefNo}_0"
+  end
+  ##boostersurvey page
 
 
 

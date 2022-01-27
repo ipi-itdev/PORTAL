@@ -1,6 +1,8 @@
 class PagesController < ApplicationController
 before_action :authenticate_user!
 
+
+prepend_before_action :check_get_vac_booster
 #prepend_before_action :emp_satis_survey_checker
 prepend_before_action :check_user_tagconfirm
 prepend_before_action :check_user_viewed_ads
@@ -627,6 +629,15 @@ prepend_before_action :check_current_user
     
   end
   #check emp_satis_survey
+
+
+  #check vac booster
+  def check_get_vac_booster
+    if current_user.DoneBooster != true
+      redirect_to '/booster_survey'
+    end
+  end
+  #check vac booster
 
 
 

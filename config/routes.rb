@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-
+  
+  get 'booster_survey', to: 'portal_vacsurvey_us#booster_survey'
   get 'portal_employee_satisfaction_surveys/intro'
   resources :portal_employee_satisfaction_surveys
   get '/winner', to: 'por_temp_surveys#winner'
