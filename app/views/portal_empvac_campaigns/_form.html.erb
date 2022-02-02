@@ -2,7 +2,6 @@
 <html>
 <head>
 
-
 <style type="text/css">
 
   #modalbut {
@@ -13,16 +12,23 @@
     visibility: hidden;
   }
 
-
   img {
     width: 100%;
     height: 100%;
   }
 
-  
-  
+  /* Number text (1/3 etc) */
+.numbertext {
+  color: black;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+
 </style>
-  
+
 </head>
 
 <body onload="myFunction()">
@@ -37,8 +43,8 @@
 
 
 <%= form_with(model: portal_empvac_campaign, local: true) do |form| %>
-
-
+  <%= form.hidden_field :EmployeerRefNo, value: current_user.EmployeeRefNo %>
+  <%= form.hidden_field :IsDone, value: true %>
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="modalbut">
@@ -52,15 +58,160 @@
 
       <div class="modal-body">
 
-        <%= form.hidden_field :EmployeerRefNo, value: current_user.EmployeeRefNo %>
-        <%= form.hidden_field :IsDone, value: true %>
+        <% if mobile_device == 'mobile' %>
+        <!--mobile -->
+        <div class="container-fluid">
 
-        <img src="/resbakuna_5.jpg" /> </img>
+          <div class="row">
+            <div class="col-sm-3" >
+            </div>  
+            <div class="col-sm-6" >
 
+              <div class="mySlides">
+                <div class="numbertext"> </div>
+                <img src="/DOHPosterMask/1.jpg" style="width:100% height:100%">
+              </div>
+
+              <div class="mySlides">
+                <div class="numbertext"> </div>
+                <img src="/DOHPosterMask/2.jpg" style="width:100%">
+              </div>
+
+              <div class="mySlides">
+                <div class="numbertext"> </div>
+                <img src="/DOHPosterMask/3.jpg" style="width:100%">
+              </div>
+
+
+              <div class="mySlides">
+                <div class="numbertext"> </div>
+                <img src="/DOHPosterMask/4.jpg" style="width:100%">
+              </div>
+
+              <div class="mySlides">
+                <div class="numbertext"></div>
+                <img src="/DOHPosterMask/5.jpg" style="width:100%">
+              </div>
+
+
+              <div class="mySlides">
+                <div class="numbertext"> </div>
+                <img src="/jobpost/Last Page.png" style="width:100%">
+              </div>
+
+
+
+            </div>
+            <div class="col-sm-3" >
+            </div> 
+
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3" >
+            </div>
+            <div class="col-sm-6" >
+
+              <div class="btn-group btn-group-justified">
+                <div class="btn-group">
+                  <button class="btn btn-primary" onclick="plusSlides(-1)" id="back_but" type="button"> Back </button>
+                </div>
+                <div class="btn-group">
+                  <button class="btn btn-primary" onclick="plusSlides(1)" id="next_but" type="button"> Next</button>
+                   <%= form.submit 'Close', class: "btn btn-primary btn-block", id:'close_but', data: { disable_with: "Please wait..." } %> 
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3" >
+            </div>  
+          </div>
+        </div>
+
+        <% else %>
+        <!-- desktop -->
+        <div class="container-fluid">
+
+          <div class="row">
+            <div class="col-sm-1" >
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <button class="btn btn-primary" onclick="plusSlides(-1)" id="back_but" type="button"> < </button>
+            </div>  
+            <div class="col-sm-10" >
+
+              <div class="mySlides">
+                <div class="numbertext"> </div>
+                <img src="/DOHPosterMask/1.jpg" style="width:100%; height:100%;">
+              </div>
+
+              <div class="mySlides">
+                <div class="numbertext"> </div>
+                <img src="/DOHPosterMask/2.jpg" style="width:100%">
+              </div>
+
+              <div class="mySlides">
+                <div class="numbertext"> </div>
+                <img src="/DOHPosterMask/3.jpg" style="width:100%">
+              </div>
+
+
+              <div class="mySlides">
+                <div class="numbertext"> </div>
+                <img src="/DOHPosterMask/4.jpg" style="width:100%">
+              </div>
+
+              <div class="mySlides">
+                <div class="numbertext"> </div>
+                <img src="/DOHPosterMask/5.jpg" style="width:100%">
+
+
+                <%= form.submit 'Close', class: "btn btn-primary btn-block", id:'close_but', data: { disable_with: "Please wait..." } %> 
+
+              </div>
+
+
+            </div>
+            <div class="col-sm-1" >
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <button class="btn btn-primary" onclick="plusSlides(1)" id="next_but" type="button"> > </button>
+            </div> 
+
+          </div>
+
+
+        </div>
+
+
+        <% end %>
   
       </div>
       <div class="modal-footer">
-        <%= form.submit 'Close', class: "btn btn-primary btn-block" %>
+        
       </div>
     </div>
   </div>
@@ -70,7 +221,68 @@
 
 <% end %>
 
+
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  //dots[slideIndex-1].className += " active";
+
+  if (slideIndex == 1) 
+  {
+    $("#back_but").hide();
+    $("#close_but").hide();
+  } 
+  else if (slideIndex == 5) 
+  {
+    $("#next_but").hide();
+    $("#close_but").show();
+  }
+  else
+  {
+    $("#back_but").show();
+    $("#next_but").show();
+    $("#close_but").hide();
+  }
+
+
+}
+</script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
 
 
