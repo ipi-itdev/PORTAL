@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  
+  get 'dependent_booster', to: 'portal_vacsurvey_us#dependent_booster'
   get 'booster_survey', to: 'portal_vacsurvey_us#booster_survey'
   get 'portal_employee_satisfaction_surveys/intro'
   resources :portal_employee_satisfaction_surveys
