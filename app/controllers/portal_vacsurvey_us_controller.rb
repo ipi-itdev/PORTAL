@@ -104,6 +104,12 @@ class PortalVacsurveyUsController < ApplicationController
   ##boostersurvey page
 
 
+  ##dependent booster survey page
+  def dependent_booster
+    @dependentbooster_link = "https://booster.pitsph.com/Home/Dependents#?pkey=1_#{current_user.EmployeeRefNo}_#{current_user.VacBoosterID}"
+  end
+  ##dependent booster survey page
+
 
 
   private

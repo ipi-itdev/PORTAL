@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 before_action :authenticate_user!
 
-
+prepend_before_action :check_dependent_booster
 prepend_before_action :check_get_vac_booster
 #prepend_before_action :emp_satis_survey_checker
 prepend_before_action :check_user_tagconfirm
@@ -638,6 +638,16 @@ prepend_before_action :check_current_user
     end
   end
   #check vac booster
+
+
+  #check_dependent_booster
+  def check_dependent_booster
+    if current_user.HasBoosterDependents == true
+      redirect_to '/dependent_booster'
+    end
+  end
+  #check_dependent_bootser
+
 
 
 
