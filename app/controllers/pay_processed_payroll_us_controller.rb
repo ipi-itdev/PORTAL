@@ -33,7 +33,13 @@ prepend_before_action :check_expire_password
       #get emp client
       ##get employee details
       hashPisEmployeeU = PisEmployeeU.where(EmployeeRefNo: @emprefno).pluck_to_hash(:EmployeeNumber,:Description)
-      @PisEmployeeU = hashPisEmployeeU[0]            
+      @PisEmployeeU = hashPisEmployeeU[0]
+      
+      ##bir2316
+      @BIRpath = "#{current_user.AttachmentPath}"
+      @getBIRCredentials = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}")     
+      @BIRlink = "#{@BIRpath}#{@getBIRCredentials.rows[0][0]}"
+      ##bir2316             
 
       hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: @emprefno, IsActive: 1).pluck_to_hash(:ClientAccountRefNo, :PayFrequencyRefNo , :BasicRate, :EmployeeGroupRefNo, :JobPosition,:DepartmentRefNo, :PayrollRateRefNo, :JobPositionRefNo )
       @PayrollRate = PayPayrollRateM.where(PayrollRateRefNo: hashPisEmploymentInfoU[0][:PayrollRateRefNo]).pluck(:Description)

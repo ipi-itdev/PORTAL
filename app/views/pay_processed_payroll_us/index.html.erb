@@ -262,195 +262,24 @@
             <tr>
               <td><strong>Payroll Rate:</strong></td>
               <td align="left">
-                <span ><%= @PayrollRate.to_sentence %>
-
-                </span> 
+                <span ><%= @PayrollRate.to_sentence %></span> 
               </td>
             </tr>
             <tr>
-              <td><strong> </strong></td>
-              <td align="left">
-               
-              </td>
+              <td> <%=link_to '*View Leave Balances', '/leave_credits/index', target: "_blank" %></td>
             </tr>
             <tr>
-              
+              <!--bir -->
+              <td>
+                <!--<a target="_blank" href="<%= @BIRlink %>">*View BIR2316-YR2021</a><a type="button" data-toggle="modal" data-target="#birModal" title = "How to get the BIR2316 Password" rel = "tooltip" ><ic class="glyphicon glyphicon-info-sign "  ></ic></a> -->
+              </td>  
+              <!--bir -->
             </tr>
+          </table>
+        </div>
+      </div> 
 
-            <tr>
-              <!-----Start Leaves Section  MODAL -->
-              <td id="hide">
-                <% if @PisEmploymentInfoU[:EmployeeGroupRefNo] == 1 %>
-
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#13thModal">
-                    My 13th Month Pay
-                  </button>
-
-                <% end %>
-
-
-
-              <!-- 13Modal -->
-              <div class="modal fade" id="13thModal" tabindex="-1" role="dialog" aria-labelledby="13thModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-
-                    <div class="modal-body">
-                      <iframe src="/thirteenmonth" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
-
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              </td>
-              <td align="left" >
-                <span >
-                  <a id="myBtnx" class ="pointer" ><i><u>*See Leave Balances</u></i></a>
-                  <!-- The Modal -->
-                  <div id="myModal" class="modal">
-                  <!-- Modal content -->
-                  <div class="modal-content">
-                        <div class="modal-header">
-                        <span class="close">&times;</span>
-                        <h4 class="modal-title" align="center"><strong>Leave Balances</strong></h4>
-                        </div>
-
-                        <div class="modal-body">
-
-
-           
-                          <table width="100%" >
-                            <tr>
-
-                           
-                            <div class="dropdown pc-menu">
-                              <div class="row">
-                            
-                                <div class="col-sm-4" align="center"><strong>Type of Leave</strong></div>
-                                <div class="col-sm-4" align="center"><strong>Total Leaves Available</strong></div>
-                                <div class="col-sm-4" align="center"><strong>Used Leaves</strong></div>
-                              </div>
-                            </div>
-                            </tr>
-                          </table>
-
-        
-
-                      <table width="100%" class="table">
-
-
-                        <% getleavetype = ViewLeaveDetailsPortal.where(EmployeeRefNo: @emprefno) #start outer loop %>
-                        <% counter = 0 %>
-                        <% getleavetype.each do |type1|%>
-                        <% counter = counter++1 %>
-                      <tr>
-
-                      <td>
-                      
-                      <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                           <div class="row">
-
-
-                            <div class="col-sm-4"  >
-                              <small> 
-                                 <strong><a id="leavelabel" data-toggle="collapse" href= #<%= "#{counter}"%>> <%= type1.LeaveType%></a> </strong> 
-                                 
-                              </small>
-                            </div>
-
-                            <div class="mobile-menu">
-                              <div class="col-sm-4" align="center">
-                     
-                                  <% getleaveavail1 = type1.LeaveAvailables.to_f %>
-                                  <small><strong>Available Leaves: <%=  getleaveavail1.to_s(:currency).gsub("$",'')%> day/s</strong></small>
-               
-                              </div>
-                            </div>
-
-                             <div class="dropdown pc-menu">
-                              <div class="col-sm-4" align="center" >
-                                <small>
-                                  <% getleaveavail1 = type1.LeaveAvailables.to_f %>
-                                  <strong><%=  getleaveavail1.to_s(:currency).gsub("$",'')%> day/s</strong>
-                                </small>
-                              </div>
-                            </div>
-
-                            <div class="col-sm-4" align="center">
-                               <small><u> <strong> <a id="leavelabel" data-toggle="collapse" href= #<%= "#{counter}"%>> View </a> </strong> 
-                                    </u> </small>
-                            </div>
-                    
-                          </div>
-                        </h4>
-                      </div>
-                      <br>
-                      <div id = <%="#{counter}"%> class="panel-collapse collapse">
-
-                          <div><small><strong>Used Leaves Details:</strong></small></div>
-
-
-                        <table width="100%" class="table table-bordered">
-                                    <tr>
-                                      <small>
-                                      <td width="20%" align="left"><b><strong>Date Filed</strong></b></td>
-                                      <td width="5%" align="left"><b><strong>Hrs.</strong></b></td>
-                                      <td width="30%" align="left"><b><strong>Reason</strong></b></td>
-                                      </small>  
-                                    </tr> 
-
-                                    <% getleaves = TmsLeaveApplicationU.where(EmployeeRefNo: @emprefno, LeaveTypeRefNo: type1.LeaveTypeRefNo, FilingStatusRefNo: 4 ) #start inner loop%>
-                                    <% getleaves.each do |type2|%>
-
-                                    <tr>
-                                      <td width="20%" align="left"><b><small>
-                                        <%  getworkdate1 = type2.WorkDate %>
-                                        <%= getworkdate1.to_date.strftime("%m/%d/%Y") %>
-                                        </small></b>
-                                      </td>
-                                      <td width="5%" align="left"><b><small><%= type2.Hours %></small></b></td>
-                                      <td width="30%" align="left"><b><small><%= type2.Reason %></small></b></td>  
-                                    </tr>                                  
-                            <% end #END OF INNER LOOP%>
-                        </table>
-                      </div>
-
-                      </div>
-                      </div>
-
-                      </td>
-                
-                      </tr>
-                 
-                       <% end # end of OUTER loop%>  
-
-                      </table>
-
-
-                      </div><!--- end modal body -->
-
-
-                      </div><!---- end modal content -->
-                 
-                      </div>
-                      </div>
-                      </span>
-                      </td>
-                      </tr>
-                      </table>
-                      </div>
-                      </div> 
-
-                       <%= javascript_include_tag 'pay_processed_payroll_u' %>
-
-                      <hr>
+      <hr>
 
 
   <% if @getemppay.blank?%>
@@ -1011,44 +840,7 @@
 <br>
 <br>
 
-<script type="text/javascript">
-
-  // Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtnx");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-
-
-
-</script>
-
-
-
-
-
-
+<%= render 'pay_processed_payroll_us/birmodal' %>
 
 </body> 
 </html>
