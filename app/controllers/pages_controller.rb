@@ -8,7 +8,7 @@ prepend_before_action :check_user_tagconfirm
 prepend_before_action :check_user_viewed_ads
 #prepend_before_action :tempsurvey_checker
 prepend_before_action :check_covidbulletin
-#prepend_before_action :check_webinar_reg
+prepend_before_action :check_webinar_reg
 #prepend_before_action :check_vaccampaign
 prepend_before_action :checker_oldpass, only: [:index] # Change this to be any actions you want to protect.
 prepend_before_action :checkadminloggedin, only: [:index]
