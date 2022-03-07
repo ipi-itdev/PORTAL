@@ -13,9 +13,22 @@
       <div class="panel panel-default" id="panelframe">
         <div class="panel-heading" id="panelheader">
           <div class="row">
-            <div class="col-sm-9" >
+            <div class="col-sm-11" >
               <strong><i class="fas fa-calendar-check"></i>Weekly Schedule Remarks</strong>
             </div>
+
+            <% if mobile_device == "mobile" %>
+              <br>
+              <div class="col-sm-1" >
+                <div class="btn-group">                  
+                  <%= button_tag '<i class="fa fa-info-circle"></i>'.html_safe, method: 'post', class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "User Manual", id: 'usermanual' %>
+                </div>
+              </div>
+            <% else %>
+              <div class="col-sm-1" >              
+                <%= button_tag '<i class="fa fa-info-circle"></i>'.html_safe, method: 'post', class: "btn btn-primary btn-block btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "User Manual", id: 'usermanual' %>
+              </div>    
+            <% end %>
           </div>         
         </div>
 
@@ -70,6 +83,41 @@
 <br>
 <br>
 <br>
+
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" style="width: 50%; position: absolute; left: 25%;">
+    <span class="close">&times;</span>
+    <iframe  src="\manuals\weeklyscheduleremarks.pdf"  style="border:none;" title="IframeExpenseDetails" height="500px" width="100%"> </iframe>
+  </div>
+</div>
+
+<script>
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("usermanual");
+  var span = document.getElementsByClassName("close")[0];
+
+  <% if mobile_device == "mobile" %>
+    btn.onclick = function() {
+      window.open("/manuals/weeklyscheduleremarks.pdf");
+    }
+
+  <% else %>
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  <% end %>
+</script>
 
 </body>
 </html>
