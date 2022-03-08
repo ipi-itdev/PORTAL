@@ -138,9 +138,9 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
       if params[:task_tag].blank? == true
         flash[:notice] = "Tasked Performed are required."
         redirect_to '/emptimeout'
-      
+
       else
-        ActiveRecord::Base.connection.execute("exec dbo.spTimeoutLogs @EmployeeRefNo = #{params[:emprefno_rec]}, @ID = #{params[:id_rec]}, @Remarks = '#{params[:task_tag].gsub("'","`")}'")
+        ActiveRecord::Base.connection.execute("exec dbo.spTimeoutLogs @EmployeeRefNo = #{params[:emprefno_rec]}, @ID = #{params[:id_rec]}, @Remarks = '#{params[:task_tag].gsub("'","`")}', @WorkLocationRefNo = #{params[:WorkLocationRefNo].to_s}")
         flash[:notice] = 'Time-out Saved'
         redirect_to '/pages'
       end
@@ -306,6 +306,6 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def portal_dhs_employee_weekly_schedule_u_params
       #params.fetch(:portal_dhs_employee_weekly_schedule_u, {})
-      params.require(:portal_dhs_employee_weekly_schedule_u).permit(:ID, :CreatedBy, :ModifiedBy, :CreatedDate, :ModifiedDate, :IsActive, :WorkDate, :WorkSched, :IsRD, :EmployeeRefNo, :newworksched, :sched_id, :shift_start, :shift_end, :time_in, :time_out, :task)
+      params.require(:portal_dhs_employee_weekly_schedule_u).permit(:ID, :CreatedBy, :ModifiedBy, :CreatedDate, :ModifiedDate, :IsActive, :WorkDate, :WorkSched, :IsRD, :EmployeeRefNo, :newworksched, :sched_id, :shift_start, :shift_end, :time_in, :time_out, :task, :WorkLocationRefNo)
     end
 end
