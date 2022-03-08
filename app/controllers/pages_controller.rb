@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
 before_action :authenticate_user!
 
+prepend_before_action :check_poster
 prepend_before_action :check_dependent_booster
 prepend_before_action :check_get_vac_booster
 #prepend_before_action :emp_satis_survey_checker
@@ -24,7 +25,6 @@ prepend_before_action :check_vacdepsurvey
 prepend_before_action :argreed_on_vac
 #prepend_before_action :check_vacsurvey
 prepend_before_action :check_ros_survey
-#prepend_before_action :check_poster
 prepend_before_action :media_checker
 prepend_before_action :check_expire_password
 prepend_before_action :log_login
@@ -336,19 +336,20 @@ prepend_before_action :check_current_user
 
     ##start check posterviewer
     def check_poster
-      #get the latest poster refno
-      @check_viewed_latest_poster = PortalEmpposterDetail.where(employeerefno: current_user.EmployeeRefNo).pluck(:poster_refno).last
-
-      #get the latest poster
-      @get_latest_poster = PortalPoster.pluck(:poster_refno).last
- 
-
-      @get_val = @get_latest_poster != @check_viewed_latest_poster
-        if @get_val.to_s == 'true'
-          redirect_to '/portal_empposter_details/new'
+      #get latest poster
+      get_latest_poster_refno = PortalPoster.find_by_sql("select  top 1 * from portal_posters pp where start_date BETWEEN (SELECT DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)) and (select utc_plus_8 = CAST(DATEADD(HOUR,8,GETUTCDATE()) AS datetime) ) order by start_date DESC ").pluck(:poster_refno).to_sentence
+      if get_latest_poster_refno.blank? == false
+        #get the last poster viewed by emp
+        check_last_empposter_refno1 = PortalEmpposterDetail.where(employeerefno: current_user.EmployeeRefNo).pluck(:id, :poster_refno)
+        check_last_empposter_refno = check_last_empposter_refno1[0]
+        if check_last_empposter_refno[1].blank? == true
+          redirect_to "/portal_empposter_details/#{check_last_empposter_refno[0]}/edit"
         else
-          #redirect_to pages_path and return
-        end
+          if check_last_empposter_refno[1].to_i < get_latest_poster_refno.to_i
+            redirect_to "/portal_empposter_details/#{check_last_empposter_refno[0]}/edit"
+          end   
+        end  
+      end 
     end
     ##end check posterviewer
 

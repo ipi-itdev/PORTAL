@@ -106,6 +106,7 @@
             <li> <%= link_to "Leave Application", portal_leave_applications_path, :method=> :get %> </li>
             <li> <%= link_to "OT Application", portal_ot_applications_path, :method=> :get %> </li>
 
+
             <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 1 %>                            
               <li> <%= link_to "OB Application", portal_ob_applications_path, :method=> :get %> </li>                                         
             <% end %> 
@@ -130,6 +131,7 @@
               <li> <%= link_to "DTR Approval", dtr_applications_path, :method=> :get %> </li>
               <li> <%= link_to "Leave Approval", portal_leave_approvals_path, :method=> :get %> </li>
               <li> <%= link_to "OT Approval", portal_ot_approvals_path, :method=> :get %> </li>
+              <li> <%= link_to "Login Logs", login_logs_path, :method=> :get %> </li>
               </small></hr>
             </ul>
           </li>

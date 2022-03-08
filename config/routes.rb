@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+    
+  get 'login_report', to: 'portal_dtr_histories#login_report'
+  get 'login_logs', to: 'portal_dtr_histories#login_logs'
   get 'dependent_booster', to: 'portal_vacsurvey_us#dependent_booster'
   get 'booster_survey', to: 'portal_vacsurvey_us#booster_survey'
   get 'portal_employee_satisfaction_surveys/intro'

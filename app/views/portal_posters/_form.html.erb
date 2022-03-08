@@ -1,37 +1,53 @@
-<%= form_with(model: portal_poster, local: true) do |form| %>
-  <% if portal_poster.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(portal_poster.errors.count, "error") %> prohibited this portal_poster from being saved:</h2>
-
-      <ul>
-      <% portal_poster.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3" >
+      
     </div>
-  <% end %>
+    <div class="col-sm-6" >
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader"><b>Posters</b></div>
+        <div class="panel-body">
 
-  <div class="field">
-    <%= form.label :date_post %>
-    <%= form.date_select :date_post %>
-  </div>
+          <%= bootstrap_form_with(model: portal_poster, local: true) do |form| %>
+            <% if portal_poster.errors.any? %>
+              <div id="error_explanation">
+                <ul>
+                <% portal_poster.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
 
-  <div class="field">
-    <%= form.label :poster_refno %>
-    <%= form.number_field :poster_refno %>
-  </div>
+          <%= form.text_field :description, label: '*Description' %>
 
-  <div class="field">
-    <%= form.label :attachedfile %>
-    <%= form.file_field :attachedfile %>
-  </div>
+          <%= form.hidden_field :date_post, value: Time.now + 8.hours %>
 
-  <div class="actions">
-    <%= form.submit %>
+          <%= form.date_field :start_date, label: '*Start Date' %>
+
+          <%=  get_lastrefno = PortalPoster.last(1).pluck(:poster_refno).to_sentence%>
+          <%= new_refno = get_lastrefno.to_i + 1%>
+          <%= form.hidden_field :poster_refno, value: new_refno %>
+
+          <%= form.file_field :attachedfile, label: '*Attach File' %>
+
+          <%= form.submit 'Save', class:'btn btn-primary  btn-block' %>
+
+          <%= link_to 'Back', portal_posters_path, class:'btn btn-primary  btn-block' %>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3" >
+      
+    </div>
   </div>
+</div>
+
+
+
+
+
 <% end %>

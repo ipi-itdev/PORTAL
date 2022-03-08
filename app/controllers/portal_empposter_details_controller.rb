@@ -6,7 +6,7 @@ class PortalEmpposterDetailsController < ApplicationController
   # GET /portal_empposter_details
   # GET /portal_empposter_details.json
   def index
-    @portal_empposter_details = PortalEmpposterDetail.all
+    
   end
 
   # GET /portal_empposter_details/1
@@ -17,34 +17,16 @@ class PortalEmpposterDetailsController < ApplicationController
   # GET /portal_empposter_details/new
   def new
 
-    #get the latest poster refno
-    @check_viewed_latest_poster = PortalEmpposterDetail.where(employeerefno: current_user.EmployeeRefNo).pluck(:poster_refno).last
-
-    #get the latest poster
-    @get_latest_poster = PortalPoster.pluck(:poster_refno).last
-
-     @get_val =  @get_latest_poster != @check_viewed_latest_poster
-
-    if @get_val.to_s == 'true'
-
-      get_the_next_poster = @check_viewed_latest_poster.to_i + 1
-
-      @get_poster_not_viewed = PortalPoster.where(poster_refno: get_the_next_poster )
-
-      @portal_empposter_detail = PortalEmpposterDetail.new
-
-
-    else
-
-      redirect_to pages_path and return
-
-    end
-
-
   end
 
   # GET /portal_empposter_details/1/edit
   def edit
+    #get latest poster on the month
+
+    get_latest_poster_details1 = PortalPoster.find_by_sql("select  top 1 * from portal_posters pp where start_date BETWEEN (SELECT DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)) and (select utc_plus_8 = CAST(DATEADD(HOUR,8,GETUTCDATE()) AS datetime) ) order by start_date DESC ").pluck(:id, :poster_refno, :attachedfile)
+    @get_latest_poster_details = get_latest_poster_details1[0]
+
+
   end
 
   # POST /portal_empposter_details
@@ -69,7 +51,7 @@ class PortalEmpposterDetailsController < ApplicationController
   def update
     respond_to do |format|
       if @portal_empposter_detail.update(portal_empposter_detail_params)
-        format.html { redirect_to @portal_empposter_detail, notice: 'Portal empposter detail was successfully updated.' }
+        format.html { redirect_to '/pages'}
         format.json { render :show, status: :ok, location: @portal_empposter_detail }
       else
         format.html { render :edit }

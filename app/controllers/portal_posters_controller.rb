@@ -30,7 +30,7 @@ class PortalPostersController < ApplicationController
 
     respond_to do |format|
       if @portal_poster.save
-        format.html { redirect_to @portal_poster, notice: 'Portal poster was successfully created.' }
+        format.html { redirect_to '/portal_posters', notice: 'Poster was successfully saved.' }
         format.json { render :show, status: :created, location: @portal_poster }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class PortalPostersController < ApplicationController
   def update
     respond_to do |format|
       if @portal_poster.update(portal_poster_params)
-        format.html { redirect_to @portal_poster, notice: 'Portal poster was successfully updated.' }
+        format.html { redirect_to '/portal_posters', notice: 'Poster was successfully updated.' }
         format.json { render :show, status: :ok, location: @portal_poster }
       else
         format.html { render :edit }
@@ -71,6 +71,6 @@ class PortalPostersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def portal_poster_params
-      params.require(:portal_poster).permit(:description, :date_post, :poster_refno, :attachedfile)
+      params.require(:portal_poster).permit(:description, :date_post, :poster_refno, :attachedfile, :start_date)
     end
 end

@@ -41,6 +41,35 @@ class PortalDtrHistoriesController < ApplicationController
     #pdf generation ends here
   end
 
+
+  def login_logs
+      @employeelist = PisEmploymentInfoU.find_by_sql("SELECT PIS_EmploymentInfo_U.*, PIS_Employee_U.Description as EMPDESC, PIS_Employee_U.FullName FROM PIS_EmploymentInfo_U INNER JOIN PIS_Employee_U ON PIS_EmploymentInfo_U.EmployeeRefNo = PIS_Employee_U.EmployeeRefNo WHERE  ClientAccountRefNo IN (180, 181, 1390,1391, 179,2432,3490) AND PIS_EmploymentInfo_U.IsActive = 1")
+  end
+
+  def login_report
+    if params[:LoginFrom] == '' || params[:LoginTo] == ''
+        get_loginfrom = ''
+        get_loginto = ''
+        session[:loginlog_emprefno] = params[:login_report_emprefno]
+        @login_ouput = PortalLoginLog.where(EmployeeRefNo: params[:loginlogs_employeerefno], Time_Login: get_loginfrom..get_loginto)
+
+    else
+      if params[:firstlog_load] == 'true'
+        get_loginfrom = params[:LoginFrom]
+        get_loginto = params[:LoginTo]
+        @login_ouput = PortalLoginLog.where(EmployeeRefNo: params[:loginlogs_employeerefno], Time_Login: get_loginfrom..get_loginto)
+
+      else
+        get_loginfrom = params[:LoginFrom]
+        get_loginto1 = params[:LoginTo]
+        get_loginto2 = get_loginto1.to_date + 24.hours + 59.minutes + 59.seconds
+        session[:loginlog_emprefno] = params[:login_report_emprefno]
+        @login_ouput = PortalLoginLog.where(EmployeeRefNo: session[:loginlog_emprefno], Time_Login: get_loginfrom..get_loginto2).order(:Time_Login)
+      end      
+    end
+  end
+
+
   private
     def set_portal_dtr_history
       @portal_dtr_history = PortalDtrHistory.find(params[:id])

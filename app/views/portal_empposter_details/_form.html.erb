@@ -34,24 +34,15 @@
 
         
         <%= form_with(model: portal_empposter_detail, local: true) do |form| %>
-    
             <%= form.hidden_field :employeerefno, value: current_user.EmployeeRefNo %>
-              
-              <% @get_poster_not_viewed.each do |get_poster_not_viewed|%>
 
-              <% get_poster_not_viewed.poster_refno %>
-
-              <%= form.hidden_field :poster_refno, value: get_poster_not_viewed.poster_refno %>
-
-              <img src="<%= get_poster_not_viewed.attachedfile %>" /> </img>
-
-              <% end %>
-
+              <%= @get_latest_poster_details1%>
+              <%= form.hidden_field :poster_refno, value: @get_latest_poster_details[1] %>
+              <img src="/uploads/portal_poster/attachedfile/<%= @get_latest_poster_details[0] %>/<%= @get_latest_poster_details[2] %>" /> </img>
               <div class="container-fluid">
-
                 <div class="row">
                   <div class="col-sm-4" >
-                    
+
                   </div>
                   <div class="col-sm-4" >
                      <%= form.submit 'Close', id:'submit_button' , class: 'btn btn-danger btn-block btn-sm'%>
@@ -64,8 +55,6 @@
                 </div>
 
               </div>
-
-           
 
         <% end %>
 

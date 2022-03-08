@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+</head>
+<body>
+<div class="container-fluid">  
+  <div class="row">
+
+
+    <div class="col-sm-12" >
+
+          <div class="table table-responsive ">
+            <table class="table" id="login_logs_table" >
+              <thead>
+                <tr>
+                  <th >ID</th>
+                  <th >Employee Number</th> 
+                  <th >Login Log</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <% @login_ouput.each do |login_ouput| %>
+                  <tr>
+                    <td ><%= login_ouput.id %></td>
+                    <td ><%= login_ouput.EmployeeNumber %></td>
+                    <td ><%= login_ouput.Time_Login.strftime("%m/%d/%Y %I:%M:%S %p" ) %></td>
+                      
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+            <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+            <script>
+            $(function(){
+              $("#login_logs_table").dataTable();
+            })
+            </script>
+          </div> 
+
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

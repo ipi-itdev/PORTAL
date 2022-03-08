@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">  
+
+<style>
+hr.new1 {
+  border-top: 1px solid black;
+}
+</style>
+
+
+
+</head>
+<body >
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-3">
+ 
+    </div>
+    <div class="col-sm-6" >
+
+      <div class="panel panel-primary" id="panelframe">
+        <div class="panel-heading" id="panelheader"><strong><i class="fa fa-history" aria-hidden="true"></i>Login Logs</strong></div>        
+        <div class="panel-body">
+
+                  
+                  <%= form_tag('/login_report', method: :get) do %>
+
+                  
+
+                    <%= @emprefno_test %>
+                    <div class="row">
+                      <div class="col-sm-12" align="left">
+                        <tr>
+                          <td><b>Employee:</b></td>
+                          <td align="left"> 
+                            <% if params[:firstlog_load] == 'true'%>
+                          <% params[:loginlogs_employeerefno] %>
+                          <%= hidden_field_tag :login_report_emprefno,  params[:loginlogs_employeerefno] %>
+                          <%=  PisEmployeeU.where(EmployeeRefNo: params[:loginlogs_employeerefno]).pluck(:Description).to_sentence %>
+                        <% else%>
+                          <% emprefno =  session[:loginlog_emprefno] %>
+                          <%= hidden_field_tag :login_report_emprefno,  session[:loginlog_emprefno] %>
+                          <%=  PisEmployeeU.where(EmployeeRefNo: emprefno ).pluck(:Description).to_sentence %>
+                        <% end%>
+
+
+                          </td>
+                        </tr>
+                      </div>    
+                    </div>
+
+                    <br>
+                  
+                    <div class="row">
+                      <div class="col-sm-6" align="left">
+                        <tr>
+                          <td><b>From:</b></td>
+                          <td align="left"><%= date_field_tag :LoginFrom %></td>
+                        </tr>                
+                      </div>
+
+                      <div class="col-sm-6" >
+                     
+                        <tr>
+                        <td><b>To:</b>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+                        <td align="left"><%= date_field_tag :LoginTo %></td>
+                      </tr>
+                      </div>
+
+                    </div>
+            
+
+                <br>
+                <br>
+                <%= submit_tag 'Search', class: "btn btn-primary  btn-block btn-sm", id: 'submit_button_tag', data: { disable_with: "Please wait..." }  %>
+                <%= link_to 'Back ',login_logs_path,class: "btn btn-primary  btn-block btn-sm", id: 'submit_button_tag'  %>
+   
+                <% end %>
+
+                <hr class="new1">
+                <%=  render 'portal_dtr_histories/loginoutput' %>
+
+
+        </div>
+      </div>
+
+                  
+
+
+    </div>
+      <div class="col-sm-3" >
+
+    </div>
+  </div>
+</div>
+
+
+
+
+</body>
+</html>
+
+             
