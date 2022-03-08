@@ -25,6 +25,15 @@ class ApplicationController < ActionController::Base
     session[:currentuser_employeestatusrefno] = getlastest_PisEmploymentInfoU[:EmployeeStatusRefNo]
 
     
+    #check if empposter rec exist
+    check_exist_empposter = PortalEmpposterDetail.where(employeerefno: current_user.EmployeeRefNo).exists?
+    if check_exist_empposter == false
+      user = PortalEmpposterDetail.create(employeerefno: current_user.EmployeeRefNo, created_at: Time.now, updated_at: Time.now )
+      user.save
+    end
+    #check if empposter rec exist
+
+    
     if session[:currentuser_employeestatusrefno] == 2
 
       pay_processed_payroll_us_path
