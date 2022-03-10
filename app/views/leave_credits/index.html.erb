@@ -16,7 +16,7 @@
 
 
 
-				<button class="tablink" onclick="openPage('Home', this, '#f1ba2e')" id="defaultOpen"><b>My Leave Credits</b></button>
+				<button class="tablink" onclick="openPage('Home', this)" id="defaultOpen"></button>
 				<% if current_user.is_manager ==  true%>
 						<button class="tablink" onclick="openPage('News', this, '#f1ba2e')" ><b>Dept Leave Credits</b></button>
 				<% end %>
