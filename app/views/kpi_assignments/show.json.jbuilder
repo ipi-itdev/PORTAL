@@ -1,0 +1,1 @@
+json.partial! "kpi_assignments/kpi_assignment", kpi_assignment: @kpi_assignment

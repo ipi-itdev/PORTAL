@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  
+</head>
+<body>
+
+<div class="container-fluid">
+<h5>Overtime Details</h5>
+<br>
+
+    <div class="row">
+      <div class="col-sm-3" >
+            <strong>ID: </strong>
+      </div>
+
+      <div class="col-sm-9" >
+           <%= @kpi_core_competencies.ID %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3" >
+            <strong>Date: </strong>
+      </div>
+
+      <div class="col-sm-9" > 
+          <%= @kpi_core_competencies.WorkDate.strftime("%m/%d/%Y") %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3" >
+            <strong>Start Time: </strong>
+      </div>
+
+      <div class="col-sm-9" > 
+          <%= @kpi_core_competencies.StartTime.strftime("%I:%M %p") %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3" >
+            <strong>End Time: </strong>
+      </div>
+
+      <div class="col-sm-9" > 
+          <%= @kpi_core_competencies.EndTime.strftime("%I:%M %p") %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3" >
+            <strong>Hours: </strong>
+      </div>
+
+      <div class="col-sm-9" > 
+          <%= @kpi_core_competencies.Hours %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3" >
+            <strong>Task: </strong>
+      </div>
+
+      <div class="col-sm-9" > 
+          <%= @kpi_core_competencies.Task %>
+      </div>
+    </div>
+
+    <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 2 %>                            
+      <div class="row">
+        <div class="col-sm-3" >
+              <strong>Attached File: </strong>
+        </div>
+
+        <div class="col-sm-9" >
+              <small><a href="<%= @kpi_core_competencies.AttachmentFile%>" target="_blank"> <%= @kpi_core_competencies.AttachmentFile_identifier %> </a> </small>
+        </div>
+      </div>
+    <% end %>
+
+
+    <div class="row">
+      <div class="col-sm-3" >
+        
+      </div>
+      <div class="col-sm-9" >
+        <br>
+        <br>
+          <%= link_to 'Back to List', kpi_core_competenciess_path, class:'btn btn-primary btn-sm' %>
+      </div>
+
+    </div>
+
+    <hr>
+
+    </div>
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,1 @@
+json.array! @kpi_assignment, partial: 'kpi_assignments/kpi_assignment', as: :kpi_assignment
