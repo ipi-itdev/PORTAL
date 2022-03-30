@@ -1,6 +1,5 @@
 class TmsdetailremoveController < ApplicationController
   def index
-
     if params[:tms_type] == 'ob'
       get_tms_rec = PortalObApplicationDetail.where(ID: params[:detail_refno].to_i)
       get_tms_rec.destroy_all
@@ -36,8 +35,13 @@ class TmsdetailremoveController < ApplicationController
       get_tms_rec.destroy_all
 
       redirect_to portal_dtr_upload_details_path and return
-    end
 
+    elsif params[:tms_type] == 'dependent'
+      get_tms_rec = PortalDependent.where(ID: params[:detail_refno].to_i)
+      get_tms_rec.destroy_all
+
+      redirect_to portal_dependents_path and return
+    end
   end
 end
   
