@@ -1,20 +1,48 @@
+<script>
+$(document).ready(function(){
+	if ($("#workloc").val() === "") 
+  	{
+    	$( "#timeout_page_button" ).prop('disabled', true);
+	}
+	else
+	{
+		$( "#timeout_page_button" ).prop('disabled', false);
+	}  
+  $("#workloc").change(function(){
+  
+  	if ($("#workloc").val() === "") 
+  	{
+    	$( "#timeout_page_button" ).prop('disabled', true);
+	}  
+	else
+	{
+		$( "#timeout_page_button" ).prop('disabled', false);
+	}	
+  });
+});
+</script>
+
 <div class="container-fluid">
 	<%= form_tag('/timeout', method:'post') do %>
 		<%= hidden_field_tag :id_rec, @datetime_range.rows[0][0] %>
 		<%= hidden_field_tag :emprefno_rec, current_user.EmployeeRefNo %>
 		
 		<div class="row">
-			<div class="col-sm-4" >
+			<div class="col-sm-3" >
 			</div>
 
-			<div class="col-sm-4" >
-				<h5 style="color: green;">*Tasked Performed</h5>
-					Work Location
+			<div class="col-sm-6" >
+				<h5 style="color: green;">*Work Location</h5>
+				
+				<% if @datetime_range.rows[0][4].blank? == true %>
+					<%= collection_select :WorkLocationRefNo, nil, PortalWorkLocation.where(IsActive: 1), :ID, :Description, {:prompt => true}, id: 'workloc', :class => 'form-control' %>
+				<% else %>
+					<%= collection_select :WorkLocationRefNo, nil, PortalWorkLocation.where(IsActive: 1), :ID, :Description, {:selected => @datetime_range.rows[0][8]},  id: 'workloc', :class => 'form-control' %>
+			
+				<% end %>
 
-		
-					<%= collection_select :WorkLocationRefNo, nil, PortalWorkLocation.where(IsActive: 1), :ID, :Description, {:selected => @datetime_range.rows[0][8]} %>
-				<br><br>
-
+				<br>
+				<h5 style="color: green;">*Tasks Performed</h5>
 				<% if @datetime_range.blank? == false %>		       				
 					<% if @datetime_range.rows[0][7].blank? == true #task%>
 						<%= cktext_area_tag :task_tag, nil, ckeditor: {resize_enabled:false, removePlugins: "toolbar,elementspath", toolbar: 'mini'} %>								  
@@ -24,26 +52,28 @@
 				<% end %>
 			</div>
 			
-			<div class="col-sm-4" >
+			<div class="col-sm-3" >
 			</div>
 		</div>
 
 		<br>
 
 		<div class="row">
-			<div class="col-sm-4" >
+			<div class="col-sm-3" >
 			</div>
 
-			<div class="col-sm-4" >
-				<%= button_tag(type: 'submit', class: 'btn btn-primary btn-md btn-block', id:'timeout_page_button') do %>
+			<div class="col-sm-6" >
+				<%= button_tag(type: 'submit', class: 'btn btn-primary btn-sm btn-block', id:'timeout_page_button', data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> Please wait..." } ) do %>
 					Save 
 				<% end %>
 
-				<%= link_to 'Cancel', '/pages', class: "btn btn-secondary btn-md btn-block"%>
+				<%= link_to 'Cancel', '/pages', class: "btn btn-primary btn-sm btn-block"%>
 			</div>
 
-			<div class="col-sm-4" >
+			<div class="col-sm-3" >
 			</div>
 		</div>
 	<% end %>
 </div>
+<br>
+<br>
