@@ -8,7 +8,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
 </head>
-<body>
+<body style='font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;' onload="orderFunc()">
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-6" >
@@ -22,7 +22,7 @@
         <thead>
           <tr>
             <th ><small><b>ID</b></small></th>
-            <th ><small><b>Date</b></small></th>
+            <th id="datetabheader"><small><b>Date</b></small></th>
             <th ><small><b>Status</b></small></th>
             <th ><small><b>Time in</b></small></th>
             <th ><small><b>Time out</b></small></th>
@@ -68,5 +68,12 @@
       </script>
     </div>
   </div>
+
+<script>
+function orderFunc() {
+  $( "#datetabheader" ).click();
+}
+</script>
+
 </body>
 </html>
