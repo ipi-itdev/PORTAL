@@ -32,7 +32,7 @@ $(document).ready(function(){
 			</div>
 
 			<div class="col-sm-6" >
-				<h5 style="color: green;">*Work Location</h5>
+				<h5 style="color: black;"> <asterisk style="color: red;" >*</asterisk> Work Location</h5>
 				
 				<% if @datetime_range.rows[0][4].blank? == true %>
 					<%= collection_select :WorkLocationRefNo, nil, PortalWorkLocation.where(IsActive: 1), :ID, :Description, {:prompt => true}, id: 'workloc', :class => 'form-control' %>
@@ -42,7 +42,7 @@ $(document).ready(function(){
 				<% end %>
 
 				<br>
-				<h5 style="color: green;">*Tasks Performed</h5>
+				<h5 style="color: black;"><asterisk style="color: red;" >*</asterisk>Tasks Performed</h5>
 				<% if @datetime_range.blank? == false %>		       				
 					<% if @datetime_range.rows[0][7].blank? == true #task%>
 						<%= cktext_area_tag :task_tag, nil, ckeditor: {resize_enabled:false, removePlugins: "toolbar,elementspath", toolbar: 'mini'} %>								  
