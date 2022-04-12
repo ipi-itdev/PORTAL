@@ -1,0 +1,162 @@
+<style type="text/css">   
+  #required_field {         
+    position: absolute;
+    bottom: px;
+    left: 7px;
+    font-size: 18px;
+    color: red;
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1" >      
+    </div>
+
+    <div class="col-sm-10" >
+      <% if portal_ob_approval.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <% portal_ob_approval.errors.full_messages.each do |message| %>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% session[:portal_ob_approval_id] = @portal_ob_approval.id %>
+
+      <div class="panel panel-default" id="panelframe" style="">
+        <div class="panel-heading" id="panelheader" >
+          <i class="fas fa-calendar-check"></i> <strong>Official Business Approval</strong>
+        </div>
+
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-4" >
+              <div class="row">
+                <div class="col-sm-12" >
+                <small>
+                  <div class="row">
+                    <div class="col-sm-4" >
+                      <strong>ID: </strong>
+                    </div>
+
+                    <div class="col-sm-8" >
+                      <%=  @portal_ob_approval.ID %>
+                    </div>
+                  </div>
+
+                  <br>
+                
+                  <div class="row">
+                    <div class="col-sm-4" >
+                      <strong>Created Date: </strong>
+                    </div>
+
+                    <div class="col-sm-8" >
+                      <%= @portal_ob_approval.DateFiled.strftime("%m/%d/%Y") %>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-4" >
+                      <strong>Created By: </strong>
+                    </div>
+
+                    <div class="col-sm-8" >
+                      <%= PisEmployeeU.where(EmployeeRefNo: @portal_ob_approval.CreatedBy).pluck(:Description).to_sentence %>
+                    </div>
+                  </div>
+
+                  <br>
+
+                  <div class="row">                    
+                    <div class="col-sm-4" >
+                      <strong>Status: </strong>
+                    </div>
+
+                    <div class="col-sm-8" >
+                      <%= GenFilingStatusF.where(FilingStatusRefNo: @portal_ob_approval.FilingStatusRefNo ).pluck(:Description).to_sentence %>
+                    </div>                  
+                  </div>
+                </small>
+                </div>
+              </div>
+
+              <br>
+              <br>
+
+              <%= form_tag('/disapprove_ob', method: :post) do %>
+                <div class="row">                
+                  <%= hidden_field_tag :ob_id, portal_ob_approval.ID %>
+                  <%= hidden_field_tag :ob_status, 0 %>  
+            
+                  <div class="col-sm-12" >
+                    <small>
+                      <%= label_tag "Remarks" %>
+                      <%= text_area_tag :Reason %>
+                    </small>                
+                  </div>      
+                
+                  <script type="text/javascript">
+                    document.getElementById('Reason').setAttribute("style", "resize: none")
+                    document.getElementById('Reason').className = "form-control input-sm"
+                  </script>
+                </div>
+
+                <br>
+
+                <div class="row">
+                  <div class="col-sm-12" >
+                    <div class="row">                
+                      <div class="col-sm-6" >
+                        <%= link_to "Approve", approve_ob_path(ob_id: portal_ob_approval.ID), method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to approve this application?', disable_with: "Please wait..." } %>                                            
+                      </div>                  
+
+                      <div class="col-sm-6" >
+                        <%= submit_tag "Disapprove", method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to disapprove this application?', disable_with: "Please wait..." }, id: 'disapprove_but' %>                      
+                      </div>
+
+                      <script type="text/javascript">
+                        $('#disapprove_but').click(function() {
+                          $("#ob_status").val(1);
+                          return true;
+                        });
+                      </script>
+                    </div>
+
+                    <br>
+
+                    <div class="row">  
+                      <div class="col-sm-12" >
+                        <%= submit_tag "Back to Requestor", method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to send this application back to requestor?', disable_with: "Please wait..." }, id: 'backtosender_but' %>
+                      </div> 
+                    </div>
+
+                    <br>
+
+                    <%= link_to 'Back to List', portal_ob_approvals_path, class:'btn btn-primary  btn-block' %>
+                  </div>
+                </div>  
+              <% end #end form_tag %>    
+            </div>
+
+            <% if mobile_device == "mobile" %>
+              <div class="col-sm-8" >
+            <% else %>
+              <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;" >
+            <% end %>            
+
+              <iframe src="/portal_ob_application_details?ob_approval_id=<%= @get_edit_id.to_param %>" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
+            </div>
+          </div>
+        </div>
+    </div>      
+  </div>
+
+  <div class="col-sm-1" >      
+  </div>
+</div>
+
+<br>
+<br>
