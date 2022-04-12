@@ -1,55 +1,44 @@
 <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse navbar-right" id="navbar-collapsible-content">
-  
-
   <ul class="nav navbar-nav ">
 
     <% if user_signed_in? #if user signed in%>
-
-      <li class="dropdown pc-menu">
-  
+      <% activecompany = ActiveRecord::Base.connection.exec_query("Select CompanyRefNo from dbo.GEN_Company_M WHERE IsActive = 1").rows[0][0] %>
+      <% employeegroupref = ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] %>
+      
+      <li class="dropdown pc-menu">  
         <a id="user-settings" class="dropdown-toggle" data-toggle="dropdown" href="#">
           <span id="user-name">
-            <% getcuremprefno1 = current_user.EmployeeRefNo %>
-            <%= PisEmployeeU.where(EmployeeRefNo: getcuremprefno1).pluck(:FullName).to_sentence%>
+            <%= PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:FullName).to_sentence%>
           </span>
           <span class="caret"></span>
         </a>
           
-         <% if @getuserrefno110 == 'true' %>
-        <ul  class="dropdown-menu" role="menu">
-          <li><%= link_to 'Resend Reset Password', users_password_resendreset_path %></li>
-          <li><%= link_to 'Announcements Utility', announcements_path %></li>
-          <li><%= link_to 'Change Password', user_edit_password_path  %></li>
-          <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
-        </ul>
+        <% if @getuserrefno110 == 'true' %>
+          <ul class="dropdown-menu" role="menu">
+            <li><%= link_to 'Resend Reset Password', users_password_resendreset_path %></li>
+            <li><%= link_to 'Announcements Utility', announcements_path %></li>
+            <li><%= link_to 'Change Password', user_edit_password_path  %></li>
+            <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
+          </ul>
 
         <% else %>
-
-        <ul  class="dropdown-menu" role="menu" >
-
-          <% if session[:currentuser_employeestatusrefno]  != 2 %>
-            <li><%= link_to 'Change Password', user_edit_password_path  %></li>
-          <% end %>
+          <ul  class="dropdown-menu" role="menu" >
+            <% if session[:currentuser_employeestatusrefno]  != 2 %>
+              <li><%= link_to 'Change Password', user_edit_password_path  %></li>
+            <% end %>
           
-          <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
-        </ul>
-
+            <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
+          </ul>
         <% end %>
 
       </li>
-
-
-
-      <% if session[:currentuser_employeestatusrefno]  == 2 %>
-
+        <% if session[:currentuser_employeestatusrefno]  == 2 %>
           <li class="mobile-menu">
             <strong><%= link_to ' My Payslip', pay_processed_payroll_us_path, :method=> :get %></strong>
           </li>
 
-      <% else %>
-
-
+        <% else %>
           <li   class="mobile-menu"><strong>
             <%= link_to ' Home', '/pages'%></strong> 
           </li>
@@ -57,127 +46,137 @@
           <li class="mobile-menu">
             <strong><%= link_to ' My Payslip', pay_processed_payroll_us_path, :method=> :get %></strong>
           </li>
+          
+          <% if activecompany == 3 %>
+	          <li class="mobile-menu">
+            	<strong><%= link_to ' Contact Us',new_contactpage_path%></strong>
+          	</li>
+
+          <% else %>
+            <li class="mobile-menu">
+              <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="Downloadable Forms" rel="tooltip" >
+               <strong>Downloadable Forms</strong>
+              </a>
+
+              <ul  class="dropdown-menu" role="menu">
+                <hr><small>
+                  <% if activecompany == 1 %>
+                    <li><%= link_to 'Incident Report Form', '/ipi_forms/Incident Report Form.docx', target: "_blank" %></li>
+                    <li><%= link_to 'IPI Leave Form','/ipi_forms/IPI leave form.xls', target: "_blank"  %></li>
+                    <li><%= link_to 'IPI TIMESHEET & OT FORM', '/ipi_forms/IPI TIMESHEET & OT FORM.doc', target: "_blank" %></li> 
+                    <li><%= link_to 'Pag Ibig Change of Information Form', '/ipi_forms/Pag Ibig Change of Information Form.pdf',  target: "_blank" %></li>
+                    <li><%= link_to 'Pag IBIG Membership Upgrade Form', '/ipi_forms/Pag IBIG Membership Upgrade Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'Pag Ibig Multi-Purpose Loan Form', '/ipi_forms/Pag Ibig Multi-Purpose Loan Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'Philhealth Member Registration and Update Form', '/ipi_forms/Philhealth Member Registration and Update Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'SSS Allocation of Maternity Leave Credits', '/ipi_forms/SSS Allocation of Maternity Leave Credits.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'SSS Maternity Benefit Reimbursement Form', '/ipi_forms/SSS Maternity Benefit Reimbursement Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'SSS Maternity Notification Form', '/ipi_forms/SSS Maternity Notification Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'SSS Salary Loan Form', '/ipi_forms/SSS Salary Loan Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'SSS Sickness Benefit Reimbursement Form', '/ipi_forms/SSS Sickness Benefit Reimbursement Form.pdf' , target: "_blank"%></li>
+                    <li><%= link_to 'SSS Sickness Notification Form', '/ipi_forms/SSS Sickness Notification Form.pdf', target: "_blank" %></li>
+
+                    <% if employeegroupref == 1 %>                            
+                      <li><%= link_to 'SDE Request Form', '/SDE-Request-Form.docx', target: "_blank" %></li>
+                    <% end %>
+
+	                <% else %>
+	                  <li><%= link_to 'Incident Report Form', '/pits_forms/Incident Report Form.docx', target: "_blank" %></li>
+                    <li><%= link_to 'Pag Ibig Change of Information Form', '/pits_forms/Pag Ibig Change of Information Form.pdf',  target: "_blank" %></li>
+                    <li><%= link_to 'Pag IBIG Membership Upgrade Form', '/pits_forms/Pag IBIG Membership Upgrade Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'Pag Ibig Multi-Purpose Loan Form', '/pits_forms/Pag Ibig Multi-Purpose Loan Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'Philhealth Member Registration and Update Form', '/pits_forms/Philhealth Member Registration and Update Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'PITS DTR', '/pits_forms/PITS DTR.doc', target: "_blank" %></li>
+                    <li><%= link_to 'PITS LEAVE FORM','/pits_forms/PITS LEAVE FORM.xls', target: "_blank"  %></li>
+                    <li><%= link_to 'SSS Allocation of Maternity Leave Credits', '/pits_forms/SSS Allocation of Maternity Leave Credits.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'SSS Maternity Benefit Reimbursement Form', '/pits_forms/SSS Maternity Benefit Reimbursement Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'SSS Maternity Notification Form', '/pits_forms/SSS Maternity Notification Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'SSS Salary Loan Form', '/pits_forms/SSS Salary Loan Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'SSS Sickness Benefit Reimbursement Form', '/pits_forms/SSS Sickness Benefit Reimbursement Form.pdf' , target: "_blank"%></li>
+                    <li><%= link_to 'SSS Sickness Notification Form', '/pits_forms/SSS Sickness Notification Form.pdf', target: "_blank" %></li>
+	                <% end %>
+                </small><hr>
+              </ul>
+            </li>
+          <% end %>
 
           <li class="mobile-menu">
-                <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="Downloadable Forms" rel="tooltip" >
-                 <strong>Downloadable Forms</strong>
-                </a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="TMS" rel="tooltip" >
+              <strong>TMS</strong>
+            </a>
 
-                  <ul  class="dropdown-menu" role="menu">
-                    <hr><small>
-                      <li><%= link_to 'Incident Report Form', '/ipi_forms/Incident Report Form.docx', target: "_blank" %></li>
-                      <li><%= link_to 'IPI Leave Form','/ipi_forms/IPI leave form.xls', target: "_blank"  %></li>
-                      <li><%= link_to 'IPI TIMESHEET & OT FORM', '/ipi_forms/IPI TIMESHEET & OT FORM.doc', target: "_blank" %></li> 
-                      <li><%= link_to 'Pag Ibig Change of Information Form', '/ipi_forms/Pag Ibig Change of Information Form.pdf',  target: "_blank" %></li>
-                      <li><%= link_to 'Pag IBIG Membership Upgrade Form', '/ipi_forms/Pag IBIG Membership Upgrade Form.pdf', target: "_blank" %></li>
-                      <li><%= link_to 'Pag Ibig Multi-Purpose Loan Form', '/ipi_forms/Pag Ibig Multi-Purpose Loan Form.pdf', target: "_blank" %></li>
-                      <li><%= link_to 'Philhealth Member Registration and Update Form', '/ipi_forms/Philhealth Member Registration and Update Form.pdf', target: "_blank" %></li>
-                      <li><%= link_to 'SSS Allocation of Maternity Leave Credits', '/ipi_forms/SSS Allocation of Maternity Leave Credits.pdf', target: "_blank" %></li>
-                      <li><%= link_to 'SSS Maternity Benefit Reimbursement Form', '/ipi_forms/SSS Maternity Benefit Reimbursement Form.pdf', target: "_blank" %></li>
-                      <li><%= link_to 'SSS Maternity Notification Form', '/ipi_forms/SSS Maternity Notification Form.pdf', target: "_blank" %></li>
-                      <li><%= link_to 'SSS Salary Loan Form', '/ipi_forms/SSS Salary Loan Form.pdf', target: "_blank" %></li>
-                      <li><%= link_to 'SSS Sickness Benefit Reimbursement Form', '/ipi_forms/SSS Sickness Benefit Reimbursement Form.pdf' , target: "_blank"%></li>
-                      <li><%= link_to 'SSS Sickness Notification Form', '/ipi_forms/SSS Sickness Notification Form.pdf', target: "_blank" %></li>
+            <ul  class="dropdown-menu" role="menu">
+              <hr><small>          
+                <li> <%= link_to "Leave Credits", leave_credits_index_path, :method=> :get %> </li>            
+                <li> <%= link_to "Leave Application", portal_leave_applications_path, :method=> :get %> </li>
+                <li> <%= link_to "OT Application", portal_ot_applications_path, :method=> :get %> </li>
 
+                <% if employeegroupref == 1 %>                            
+                  <li> <%= link_to "OB Application", portal_ob_applications_path, :method=> :get %> </li>                                         
+                <% end %> 
 
-                                <%  getPisEmploymentInfoU1 = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:EmployeeGroupRefNo )%>
-
-                                <% getPisEmploymentInfoU = getPisEmploymentInfoU1[0] %>
-
-                                <% if getPisEmploymentInfoU[:EmployeeGroupRefNo] == 1 %>
-                                  <li><%= link_to 'SDE Request Form', '/SDE-Request-Form.docx', target: "_blank" %></li>
-                                <% end %>
-
-
-
-                    </small>
-                    <hr>
-                  </ul>
-          </li>
-              
-        <li class="mobile-menu">
-          <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="TMS" rel="tooltip" >
-           <strong>TMS</strong>
-          </a>
-
-          <ul  class="dropdown-menu" role="menu">
-            <hr><small>          
-            <li> <%= link_to "Leave Credits", leave_credits_index_path, :method=> :get %> </li>            
-            <li> <%= link_to "Leave Application", portal_leave_applications_path, :method=> :get %> </li>
-            <li> <%= link_to "OT Application", portal_ot_applications_path, :method=> :get %> </li>
-
-
-            <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 1 %>                            
-              <li> <%= link_to "OB Application", portal_ob_applications_path, :method=> :get %> </li>                                         
-            <% end %> 
-
-            <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 2 %>                            
+            <% if employeegroupref == 2 %>                            
               <li> <%= link_to "DTR Timesheet", portal_dhs_employee_weekly_schedule_us_path, :method=> :get %> </li>
               <li> <%= link_to "Upload DTR", portal_dtr_uploads_path, :method=> :get %> </li>
             <% end %> 
-            </small></hr>
+            </small><hr>
           </ul>
         </li>        
 
-        <% if current_user.is_external_approver == true %>
+        <% if current_user.is_external_approver == true || current_user.is_internal_approver == true %>
           <li class="mobile-menu">
             <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="TMS Approval" rel="tooltip" >
-            <strong>TMS Approval</strong>
+              <strong>TMS Approval</strong>
             </a>
 
             <ul  class="dropdown-menu" role="menu">
               <hr><small>
-              <li> <%= link_to "Weekly Schedule Remarks", weekly_schedules_path, :method=> :get %> </li>
-              <li> <%= link_to "DTR Approval", dtr_applications_path, :method=> :get %> </li>
-              <li> <%= link_to "Leave Approval", portal_leave_approvals_path, :method=> :get %> </li>
-              <li> <%= link_to "OT Approval", portal_ot_approvals_path, :method=> :get %> </li>
-              <li> <%= link_to "Login Logs", login_logs_path, :method=> :get %> </li>
-              </small></hr>
+                <li> <%= link_to "Weekly Schedule Remarks", weekly_schedules_path, :method=> :get %> </li>
+                <li> <%= link_to "DTR Approval", dtr_applications_path, :method=> :get %> </li>
+                <li> <%= link_to "Leave Approval", portal_leave_approvals_path, :method=> :get %> </li>
+                <li> <%= link_to "OT Approval", portal_ot_approvals_path, :method=> :get %> </li>
+
+                <% if employeegroupref == 1 %>                            
+                  <li> <%= link_to "OB Approval", portal_ob_approvals_path, :method=> :get %> </li>                                         
+                <% end %> 
+
+                <li> <%= link_to "Login Logs", login_logs_path, :method=> :get %> </li>
+              </small><hr>
             </ul>
           </li>
 
           <li class="mobile-menu">
             <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="Reports" rel="tooltip" >
-            <strong>Reports</strong>
+              <strong>Reports</strong>
             </a>
 
             <ul  class="dropdown-menu" role="menu">
               <hr><small>
-              <li> <%= link_to "DTR History", portal_dtr_histories_path, :method=> :get %> </li>
-              </small></hr>
+                <li><%= link_to "DTR History", portal_dtr_histories_path, :method=> :get %> </li>
+              </small><hr>
             </ul>
           </li>
         <% end %> 
-
-        
-        <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 1 %>                            
+ 
+        <% if employeegroupref == 1 %>                            
           <li class="mobile-menu">
             <strong><%= link_to ' TRE', portal_tre_applications_path, :method=> :get %></strong>
           </li>
         <% end %> 
 
-          <li class="mobile-menu">
-            <strong><%= link_to ' Knowledge base', '/knowledges'%></strong>
-          </li>
-
-
+        <li class="mobile-menu">
+          <strong><%= link_to ' Knowledge base', '/knowledges'%></strong>
+        </li>
       <% end %>
 
-
       <li class="mobile-menu">
-
         <% if session[:currentuser_employeestatusrefno]  != 2 %>
           <strong><%= link_to ' Change Password', user_edit_password_path  %></strong>
         <% end %>
-
       </li>
+
       <li class="mobile-menu">
         <strong><%= link_to ' Log out', destroy_user_session_path, method: :delete %></strong>
       </li>
-
-    <% else # user not signed it %>
-
-
     <% end # if user is signed it %>
   </ul>
 </div><!-- navbar-collapse -->
