@@ -4,7 +4,7 @@ class PortalObApplicationDetailsController < ApplicationController
 
   def index
     @get_url_valuex = request.original_url 
-    @portal_ob_application_details = PortalObApplicationDetail.where(OBApplicationRefNo: session[:portal_ob_application_id], IsImported: 0, IsCanceled: 0)
+    @portal_ob_application_details = PortalObApplicationDetail.where(OBApplicationRefNo: session[:portal_ob_application_id], IsImported: 0, IsCanceled: 0).or(@portal_ob_application_details = PortalObApplicationDetail.where(OBApplicationRefNo: session[:portal_ob_approval_id], IsImported: 0, IsCanceled: 0))
 
     render :layout => false
   end
