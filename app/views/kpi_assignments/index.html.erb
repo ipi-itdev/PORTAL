@@ -65,7 +65,7 @@
                 <tr>
                   <td><small><%= portal_leave_view.ID %></small></td>
                   <td><small><%=  PisEmployeeU.where(EmployeeRefNo: portal_leave_view.EmployeeRefNo).pluck(:Description).to_sentence %></small></td>                           
-                  <td><small><%=  KpiEvalPurpose.where(EvalPurposeRefNo: portal_leave_view.EvalPurposeRefNo).pluck(:Description).to_sentence %></small></td>                           
+                  <td><small><%=  KpiEvalPurpose.where(ID: portal_leave_view.EvalPurposeRefNo).pluck(:Description).to_sentence %></small></td>                           
                   <td><small><%= portal_leave_view.StartDate.strftime("%m/%d/%Y") %> - <%= portal_leave_view.EndDate.strftime("%m/%d/%Y") %></small></td>
                   <td><small><%=  GenFilingStatusF.where(FilingStatusRefNo: portal_leave_view.FilingStatusRefNo).pluck(:Description).to_sentence %></small></td>        
                   <td align="left">

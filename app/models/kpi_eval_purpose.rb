@@ -1,3 +1,3 @@
 class KpiEvalPurpose < ApplicationRecord
-	self.table_name = 'EvalPurpose'
+	self.table_name = 'PIS_EvalPurpose'
 end

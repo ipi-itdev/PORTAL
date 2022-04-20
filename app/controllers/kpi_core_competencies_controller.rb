@@ -39,8 +39,8 @@ class KpiCoreCompetenciesController < ApplicationController
   def update
     respond_to do |format|
       if @kpi_core_competency.update(kpi_core_competency_params)        
-        format.html { redirect_to kpi_core_competencies_path, notice: 'KPI detail was successfully updated.' }
-        format.json { render :show, status: :ok, location: @kpi_core_competency }
+        flash[:notice] = "KPI detail was successfully updated."
+        format.html { render :edit, :layout => false }        
       else
         format.html { render :edit, :layout => false }
         format.json { render json: @kpi_core_competency.errors, status: :unprocessable_entity }
@@ -57,6 +57,6 @@ class KpiCoreCompetenciesController < ApplicationController
       params.fetch(:kpi_core_competency, {}).permit(:ID, :CoreCompetency11, :CoreCompetency12, :CoreCompetency13, 
         :CoreCompetency21, :CoreCompetency22, :CoreCompetency23, :CoreCompetency31, :CoreCompetency32, :CoreCompetency33, 
         :CoreCompetency41, :CoreCompetency42, :CoreCompetency43, :CoreCompetency51, :CoreCompetency52, :CoreCompetency53,
-        :CoreStrengthsHighest, :CoreStrengthsLowest, :ActionPlanA, :SpecialAssignment, :Objectives, :ActionPlanB,)
+        :CoreStrengthsHighest, :CoreStrengthsLowest, :ActionPlanA, :SpecialAssignment, :Objectives, :ActionPlanB)
     end
 end
