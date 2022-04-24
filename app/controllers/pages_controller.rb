@@ -18,7 +18,7 @@ prepend_before_action :privacychecker, only: [:index]
 #prepend_before_action :covid_survey_checker
 prepend_before_action :check_pisaudit
 prepend_before_action :check_BRGY
-prepend_before_action :check_ODHD
+#prepend_before_action :check_ODHD
 
 prepend_before_action :check_weeksched
 prepend_before_action :check_vacdepsurvey
