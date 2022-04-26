@@ -203,6 +203,11 @@ Rails.application.routes.draw do
   post 'create_changerequest', to: 'portal_change_requests#create_changerequest'
   post 'post_changerequest', to: 'portal_change_requests#post_changerequest'
 
+  #kpi
+  post 'create_kpi', to: 'kpi_assignments#create_kpi'
+  post 'post_kpi', to: 'kpi_assignments#post_kpi'
+  get 'showkpireport', to: 'kpi_assignments#showkpireport'
+
   #tms approval
   post 'approve_dtr', to: 'dtr_applications#approve_dtr'
   post 'back_dtr', to: 'dtr_applications#back_dtr'
@@ -223,9 +228,6 @@ Rails.application.routes.draw do
   #tre tre_expenses
   post 'create_tre', to: 'portal_tre_applications#create_tre'
   post 'post_tre', to: 'portal_tre_applications#post_tre'
-
-  #kpi
-  post 'create_assignment', to: 'kpi_assignments#create_assignment'
 
   get 'kpicorecompetency', to: 'kpi_assignments#kpicorecompetency'
 

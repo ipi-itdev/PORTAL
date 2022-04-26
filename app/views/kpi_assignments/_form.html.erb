@@ -28,7 +28,7 @@
 
         <div class="panel panel-default" id="panelframe" style="">
           <div class="panel-heading" id="panelheader" >
-            <i class="fas fa-calendar-check"></i> <strong>Target Setting</strong>
+            <i class="fas fa-calendar-check"></i> <strong>KPI Evaluation</strong>
           </div>
 
           <div class="panel-body">
@@ -91,7 +91,7 @@
                     <div class="row">
                       <div class="col-sm-12" >
                         <p id="required_field"> *</p>
-                        <%= form.date_field :EndDate, label: 'Due Date', min: '2020-01-01', max: '2030-01-01' %>
+                        <%= form.date_field :SubmissionDate, label: 'Due Date', min: '2020-01-01', max: '2030-01-01' %>
                       </div>
                     </div> 
                     
@@ -140,6 +140,14 @@
                     
                     <br>
 
+                    <div class="row">                      
+                      <div class="col-sm-12" >
+                        <%= link_to "Request", post_kpi_path(kpi_id: @kpi_assignment.ID), method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to request this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i> Please wait..." } %>
+                      </div>
+                    </div>
+
+                    <br>
+
                     <%= link_to 'Back to List', kpi_assignments_path, class:'btn btn-primary  btn-block' %>
                   </div>
                 </div>
@@ -152,7 +160,11 @@
               <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;" >
             <% end %>            
 
-              <iframe src="/kpi_core_competencies/<%= @get_edit_id.to_param %>/edit" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>              
+               <% if @kpi_assignment.FilingStatusRefNo.to_i != 0 %>
+                <iframe src="/kpi_core_competencies/<%= @get_edit_id.to_param %>/edit" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>              
+              <% else %>
+                <iframe src="/showkpireport" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>              
+              <% end %>  
             </div>
           </div>
         </div>
