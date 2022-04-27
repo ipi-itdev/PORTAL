@@ -32,23 +32,18 @@ class KpiAssignmentsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @kpi_assignment.update(kpi_assignment_params)
-        ActiveRecord::Base.connection.exec_query("EXEC dbo.pReplaceKPIList #{@kpi_assignment.id}, 477, #{current_user.EmployeeRefNo}")
-
-        #flash[:notice] = "Record has been updated."
-        #redirect_to edit_kpi_assignment_path(id: @kpi_assignment.id)
-        format.html { redirect_to edit_kpi_assignment_path(id: @kpi_assignment.id), notice: 'KPI Assignment was successfully updated.' }
-        #format.json { render :edit, status: :ok, location: @kpi_assignment }
+    respond_to do |format|           
+      if @kpi_assignment.update(kpi_assignment_params)                                            
+            flash[:notice] = 'KPI Evaluation successfully updated'
+            format.html { redirect_to edit_kpi_assignment_path(id: @kpi_assignment.id), notice: 'KPI Assignment was successfully updated.' }
       else
-        format.html { render :edit }
+        format.html { render :edit}
         format.json { render json: @kpi_assignment.errors, status: :unprocessable_entity }
-      end
+      end 
     end
   end
 
   def destroy
-    #ActiveRecord::Base.connection.execute("exec dbo.TMS_SP_TMSCancel @Type = 'leave', @ID = #{@kpi_assignment.id}")
     ActiveRecord::Base.connection.execute("exec dbo.pTMSApplicationApproval @TMSType = 2, @ID = #{@kpi_assignment.id}, @UserRefNo = -1, @Status = 3, @Remarks = ''")
 
     flash[:notice] = "Record has been cancel."
@@ -64,6 +59,8 @@ class KpiAssignmentsController < ApplicationController
       kpi_assignment_save.FilingStatusRefNo = 0
       kpi_assignment_save.StartDate = Date.today
       kpi_assignment_save.EndDate = Date.today
+      kpi_assignment_save.SubmissionDate = Date.today
+      
       kpi_assignment_save.save
 
       kpi_coreresult_save = KpiCoreCompetencyResult.new

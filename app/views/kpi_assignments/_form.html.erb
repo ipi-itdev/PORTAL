@@ -14,22 +14,27 @@
     </div>
 
     <div class="col-sm-10" >
-      <%= bootstrap_form_with(model: kpi_assignment, local: true) do |form| %>
-        <% if kpi_assignment.errors.any? %>
-          <div id="error_explanation">
-            <ul>
-              <% kpi_assignment.errors.full_messages.each do |message| %>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-
+      <%= bootstrap_form_with(model: kpi_assignment, local: true) do |form| %>        
         <% session[:kpi_assignment_id] = @kpi_assignment.id %>
+        <% session[:kpi_employee] = @kpi_assignment.employeerefno %>        
 
         <div class="panel panel-default" id="panelframe" style="">
           <div class="panel-heading" id="panelheader" >
             <i class="fas fa-calendar-check"></i> <strong>KPI Evaluation</strong>
           </div>
+
+          <% if kpi_assignment.errors.any? %>
+            <br>
+            <div id="error_explanation">
+              <ul>
+                <p style="color: red;font-size: 80%;">
+                  <% kpi_assignment.errors.full_messages.each do |message| %>
+                    <%= message %> <br>
+                  <% end %>
+                </p>
+              </ul>
+            </div>
+          <% end %>
 
           <div class="panel-body">
             <div class="row">
@@ -57,7 +62,7 @@
                     <div class="row">
                       <div class="col-sm-12" >
                         <p id="required_field"> *</p>
-                        <%= form.collection_select :EmployeeRefNo, PisEmployeeU.where(IsActive: 1),:EmployeeRefNo, :Description, label: 'Employee' %>
+                        <%= form.collection_select :EmployeeRefNo, KpiEmployee.where(UserRefNo: current_user.EmployeeRefNo).or(KpiEmployee.where(UserRefNo: 0)),:EmployeeRefNo, :Description, label: 'Employee' %>
                       </div>
                     </div>
                     
@@ -161,7 +166,7 @@
             <% end %>            
 
                <% if @kpi_assignment.FilingStatusRefNo.to_i != 0 %>
-                <iframe src="/kpi_core_competencies/<%= @get_edit_id.to_param %>/edit" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>              
+                <iframe src="/kpi_core_competencies/<%= @kpi_assignment.id %>/edit" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>              
               <% else %>
                 <iframe src="/showkpireport" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>              
               <% end %>  
