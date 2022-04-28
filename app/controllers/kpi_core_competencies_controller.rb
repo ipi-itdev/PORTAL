@@ -40,48 +40,12 @@ class KpiCoreCompetenciesController < ApplicationController
     respond_to do |format|
       if @kpi_core_competency.update(kpi_core_competency_params)        
         flash[:notice] = "KPI detail was successfully updated."
-        format.html { render :edit, :layout => false }        
+        format.html { render :edit, :layout => false, notice: "KPI detail was successfully updated." }        
       else
         format.html { render :edit, :layout => false }
         format.json { render json: @kpi_core_competency.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def post_kpi
-    #portal_ob_application_rec_checker = PortalObApplication.where(ID: params[:ob_id]).pluck(:IsActive).to_sentence
-#
-    #if portal_ob_application_rec_checker == 'false'
-    #  flash[:notice] = "No details."
-    #  redirect_to edit_portal_ob_application_path(id: params[:ob_id])
-    #  
-    #else
-    #  errmsg = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_PostOBValidation #{params[:ob_id]}")
-    #  
-    #  if errmsg.rows[0][0] != ''
-    #    if @OBOpen == 1
-    #      flash[:notice] = errmsg.rows[0][0]
-    #      redirect_to edit_portal_ob_application_path(id: params[:ob_id])
-    #    else
-    #      flash[:notice] = errmsg.rows[0][0]
-    #      redirect_to portal_ob_applications_path
-    #    end
-    #  
-    #  else
-    #    portal_ob_application_rec = PortalObApplication.where(ID: params[:ob_id])
-    #  
-    #    portal_ob_application_rec.each do |portal_ob_application_rec1|
-    #      portal_ob_application_rec1.FilingStatusRefNo = 40
-    #      portal_ob_application_rec1.save
-    #    end
-#
-    #    #ActiveRecord::Base.connection.execute("exec dbo.TMS_SP_TMSPost @Type = 'ob', @ID = #{params[:ob_id]}")
-    #    ActiveRecord::Base.connection.execute("exec dbo.pTMSApplicationApproval @TMSType = 4, @ID = #{params[:ob_id]}, @UserRefNo = -1, @Status = 40, @Remarks = ''")
-#
-    #    flash[:notice] = "Record has been requested."
-    #    redirect_to portal_ob_applications_path
-    #  end
-    #end
   end
 
   private

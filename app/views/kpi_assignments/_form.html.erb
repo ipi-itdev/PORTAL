@@ -165,7 +165,7 @@
               <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;" >
             <% end %>            
 
-               <% if @kpi_assignment.FilingStatusRefNo.to_i != 0 %>
+               <% if @kpi_assignment.FilingStatusRefNo.to_i != 11 %>
                 <iframe src="/kpi_core_competencies/<%= @kpi_assignment.id %>/edit" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>              
               <% else %>
                 <iframe src="/showkpireport" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>              

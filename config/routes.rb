@@ -229,8 +229,6 @@ Rails.application.routes.draw do
   post 'create_tre', to: 'portal_tre_applications#create_tre'
   post 'post_tre', to: 'portal_tre_applications#post_tre'
 
-  get 'kpicorecompetency', to: 'kpi_assignments#kpicorecompetency'
-
   #thank you survey
   get '/thank_you', to: 'por_temp_surveys#thank_you'
 

@@ -44,7 +44,7 @@ class KpiAssignmentsController < ApplicationController
   end
 
   def destroy
-    ActiveRecord::Base.connection.execute("exec dbo.pTMSApplicationApproval @TMSType = 2, @ID = #{@kpi_assignment.id}, @UserRefNo = -1, @Status = 3, @Remarks = ''")
+    ActiveRecord::Base.connection.execute("UPDATE dbo.PIS_KPIAssigmentDetails SET FilingStatusRefNo = 3 WHERE ID = #{@kpi_assignment.id}")
 
     flash[:notice] = "Record has been cancel."
     redirect_to kpi_assignments_path
@@ -56,7 +56,7 @@ class KpiAssignmentsController < ApplicationController
       kpi_assignment_save.ModifiedBy = current_user.EmployeeRefNo   
       kpi_assignment_save.EmployeeRefNo = 0
       kpi_assignment_save.EvalPurposeRefNo = 0
-      kpi_assignment_save.FilingStatusRefNo = 0
+      kpi_assignment_save.FilingStatusRefNo = 1
       kpi_assignment_save.StartDate = Date.today
       kpi_assignment_save.EndDate = Date.today
       kpi_assignment_save.SubmissionDate = Date.today
@@ -70,8 +70,11 @@ class KpiAssignmentsController < ApplicationController
       redirect_to edit_kpi_assignment_path(id: kpi_assignment_save.id)
   end
 
-  def kpicorecompetency
-    render :layout => false
+  def post_kpi    
+    ActiveRecord::Base.connection.exec_query("EXEC dbo.Portal_KPIRequest #{params[:kpi_id]}")
+        
+    flash[:notice] = "Record has been requested."
+    redirect_to edit_kpi_assignment_path(id: params[:kpi_id])
   end
 
   def showkpireport	
