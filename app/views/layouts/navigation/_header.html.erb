@@ -126,10 +126,9 @@
                                                             <li><%= link_to "DTR Approval", dtr_applications_path, :method=> :get %></li>
                                                             <li><%= link_to "Leave Approval", portal_leave_approvals_path, :method=> :get %></li>
                                                             <li><%= link_to "OT Approval", portal_ot_approvals_path, :method=> :get %></li>
-
-                                                            <% if employeegroupref == 1 %>                            
-                                                                  <li><%= link_to "OB Approval", portal_ob_approvals_path, :method=> :get %></li>                                         
-                                                            <% end %> 
+                            
+                                                            <li><%= link_to "OB Approval", portal_ob_approvals_path, :method=> :get %></li>                                         
+                                                            
                                                             
                                                             <li><%= link_to "Login Logs", login_logs_path, :method=> :get %></li>
                                                       </ul>
