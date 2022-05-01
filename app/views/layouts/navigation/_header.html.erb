@@ -8,9 +8,9 @@
                         <div class="dropdown pc-menu" align="left" >       
 	                        <% if activecompany  == 1%>
 	                              <%= image_tag image_url("logo.png"), id: 'ipidesklogo' %>
-	                        <% elsif activecompany  == 2 %>
+	                        <% elsif activecompany  == 4 %>
 	                        	<%= image_tag image_url("/pits_14.PNG"), id: 'pitsheaderlogodesk1' %>
-	                        <% elsif activecompany  == 3%>
+	                        <% elsif activecompany  == 2%>
 	                        	<%= image_tag image_url("/pea6.PNG"), id: 'prhiheaderlogodesk1' %>
 	                        <% end %>
                         </div>
@@ -70,7 +70,8 @@
                                                                     <li><%= link_to 'SDE Request Form', '/SDE-Request-Form.docx', target: "_blank" %></li>
                                                                   <% end %>
 
-                                                            <% else %>
+                                                            <% elsif activecompany  == 4 %>
+
 			                                                <li><%= link_to 'Incident Report Form', '/pits_forms/Incident Report Form.docx', target: "_blank" %></li>
                                                                   <li><%= link_to 'Pag Ibig Change of Information Form', '/pits_forms/Pag Ibig Change of Information Form.pdf',  target: "_blank" %></li>
                                                                   <li><%= link_to 'Pag IBIG Membership Upgrade Form', '/pits_forms/Pag IBIG Membership Upgrade Form.pdf', target: "_blank" %></li>
@@ -83,7 +84,9 @@
                                                                   <li><%= link_to 'SSS Maternity Notification Form', '/pits_forms/SSS Maternity Notification Form.pdf', target: "_blank" %></li>
                                                                   <li><%= link_to 'SSS Salary Loan Form', '/pits_forms/SSS Salary Loan Form.pdf', target: "_blank" %></li>
                                                                   <li><%= link_to 'SSS Sickness Benefit Reimbursement Form', '/pits_forms/SSS Sickness Benefit Reimbursement Form.pdf' , target: "_blank"%></li>
-                                                                  <li><%= link_to 'SSS Sickness Notification Form', '/pits_forms/SSS Sickness Notification Form.pdf', target: "_blank" %></li>   		
+                                                                  <li><%= link_to 'SSS Sickness Notification Form', '/pits_forms/SSS Sickness Notification Form.pdf', target: "_blank" %></li>
+                                                            <% else%>      
+                                                                  <!---empty -->
                                                             <% end %>
                                                       </ul>
                                                 </li>		
