@@ -70,20 +70,14 @@
                   <td><small><%=  GenFilingStatusF.where(FilingStatusRefNo: portal_kpi_view.FilingStatusRefNo).pluck(:Description).to_sentence %></small></td>        
                   <td align="left">
 
-                    <% if portal_kpi_view.FilingStatusRefNo.to_i == 1 %>
+                    <% if portal_kpi_view.FilingStatusRefNo.to_i == 1 || portal_kpi_view.FilingStatusRefNo.to_i == 10 %>
                       <div class="btn-group btn-group-sm btn-group-block">                        
                         <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_kpi_assignment_path(portal_kpi_view ),  class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Edit" %>
                         <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, portal_kpi_view, method: :delete, data: { confirm: 'Are you sure you want to delete this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i>" },  class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Delete" %>    
                       </div>
 
-                    <% elsif portal_kpi_view.FilingStatusRefNo.to_i == 40 || portal_kpi_view.FilingStatusRefNo.to_i == 2 %>
-                      <div class="btn-group btn-group-sm btn-group-block">
-                        <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_kpi_assignment_path(portal_kpi_view ),  class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Edit" %>
-                        <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, portal_kpi_view, method: :delete, data: { confirm: 'Are you sure you want to delete this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i>" },  class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Delete" %>    
-                      </div>
-
                     <% else %>
-                        <%= link_to 'View', "/kpi_assignments/#{portal_kpi_view.ID}?frmtre_ex=test", class: "btn btn-primary btn-sm ", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "View" %>
+                        <%= link_to 'View', "/kpi_assignments/#{portal_kpi_view.ID}", class: "btn btn-primary btn-sm ", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "View" %>
 
                     <% end %>                     
                   </td>      

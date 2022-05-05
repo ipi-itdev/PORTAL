@@ -15,6 +15,7 @@ class KpiAssignmentsController < ApplicationController
 
   def edit
     @get_edit_id = KpiAssignment.find(params[:id])
+    session[:kpi_employee] = @get_edit_id.employeerefno 
   end
 
   def create
@@ -51,23 +52,25 @@ class KpiAssignmentsController < ApplicationController
   end
 
   def create_kpi
-      kpi_assignment_save  = KpiAssignment.new
-      kpi_assignment_save.CreatedBy = current_user.EmployeeRefNo
-      kpi_assignment_save.ModifiedBy = current_user.EmployeeRefNo   
-      kpi_assignment_save.EmployeeRefNo = 0
-      kpi_assignment_save.EvalPurposeRefNo = 0
-      kpi_assignment_save.FilingStatusRefNo = 1
-      kpi_assignment_save.StartDate = Date.today
-      kpi_assignment_save.EndDate = Date.today
-      kpi_assignment_save.SubmissionDate = Date.today
-      
-      kpi_assignment_save.save
+      #kpi_assignment_save  = KpiAssignment.new
+      #kpi_assignment_save.CreatedBy = current_user.EmployeeRefNo
+      #kpi_assignment_save.ModifiedBy = current_user.EmployeeRefNo   
+      #kpi_assignment_save.EmployeeRefNo = 0
+      #kpi_assignment_save.EvalPurposeRefNo = 0
+      #kpi_assignment_save.FilingStatusRefNo = 1
+      #kpi_assignment_save.StartDate = Date.today
+      #kpi_assignment_save.EndDate = Date.today
+      #kpi_assignment_save.SubmissionDate = Date.today
+      #
+      #kpi_assignment_save.save
 
-      kpi_coreresult_save = KpiCoreCompetencyResult.new
-      kpi_coreresult_save.KPIAssignmentDetailsRefNo = kpi_assignment_save.id
-      kpi_coreresult_save.save
+      #kpi_coreresult_save = KpiCoreCompetency.new
+      #kpi_coreresult_save.ID = kpi_assignment_save.id
+      #kpi_coreresult_save.save
 
-      redirect_to edit_kpi_assignment_path(id: kpi_assignment_save.id)
+      id = ActiveRecord::Base.connection.exec_query("EXEC dbo.Portal_CreateKPI #{current_user.EmployeeRefNo}")
+
+      redirect_to edit_kpi_assignment_path(id: id.rows[0][0])
   end
 
   def post_kpi    
@@ -78,9 +81,8 @@ class KpiAssignmentsController < ApplicationController
   end
 
   def showkpireport	
-		@companycode = GenCompanyM.where(IsActive: 1).pluck(:ID).to_sentence				
-    @KpiID = session[:kpi_assignment_id]
-		@Report_link = "http://aaigcat-001-site24.htempurl.com/Home/EvaluationReport?pkey=#{@companycode}_1544"
+		@companycode = GenCompanyM.where(IsActive: 1).pluck(:ID).to_sentence				    
+		@Report_link = "http://aaigcat-001-site24.htempurl.com/Home/EvaluationReport?pkey=#{@companycode}_#{session[:kpi_assignment_id]}"
 
     render :layout => false
 	end

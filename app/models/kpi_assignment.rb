@@ -34,6 +34,9 @@ class KpiAssignment < ApplicationRecord
 
 		if evalpurpose == 0
 			errors[:base] << 'Purpose is required.'
+
+		elsif employeerefno == 0
+			errors[:base] << 'Employee is required.'
 			
 		elsif errmsg.rows[0][0] != ''
 			errors[:base] << errmsg.rows[0][0]
