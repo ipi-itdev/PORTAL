@@ -255,7 +255,7 @@
         <br><br>
         
         <div class="row">
-          <div class="col-sm-6" >
+          <div class="col-sm-6" >          
             <small><%= form.text_area :CoreStrengthsHighest, class: 'form-control input-sm', style: 'resize: none;', label: 'Core Strengths for (ratings 1.0 to 3.0)' %></small>
           </div>        
 
@@ -300,6 +300,9 @@
             </div>
           </div> 
         </div>
+
+        <br>
+
         <div class="col-sm-6" >   
           <div class="row">     
             <div class="col-sm-6" id="divNextPart" style="display: none;">
@@ -327,6 +330,7 @@
           
           <div class="col-sm-6" id="divNextPart" style="display: none;">
             <input type="button" id="showNextPart" class="btn btn-primary btn-sm btn-block" value="Next Part">
+            <br>
           </div>
 
           <div class="col-sm-6" id="divSave" style="display: none;">
@@ -339,6 +343,14 @@
 
   <script>
     $(document).ready(function () {
+      $(function () {
+        $('[data-toggle="popover"]').popover()
+      })
+
+      $('[data-toggle="tooltip"]').tooltip(
+        {container:'body', trigger: 'hover', placement:"right"}
+      ) 
+
       $('label[for="kpi_core_competency_CoreCompetency11"').wrapInner("<strong />")
       $('label[for="kpi_core_competency_CoreCompetency12"').wrapInner("<strong />")
       $('label[for="kpi_core_competency_CoreCompetency13"').wrapInner("<strong />")
@@ -371,6 +383,12 @@
       let a = 1
 
       $("#showNextPart").click(function () {
+        if (($("#kpi_core_competency_CoreCompetency11_1").prop("checked") == true) || ($("#kpi_core_competency_CoreCompetency11_2").prop("checked") == true)) {
+        } 
+        
+        if (($("#kpi_core_competency_CoreCompetency11_3").prop("checked") == true) || ($("#kpi_core_competency_CoreCompetency11_4").prop("checked") == true)) {
+        } 
+
         document.getElementById('divGrowth').setAttribute("style", "display: block")
         document.getElementById('53').setAttribute("style", "display: none")
 

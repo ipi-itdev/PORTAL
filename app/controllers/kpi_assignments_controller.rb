@@ -35,7 +35,7 @@ class KpiAssignmentsController < ApplicationController
   def update
     respond_to do |format|           
       if @kpi_assignment.update(kpi_assignment_params)                                            
-            flash[:notice] = 'KPI Evaluation successfully updated'
+            flash[:notice] = 'Perfomance evaluation successfully updated'
             format.html { redirect_to edit_kpi_assignment_path(id: @kpi_assignment.id), notice: 'KPI Assignment was successfully updated.' }
       else
         format.html { render :edit}
@@ -52,32 +52,21 @@ class KpiAssignmentsController < ApplicationController
   end
 
   def create_kpi
-      #kpi_assignment_save  = KpiAssignment.new
-      #kpi_assignment_save.CreatedBy = current_user.EmployeeRefNo
-      #kpi_assignment_save.ModifiedBy = current_user.EmployeeRefNo   
-      #kpi_assignment_save.EmployeeRefNo = 0
-      #kpi_assignment_save.EvalPurposeRefNo = 0
-      #kpi_assignment_save.FilingStatusRefNo = 1
-      #kpi_assignment_save.StartDate = Date.today
-      #kpi_assignment_save.EndDate = Date.today
-      #kpi_assignment_save.SubmissionDate = Date.today
-      #
-      #kpi_assignment_save.save
-
-      #kpi_coreresult_save = KpiCoreCompetency.new
-      #kpi_coreresult_save.ID = kpi_assignment_save.id
-      #kpi_coreresult_save.save
-
       id = ActiveRecord::Base.connection.exec_query("EXEC dbo.Portal_CreateKPI #{current_user.EmployeeRefNo}")
 
       redirect_to edit_kpi_assignment_path(id: id.rows[0][0])
   end
 
   def post_kpi    
-    ActiveRecord::Base.connection.exec_query("EXEC dbo.Portal_KPIRequest #{params[:kpi_id]}")
-        
-    flash[:notice] = "Record has been requested."
-    redirect_to edit_kpi_assignment_path(id: params[:kpi_id])
+    errmsg = ActiveRecord::Base.connection.exec_query("EXEC dbo.Portal_KPIRequest #{params[:kpi_id]}")    
+      
+    if errmsg.rows[0][0] != '' 
+      flash[:notice] = errmsg.rows[0][0]
+    else
+      flash[:notice] = "Record has been requested."      
+    end
+
+    redirect_to "/kpi_assignments/#{params[:kpi_id]}/edit"
   end
 
   def showkpireport	
