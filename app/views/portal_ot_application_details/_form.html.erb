@@ -34,8 +34,7 @@
 
       <div class="row">
         <div class="col-sm-6" >        
-          <%= form.hidden_field :OvertimeApplicationRefNo, value: session[:portal_ot_application_id] %>
-          <%= form.hidden_field :EmployeeRefNo, value: current_user.EmployeeRefNo %>
+          <%= form.hidden_field :OvertimeApplicationRefNo, value: session[:portal_ot_application_id] %>          
           <%= form.hidden_field :CreatedDate, value: DateTime.now + 8.hours %>
           <%= form.hidden_field :CreatedBy, value: current_user.EmployeeRefNo %>
           <%= form.hidden_field :ModifiedDate, value: DateTime.now + 8.hours %>
@@ -65,7 +64,7 @@
         </div>
       </div>
 
-      <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 2 %>                            
+      <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{session[:portal_ot_application_employeerefno]}").rows[0][0] == 2 %>                            
         <div class="row">
           <div class="col-sm-6" >
             <small><%= form.file_field :AttachmentFile, label: 'Attach File', onchange: "myFunction_hidediv()", :accept => 'image/jpeg,image/jpg,image/png,image/gif,application/pdf' %></small>
