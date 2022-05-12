@@ -24,7 +24,8 @@
           </div>
         <% end %>
 
-        <% session[:portal_ot_application_id] = @portal_ot_application.id %>
+        <% session[:portal_ot_application_id] = @portal_ot_application.ID %>
+        <% session[:portal_ot_application_employeerefno] = @portal_ot_application.EmployeeRefNo %>
 
         <div class="panel panel-default" id="panelframe" style="">
           <div class="panel-heading" id="panelheader" >
