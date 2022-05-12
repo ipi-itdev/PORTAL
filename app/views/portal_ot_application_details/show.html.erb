@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] == 2 %>                            
+    <% if ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{session[:portal_ot_application_employeerefno]}").rows[0][0] == 2 %>                            
       <div class="row">
         <div class="col-sm-3" >
               <strong>Attached File: </strong>
