@@ -77,7 +77,11 @@
                       </div>
 
                       <div class="col-sm-8" >
-                        <%= GenFilingStatusF.where(FilingStatusRefNo: @portal_ot_application.FilingStatusRefNo ).pluck(:Description).to_sentence %>
+                        <% if @portal_ot_application.FilingStatusRefNo == 1 %>
+                          Saved as draft
+                        <% else %>
+                          <%=  GenFilingStatusF.where(FilingStatusRefNo: @portal_ot_application.FilingStatusRefNo).pluck(:Description).to_sentence %>
+                        <% end %>                        
                       </div>
                     </div>
                   </small>
