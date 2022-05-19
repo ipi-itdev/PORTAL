@@ -41,34 +41,24 @@
                   <div class="col-sm-12" >
                   <small>                  
                     <div class="row">                                              
-                      <div class="col-sm-4" >
-                        <strong>ID: </strong>
-                      </div>
-
-                      <div class="col-sm-8" >
-                        <%=  @dtr_application.ID %>
+                      <div class="col-sm-12" >
+                        <strong>ID: </strong> <%= @dtr_application.ID %>
                       </div>
                     </div>
 
                     <br>               
 
                     <div class="row">
-                      <div class="col-sm-4" >
-                        <strong>Employee: </strong>
-                      </div>
-
-                      <div class="col-sm-8" >
-                        <%= PisEmployeeU.where(EmployeeRefNo: @dtr_application.EmployeeRefNo).pluck(:Description).to_sentence %>
+                      <div class="col-sm-12" >
+                        <strong>Employee: </strong> <%= PisEmployeeU.where(EmployeeRefNo: @dtr_application.EmployeeRefNo).pluck(:Description).to_sentence %>
                       </div>
                     </div>
 
-                    <div class="row">                      
-                      <div class="col-sm-4" >
-                        <strong>Job Position: </strong>
-                      </div>
+                    <br> 
 
-                      <div class="col-sm-8" >
-                        <%= @dtr_application.JobPosition %>
+                    <div class="row">                      
+                      <div class="col-sm-12" >
+                        <strong>Job Position: </strong> <%= @dtr_application.JobPosition %>
                       </div>
                     </div>
                   </small>
@@ -82,6 +72,10 @@
                   <div class="col-sm-6" >   
                     <input type="button" id="showDetails" class="btn btn-primary btn-block" value="DTR Details">
                   </div>
+
+                  <% if mobile_device == "mobile" %>
+                    <br>
+                  <% end %>
 
                   <div class="col-sm-6" >   
                     <input type="button" id="showUpload" class="btn btn-primary btn-block" value="DTR Attachment">
@@ -132,6 +126,10 @@
                         <%= link_to "Approve", approve_dtr_path(dtr_detail_id: session[:dtr_detail_id]), method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to approve this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i> Please wait..." } %>                                            
                       </div>
               
+                      <% if mobile_device == "mobile" %>
+                        <br>
+                      <% end %>
+                      
                       <div class="col-sm-6" >                        
                         <%= submit_tag "Return to Employee", method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to return this application?', disable_with: "Please wait..." } %>
                       </div>

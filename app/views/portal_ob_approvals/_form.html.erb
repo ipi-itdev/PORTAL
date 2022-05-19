@@ -37,46 +37,32 @@
                 <div class="col-sm-12" >
                 <small>
                   <div class="row">
-                    <div class="col-sm-4" >
-                      <strong>ID: </strong>
-                    </div>
-
-                    <div class="col-sm-8" >
-                      <%=  @portal_ob_approval.ID %>
+                    <div class="col-sm-12" >
+                      <strong>ID: </strong> <%= @portal_ob_approval.ID %>
                     </div>
                   </div>
 
                   <br>
                 
                   <div class="row">
-                    <div class="col-sm-4" >
-                      <strong>Created Date: </strong>
-                    </div>
-
-                    <div class="col-sm-8" >
-                      <%= @portal_ob_approval.DateFiled.strftime("%m/%d/%Y") %>
+                    <div class="col-sm-12" >
+                      <strong>Created Date: </strong> <%= @portal_ob_approval.DateFiled.strftime("%m/%d/%Y") %>
                     </div>
                   </div>
 
-                  <div class="row">
-                    <div class="col-sm-4" >
-                      <strong>Created By: </strong>
-                    </div>
+                  <br>
 
-                    <div class="col-sm-8" >
-                      <%= PisEmployeeU.where(EmployeeRefNo: @portal_ob_approval.CreatedBy).pluck(:Description).to_sentence %>
+                  <div class="row">
+                    <div class="col-sm-12" >
+                      <strong>Created By: </strong> <%= PisEmployeeU.where(EmployeeRefNo: @portal_ob_approval.CreatedBy).pluck(:Description).to_sentence %>
                     </div>
                   </div>
 
                   <br>
 
                   <div class="row">                    
-                    <div class="col-sm-4" >
-                      <strong>Status: </strong>
-                    </div>
-
-                    <div class="col-sm-8" >
-                      <%= GenFilingStatusF.where(FilingStatusRefNo: @portal_ob_approval.FilingStatusRefNo ).pluck(:Description).to_sentence %>
+                    <div class="col-sm-12" >
+                      <strong>Status: </strong> <%= GenFilingStatusF.where(FilingStatusRefNo: @portal_ob_approval.FilingStatusRefNo ).pluck(:Description).to_sentence %>
                     </div>                  
                   </div>
                 </small>
@@ -111,7 +97,11 @@
                     <div class="row">                
                       <div class="col-sm-6" >
                         <%= link_to "Approve", approve_ob_path(ob_id: portal_ob_approval.ID), method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to approve this application?', disable_with: "Please wait..." } %>                                            
-                      </div>                  
+                      </div>   
+
+                      <% if mobile_device == "mobile" %>
+                       <br>
+                      <% end %>               
 
                       <div class="col-sm-6" >
                         <%= submit_tag "Disapprove", method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to disapprove this application?', disable_with: "Please wait..." }, id: 'disapprove_but' %>                      
