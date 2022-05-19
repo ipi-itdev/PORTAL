@@ -125,7 +125,11 @@
                       </div>
 
                       <div class="col-sm-8" >
-                        <%= GenFilingStatusF.where(FilingStatusRefNo: @kpi_assignment.FilingStatusRefNo ).pluck(:Description).to_sentence %>
+                        <% if @kpi_assignment.FilingStatusRefNo == 1 %>
+                          Saved as draft
+                        <% else %>
+                          <%=  GenFilingStatusF.where(FilingStatusRefNo: @kpi_assignment.FilingStatusRefNo).pluck(:Description).to_sentence %>
+                        <% end %>                          
                       </div>
                     </div>
                   </small>  
