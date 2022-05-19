@@ -71,7 +71,7 @@ class KpiAssignmentsController < ApplicationController
 
   def showkpireport	
 		@companycode = GenCompanyM.where(IsActive: 1).pluck(:ID).to_sentence				    
-		@Report_link = "http://aaigcat-001-site24.htempurl.com/Home/EvaluationReport?pkey=#{@companycode}_#{session[:kpi_assignment_id]}"
+		@Report_link = "https://kpireport.pitsph.com/Home/EvaluationReport?pkey=#{@companycode}_#{session[:kpi_assignment_id]}"
 
     render :layout => false
 	end

@@ -70,6 +70,8 @@
                   <td><small>
                     <% if portal_kpi_view.FilingStatusRefNo == 1 %>
                       Saved as draft
+                    <% elsif portal_kpi_view.FilingStatusRefNo == 11 %>
+                          For review
                     <% else %>
                       <%=  GenFilingStatusF.where(FilingStatusRefNo: portal_kpi_view.FilingStatusRefNo).pluck(:Description).to_sentence %>
                     <% end %>

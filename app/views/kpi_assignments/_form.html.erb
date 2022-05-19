@@ -19,7 +19,7 @@
       <%= bootstrap_form_with(model: kpi_assignment, local: true) do |form| %>                          
         <div class="panel panel-default" id="panelframe" style="">
           <div class="panel-heading" id="panelheader" >
-            <i class="fas fa-calendar-check"></i> <strong>KPI Evaluation</strong>
+            <i class="fas fa-calendar-check"></i> <strong>Performance Evaluation</strong>
           </div>
 
           <% if kpi_assignment.errors.any? %>
@@ -127,6 +127,8 @@
                       <div class="col-sm-8" >
                         <% if @kpi_assignment.FilingStatusRefNo == 1 %>
                           Saved as draft
+                        <% elsif @kpi_assignment.FilingStatusRefNo == 11 %>
+                          For review
                         <% else %>
                           <%=  GenFilingStatusF.where(FilingStatusRefNo: @kpi_assignment.FilingStatusRefNo).pluck(:Description).to_sentence %>
                         <% end %>                          
