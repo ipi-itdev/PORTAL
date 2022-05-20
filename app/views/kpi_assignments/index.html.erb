@@ -19,7 +19,7 @@
         <div class="panel-heading" id="panelheader">
           <div class="row">
             <div class="col-sm-8" >
-              <strong><i class="fas fa-calendar-check"></i>KPI Evaluation</strong>
+              <strong><i class="fas fa-calendar-check"></i>Performance Evaluation</strong>
             </div>
 
             <% if mobile_device == "mobile" %>
@@ -123,7 +123,7 @@
   <!-- Modal content -->
   <div class="modal-content" style="width: 50%; position: absolute; left: 25%;">
     <span class="close">&times;</span>
-    <iframe  src="\manuals\leaveapplication.pdf"  style="border:none;" title="IframeExpenseDetails" height="500px" width="100%"> </iframe>
+    <iframe  src="\manuals\perfomanceevaluation.pdf"  style="border:none;" title="IframeExpenseDetails" height="500px" width="100%"> </iframe>
   </div>
 </div>
 
@@ -134,7 +134,7 @@
 
   <% if mobile_device == "mobile" %>
     btn.onclick = function() {
-      window.open("/manuals/leaveapplication.pdf");
+      window.open("/manuals/perfomanceevaluation.pdf");
     }
 
   <% else %>
