@@ -12,11 +12,10 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
-Rails.application.config.assets.precompile += %w( ipiphils.scss)
-Rails.application.config.assets.precompile += %w( about.scss)
+
+
 Rails.application.config.assets.precompile += %w( page.scss)
 Rails.application.config.assets.precompile += %w( pay_processed_payroll_u.scss)
-Rails.application.config.assets.precompile += %w( referral.scss)
 Rails.application.config.assets.precompile += %w( password_new.scss)
 Rails.application.config.assets.precompile += %w( registration_edit.scss)
 Rails.application.config.assets.precompile += %w( por_surveys.scss)
@@ -26,10 +25,6 @@ Rails.application.config.assets.precompile += %w( leave_credits.scss)
 Rails.application.config.assets.precompile += %w( portal_survey_covid19s.scss)
 Rails.application.config.assets.precompile += %w( por_media.scss)
 
-
-Rails.application.config.assets.precompile += %w( ipiphils.js)
-Rails.application.config.assets.precompile += %w( about.js)
 Rails.application.config.assets.precompile += %w( pay_processed_payroll_u.js)
-Rails.application.config.assets.precompile += %w( referral.js)
 Rails.application.config.assets.precompile += %w( password_new.js)
 Rails.application.config.assets.precompile += %w( registration_edit.js)

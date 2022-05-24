@@ -1,1 +1,0 @@
-json.partial! "portal_leave_time_lookup_us/portal_leave_time_lookup_u", portal_leave_time_lookup_u: @portal_leave_time_lookup_u

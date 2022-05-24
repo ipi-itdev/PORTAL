@@ -1,2 +1,0 @@
-class Userhero < ApplicationRecord
-end
