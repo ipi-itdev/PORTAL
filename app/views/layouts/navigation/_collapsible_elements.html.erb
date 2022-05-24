@@ -4,7 +4,6 @@
 
     <% if user_signed_in? #if user signed in%>
       <% activecompany = ActiveRecord::Base.connection.exec_query("Select CompanyRefNo from dbo.GEN_Company_M WHERE IsActive = 1").rows[0][0] %>
-      <% employeegroupref = ActiveRecord::Base.connection.exec_query("Select EmployeeGroupRefNo from dbo.PIS_EmploymentInfo_U WHERE EmployeeRefNo = #{current_user.EmployeeRefNo}").rows[0][0] %>
       
       <li class="dropdown pc-menu">  
         <a id="user-settings" class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -75,7 +74,7 @@
                     <li><%= link_to 'SSS Sickness Benefit Reimbursement Form', '/ipi_forms/SSS Sickness Benefit Reimbursement Form.pdf' , target: "_blank"%></li>
                     <li><%= link_to 'SSS Sickness Notification Form', '/ipi_forms/SSS Sickness Notification Form.pdf', target: "_blank" %></li>
 
-                    <% if employeegroupref == 1 %>                            
+                    <% if current_user.EmployeeGroupRefNo == 1 %>                            
                       <li><%= link_to 'SDE Request Form', '/SDE-Request-Form.docx', target: "_blank" %></li>
                     <% end %>
 
@@ -115,7 +114,7 @@
                 <li> <%= link_to "OB Application", portal_ob_applications_path, :method=> :get %> </li>                                         
 
 
-            <% if employeegroupref == 2 %>                            
+            <% if current_user.EmployeeGroupRefNo == 2 %>                            
               <li> <%= link_to "DTR Timesheet", portal_dhs_employee_weekly_schedule_us_path, :method=> :get %> </li>
               <li> <%= link_to "Upload DTR", portal_dtr_uploads_path, :method=> :get %> </li>
             <% end %> 
@@ -131,19 +130,25 @@
 
             <ul  class="dropdown-menu" role="menu">
               <hr><small>
-                <li> <%= link_to "Weekly Schedule Remarks", weekly_schedules_path, :method=> :get %> </li>
-                <li> <%= link_to "DTR Approval", dtr_applications_path, :method=> :get %> </li>
+                <% if current_user.is_external_approver == true %>
+                  <li> <%= link_to "Weekly Schedule Remarks", weekly_schedules_path, :method=> :get %> </li>
+                  <li> <%= link_to "DTR Approval", dtr_applications_path, :method=> :get %> </li>
+                <% end %>
+                
                 <li> <%= link_to "Leave Approval", portal_leave_approvals_path, :method=> :get %> </li>
-                <li> <%= link_to "OT Approval", portal_ot_approvals_path, :method=> :get %> </li>
-
-                <% if employeegroupref == 1 %>                            
-                  <li> <%= link_to "OB Approval", portal_ob_approvals_path, :method=> :get %> </li>                                         
-                <% end %> 
+                <li> <%= link_to "OT Approval", portal_ot_approvals_path, :method=> :get %> </li>                          
+                <li> <%= link_to "OB Approval", portal_ob_approvals_path, :method=> :get %> </li>                                         
 
                 <li> <%= link_to "Login Logs", login_logs_path, :method=> :get %> </li>
               </small><hr>
             </ul>
           </li>
+
+          <% if current_user.is_external_approver == true %>
+            <li class="mobile-menu">
+              <strong><%= link_to ' Performance Evaluation', kpi_assignments_path, :method=> :get %></strong>
+            </li>
+          <% end %>
 
           <li class="mobile-menu">
             <a  class="dropdown-toggle" data-toggle="dropdown" href="#" title="Reports" rel="tooltip" >
@@ -158,7 +163,7 @@
           </li>
         <% end %> 
  
-        <% if employeegroupref == 1 %>                            
+        <% if current_user.EmployeeGroupRefNo == 1 %>                            
           <li class="mobile-menu">
             <strong><%= link_to ' TRE', portal_tre_applications_path, :method=> :get %></strong>
           </li>

@@ -6,10 +6,7 @@ class PortalSurveyCovid19sController < ApplicationController
   # GET /portal_survey_covid19s
   # GET /portal_survey_covid19s.json
   def index
-    
-      get_emp_group = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck(:EmployeeGroupRefNo).to_sentence
-
-      if get_emp_group == '1' #for internal
+      if current_user.EmployeeGroupRefNo == '1' #for internal
           redirect_to pages_path and return
       else #for external
         check_covid_survey_exist = PortalSurveyCovid19.where(employeerefno: current_user.EmployeeRefNo).exists?
@@ -30,11 +27,7 @@ class PortalSurveyCovid19sController < ApplicationController
 
   # GET /portal_survey_covid19s/new
   def new
-   
-
-      get_emp_group = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck(:EmployeeGroupRefNo).to_sentence
-
-      if get_emp_group == '1' #for internal
+      if current_user.EmployeeGroupRefNo == '1' #for internal
           redirect_to pages_path and return
       else #for external
         check_covid_survey_exist = PortalSurveyCovid19.where(employeerefno: current_user.EmployeeRefNo).exists?

@@ -137,18 +137,12 @@ class ReferralsController < ApplicationController
     end
 
 
-    private
-    def checkadminloggedin
-
-      if user_signed_in? == false
-        @getuserrefno110 = 0
-      else
-        getuserrefno110 = current_user.EmployeeRefNo
-        getuserrefnoforbday = getuserrefno110
-        @getuserrefno110 = User.where(EmployeeRefNo:getuserrefno110).pluck(:IsAdmin).to_sentence
-      end 
-
-    end
-
-
+  private
+  def checkadminloggedin
+    if user_signed_in? == false
+      @getuserrefno110 = 0      
+    else
+      @getuserrefno110 = User.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:IsAdmin).to_sentence
+    end	
+  end
 end

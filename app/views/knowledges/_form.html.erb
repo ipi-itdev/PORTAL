@@ -92,42 +92,20 @@
         <div class="panel-body">
           Author:
           <br>
-          <%= z = PisEmployeeU.where(EmployeeRefNo: @usuario_actual).pluck(:Fullname).to_sentence %>
+          <%= z = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:Fullname).to_sentence %>
           <br>
-          <%= x = User.where(id: 34)%>
-          
-       
-
-
+          <%= x = User.where(id: 34)%>                 
         </div>
-      </div>
-    
-     
+      </div>         
     </div>
   </div>
 </div>
 
-
-
-<script type="text/javascript">
-  
+<script type="text/javascript"> 
 $("input[type=radio]").change(function (e) {
     $("#write, #doc").removeClass("selected");
     $("#" + $(e.currentTarget).val()).addClass("selected");
 })
-
-
-
-
 </script>
-
 </body>
 </html>
-
-
-
-
-
-
-
-

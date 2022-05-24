@@ -129,7 +129,7 @@ class Users::PasswordsController < Devise::PasswordsController
                       save_pass_bank.save
 
                       user = User.find_by(EmployeeRefNo: get_emprefno)
-                      user.update(encrypted_password: get_new_password, updated_at: current_datetime)
+                      user.update(encrypted_password: get_new_password, updated_at: current_datetime, PasswordCreatedDate: current_datetime)
 
                       flash[:notice] = 'Successfully saved new password, please login again...'
                       redirect_to new_user_session_path and return
@@ -152,7 +152,7 @@ class Users::PasswordsController < Devise::PasswordsController
                   save_pass_bank.save
 
                   user = User.find_by(EmployeeRefNo: get_emprefno)
-                  user.update(encrypted_password: get_new_password, updated_at: current_datetime)
+                  user.update(encrypted_password: get_new_password, updated_at: current_datetime, PasswordCreatedDate: current_datetime)
 
                   flash[:notice] = 'Successfully saved new password, please login again..'
                   redirect_to new_user_session_path and return
@@ -174,7 +174,7 @@ class Users::PasswordsController < Devise::PasswordsController
                 save_pass_bank.save
 
                 user = User.find_by(EmployeeRefNo: get_emprefno)
-                user.update(encrypted_password: get_new_password, updated_at: current_datetime)
+                user.update(encrypted_password: get_new_password, updated_at: current_datetime, PasswordCreatedDate: current_datetime)
 
                 flash[:notice] = 'Successfully saved new password, please login again.'
                 redirect_to new_user_session_path and return
@@ -328,7 +328,7 @@ class Users::PasswordsController < Devise::PasswordsController
                   save_pass_bank.save
 
                   user = User.find_by(EmployeeRefNo: params[:emprefno])
-                  user.update(encrypted_password: get_new_password, updated_at: current_datetime)
+                  user.update(encrypted_password: get_new_password, updated_at: current_datetime, PasswordCreatedDate: current_datetime)
 
                   flash[:notice] = 'Successfully saved new password, please login again...'
                   redirect_to new_user_session_path and return
@@ -351,7 +351,7 @@ class Users::PasswordsController < Devise::PasswordsController
               save_pass_bank.save
 
               user = User.find_by(EmployeeRefNo: params[:emprefno])
-              user.update(encrypted_password: get_new_password, updated_at: current_datetime)
+              user.update(encrypted_password: get_new_password, updated_at: current_datetime, PasswordCreatedDate: current_datetime)
 
               flash[:notice] = 'Successfully saved new password, please login again..'
               redirect_to new_user_session_path and return
@@ -372,7 +372,7 @@ class Users::PasswordsController < Devise::PasswordsController
             save_pass_bank.save
 
             user = User.find_by(EmployeeRefNo: params[:emprefno])
-            user.update(encrypted_password: get_new_password, updated_at: current_datetime)
+            user.update(encrypted_password: get_new_password, updated_at: current_datetime, PasswordCreatedDate: current_datetime)
 
             flash[:notice] = 'Successfully saved new password, please login again.'
             redirect_to new_user_session_path and return
@@ -468,7 +468,7 @@ class Users::PasswordsController < Devise::PasswordsController
                   save_pass_bank.save
 
                   user = User.find_by(EmployeeRefNo: params[:emprefno])
-                  user.update(encrypted_password: get_new_password, updated_at: current_datetime)
+                  user.update(encrypted_password: get_new_password, updated_at: current_datetime, PasswordCreatedDate: current_datetime)
 
                   flash[:notice] = 'Successfully saved new password, please login again...'
                   redirect_to new_user_session_path and return
@@ -491,7 +491,7 @@ class Users::PasswordsController < Devise::PasswordsController
               save_pass_bank.save
 
               user = User.find_by(EmployeeRefNo: params[:emprefno])
-              user.update(encrypted_password: get_new_password, updated_at: current_datetime)
+              user.update(encrypted_password: get_new_password, updated_at: current_datetime, PasswordCreatedDate: current_datetime)
 
               flash[:notice] = 'Successfully saved new password, please login again..'
               redirect_to new_user_session_path and return
@@ -512,7 +512,7 @@ class Users::PasswordsController < Devise::PasswordsController
             save_pass_bank.save
 
             user = User.find_by(EmployeeRefNo: params[:emprefno])
-            user.update(encrypted_password: get_new_password, updated_at: current_datetime)
+            user.update(encrypted_password: get_new_password, updated_at: current_datetime, PasswordCreatedDate: current_datetime)
 
             flash[:notice] = 'Successfully saved new password, please login again.'
             redirect_to new_user_session_path and return
