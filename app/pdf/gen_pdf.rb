@@ -607,7 +607,7 @@ def initialize(pay_processed_payroll_u,emprefno, getsetloanpdf, pay_processed_pa
 
 	#IPI Logo
 	#image "#{Prawn::DATADIR}/images/ipi.png", :position => 2,:vposition => 8,:width =>40
-	image "#{Rails.root}/public/images/p.png", :position => 2,:vposition => 8,:width =>40
+	image "#{Rails.root}/public/image/p.png", :position => 2,:vposition => 8,:width =>40
 
 	#Add pdf security
 	encrypt_document(
