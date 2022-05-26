@@ -2,8 +2,8 @@ class PagesController < ApplicationController
 before_action :authenticate_user!
 
 prepend_before_action :check_poster
-prepend_before_action :check_dependent_booster
-prepend_before_action :check_get_vac_booster
+#prepend_before_action :check_dependent_booster
+#prepend_before_action :check_get_vac_booster
 #prepend_before_action :emp_satis_survey_checker
 prepend_before_action :check_user_tagconfirm
 prepend_before_action :check_user_viewed_ads
@@ -21,8 +21,8 @@ prepend_before_action :check_BRGY
 #prepend_before_action :check_ODHD
 
 prepend_before_action :check_weeksched
-prepend_before_action :check_vacdepsurvey
-prepend_before_action :argreed_on_vac
+#prepend_before_action :check_vacdepsurvey
+#prepend_before_action :argreed_on_vac
 #prepend_before_action :check_vacsurvey
 prepend_before_action :check_ros_survey
 prepend_before_action :media_checker

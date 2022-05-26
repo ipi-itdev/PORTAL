@@ -124,7 +124,7 @@ def initialize(pay_processed_payroll_u,emprefno, getsetloanpdf, pay_processed_pa
 
   	 create_stamp("stampx") do
 		  #fill_color "D3D3D3"
-		  image "#{Rails.root}/app/assets/images/pdfback.png",
+		  image "#{Rails.root}/public/image/pdfback.png",
 		  	:position => 0,
 		    :width  => 595,
 		    :height =>330,
@@ -607,7 +607,7 @@ def initialize(pay_processed_payroll_u,emprefno, getsetloanpdf, pay_processed_pa
 
 	#IPI Logo
 	#image "#{Prawn::DATADIR}/images/ipi.png", :position => 2,:vposition => 8,:width =>40
-	image "#{Rails.root}/app/assets/images/p.png", :position => 2,:vposition => 8,:width =>40
+	image "#{Rails.root}/public/images/p.png", :position => 2,:vposition => 8,:width =>40
 
 	#Add pdf security
 	encrypt_document(
