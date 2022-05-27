@@ -380,7 +380,8 @@ class PagesController < ApplicationController
   end
 
   def check_expire_password
-    datechanged_datetime_plus_3mons =  current_user.PasswordCreatedDate + 30.days
+    dayexpire = ActiveRecord::Base.connection.exec_query("SELECT dbo.TMS_FN_GetSettingsValue(#{current_user.EmployeeRefNo},57,'1-1')").to_s
+    datechanged_datetime_plus_3mons =  current_user.PasswordCreatedDate + dayexpire.to_i.days
     get_utc = ActiveRecord::Base.connection.exec_query("select utc_plus_8 = CAST(DATEADD(HOUR,8,GETUTCDATE()) AS datetime);")
     current_datetime = get_utc.rows[0][0].to_time.strftime('%Y-%m-%d %H:%M:%S')  
 
