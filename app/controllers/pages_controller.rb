@@ -1,31 +1,33 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
-  prepend_before_action :check_dependent_booster
-  prepend_before_action :check_get_vac_booster
+
+  #prepend_before_action :check_update_contact
+  prepend_before_action :check_poster
+  #prepend_before_action :check_dependent_booster
+  #prepend_before_action :check_get_vac_booster
+  #prepend_before_action :emp_satis_survey_checker
   prepend_before_action :check_user_tagconfirm
-  prepend_before_action :emp_satis_survey_checker
   prepend_before_action :check_user_viewed_ads
+  #prepend_before_action :tempsurvey_checker
   prepend_before_action :check_covidbulletin
-  prepend_before_action :check_webinar_reg
-  prepend_before_action :checker_oldpass, only: [:index] # Change this to be any actions you want to protect.
+  #prepend_before_action :check_webinar_reg
+  #prepend_before_action :check_vaccampaign
+  #prepend_before_action :checker_oldpass
   prepend_before_action :checkadminloggedin, only: [:index]
   prepend_before_action :privacychecker, only: [:index]
-  #prepend_before_action :covid_survey_checker
   #prepend_before_action :checksurvey
-  prepend_before_action :check_vaccampaign
+  #prepend_before_action :covid_survey_checker
+  prepend_before_action :check_pisaudit
+  #prepend_before_action :check_BRGY
+  #prepend_before_action :check_ODHD
+  prepend_before_action :check_weeksched
   #prepend_before_action :check_vacdepsurvey
   #prepend_before_action :argreed_on_vac
-  prepend_before_action :check_update_contact
-  prepend_before_action :check_ros_survey
-  #prepend_before_action :check_ODHD
-  #prepend_before_action :check_BRGY
-  #prepend_before_action :tempsurvey_checker
-  #prepend_before_action :check_pisaudit
-  prepend_before_action :check_weeksched
   #prepend_before_action :check_vacsurvey
-  #prepend_before_action :check_poster
-  #prepend_before_action :media_checker
+  prepend_before_action :check_ros_survey
+  prepend_before_action :media_checker
   prepend_before_action :check_expire_password
+  prepend_before_action :log_login
   prepend_before_action :check_current_user
 
   def index					
@@ -56,55 +58,25 @@ class PagesController < ApplicationController
   	#@quote = PorQuote.where(IsPost: true)
 
     ##start week sched
-      #current dattime
-      get_current_datetime = DateTime.now 
+    @check_emp_client_acct =  PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck(:ClientAccountRefNo).to_sentence
+    
+    #current dattime      
+    get_current_datetime = DateTime.now 
 
-      @get_utc = ActiveRecord::Base.connection.exec_query("select utc_plus_8 = CAST(DATEADD(HOUR,8,GETUTCDATE()) AS datetime);")
-      @current_datetime = @get_utc.rows[0][0].to_time.strftime('%Y-%m-%d %H:%M:%S')
-      @datetime_range = ActiveRecord::Base.connection.exec_query("SELECT * FROM fnSchedEmployee(#{current_user.EmployeeRefNo})")     
+    @get_utc = ActiveRecord::Base.connection.exec_query("select utc_plus_8 = CAST(DATEADD(HOUR,8,GETUTCDATE()) AS datetime);")
+    @current_datetime = @get_utc.rows[0][0].to_time.strftime('%Y-%m-%d %H:%M:%S')
+    @datetime_range = ActiveRecord::Base.connection.exec_query("SELECT * FROM fnSchedEmployee(#{current_user.EmployeeRefNo})")     
     ##end weeksched
 
     @srvy_checker = PorTempSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists?
 
-    @emp_satis_srvy_checker =  PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? 
+    #@emp_satis_srvy_checker =  PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? 
   end
-
-    
+  
   def update_user_ads
     update_user = User.where(EmployeeRefNo: current_user.EmployeeRefNo)
     update_user.update(had_viewed_ads: 1)
     redirect_to pages_path
-  end
-
-  def verify_dhs
-    get_next_sched_survey =  PortalCoviddhsU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck_to_hash(:TomSchedDate, :NextShift)
-    get_tomsched_date = get_next_sched_survey[0][:TomSchedDate]
-    get_tomsched_time = get_next_sched_survey[0][:NextShift]
-    date = Date.strptime(get_tomsched_date, '%m/%d/%Y')
-    convert_date = date.strftime('%Y-%m-%d').to_time
-    convert_date_strptime = date.strftime('%Y-%m-%d')
-    concat_date_time = convert_date_strptime +" "+ get_tomsched_time
-    convert_datetime = concat_date_time.to_time
-    get_1hr_bfr_convert_datetime = convert_datetime - 1.hours
-    get_3hrs_bfr_convert_datetime = convert_datetime - 3.hours
-    get_1yr_aft_convert_datetime = convert_datetime + 1.year
-    converted_3hrs_datetime = get_3hrs_bfr_convert_datetime.strftime('%Y-%m-%d %H:%M:%S')
-    get_current_datetime = DateTime.now.to_time.strftime('%Y-%m-%d %H:%M:%S')
-
-    get_latest_survey = PortalDhsU.where(EmployeeRefNo: current_user.EmployeeRefNo).order(CreatedDate: :desc).first
-    check_if_rec_exist = get_latest_survey.CreatedDate.to_time.between?( get_3hrs_bfr_convert_datetime, get_1hr_bfr_convert_datetime + 1.year ) 
-
-    if  check_if_rec_exist == false
-      if get_current_datetime < converted_3hrs_datetime
-        flash[:notice] = "You may only submit your form for today 1 to 3 hour before shift."
-        redirect_to '/ODHD'
-      else 
-        redirect_to '/ODHD'
-      end
-    else
-      flash[:notice] = "You may only submit one form per day 1 to 3 hours before shift only."
-      redirect_to pages_path
-    end  
   end
 
   private
@@ -184,37 +156,9 @@ class PagesController < ApplicationController
   def check_update_contact
     if current_user.UpdatedContactInfo == false
       session[:contactedit] = 1
-      ActiveRecord::Base.connection.execute("EXEC dbo.TMS_UpdateContact @EmployeeRefNo = #{current_user.EmployeeRefNo}")
+      ActiveRecord::Base.connection.execute("EXEC dbo.PIS_SP_PopulateUpdateContactInPortal @EmployeeRefNo = #{current_user.EmployeeRefNo}")
 
       redirect_to edit_portal_contact_path(id: current_user.EmployeeRefNo)
-    end
-  end
-
-  private
-  def check_ODHD
-    hash_getPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash( :DepartmentRefNo, :EmployeeRefNo, :ClientAccountRefNo )
-    getPisEmploymentInfoU = hash_getPisEmploymentInfoU[0]
-    if current_user.EmployeeGroupRefNo == 1 || getPisEmploymentInfoU[:ClientAccountRefNo] == 180 || getPisEmploymentInfoU[:ClientAccountRefNo] == 181 || getPisEmploymentInfoU[:ClientAccountRefNo] == 1390 || getPisEmploymentInfoU[:ClientAccountRefNo] == 1391 || getPisEmploymentInfoU[:ClientAccountRefNo] == 179 || getPisEmploymentInfoU[:ClientAccountRefNo] == 2432  || getPisEmploymentInfoU[:ClientAccountRefNo] == 3490
-      get_dhs_rec = ActiveRecord::Base.connection.exec_query("SELECT * FROM fnSchedEmployee(#{current_user.EmployeeRefNo})")
-      get_utc = ActiveRecord::Base.connection.exec_query("select utc_plus_8 = CAST(DATEADD(HOUR,8,GETUTCDATE()) AS datetime);")
-      current_datetime = get_utc.rows[0][0].to_time.strftime('%Y-%m-%d %H:%M:%S')
-      if get_dhs_rec.blank? == false
-        if current_datetime.to_date == get_dhs_rec.rows[0][6].to_date
-          if current_user.DoneDHS == false              
-            redirect_to '/ODHD'
-          end
-        else
-          if current_user.DoneDHS == false
-            if get_dhs_rec.rows[0][4].blank? == false
-              redirect_to '/ODHD'
-            end
-          end
-        end        
-      end
-    else
-      if current_user.DoneDHS == false
-        redirect_to '/ODHD'
-      end
     end
   end
 
@@ -279,27 +223,20 @@ class PagesController < ApplicationController
   end
 
   def check_poster
-    get_poster_within_month = PortalPoster.find_by_sql("select * from portal_posters where start_date between '#{Date.today.at_beginning_of_month }' and   '#{Date.today.end_of_month}'").pluck(:poster_refno)
-    get_last_emposter = PortalEmpposterDetail.where(employeerefno: current_user.EmployeeRefNo, poster_refno: get_poster_within_month.map(&:to_i)).last
-
-    #no record found on current  month
-    if get_last_emposter.blank? == true
-      redirect_to new_portal_empposter_detail_path  
-    else
-      #check the latest emp poster
-      @check_viewed_latest_poster = PortalEmpposterDetail.where(employeerefno: current_user.EmployeeRefNo, poster_refno: get_poster_within_month.map(&:to_i)).pluck(:poster_refno).last
-      get_the_next_poster = @check_viewed_latest_poster.next
-      get_next_poster_startdate = PortalPoster.where(poster_refno: get_the_next_poster)
-
-      get_next_poster_startdate.each do |get_next_poster_startdatex|
-        convert_startdate = get_next_poster_startdatex.start_date.strftime("%F")
-        @get_answer = Date.parse(convert_startdate) <= Date.today 
-
-        if @get_answer == true
-          redirect_to new_portal_empposter_detail_path                
-        end
-      end
-    end
+    #get latest poster
+    get_latest_poster_refno = PortalPoster.find_by_sql("select  top 1 * from portal_posters pp where start_date BETWEEN (SELECT DATEADD(mm, DATEDIFF(mm, 0, GETDATE()), 0)) and (select utc_plus_8 = CAST(DATEADD(HOUR,8,GETUTCDATE()) AS datetime) ) order by start_date DESC ").pluck(:poster_refno).to_sentence
+    if get_latest_poster_refno.blank? == false
+      #get the last poster viewed by emp
+      check_last_empposter_refno1 = PortalEmpposterDetail.where(employeerefno: current_user.EmployeeRefNo).pluck(:id, :poster_refno)
+      check_last_empposter_refno = check_last_empposter_refno1[0]
+      if check_last_empposter_refno[1].blank? == true
+        redirect_to "/portal_empposter_details/#{check_last_empposter_refno[0]}/edit"
+      else
+        if check_last_empposter_refno[1].to_i < get_latest_poster_refno.to_i
+          redirect_to "/portal_empposter_details/#{check_last_empposter_refno[0]}/edit"
+        end   
+      end  
+    end 
   end
 
   def check_pisaudit    
@@ -316,8 +253,21 @@ class PagesController < ApplicationController
   end
 
   def check_weeksched
-    if current_user.sched_confirmed != true && current_user.fixed_sched != true
-      redirect_to '/schedule_confirmation'
+    if ActiveRecord::Base.connection.exec_query("Select CompanyRefNo from dbo.GEN_Company_M WHERE IsActive = 1").rows[0][0] == 1
+      hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:ClientAccountRefNo, :PayFrequencyRefNo , :BasicRate, :EmployeeGroupRefNo, :JobPosition,:DepartmentRefNo, :PayrollRateRefNo )
+      @PisEmploymentInfoU1 = hashPisEmploymentInfoU[0]
+
+      if @PisEmploymentInfoU1[:EmployeeGroupRefNo] == 1 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 180 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 181 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 1390 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 1391 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 179 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 2432 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 3490 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 195
+        #for internal only and p&g
+        if current_user.sched_confirmed != true && current_user.fixed_sched != true
+          redirect_to '/schedule_confirmation'
+        end
+      end
+
+    else
+      if current_user.sched_confirmed != true && current_user.fixed_sched != true
+        redirect_to '/schedule_confirmation'
+      end
     end
   end
 
@@ -380,34 +330,33 @@ class PagesController < ApplicationController
   end
 
   def check_expire_password
-    dayexpire = ActiveRecord::Base.connection.exec_query("SELECT dbo.TMS_FN_GetSettingsValue(#{current_user.EmployeeRefNo},57,'1-1')").to_s
-    datechanged_datetime_plus_3mons =  current_user.PasswordCreatedDate + dayexpire.to_i.days
-    get_utc = ActiveRecord::Base.connection.exec_query("select utc_plus_8 = CAST(DATEADD(HOUR,8,GETUTCDATE()) AS datetime);")
-    current_datetime = get_utc.rows[0][0].to_time.strftime('%Y-%m-%d %H:%M:%S')  
+    dayexpire = ActiveRecord::Base.connection.exec_query("SELECT dbo.TMS_FN_GetSettingsValue(#{current_user.EmployeeRefNo},57,'1-1')").rows[0][0].to_s
+    datechanged_datetime_plus_3mons = current_user.PasswordCreatedDate + dayexpire.to_i.days
 
-    if current_datetime >= datechanged_datetime_plus_3mons
+    get_utc = ActiveRecord::Base.connection.exec_query("SELECT DATEADD(HOUR,8,GETUTCDATE())")
+
+    if get_utc.rows[0][0] >= datechanged_datetime_plus_3mons
       redirect_to user_expire_password_path
     end
   end
 
+  def log_login
+    portal_login = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber)
+    portal_login.save    
+  end
 
   def check_covidbulletin
-     get_emp_exists = PortalCovidbulletin.where(EmployeeRefNo: current_user.EmployeeRefNo).exists?
-
-    if get_emp_exists == false
+    if PortalCovidbulletin.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
       redirect_to '/portal_covidbulletins/new'
     end  
   end
 
-  
   def check_user_viewed_ads
     if current_user.had_viewed_ads.blank? == true
       redirect_to '/portal_temp_ads/new'
     end    
   end
 
-
-  #check emp_satis_survey
   private
   def emp_satis_survey_checker
     #false
@@ -424,39 +373,24 @@ class PagesController < ApplicationController
         redirect_to '/portal_employee_satisfaction_surveys/intro' 
         end
       end
-    end
-    
+    end 
   end
-  #check emp_satis_survey
 
-  #check_user_tagconfirm
   def check_user_tagconfirm
     if current_user.TagConfirmed != true
       redirect_to '/winner' 
     end
   end
-  #check_user_tagconfirm
 
-  
-  #check vac booster
   def check_get_vac_booster
     if current_user.DoneBooster != true
       redirect_to '/booster_survey'
     end
   end
-  #check vac booster
 
-
-  #check_dependent_booster
   def check_dependent_booster
     if current_user.HasBoosterDependents == true
       redirect_to '/dependent_booster'
     end
   end
-  #check_dependent_bootser
-
-
-
-
-
 end
