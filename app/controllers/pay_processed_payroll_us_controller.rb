@@ -1,16 +1,21 @@
 class PayProcessedPayrollUsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_pay_processed_payroll_u, only: [:show, :edit, :update, :destroy]
-  prepend_before_action :checker_oldpass, only: [:index] # Change this to be any actions you want to protect.
+  #prepend_before_action :checker_oldpass, only: [:index] # Change this to be any actions you want to protect.
   prepend_before_action :checkadminloggedin
   prepend_before_action :privacychecker, only: [:index]
- #prepend_before_action :tempsurvey_checker, only: [:index]
+  #prepend_before_action :covid_survey_checker
+  #prepend_before_action :tempsurvey_checker, only: [:index]
   #before_action :checksurvey
- # prepend_before_action :covid_survey_checker
- prepend_before_action :check_ODHD
- prepend_before_action :media_checker
-# prepend_before_action :check_vacsurvey
-prepend_before_action :check_expire_password
+  #prepend_before_action :check_ODHD
+  #prepend_before_action :media_checker
+  #prepend_before_action :check_vacsurvey
+  prepend_before_action :log_login
+  prepend_before_action :check_expire_password
+  prepend_before_action :check_current_user
+
+
+
  
         
   # GET /pay_processed_payroll_us
@@ -33,33 +38,23 @@ prepend_before_action :check_expire_password
       #get emp client
       ##get employee details
       hashPisEmployeeU = PisEmployeeU.where(EmployeeRefNo: @emprefno).pluck_to_hash(:EmployeeNumber,:Description)
-      @PisEmployeeU = hashPisEmployeeU[0]
-      
-      ##bir2316
-      @BIRpath = "#{current_user.AttachmentPath}"
-      @getBIRCredentials = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}")     
-      @BIRlink = "#{@BIRpath}#{@getBIRCredentials.rows[0][0]}"
-      ##bir2316             
+      @PisEmployeeU = hashPisEmployeeU[0]            
 
       hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: @emprefno, IsActive: 1).pluck_to_hash(:ClientAccountRefNo, :PayFrequencyRefNo , :BasicRate, :EmployeeGroupRefNo, :JobPosition,:DepartmentRefNo, :PayrollRateRefNo, :JobPositionRefNo )
       @PayrollRate = PayPayrollRateM.where(PayrollRateRefNo: hashPisEmploymentInfoU[0][:PayrollRateRefNo]).pluck(:Description)
       @PisEmploymentInfoU = hashPisEmploymentInfoU[0]
 
-
       if @PisEmploymentInfoU[:EmployeeGroupRefNo] == 1 
         #internal emp
         @getpayrollperiodrecord = PayProcessedPayrollU.find_by_sql("SELECT ID, CONVERT(varchar, PayrollDate, 101) AS PayDate FROM dbo.PAY_ProcessedPayroll_U WHERE  (FilingStatusRefNo = 4) AND (PayrollParameterRefNo = 8) ORDER BY PayrollDate DESC")
-        
-        @get_job_position_int = GenJobPositionM.where(JobPositionRefNo: @PisEmploymentInfoU[:JobPositionRefNo] ).pluck(:Description).to_sentence
 
+        @get_job_position_int = GenJobPositionM.where(JobPositionRefNo: @PisEmploymentInfoU[:JobPositionRefNo] ).pluck(:Description).to_sentence
       else 
         #external emp
         @getpayrollperiodrecord = PayProcessedPayrollU.find_by_sql("SELECT ID, CONVERT(varchar, PayrollDate, 101) AS PayDate FROM dbo.PAY_ProcessedPayroll_U WHERE  (FilingStatusRefNo = 4) AND (PayrollParameterRefNo = 7) ORDER BY PayrollDate DESC")
-
-
       end
 
-
+      
       #@gettaxstatus = GenTaxStatusM.where(TaxStatusRefNo:  @PisEmploymentInfoU[:TaxStatusRefNo] ).pluck(:Description).to_sentence
       @getfrequency = GenFrequencyM.where(FrequencyRefNo: @PisEmploymentInfoU[:PayFrequencyRefNo]).pluck(:Description).to_sentence
       ##end employee details
@@ -184,18 +179,18 @@ prepend_before_action :check_expire_password
             ##end grand total
 
 
-				#set pdf path
-				if @payrollrefid.blank?
-				  redirect_to pay_processed_payroll_us_url, :notice => "Please Select Payroll Period!"
-				else
-				  getidforpdf  =  PayProcessedPayrollU.where(ProcessedPayrollRefNo: @payrollrefid).pluck(:id).to_sentence
-				  @pdfpath = "/pay_processed_payroll_us/#{getidforpdf}-#{current_user.EmployeeNumber}.pdf"
-				end
+              #set pdf path
+              if @payrollrefid.blank?
+                redirect_to pay_processed_payroll_us_url, :notice => "Please Select Payroll Period!"
+              else
+                getidforpdf  =  PayProcessedPayrollU.where(ProcessedPayrollRefNo: @payrollrefid).pluck(:id).to_sentence
+                @pdfpath = "/pay_processed_payroll_us/#{getidforpdf}-#{current_user.EmployeeNumber}.pdf"
+              end
 
-			#start record datetime payslip generate
+            #start record datetime payslip generate
             userdatepayslipgen = User.find_by(EmployeeRefNo: @emprefno)
             userdatepayslipgen.update(datepayslipgen: Time.now) 
-            #end record datetime payslip generate
+            #end record datetime payslip generate 
 
 
             else
@@ -278,23 +273,6 @@ prepend_before_action :check_expire_password
       end
     end
   end
-
-
-##13th
-def thirteenmonth
-
-  #@aaaa = ActiveRecord::Base.connection.execute("Select EmployeeNumber from dbo.PAY_FN_ReportThirteenthMonthDetails('3377',2019)")
-  @empdetails_sql = ActiveRecord::Base.connection.exec_query("Select EmployeeNumber, EmployeeName, Year, ThirteenthMonthPay, January, February, March, April, May, June, July, August, September, October, November, December, ProjectedCutoffs from dbo.PAY_FN_ReportThirteenthMonthDetails('#{current_user.EmployeeRefNo}',2020)WHERE Cutoff = 2")
-  #@months_sql = ActiveRecord::Base.connection.exec_query("Select   CAST(January AS varchar), February from dbo.PAY_FN_ReportThirteenthMonthDetails('3377',2019)")
-  #@13monthpay_sql = ActiveRecord::Base.connection.exec_query("Select ThirteenthMonthPay from dbo.PAY_FN_ReportThirteenthMonthDetails('3377',2019)")
-
-  #@rec_sql = ActiveRecord::Base.connection.exec_query(" EmployeeNumber, EmployeeName, Year, Select January, February from dbo.PAY_FN_ReportThirteenthMonthDetails('3377',2019)")
-
-  render :layout => false
-  #Select * from dbo.PAY_FN_ReportThirteenthMonthDetails('3377',2019)
-  
-end
-
 
   # DELETE /pay_processed_payroll_us/1
   # DELETE /pay_processed_payroll_us/1.json
@@ -430,18 +408,19 @@ end
     #end check covid survey
 
 
-  #start check_survey
-   def check_ODHD
+    #start check_ODHD
+    private
+    def check_ODHD
 
-      if current_user.DoneDHS == true
-        #nothing
-      else
-        redirect_to '/ODHD'
-      end
+          if current_user.DoneDHS == true
+            #nothing
+            #flash[:notice] = "#{current_user.DoneDHS}"
+          else
+            redirect_to '/ODHD'
+          end
 
-    
-  end
-  #end check_survey
+    end
+    #end check_ODHD
 
 
     ## start media checker
@@ -516,8 +495,7 @@ end
 
     end 
     ## end media checker
-
-
+    
 
     ##start check vacsurvey
     def check_vacsurvey
@@ -533,31 +511,31 @@ end
     end
     ##end check vacsurvey
 
+
     #start check_expire_password
     def check_expire_password
-    get_latest_datechanged = PortalPasswordBank.where(EmployeeRefNo: current_user.EmployeeRefNo, IsCurrent: 1).pluck(:DateChanged)
+      dayexpire = ActiveRecord::Base.connection.exec_query("SELECT dbo.TMS_FN_GetSettingsValue(#{current_user.EmployeeRefNo},57,'1-1')").rows[0][0].to_s
+      datechanged_datetime_plus_3mons = current_user.PasswordCreatedDate + dayexpire.to_i.days
 
-      if get_latest_datechanged.empty? == true #record exists on pass bank
-          redirect_to user_expire_password_path
-          
-      else #no record on pass bank
-        
-          get_latest_datechanged_convert = get_latest_datechanged.to_sentence
-          datechanged_datetime =  get_latest_datechanged_convert.to_datetime
-          datechanged_datetime_plus_3mons =  datechanged_datetime + 3.months
-          get_utc = ActiveRecord::Base.connection.exec_query("select utc_plus_8 = CAST(DATEADD(HOUR,8,GETUTCDATE()) AS datetime);")
-          current_datetime = get_utc.rows[0][0].to_time.strftime('%Y-%m-%d %H:%M:%S')  
+      get_utc = ActiveRecord::Base.connection.exec_query("SELECT DATEADD(HOUR,8,GETUTCDATE())")
 
-           if current_datetime >= datechanged_datetime_plus_3mons  #true
-              redirect_to user_expire_password_path
-           else #false
-            #nothing to do
-           end
+      if get_utc.rows[0][0] >= datechanged_datetime_plus_3mons
+        redirect_to user_expire_password_path
       end
-
     end
     #end check_expire_password
 
+    def log_login
+      portal_login  = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, IPAddress: request.remote_ip, Module: request.url  )
+      portal_login.save    
+    end
+
+    def check_current_user
+      if user_signed_in? == false
+        flash[:notice] = 'Session ended, Please try to login.'
+        redirect_to '/'
+      end    
+    end
 
 
 

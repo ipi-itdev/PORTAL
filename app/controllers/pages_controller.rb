@@ -9,7 +9,7 @@ class PagesController < ApplicationController
   #prepend_before_action :check_user_tagconfirm
   #prepend_before_action :check_user_viewed_ads
   #prepend_before_action :tempsurvey_checker
-  #prepend_before_action :check_covidbulletin
+  prepend_before_action :check_covidbulletin
   #prepend_before_action :check_webinar_reg
   #prepend_before_action :check_vaccampaign
   #prepend_before_action :checker_oldpass
@@ -341,7 +341,7 @@ class PagesController < ApplicationController
   end
 
   def log_login
-    portal_login = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber)
+    portal_login  = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, IPAddress: request.remote_ip, Module: request.url  )
     portal_login.save    
   end
 

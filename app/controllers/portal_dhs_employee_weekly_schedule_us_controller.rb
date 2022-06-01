@@ -1,6 +1,7 @@
 class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_portal_dhs_employee_weekly_schedule_u, only: [:show, :edit, :update, :destroy]
+  prepend_before_action :log_login
 
   # GET /portal_dhs_employee_weekly_schedule_us
   # GET /portal_dhs_employee_weekly_schedule_us.json
@@ -41,7 +42,7 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
   # GET /portal_dhs_employee_weekly_schedule_us/1
   # GET /portal_dhs_employee_weekly_schedule_us/1.json
   def show
-    #render :layout => false
+    render :layout => false
 
     @emprefno = current_user.EmployeeRefNo
     @set_workdate_from = session[:WorkDateFrom_session]   
@@ -296,6 +297,13 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
     flash[:notice] = "DTR requested."
     redirect_to pages_path
   end
+
+
+  def log_login
+    portal_login  = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, IPAddress: request.remote_ip, Module: request.url  )
+    portal_login.save    
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
