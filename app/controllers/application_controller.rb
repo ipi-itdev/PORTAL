@@ -17,6 +17,15 @@ class ApplicationController < ActionController::Base
     user.update(datelastlogin: Time.now)
 
     #porsurveychecker = PorSurvey.exists?(EmployeeRefNo: current_user.EmployeeRefNo)
+
+    #check if empposter rec exist
+    check_exist_empposter = PortalEmpposterDetail.where(employeerefno: current_user.EmployeeRefNo).exists?
+    if check_exist_empposter == false
+      user = PortalEmpposterDetail.create(employeerefno: current_user.EmployeeRefNo, created_at: Time.now, updated_at: Time.now )
+      user.save
+    end
+    #check if empposter rec exist
+
     
     #get if resigned
     if current_user.EmployeeRefNo == 0

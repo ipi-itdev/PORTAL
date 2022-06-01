@@ -6,10 +6,10 @@ class PagesController < ApplicationController
   #prepend_before_action :check_dependent_booster
   #prepend_before_action :check_get_vac_booster
   #prepend_before_action :emp_satis_survey_checker
-  prepend_before_action :check_user_tagconfirm
-  prepend_before_action :check_user_viewed_ads
+  #prepend_before_action :check_user_tagconfirm
+  #prepend_before_action :check_user_viewed_ads
   #prepend_before_action :tempsurvey_checker
-  prepend_before_action :check_covidbulletin
+  #prepend_before_action :check_covidbulletin
   #prepend_before_action :check_webinar_reg
   #prepend_before_action :check_vaccampaign
   #prepend_before_action :checker_oldpass
