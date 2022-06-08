@@ -1,1 +1,0 @@
-json.partial! "kpi_core_competencies/kpi_core_competency", kpi_core_competency: @kpi_core_competency
