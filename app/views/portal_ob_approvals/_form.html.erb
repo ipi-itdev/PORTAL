@@ -60,6 +60,14 @@
 
                   <br>
 
+                  <div class="row">
+                    <div class="col-sm-12" >
+                      <strong>Requested Date: </strong> <%= @portal_ob_approval.DateRequested.strftime("%m/%d/%Y") %>
+                    </div>
+                  </div>
+
+                  <br>
+
                   <div class="row">                    
                     <div class="col-sm-12" >
                       <strong>Status: </strong> <%= GenFilingStatusF.where(FilingStatusRefNo: @portal_ob_approval.FilingStatusRefNo ).pluck(:Description).to_sentence %>
