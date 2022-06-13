@@ -42,6 +42,7 @@
   </script>
 
 
+
 <%= form_with(model: portal_empvac_campaign, local: true) do |form| %>
   <%= form.hidden_field :EmployeerRefNo, value: current_user.EmployeeRefNo %>
   <%= form.hidden_field :IsDone, value: true %>
@@ -53,7 +54,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document" >
     <div class="modal-content">
 
       <div class="modal-body">
@@ -63,34 +64,29 @@
         <div class="container-fluid">
 
           <div class="row">
-            <div class="col-sm-3" >
+            <div class="col-sm-3 " >
             </div>  
             <div class="col-sm-6" >
 
               <div class="mySlides">
                 <div class="numbertext"> </div>
-                <img src="/DOHPosterMask/1.jpg" style="width:100% height:100%">
+                <img src="/covid_compressed/DOH_monkeypox/MP1.jpg" style="width:100% height:100%">
               </div>
 
               <div class="mySlides">
                 <div class="numbertext"> </div>
-                <img src="/DOHPosterMask/2.jpg" style="width:100%">
+                <img src="/covid_compressed/DOH_monkeypox/MP2.jpg" style="width:100%; height:100%;">
               </div>
 
               <div class="mySlides">
                 <div class="numbertext"> </div>
-                <img src="/DOHPosterMask/3.jpg" style="width:100%">
+                <img src="/covid_compressed/DOH_monkeypox/MP3.jpg" style="width:100%; height:100%;">
               </div>
 
 
               <div class="mySlides">
                 <div class="numbertext"> </div>
-                <img src="/DOHPosterMask/4.jpg" style="width:100%">
-              </div>
-
-              <div class="mySlides">
-                <div class="numbertext"></div>
-                <img src="/DOHPosterMask/5.jpg" style="width:100%">
+                <img src="/covid_compressed/DOH_monkeypox/MP4.jpg" style="width:100%; height:100%;">
               </div>
 
 
@@ -149,37 +145,31 @@
               <br>
               <button class="btn btn-primary" onclick="plusSlides(-1)" id="back_but" type="button"> < </button>
             </div>  
-            <div class="col-sm-10" >
+            <div class="col-sm-10" align="center">
 
               <div class="mySlides">
                 <div class="numbertext"> </div>
-                <img src="/DOHPosterMask/1.jpg" style="width:100%; height:100%;">
+                <img src="/covid_compressed/DOH_monkeypox/MP1.jpg" style="width:80%; ">
+              </div>
+
+              <div class="mySlides" align="centers">
+                <div class="numbertext"> </div>
+                <img src="/covid_compressed/DOH_monkeypox/MP2.jpg" style="width:100%; height:110%;">
               </div>
 
               <div class="mySlides">
                 <div class="numbertext"> </div>
-                <img src="/DOHPosterMask/2.jpg" style="width:100%">
-              </div>
-
-              <div class="mySlides">
-                <div class="numbertext"> </div>
-                <img src="/DOHPosterMask/3.jpg" style="width:100%">
+                <img src="/covid_compressed/DOH_monkeypox/MP3.jpg" style="width:100%; height:80%;">
               </div>
 
 
               <div class="mySlides">
                 <div class="numbertext"> </div>
-                <img src="/DOHPosterMask/4.jpg" style="width:100%">
+                <img src="/covid_compressed/DOH_monkeypox/MP4.jpg" style="width:100%; height:80%;">
+                 <%= form.submit 'Close', class: "btn btn-primary btn-block", id:'close_but', data: { disable_with: "Please wait..." } %> 
               </div>
 
-              <div class="mySlides">
-                <div class="numbertext"> </div>
-                <img src="/DOHPosterMask/5.jpg" style="width:100%">
 
-
-                <%= form.submit 'Close', class: "btn btn-primary btn-block", id:'close_but', data: { disable_with: "Please wait..." } %> 
-
-              </div>
 
 
             </div>
@@ -255,7 +245,7 @@ function showSlides(n) {
     $("#back_but").hide();
     $("#close_but").hide();
   } 
-  else if (slideIndex == 5) 
+  else if (slideIndex == 4) 
   {
     $("#next_but").hide();
     $("#close_but").show();
