@@ -47,6 +47,7 @@
       <div class="panel panel-default" id="panelframe">
 
         <div class="panel-heading" id="panelheader">
+          <% get_date = ActiveRecord::Base.connection.exec_query("SELECT CAST(DATEADD(HOUR,8,GETUTCDATE()) AS DATE)").rows[0][0] %>
           <% if @foredit == 0 %>
             <strong>My Weekly Schedule</strong>
           <% else %>      
@@ -119,9 +120,7 @@
               <tr align="left">
 
                 <td>
-                  <% if weeksched.shift_start.blank? == false && weeksched.shift_end.blank? == false &&  weeksched.time_in.blank? == false && weeksched.IsRD == false && @foredit == 0 %>
-
-                  <% else %>
+                  <% if weeksched.shift_start.blank? == true || weeksched.time_in.blank? == true || (weeksched.time_in.blank? == false && weeksched.time_out.blank? == true && get_date == weeksched.WorkDate.to_date) || weeksched.IsRD == true || @foredit == 1 %>
                     <small><%= link_to '<i class="far fa-edit" style="color: green;"></i>'.html_safe, "/portal_dhs_employee_weekly_schedule_us/#{weeksched.ID}/edit", :title => 'Edit Schedule', :rel => 'tooltip' %></small>
                     <% weeksched.ID %>
                   <% end %>
@@ -209,9 +208,7 @@
                   <small><%= weeksched.WorkDate.to_date.strftime("%m/%d/%Y %A ") %>  </small>
                   <br>
 
-                  <% if weeksched.shift_start.blank? == false && weeksched.shift_end.blank? == false &&  weeksched.time_in.blank? == false && weeksched.IsRD == false && @foredit == 0 %>
-
-                  <% else %>
+                  <% if weeksched.shift_start.blank? == true || weeksched.time_in.blank? == true || (weeksched.time_in.blank? == false && weeksched.time_out.blank? == true && get_date == weeksched.WorkDate.to_date) || weeksched.IsRD == true || @foredit == 1 %>
                     <small><%= link_to '<i class="far fa-edit"></i>'.html_safe, "/portal_dhs_employee_weekly_schedule_us/#{weeksched.ID}/edit", :title => 'Edit Schedule', :rel => 'tooltip' %></small>
                     <% weeksched.ID %>
                   <% end %>
