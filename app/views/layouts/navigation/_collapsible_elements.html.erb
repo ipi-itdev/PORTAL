@@ -47,9 +47,9 @@
           </li>
           
           <% if activecompany == 3 %>
-	          <li class="mobile-menu">
-            	<strong><%= link_to ' Contact Us',new_contactpage_path%></strong>
-          	</li>
+            <li class="mobile-menu">
+              <strong><%= link_to ' Contact Us',new_contactpage_path%></strong>
+            </li>
 
           <% else %>
             <li class="mobile-menu">
@@ -61,29 +61,30 @@
                 <hr><small>
                   <% if activecompany == 1 %>
                     <li><%= link_to 'Incident Report Form', '/ipi_forms/Incident Report Form.docx', target: "_blank" %></li>
-                    <li><%= link_to 'IPI Leave Form','/ipi_forms/IPI leave form.xls', target: "_blank"  %></li>
-                    <li><%= link_to 'IPI TIMESHEET & OT FORM', '/ipi_forms/IPI TIMESHEET & OT FORM.doc', target: "_blank" %></li> 
-                    <li><%= link_to 'Pag Ibig Change of Information Form', '/ipi_forms/Pag Ibig Change of Information Form.pdf',  target: "_blank" %></li>
-                    <li><%= link_to 'Pag IBIG Membership Upgrade Form', '/ipi_forms/Pag IBIG Membership Upgrade Form.pdf', target: "_blank" %></li>
-                    <li><%= link_to 'Pag Ibig Multi-Purpose Loan Form', '/ipi_forms/Pag Ibig Multi-Purpose Loan Form.pdf', target: "_blank" %></li>
-                    <li><%= link_to 'Philhealth Member Registration and Update Form', '/ipi_forms/Philhealth Member Registration and Update Form.pdf', target: "_blank" %></li>
-                    <li><%= link_to 'SSS Allocation of Maternity Leave Credits', '/ipi_forms/SSS Allocation of Maternity Leave Credits.pdf', target: "_blank" %></li>
-                    <li><%= link_to 'SSS Maternity Benefit Reimbursement Form', '/ipi_forms/SSS Maternity Benefit Reimbursement Form.pdf', target: "_blank" %></li>
-                    <li><%= link_to 'SSS Maternity Notification Form', '/ipi_forms/SSS Maternity Notification Form.pdf', target: "_blank" %></li>
-                    <li><%= link_to 'SSS Salary Loan Form', '/ipi_forms/SSS Salary Loan Form.pdf', target: "_blank" %></li>
-                    <li><%= link_to 'SSS Sickness Benefit Reimbursement Form', '/ipi_forms/SSS Sickness Benefit Reimbursement Form.pdf' , target: "_blank"%></li>
-                    <li><%= link_to 'SSS Sickness Notification Form', '/ipi_forms/SSS Sickness Notification Form.pdf', target: "_blank" %></li>
+                      <li><%= link_to 'IPI Leave Form','/ipi_forms/IPI leave form.xls', target: "_blank"  %></li>
+                      <li><%= link_to 'IPI TIMESHEET & OT FORM', '/ipi_forms/IPI TIMESHEET & OT FORM.doc', target: "_blank" %></li> 
+                      <li><%= link_to 'Pag Ibig Change of Information Form', '/ipi_forms/PAG-IBIG MCIF.pdf',  target: "_blank" %></li>
+                      <li><%= link_to 'Pag IBIG Membership Upgrade Form', '/ipi_forms/Pag IBIG Membership Upgrade Form.pdf', target: "_blank" %></li>
+                      <li><%= link_to 'Pag Ibig Multi-Purpose Loan Form', '/ipi_forms/PAG-IBIG LOAN APPLICATION FORM V08 06 2021 UPDATED YEAR 2022.pdf', target: "_blank" %></li>
+                      <li><%= link_to 'Philhealth Member Registration and Update Form', '/ipi_forms/PHILHEALTH PMRF 01 2020 UPDATED YEAR 2022.pdf', target: "_blank" %></li>
+                      <li><%= link_to 'SSS Allocation of Maternity Leave Credits', '/ipi_forms/SSS Allocation of Maternity Leave Credits.pdf', target: "_blank" %></li>
+                      <li><%= link_to 'SSS Maternity Benefit Reimbursement Form', '/ipi_forms/SSS Maternity Benefit Reimbursement Form.pdf', target: "_blank" %></li>
+                      <li><%= link_to 'SSS Maternity Notification Form', '/ipi_forms/SSS Maternity Notification Form.pdf', target: "_blank" %></li>
+                      <li><%= link_to 'SSS Salary Loan Form', '/ipi_forms/SSS Salary Loan Form.pdf', target: "_blank" %></li>
+                      <li><%= link_to 'SSS Sickness Benefit Reimbursement Form', '/ipi_forms/SSS Sickness Benefit Reimbursement Form.pdf' , target: "_blank"%></li>
+                      <li><%= link_to 'SSS Sickness Notification Form', '/ipi_forms/SSS Sickness Notification Form.pdf', target: "_blank" %></li>
 
-                    <% if current_user.EmployeeGroupRefNo == 1 %>                            
-                      <li><%= link_to 'SDE Request Form', '/SDE-Request-Form.docx', target: "_blank" %></li>
+                      <% if current_user.EmployeeGroupRefNo  == 1 %>
+                        <li><%= link_to 'SDE Request Form', '/SDE-Request-Form.docx', target: "_blank" %></li>
                     <% end %>
 
-	                <% elsif activecompany  == 4 %>
-	                  <li><%= link_to 'Incident Report Form', '/pits_forms/Incident Report Form.docx', target: "_blank" %></li>
-                    <li><%= link_to 'Pag Ibig Change of Information Form', '/pits_forms/Pag Ibig Change of Information Form.pdf',  target: "_blank" %></li>
+                  <% elsif activecompany  == 4 %>
+
+                    <li><%= link_to 'Incident Report Form', '/pits_forms/Incident Report Form.docx', target: "_blank" %></li>
+                    <li><%= link_to 'Pag Ibig Change of Information Form', '/pits_forms/PAG-IBIG MCIF.pdf',  target: "_blank" %></li>
                     <li><%= link_to 'Pag IBIG Membership Upgrade Form', '/pits_forms/Pag IBIG Membership Upgrade Form.pdf', target: "_blank" %></li>
-                    <li><%= link_to 'Pag Ibig Multi-Purpose Loan Form', '/pits_forms/Pag Ibig Multi-Purpose Loan Form.pdf', target: "_blank" %></li>
-                    <li><%= link_to 'Philhealth Member Registration and Update Form', '/pits_forms/Philhealth Member Registration and Update Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'Pag Ibig Multi-Purpose Loan Form', '/pits_forms/PAG-IBIG LOAN APPLICATION FORM V08 06 2021 UPDATED YEAR 2022.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'Philhealth Member Registration and Update Form', '/pits_forms/PHILHEALTH PMRF 01 2020 UPDATED YEAR 2022.pdf', target: "_blank" %></li>
                     <li><%= link_to 'PITS DTR', '/pits_forms/PITS DTR.doc', target: "_blank" %></li>
                     <li><%= link_to 'PITS LEAVE FORM','/pits_forms/PITS LEAVE FORM.xls', target: "_blank"  %></li>
                     <li><%= link_to 'SSS Allocation of Maternity Leave Credits', '/pits_forms/SSS Allocation of Maternity Leave Credits.pdf', target: "_blank" %></li>
@@ -95,7 +96,7 @@
 
                   <% else %>
                     <!-- empty -->  
-	                <% end %>
+                  <% end %>
                 </small><hr>
               </ul>
             </li>
