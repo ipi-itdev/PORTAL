@@ -47,7 +47,7 @@
                 <tr>
                   <td ><%= portal_ob_view.ID %></td>
                   <td ><%= PisEmployeeU.where(EmployeeRefNo: portal_ob_view.EmployeeRefNo).pluck(:Description).to_sentence  %> </td>
-                  <td ><%= portal_ob_view.DateCreated.strftime("%m/%d/%Y") %></td>
+                  <td ><%= portal_ob_view.DateFiled.strftime("%m/%d/%Y") %></td>
                   <td ><%= portal_ob_view.DateRequested.strftime("%m/%d/%Y") %></td>
                   <td ><%= portal_ob_view.Duration %></td>
 
