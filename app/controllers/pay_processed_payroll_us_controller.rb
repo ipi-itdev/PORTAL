@@ -30,10 +30,13 @@ class PayProcessedPayrollUsController < ApplicationController
   
       #get employeerefno in users table
       @emprefno = current_user.EmployeeRefNo
-
       #@emprefno = current_user.EmployeeRefNo
-     
-        
+
+      ##bir2316
+      @BIRpath = "#{current_user.AttachmentPath}"
+      @getBIRCredentials = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}")     
+      @BIRlink = "#{@BIRpath}#{@getBIRCredentials.rows[0][0]}"
+      ##bir2316
   
       #get emp client
       ##get employee details
