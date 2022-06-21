@@ -219,6 +219,8 @@ class PagesController < ApplicationController
     if user_signed_in? == false
       flash[:notice] = 'Session ended, Please try to login.'
       redirect_to '/'
+    else
+      session[:portal_dtr_upload_id] = 0
     end    
   end
 
