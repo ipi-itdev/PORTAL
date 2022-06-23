@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2" >
+    </div>
+
+    <div class="col-sm-8" >
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader">
+          <div class="row">
+            <div class="col-sm-9" >
+              <strong><i class="fas fa-calendar-check"></i>Contact Information</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <!--<p id="notice"><%= notice %></p>-->
+          <div class="table table-responsive ">
+            <table class="table" id="portal_contact_view_table" >
+              <thead>
+                <tr>
+                  <th >ID</th>
+                  <th >Employee</th>
+                  <th >Created Date</th>
+                  <th ></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @portal_contacts.each do |portal_contact_view| %>
+                  <tr>
+                    <td ><%= portal_contact_view.ID %></td>
+                    <td><%=  PisEmployeeU.where(EmployeeRefNo: portal_contact_view.ID).pluck(:Description).to_sentence %></td>        
+                    <td ><%= portal_contact_view.DateFiled.strftime("%m/%d/%Y") %></td>
+                    <td align="left">
+                      <div class="btn-group btn-group-sm btn-group-block">                      
+                        <%= link_to '<i class="far fa-file"></i>'.html_safe, edit_portal_contact_path(portal_contact_view ),  class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "View" %>                        
+                      </div>                    
+                    </td>      
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+            <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+            <script>
+              $(function(){
+                $("#portal_contact_view_table").dataTable();
+              })
+            </script>
+          </div>   
+        </div>      
+      </div>
+    </div>
+
+    <div class="col-sm-2" >
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+
+</body>
+</html>
+
+

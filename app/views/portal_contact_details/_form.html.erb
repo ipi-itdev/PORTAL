@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  <style type="text/css">
+    #required_field {
+      position: absolute;
+      bottom: px;
+      left: 7px;
+      font-size: 18px;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <p id="notice"><%= notice %></p>
+    <%= bootstrap_form_with(model: portal_contact_detail, local: true) do |form| %>
+      <% if portal_contact_detail.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <p style="color: red;font-size: 80%;">
+              <% portal_contact_detail.errors.full_messages.each do |message| %>
+                <%= message %> <br>
+              <% end %>
+            </p>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form.hidden_field :ContactRefNo, value: session[:portal_contact_id] %>
+      <%= form.hidden_field :CreatedDate, value: DateTime.now + 8.hours %>
+      <%= form.hidden_field :CreatedBy, value: current_user.EmployeeRefNo %>
+      <%= form.hidden_field :ModifiedDate, value: DateTime.now + 8.hours %>
+      <%= form.hidden_field :ModifiedBy, value: current_user.EmployeeRefNo %>
+      <%= form.hidden_field :IsActive, value: true %>
+      <%= form.hidden_field :ServerCompanyCodeID, value: '1-1' %>          
+
+      <ul><p style="color: red;font-size: 80%;"><%= flash.now[:message] = "#{@warning}" %></p></ul>
+
+      <div id="divData">
+      <div class="row">
+        <div class="col-sm-12" >
+          <small><strong>Employee Personal Information Update Form</strong></small>
+          <br>
+          <br>
+          <u><small><strong>Data Protection</strong></small></u>
+          <br>
+          <br>
+
+          <div class="row">            
+            <div class="col-sm-12" >
+            Our Company is committed to protecting personal data. Your personal information update is protected by RA10173 or otherwise known as the Data Privacy Act of 2012. The information you provide will solely be used to update your HR records and will not be shared with non-government entities without your consent.
+            <br>
+            <br>
+            When you voluntarily provide our company with your personal information on this form, you give your consent to process such data in fulfillment of the purposes for which we will only keep your personal information during your active employment and five (5) years after separation from the company, or for as long as the Data Protection Legislation allows.
+            <br>
+            <br>
+            For any concerns on data privacy, you may contact our Data Privacy Officer at the email address shown in the privacy policy posted on our company website or call us at our company phone number/s.
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div id="divPersonal" style="display: none;">
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><strong>Personal Information</strong></small>
+
+          <br>
+          <br>
+
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :CivilStatusRefNo, GenCivilStatus.where(IsActive: 1), :CivilStatusRefNo, :Description, label: 'Civil Status' %></small>
+        </div>        
+      </div>
+      </div>
+
+      <div id="divDependent" style="display: none;">
+      <div class="row">
+        <div class="col-sm-12" >
+          <small><strong>Personal Information</strong></small>
+
+          <br>
+          <br>
+
+          <div id="dtrdetails"> 
+            <iframe src="/portal_dependents" style="border:none;" title="IframeExpenseDetails" height="300" width="100%"></iframe>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <% if mobile_device != "mobile" %>           
+      <div id="divAddress" style="display: none;">
+      <div class="row">
+        <div class="col-sm-6" >                                                  
+          <small><strong>Permanent Address</strong></small>
+
+          <br>
+          <br>
+          <br>
+          <br>
+          
+          <p id="required_field"> *</p>                                          
+          <small><%= form.collection_select :PermanentRegionRefNo, GenRegion.where(IsActive: 1), :RegionRefNo, :Description, label: 'Region' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <small><strong>Present Address</strong></small>
+
+          <br>
+          <br>
+          <small><%= form.check_box :IsSame, label: 'Same as Permanent Address' %></small>
+          <br>
+
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PresentRegionRefNo, GenRegion.where(IsActive: 1), :RegionRefNo, :Description, label: 'Region' %></small>
+        </div>            
+      </div>
+        
+      <div class="row">        
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PermanentProvinceRefNo, GenProvince.where(RegionRefNo: @portal_contact_detail.PermanentRegionRefNo), :ProvinceRefNo, :Description, label: 'Province' %></small>
+        </div>        
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PresentProvinceRefNo, GenProvince.where(RegionRefNo: @portal_contact_detail.PresentRegionRefNo), :ProvinceRefNo, :Description, label: 'Province' %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PermanentMunicipalityRefNo, GenMunicipality.where(ProvinceRefNo: @portal_contact_detail.PermanentProvinceRefNo), :MunicipalityRefNo, :Description, label: 'Municipality' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PresentMunicipalityRefNo, GenMunicipality.where(ProvinceRefNo: @portal_contact_detail.PresentProvinceRefNo), :MunicipalityRefNo, :Description, label: 'Municipality' %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PermanentBrgyRefNo, GenBarangay.where(MunicipalityRefNo: @portal_contact_detail.PermanentMunicipalityRefNo), :BarangayRefNo, :Description, label: 'Barangay' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PresentBrgyRefNo, GenBarangay.where(MunicipalityRefNo: @portal_contact_detail.PresentMunicipalityRefNo), :BarangayRefNo, :Description, label: 'Barangay' %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_area :PermanentAddress, class: 'form-control input-sm', style: 'resize: none;', label: 'Lot & Block No / Room No / House No / Subvision / Street Name' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_area :PresentAddress, class: 'form-control input-sm', style: 'resize: none;', label: 'Lot & Block No / Room No / House No / Subvision / Street Name' %></small>
+        </div>
+      </div>       
+      </div>     
+
+      <div id="divContact" style="display: none;">
+      <div class="row">        
+        <div class="col-sm-6" >
+          <small><strong>Contact Information</strong></small>
+
+          <br>
+          <br>
+
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :MobileNumber, class: 'form-control input-sm', style: 'resize: none;', label: 'Primary Mobile No', placeholder: "09xxxxxxxxx" %></small>
+        </div>
+               
+        <div class="col-sm-6" >
+          <br>
+          <br>
+          
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :PersonalEmailAddress, label: 'Primary Email', class: 'form-control input-sm', style: 'resize: none;', placeholder: "example@email.com" %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><%= form.text_field :MobileNumber2, class: 'form-control input-sm', style: 'resize: none;', label: 'Secondary Mobile No', placeholder: "09xxxxxxxxx" %></small>
+        </div> 
+
+        <div class="col-sm-6" >
+            <small><%= form.text_field :WorkEmailAddress, label: 'Secondary Email', class: 'form-control input-sm', style: 'resize: none;', placeholder: "example@email.com" %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><%= form.text_field :TelephoneNumber, class: 'form-control input-sm', style: 'resize: none;', label: 'Landline No' %></small>
+        </div> 
+      </div>
+      </div>
+
+      <div id="divEmergency" style="display: none;">
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><strong>Primary Contact Person</strong></small>
+
+          <br>
+          <br>
+
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyName1, label: 'Name', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <small><strong>Secondary Contact Person</strong></small>
+
+          <br>
+          <br>
+
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyName2, label: 'Name', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyRelationship1, label: 'Relationship', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyRelationship2, label: 'Relationship', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyContactNo1, label: 'Primary Mobile No', class: 'form-control input-sm', style: 'resize: none;', placeholder: "09xxxxxxxxx" %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyContactNo2, label: 'Primary Mobile No', class: 'form-control input-sm', style: 'resize: none;', placeholder: "09xxxxxxxxx" %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><%= form.text_field :EmergencySecondaryContact1, label: 'Secondary Contact No', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <small><%= form.text_field :EmergencySecondaryContact2, label: 'Secondary Contact No', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><%= form.text_field :EmergencyEmail1, label: 'Email', class: 'form-control input-sm', style: 'resize: none;', placeholder: "example@email.com" %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <small><%= form.text_field :EmergencyEmail2, label: 'Email', class: 'form-control input-sm', style: 'resize: none;', placeholder: "example@email.com" %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_area :EmergencyAddress1, class: 'form-control input-sm', style: 'resize: none;', label: 'Address' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_area :EmergencyAddress2, class: 'form-control input-sm', style: 'resize: none;', label: 'Address' %></small>
+        </div>
+      </div>    
+      </div>
+
+      <% else %>
+      <div id="divAddress" style="display: none;">
+        <div class="col-sm-6" >                                                  
+          <small><strong>Permanent Address</strong></small>
+          
+          <p id="required_field"> *</p>                                          
+          <small><%= form.collection_select :PermanentRegionRefNo, GenRegion.where(IsActive: 1), :RegionRefNo, :Description, label: 'Region' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PermanentProvinceRefNo, GenProvince.where(RegionRefNo: @portal_contact_detail.PermanentRegionRefNo), :ProvinceRefNo, :Description, label: 'Province' %></small>
+        </div> 
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PermanentMunicipalityRefNo, GenMunicipality.where(ProvinceRefNo: @portal_contact_detail.PermanentProvinceRefNo), :MunicipalityRefNo, :Description, label: 'Municipality' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PermanentBrgyRefNo, GenBarangay.where(MunicipalityRefNo: @portal_contact_detail.PermanentMunicipalityRefNo), :BarangayRefNo, :Description, label: 'Barangay' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_area :PermanentAddress, class: 'form-control input-sm', style: 'resize: none;', label: 'Lot & Block No / Room No / House No / Subvision / Street Name' %></small>
+        </div>
+
+        <br>
+
+        <div class="col-sm-6" >
+          <small><strong>Present Address</strong></small>
+
+          <br>
+          <br>
+          
+          <small><%= form.check_box :IsSame, label: 'Same as Permanent Address' %></small>
+          <br>
+
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PresentRegionRefNo, GenRegion.where(IsActive: 1), :RegionRefNo, :Description, label: 'Region' %></small>
+        </div>            
+                      
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PresentProvinceRefNo, GenProvince.where(RegionRefNo: @portal_contact_detail.PresentRegionRefNo), :ProvinceRefNo, :Description, label: 'Province' %></small>
+        </div>        
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PresentMunicipalityRefNo, GenMunicipality.where(ProvinceRefNo: @portal_contact_detail.PresentProvinceRefNo), :MunicipalityRefNo, :Description, label: 'Municipality' %></small>
+        </div>        
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :PresentBrgyRefNo, GenBarangay.where(MunicipalityRefNo: @portal_contact_detail.PresentMunicipalityRefNo), :BarangayRefNo, :Description, label: 'Barangay' %></small>
+        </div>        
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_area :PresentAddress, class: 'form-control input-sm', style: 'resize: none;', label: 'Lot & Block No / Room No / House No / Subvision / Street Name' %></small>
+        </div>
+      </div>    
+
+      <div id="divContact" style="display: none;">
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><strong>Contact Information</strong></small>
+
+          <br>
+          <br>
+          
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :MobileNumber, class: 'form-control input-sm', style: 'resize: none;', label: 'Primary Mobile No', placeholder: "09xxxxxxxxx" %></small>
+        </div>
+               
+        <div class="col-sm-6" >
+            <p id="required_field"> *</p>
+            <small><%= form.text_field :PersonalEmailAddress, label: 'Primary Email', class: 'form-control input-sm', style: 'resize: none;', placeholder: "example@email.com" %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><%= form.text_field :MobileNumber2, class: 'form-control input-sm', style: 'resize: none;', label: 'Secondary Mobile No', placeholder: "09xxxxxxxxx" %></small>
+        </div> 
+
+        <div class="col-sm-6" >
+            <small><%= form.text_field :WorkEmailAddress, label: 'Secondary Email', class: 'form-control input-sm', style: 'resize: none;', placeholder: "example@email.com" %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >
+          <small><%= form.text_field :TelephoneNumber, class: 'form-control input-sm', style: 'resize: none;', label: 'Landline No', placeholder: "09xxxxxxxxx" %></small>
+        </div> 
+      </div>
+      </div>
+
+      <div id="divEmergency" style="display: none;">
+        <div class="col-sm-6" >
+          <small><strong>Primary Contact Person</strong></small>
+
+          <br>
+          <br>
+
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyName1, label: 'Name', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyRelationship1, label: 'Relationship', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyContactNo1, label: 'Primary Mobile No', class: 'form-control input-sm', style: 'resize: none;', placeholder: "09xxxxxxxxx" %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <small><%= form.text_field :EmergencySecondaryContact1, label: 'Secondary Contact No', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <small><%= form.text_field :EmergencyEmail1, label: 'Email', class: 'form-control input-sm', style: 'resize: none;', placeholder: "example@email.com" %></small>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_area :EmergencyAddress1, class: 'form-control input-sm', style: 'resize: none;', label: 'Address' %></small>
+        </div>
+
+        <br>
+
+        <div class="col-sm-6" >
+          <small><strong>Secondary Contact Person</strong></small>
+
+          <br>
+          <br>
+
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyName2, label: 'Name', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+        
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyRelationship2, label: 'Relationship', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>
+        
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_field :EmergencyContactNo2, label: 'Primary Mobile No', class: 'form-control input-sm', style: 'resize: none;', placeholder: "09xxxxxxxxx" %></small>
+        </div>            
+
+        <div class="col-sm-6" >
+          <small><%= form.text_field :EmergencySecondaryContact2, label: 'Secondary Contact No', class: 'form-control input-sm', style: 'resize: none;' %></small>
+        </div>              
+
+        <div class="col-sm-6" >
+          <small><%= form.text_field :EmergencyEmail2, label: 'Email', class: 'form-control input-sm', style: 'resize: none;', placeholder: "example@email.com" %></small>
+        </div>
+        
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_area :EmergencyAddress2, class: 'form-control input-sm', style: 'resize: none;', label: 'Address' %></small>
+        </div>   
+      </div>
+      <% end %>
+
+      <div id="divConfirmation" style="display: none;">
+      <div class="row">
+        <div class="col-sm-12" >
+          <small><strong>Confirmation</strong></small>
+
+          <br>
+          <br>
+
+          <div class="row">            
+            <div class="col-sm-12" >
+              By sending this form, you confirm the truthfulness of the information you disclosed, that you read and understood the data protection notice on this site, and that you acknowledge that you may be subject to disciplinary actions for false information and misrepresentations. You agree to timely update HR for any changes in your personal information, including but not limited to contact details, marital status, dependents, emergency contact. You agree to submit to HR pertinent and related documents to support the update, including marriage and/or birth certificates and government IDs.
+              You agree to have a password-protected PDF copy of your submission to be sent to the email address you registered with HR as your copy. You agree to review this PDF and report to HR any incorrect or missing information within thirty (30) minutes after submission. If no report for inaccurate or missing information is received by HR within this time frame, you confirm that the submission is considered final.
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <div class="col-sm-12" >
+              <label class="checkbox">
+                <input type="checkbox", onchange="document.getElementById('submit_detail_but').disabled = !this.checked;" /> I have read, understood and agree to this notice
+              </label>
+            </div>
+          </div>    
+        </div>
+      </div>
+      </div>
+
+      <br>
+      <br>  
+
+      <% if mobile_device != "mobile" %> 
+      <div class="row">
+        <div class="col-sm-6" >
+        </div>
+
+        <div class="col-sm-6" >
+          <div class="row">
+            <div class="col-sm-6" >   
+              <input type="button" id="showPrev" class="btn btn-primary btn-sm btn-block" value="Previous" style="display: none;">
+            </div>
+
+            <div class="col-sm-6" id="divNext">   
+              <input type="button" id="showNext" class="btn btn-primary btn-sm btn-block" value="Next">
+            </div>
+
+            <div class="col-sm-6" id="divSave" style="display: none;">
+              <%= form.submit 'Save', class:'btn btn-success btn-sm btn-block', id: 'submit_detail_but', :disabled => true %>
+            </div>                       
+          </div>
+        </div>
+      </div>
+
+      <% else %>
+        <div class="col-sm-6" >   
+          <input type="button" id="showPrev" class="btn btn-primary btn-sm btn-block" value="Previous" style="display: none;">
+          <br>
+        </div>
+                
+        <div class="col-sm-6" id="divNext">   
+          <input type="button" id="showNext" class="btn btn-primary btn-sm btn-block" value="Next">
+          <br>
+        </div>
+        
+        <div class="col-sm-6" id="divSave" style="display: none;">
+          <%= form.submit 'Save', class:'btn btn-success btn-sm btn-block', id: 'submit_detail_but', :disabled => true %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <br>
+  <br>
+
+
+  <script type="text/javascript">      
+    function loadChild(type, refNo, field, childId) {
+      $.ajax({
+        url: 'https://api.ipiphil.com/api/cronus/GetDropdownlistValues?type='+ type + '&referenceValue=' + refNo,
+        type: "GET",
+        async: false,
+        success: function(data) {
+          var jsonArray = JSON.parse(data)
+          field.empty()
+
+          for (var i =0; i < jsonArray.length; i++) {
+            var opt = $('<option/>')
+
+            opt.attr('value', jsonArray[i][0])
+            opt.text(jsonArray[i][1])
+            opt.appendTo(field)              
+          }
+
+          field.val(childId)
+        }
+      })
+    }
+            
+    var permaRegion = $('#portal_contact_detail_PermanentRegionRefNo')        
+    var permaProvince = $('#portal_contact_detail_PermanentProvinceRefNo')
+    var permaMunicipality = $('#portal_contact_detail_PermanentMunicipalityRefNo')
+    var permaBarangay = $('#portal_contact_detail_PermanentBrgyRefNo')
+    var preseRegion = $('#portal_contact_detail_PresentRegionRefNo')
+    var preseProvince = $('#portal_contact_detail_PresentProvinceRefNo')
+    var preseMunicipality = $('#portal_contact_detail_PresentMunicipalityRefNo')
+    var preseBarangay = $('#portal_contact_detail_PresentBrgyRefNo')                
+                                  
+    permaRegion.on('change', function() {
+      permaRegionRefNo = $('#portal_contact_detail_PermanentRegionRefNo').val()        
+      loadChild('Province', permaRegionRefNo, permaProvince, 0) 
+      loadChild('Municipality', 0, permaMunicipality, 0)   
+      loadChild('Barangay', 0, permaBarangay, 0)        
+    })
+    preseRegion.on('change', function() {
+      preseRegionRefNo = $('#portal_contact_detail_PresentRegionRefNo').val()        
+      loadChild('Province', preseRegionRefNo, preseProvince, 0)  
+      loadChild('Municipality', 0, preseMunicipality, 0)  
+      loadChild('Barangay', 0, preseBarangay, 0)         
+    }) 
+
+    permaProvince.on('change', function() {
+      permaProvinceRefNo = $('#portal_contact_detail_PermanentProvinceRefNo').val()        
+      loadChild('Municipality', permaProvinceRefNo, permaMunicipality, 0)  
+      loadChild('Barangay', 0, permaBarangay, 0)         
+    })
+    preseProvince.on('change', function() {
+      preseProvinceRefNo = $('#portal_contact_detail_PresentProvinceRefNo').val()        
+      loadChild('Municipality', preseProvinceRefNo, preseMunicipality, 0) 
+      loadChild('Barangay', 0, preseBarangay, 0)           
+    }) 
+
+    permaMunicipality.on('change', function() {
+      permaMunicipalityRefNo = $('#portal_contact_detail_PermanentMunicipalityRefNo').val()        
+      loadChild('Barangay', permaMunicipalityRefNo, permaBarangay, 0)          
+    })
+    preseMunicipality.on('change', function() {
+      preseMunicipalityRefNo = $('#portal_contact_detail_PresentMunicipalityRefNo').val()        
+      loadChild('Barangay', preseMunicipalityRefNo, preseBarangay, 0)          
+    })        
+    
+    $('#portal_contact_detail_IsSame').click(function(){
+      if($(this).is(':checked')){
+        $('#portal_contact_detail_PresentRegionRefNo').val(0)
+        $('#portal_contact_detail_PresentProvinceRefNo').val(0)
+        $('#portal_contact_detail_PresentMunicipalityRefNo').val(0)
+        $('#portal_contact_detail_PresentBrgyRefNo').val(0)
+        $('#portal_contact_detail_PresentAddress').val('')
+
+        $('#portal_contact_detail_PresentRegionRefNo').prop( "disabled", true )
+        $('#portal_contact_detail_PresentProvinceRefNo').prop( "disabled", true )
+        $('#portal_contact_detail_PresentMunicipalityRefNo').prop( "disabled", true )
+        $('#portal_contact_detail_PresentBrgyRefNo').prop( "disabled", true )
+        $('#portal_contact_detail_PresentAddress').prop( "disabled", true )
+      }
+      else{
+        $('#portal_contact_detail_PresentRegionRefNo').prop( "disabled", false )
+        $('#portal_contact_detail_PresentProvinceRefNo').prop( "disabled", false )
+        $('#portal_contact_detail_PresentMunicipalityRefNo').prop( "disabled", false )
+        $('#portal_contact_detail_PresentBrgyRefNo').prop( "disabled", false )
+        $('#portal_contact_detail_PresentAddress').prop( "disabled", false )
+      }
+    })
+
+    function sameaddress(same) {
+      if (same == true){
+        $('#portal_contact_detail_PresentRegionRefNo').val(0)
+        $('#portal_contact_detail_PresentProvinceRefNo').val(0)
+        $('#portal_contact_detail_PresentMunicipalityRefNo').val(0)
+        $('#portal_contact_detail_PresentBrgyRefNo').val(0)
+        $('#portal_contact_detail_PresentAddress').val('')
+
+        $('#portal_contact_detail_PresentRegionRefNo').prop( "disabled", true )
+        $('#portal_contact_detail_PresentProvinceRefNo').prop( "disabled", true )
+        $('#portal_contact_detail_PresentMunicipalityRefNo').prop( "disabled", true )
+        $('#portal_contact_detail_PresentBrgyRefNo').prop( "disabled", true )
+        $('#portal_contact_detail_PresentAddress').prop( "disabled", true )
+      }
+      else {
+        $('#portal_contact_detail_PresentRegionRefNo').prop( "disabled", false )
+        $('#portal_contact_detail_PresentProvinceRefNo').prop( "disabled", false )
+        $('#portal_contact_detail_PresentMunicipalityRefNo').prop( "disabled", false )
+        $('#portal_contact_detail_PresentBrgyRefNo').prop( "disabled", false )
+        $('#portal_contact_detail_PresentAddress').prop( "disabled", false )
+      }
+    }       
+    
+    sameaddress(document.getElementById('portal_contact_detail_IsSame').checked)    
+  
+    $(document).submit(function() {
+      $( "#submit_detail_but" ).prop('disabled', true);              
+    });  
+                  
+    $(document).ready(function () {
+      let a = 1
+                      
+      $("#showPrev").click(function () {
+        a = a - 1
+
+        if (a == 1)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: none")
+
+          document.getElementById('divData').setAttribute("style", "display: block")
+          document.getElementById('divPersonal').setAttribute("style", "display: none")
+          document.getElementById('divDependent').setAttribute("style", "display: none")
+          document.getElementById('divAddress').setAttribute("style", "display: none")
+          document.getElementById('divContact').setAttribute("style", "display: none")
+          document.getElementById('divEmergency').setAttribute("style", "display: none")
+          document.getElementById('divConfirmation').setAttribute("style", "display: none")                    
+        }
+        else if (a == 2)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: block")
+          document.getElementById('divNext').setAttribute("style", "display: block")
+          document.getElementById('divSave').setAttribute("style", "display: none")
+
+          document.getElementById('divPersonal').setAttribute("style", "display: block")
+          document.getElementById('divData').setAttribute("style", "display: none")
+          document.getElementById('divDependent').setAttribute("style", "display: none")
+          document.getElementById('divAddress').setAttribute("style", "display: none")
+          document.getElementById('divContact').setAttribute("style", "display: none")
+          document.getElementById('divEmergency').setAttribute("style", "display: none")
+          document.getElementById('divConfirmation').setAttribute("style", "display: none") 
+        }
+        else if (a == 3)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: block")
+          document.getElementById('divNext').setAttribute("style", "display: block")
+          document.getElementById('divSave').setAttribute("style", "display: none")
+
+          document.getElementById('divDependent').setAttribute("style", "display: block")
+          document.getElementById('divData').setAttribute("style", "display: none")
+          document.getElementById('divPersonal').setAttribute("style", "display: none")
+          document.getElementById('divAddress').setAttribute("style", "display: none")
+          document.getElementById('divContact').setAttribute("style", "display: none")
+          document.getElementById('divEmergency').setAttribute("style", "display: none")
+          document.getElementById('divConfirmation').setAttribute("style", "display: none") 
+        }
+        else if (a == 4)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: block")
+          document.getElementById('divNext').setAttribute("style", "display: block")
+          document.getElementById('divSave').setAttribute("style", "display: none")
+
+          document.getElementById('divAddress').setAttribute("style", "display: block")
+          document.getElementById('divData').setAttribute("style", "display: none")
+          document.getElementById('divPersonal').setAttribute("style", "display: none")
+          document.getElementById('divDependent').setAttribute("style", "display: none")
+          document.getElementById('divContact').setAttribute("style", "display: none")
+          document.getElementById('divEmergency').setAttribute("style", "display: none")
+          document.getElementById('divConfirmation').setAttribute("style", "display: none") 
+        }
+        else if (a == 5)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: block")
+          document.getElementById('divNext').setAttribute("style", "display: block")
+          document.getElementById('divSave').setAttribute("style", "display: none")
+          
+          document.getElementById('divContact').setAttribute("style", "display: block")
+          document.getElementById('divData').setAttribute("style", "display: none")
+          document.getElementById('divPersonal').setAttribute("style", "display: none")
+          document.getElementById('divDependent').setAttribute("style", "display: none")
+          document.getElementById('divAddress').setAttribute("style", "display: none")
+          document.getElementById('divEmergency').setAttribute("style", "display: none")
+          document.getElementById('divConfirmation').setAttribute("style", "display: none")
+        }
+        else if (a == 6)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: block")
+          document.getElementById('divNext').setAttribute("style", "display: block")
+          document.getElementById('divSave').setAttribute("style", "display: none")
+
+          document.getElementById('divEmergency').setAttribute("style", "display: block")
+          document.getElementById('divData').setAttribute("style", "display: none")
+          document.getElementById('divPersonal').setAttribute("style", "display: none")
+          document.getElementById('divDependent').setAttribute("style", "display: none")
+          document.getElementById('divAddress').setAttribute("style", "display: none")
+          document.getElementById('divContact').setAttribute("style", "display: none")          
+          document.getElementById('divConfirmation').setAttribute("style", "display: none")
+        }                    
+      })
+
+      $("#showNext").click(function () {
+        a = a + 1
+
+        if (a == 2)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: block")
+
+          document.getElementById('divPersonal').setAttribute("style", "display: block")
+          document.getElementById('divData').setAttribute("style", "display: none")
+          document.getElementById('divDependent').setAttribute("style", "display: none")
+          document.getElementById('divAddress').setAttribute("style", "display: none")
+          document.getElementById('divContact').setAttribute("style", "display: none")
+          document.getElementById('divEmergency').setAttribute("style", "display: none")
+          document.getElementById('divConfirmation').setAttribute("style", "display: none")
+        }
+        else if (a == 3)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: block")
+
+          document.getElementById('divDependent').setAttribute("style", "display: block")          
+          document.getElementById('divData').setAttribute("style", "display: none")
+          document.getElementById('divPersonal').setAttribute("style", "display: none")
+          document.getElementById('divAddress').setAttribute("style", "display: none")
+          document.getElementById('divContact').setAttribute("style", "display: none")
+          document.getElementById('divEmergency').setAttribute("style", "display: none")
+          document.getElementById('divConfirmation').setAttribute("style", "display: none")
+        }
+        else if (a == 4)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: block")
+
+          document.getElementById('divAddress').setAttribute("style", "display: block")
+          document.getElementById('divData').setAttribute("style", "display: none")
+          document.getElementById('divPersonal').setAttribute("style", "display: none")
+          document.getElementById('divDependent').setAttribute("style", "display: none")
+          document.getElementById('divContact').setAttribute("style", "display: none")
+          document.getElementById('divEmergency').setAttribute("style", "display: none")
+          document.getElementById('divConfirmation').setAttribute("style", "display: none")
+        }
+        else if (a == 5)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: block")
+
+          document.getElementById('divContact').setAttribute("style", "display: block")
+          document.getElementById('divData').setAttribute("style", "display: none")
+          document.getElementById('divPersonal').setAttribute("style", "display: none")
+          document.getElementById('divDependent').setAttribute("style", "display: none")
+          document.getElementById('divAddress').setAttribute("style", "display: none")
+          document.getElementById('divEmergency').setAttribute("style", "display: none")
+          document.getElementById('divConfirmation').setAttribute("style", "display: none")
+        }
+        else if (a == 6)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: block")
+
+          document.getElementById('divEmergency').setAttribute("style", "display: block")
+          document.getElementById('divData').setAttribute("style", "display: none")
+          document.getElementById('divPersonal').setAttribute("style", "display: none")
+          document.getElementById('divDependent').setAttribute("style", "display: none")
+          document.getElementById('divAddress').setAttribute("style", "display: none")
+          document.getElementById('divContact').setAttribute("style", "display: none")          
+          document.getElementById('divConfirmation').setAttribute("style", "display: none")
+        }
+        else if (a == 7)
+        {
+          document.getElementById('showPrev').setAttribute("style", "display: block")
+
+          <% if session[:contactedit] == 0 %>
+            document.getElementById('divSave').setAttribute("style", "display: none")
+          <% else %>
+            document.getElementById('divSave').setAttribute("style", "display: block")
+          <% end %>
+          
+          document.getElementById('divNext').setAttribute("style", "display: none")
+
+          document.getElementById('divConfirmation').setAttribute("style", "display: block")
+          document.getElementById('divData').setAttribute("style", "display: none") 
+          document.getElementById('divPersonal').setAttribute("style", "display: none")  
+          document.getElementById('divDependent').setAttribute("style", "display: none")                   
+          document.getElementById('divAddress').setAttribute("style", "display: none")
+          document.getElementById('divContact').setAttribute("style", "display: none")          
+          document.getElementById('divEmergency').setAttribute("style", "display: none")                    
+        }
+      })
+
+      function redirecttopage() {
+        window.top.location.href = '/pages'
+      }      
+    })    
+    
+    var tele1 = document.querySelector('#portal_contact_detail_MobileNumber');    
+    tele1.addEventListener('keyup', function(e){
+      if (event.key != 'Backspace' && (tele1.value.length === 4 || tele1.value.length === 8)){
+      tele1.value += '-';
+      }
+    });
+
+    var tele2 = document.querySelector('#portal_contact_detail_MobileNumber2');    
+    tele2.addEventListener('keyup', function(e){
+      if (event.key != 'Backspace' && (tele2.value.length === 4 || tele2.value.length === 8)){
+      tele2.value += '-';
+      }
+    });
+
+    var tele3 = document.querySelector('#portal_contact_detail_EmergencyContactNo1');    
+    tele3.addEventListener('keyup', function(e){
+      if (event.key != 'Backspace' && (tele3.value.length === 4 || tele3.value.length === 8)){
+      tele3.value += '-';
+      }
+    });
+
+    var tele4 = document.querySelector('#portal_contact_detail_EmergencyContactNo2');    
+    tele4.addEventListener('keyup', function(e){
+      if (event.key != 'Backspace' && (tele4.value.length === 4 || tele4.value.length === 8)){
+      tele4.value += '-';
+      }
+    });
+
+    var tele5 = document.querySelector('#portal_contact_detail_EmergencySecondaryContact1');    
+    tele5.addEventListener('keyup', function(e){
+      if (event.key != 'Backspace' && (tele5.value.length === 4 || tele5.value.length === 8)){
+      tele5.value += '-';
+      }
+    });
+
+    var tele6 = document.querySelector('#portal_contact_detail_EmergencySecondaryContact2');    
+    tele6.addEventListener('keyup', function(e){
+      if (event.key != 'Backspace' && (tele6.value.length === 4 || tele6.value.length === 8)){
+      tele6.value += '-';
+      }
+    });
+  </script> 
+</body>
+</html>
+

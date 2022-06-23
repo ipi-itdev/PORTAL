@@ -1,0 +1,116 @@
+<style type="text/css"> 
+    #required_field {         
+      position: absolute;
+      bottom: px;
+      left: 7px;
+      font-size: 18px;
+      color: red;
+    }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1" >      
+    </div>
+
+    <div class="col-sm-10" >
+      <%= bootstrap_form_with(model: portal_contact, local: true) do |form| %>
+        <% if portal_contact.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+              <% portal_contact.errors.full_messages.each do |message| %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% session[:portal_contact_id] = @portal_contact.id %>
+
+        <div class="panel panel-default" id="panelframe" style="">
+          <div class="panel-heading" id="panelheader" >
+            <i class="fas fa-user-alt"></i> <strong>Personal & Contact Information</strong>
+          </div>
+
+          <div class="panel-body">
+            <div class="row">
+
+            <% if session[:contactedit] == 0 %>
+              <div class="col-sm-4" >
+                <div class="row">
+                  <div class="col-sm-12" >
+                  <small>
+                    <div class="row">                      
+                      <div class="col-sm-4" >
+                        <strong>ID: </strong>
+                      </div>
+
+                      <div class="col-sm-8" >
+                        <%=  @portal_contact.ID %>
+                      </div>                                                                                
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                      <div class="col-sm-4" >
+                        <strong>Created Date: </strong>
+                      </div>
+
+                      <div class="col-sm-8" >
+                        <%= @portal_contact.DateFiled.strftime("%m/%d/%Y") %>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-4" >
+                        <strong>Created By: </strong>
+                      </div>
+
+                      <div class="col-sm-8" >
+                        <%= PisEmployeeU.where(EmployeeRefNo: @portal_contact.ID).pluck(:Description).to_sentence %>
+                      </div>
+                    </div>
+
+                    <br>
+                  </small>  
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12" >
+
+                    <br>
+                    <br>
+
+                    <%= link_to 'Back to List', portal_contacts_path, class:'btn btn-primary  btn-block' %>
+                  </div>
+                </div>
+              <% end #  end of form%>
+            </div>
+
+            <% end %>
+
+            <% if session[:contactedit] == 1 %>
+              <div class="col-sm-12" >
+            <% elsif mobile_device == "mobile" %>
+              <div class="col-sm-12" >
+            <% else %>
+              <!--<div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;" >-->
+            <% end %>            
+
+              <iframe src="/portal_contact_details/<%= @get_edit_id.to_param %>/edit" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+
+    <div class="col-sm-1" >      
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+
+
