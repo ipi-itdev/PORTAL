@@ -36,9 +36,18 @@
 <br>
 <br>
 
+
+<% activecompany = ActiveRecord::Base.connection.exec_query("Select CompanyRefNo from dbo.GEN_Company_M WHERE IsActive = 1").rows[0][0] %>
+
 <script>
 function ThankContactDetailFunc() {
-  window.top.location.href = 'https://prhiportal.ipiphil.com/pages';
+  <% if activecompany  == 1%>
+    window.top.location.href = 'https://portal.ipiphil.com/pages';
+  <% elsif activecompany  == 4 %>
+    window.top.location.href = 'https://portal.pitsph.com/pages';
+  <% elsif activecompany  == 2%>
+    window.top.location.href = 'https://prhiportal.ipiphil.com/pages';
+  <% end %>
 }
 </script>	
 
