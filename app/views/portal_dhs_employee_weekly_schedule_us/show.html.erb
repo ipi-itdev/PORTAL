@@ -248,7 +248,7 @@ td {
           <div class='page'>
 
 
-            <% get_emp_dhs = PortalDhsEmployeeWeeklyScheduleU.where(EmployeeRefNo: current_user.EmployeeRefNo, WorkDate: session[:WorkDateFrom_session]..session[:WorkDateTo_session] ) %>
+            <% get_emp_dhs = DtrWeeklysched.where(EmployeeRefNo: current_user.EmployeeRefNo, WorkDate: session[:WorkDateFrom_session]..session[:WorkDateTo_session] ) %>
 
 
               
