@@ -30,39 +30,55 @@
 
     <div class="col-sm-4" >
 
-      <i class="fa fa-calendar" aria-hidden="true"></i><strong>Edit My Schedule</strong>
-      <br>
-      <br>
 
-      <div class="row">
-        <div class="col-sm" >
-           <b>Workdate:</b> <%= @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%m/%d/%Y") %>
+
+      <div class="panel panel-default">
+
+        <div class="panel-heading" id="panelheader">
+          <i class="fa fa-calendar" aria-hidden="true"></i><strong>Edit My Schedule</strong>
         </div>
-        <div class="col-sm" >
-           <%= form.check_box :IsRD,  onclick: "myFunction1()", label: 'Is My Restday?', id:'checkbox'%>
+
+        <div class="panel-body" id="panelframe">
+  
+          <div class="row">
+            <div class="col-sm-12" >
+             <b>Workdate:</b> <%= @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%m/%d/%Y") %>
+            </div>
+            <div class="col-sm-12" >
+             <%= form.check_box :IsRD,  onclick: "myFunction1()", label: 'Is My Restday?', id:'checkbox'%>
+            </div>
+          </div>
+
+            <br>
+      
+        <div class="row">
+          <div class="col-sm-12" >
+            <%= form.datetime_field :shift_start , label: 'Shift Start', min:'2020-01-01', max:'2025-01-01' %>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-sm-12" >
+
+            <%= form.datetime_field :shift_end, label: 'Shift End',  min:'2020-01-01', max:'2025-01-01'%>
+            <br>
+          
+            <%= form.submit 'Save', class:'btn btn-primary btn-block btn-sm', id:'save_sched_button',  data: { disable_with: " Please wait..." }%>
+            <br>
+            <%= link_to 'Back', portal_dhs_employee_weekly_schedule_us_path, class:'btn btn-primary btn-block btn-sm', id: 'back_sched_button' %>
+          </div>
+        </div>
+
+
+
+        </div>
+
+
+
         </div>
       </div>
 
-
-      <br>
-      <div class="row">
-        <div class="col-sm-12" >
-          <%= form.datetime_field :shift_start , label: 'Shift Start', min:'2020-01-01', max:'2025-01-01' %>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-sm-12" >
-
-          <%= form.datetime_field :shift_end, label: 'Shift End',  min:'2020-01-01', max:'2025-01-01'%>
-          <br>
-        
-          <%= form.submit 'Save', class:'btn btn-success btn-block btn-sm', id:'save_sched_button'%>
-          <br>
-          <%= link_to 'Back', portal_dhs_employee_weekly_schedule_us_path, class:'btn btn-secondary btn-block btn-sm', id: 'back_sched_button' %>
-        </div>
-      </div>
 
 
 
