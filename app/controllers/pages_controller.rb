@@ -259,7 +259,7 @@ class PagesController < ApplicationController
       hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:ClientAccountRefNo, :PayFrequencyRefNo , :BasicRate, :EmployeeGroupRefNo, :JobPosition,:DepartmentRefNo, :PayrollRateRefNo )
       @PisEmploymentInfoU1 = hashPisEmploymentInfoU[0]
 
-      if @PisEmploymentInfoU1[:EmployeeGroupRefNo] == 1 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 180 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 181 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 1390 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 1391 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 179 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 2432 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 3490 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 195
+      if @PisEmploymentInfoU1[:EmployeeGroupRefNo] == 1 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 180 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 181 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 1390 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 1391 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 179 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 2432 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 3490 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 195 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 183
         #for internal only and p&g
         if current_user.sched_confirmed != true && current_user.fixed_sched != true
           redirect_to '/schedule_confirmation'
