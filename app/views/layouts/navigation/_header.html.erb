@@ -131,10 +131,9 @@
                                                             
                                                             <li><%= link_to "Leave Approval", portal_leave_approvals_path, :method=> :get %></li>
                                                             <li><%= link_to "OT Approval", portal_ot_approvals_path, :method=> :get %></li>                            
-                                                            <li><%= link_to "OB Approval", portal_ob_approvals_path, :method=> :get %></li>                                         
-                                                            <% if current_user.EmployeeRefNo == 813 ||  current_user.EmployeeRefNo == 885 %>                                                           
-                                                                  <li><%= link_to "Login Logs", login_logs_path, :method=> :get %></li>
-                                                            <% end %>      
+                                                            <li><%= link_to "OB Approval", portal_ob_approvals_path, :method=> :get %></li>                                                                         
+                                                            <li><%= link_to "Login Logs", login_logs_path, :method=> :get %></li>
+                            
                                                       </ul>
                                                 </li>
                                                 <!----end TMS Approver-->

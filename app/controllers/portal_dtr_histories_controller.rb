@@ -43,7 +43,10 @@ class PortalDtrHistoriesController < ApplicationController
 
 
   def login_logs
-      @employeelist = PisEmploymentInfoU.find_by_sql("SELECT PIS_EmploymentInfo_U.*, PIS_Employee_U.Description as EMPDESC, PIS_Employee_U.FullName FROM PIS_EmploymentInfo_U INNER JOIN PIS_Employee_U ON PIS_EmploymentInfo_U.EmployeeRefNo = PIS_Employee_U.EmployeeRefNo WHERE  ClientAccountRefNo IN (180, 181, 1390,1391, 179,2432,3490) AND PIS_EmploymentInfo_U.IsActive = 1")
+    @employeelist = PisEmploymentInfoU.find_by_sql("SELECT PIS_EmploymentInfo_U.*, PIS_Employee_U.Description as EMPDESC, PIS_Employee_U.FullName 
+    FROM PIS_EmploymentInfo_U 
+    INNER JOIN PIS_Employee_U ON PIS_EmploymentInfo_U.EmployeeRefNo = PIS_Employee_U.EmployeeRefNo 
+    WHERE  ClientAccountRefNo IN (SELECT DISTINCT ClientDepartmentRefNo  FROM PORTAL_TMSApproval_M WHERE UserRefNo = #{current_user.EmployeeRefNo} ) AND PIS_EmploymentInfo_U.IsActive = 1 and PIS_EmploymentInfo_U.EmployeeStatusRefNo = 1")
   end
 
   def login_report
