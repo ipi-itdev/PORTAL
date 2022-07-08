@@ -16,7 +16,8 @@
                 <tr>
                   <th >ID</th>
                   <th >Employee Number</th> 
-                  <th >Login Log</th>
+                  <th >Time Log</th>
+                  <th >Module</th>
                 </tr>
               </thead>
 
@@ -27,7 +28,8 @@
                     <td ><%= login_ouput.id %></td>
                     <td ><%= login_ouput.EmployeeNumber %></td>
                     <td ><%= login_ouput.Time_Login.strftime("%m/%d/%Y %I:%M:%S %p" ) %></td>
-                      
+                    <td ><%= login_ouput.Module %></td>
+
                   </tr>
                 <% end %>
               </tbody>
