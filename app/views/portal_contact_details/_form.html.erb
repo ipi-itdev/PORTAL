@@ -539,27 +539,28 @@
 
 
   <script type="text/javascript">      
+    function loadChild(type, refNo, field, childId) {
+      $.ajax({
+        url: 'https://api.ipiphil.com/api/cronus/ddaddress?type='+ type + '&referenceValue=' + refNo,
+        type: "GET",
+        headers: { "x-api-key": "14D7F4F394ECBC8B70BFDCDFFE2A93B3" },
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function(data) {
+          field.empty()
 
-  function loadChild(type, refNo, field, childId) {
-    $.ajax({
-      url: 'https://api.ipiphil.com/api/cronus/ddaddress?type='+ type + '&referenceValue=' + refNo,
-      type: "GET",
-      headers: { "x-api-key": "14D7F4F394ECBC8B70BFDCDFFE2A93B3" },
-      async: false,
-      success: function(data) {
-        var jsonArray = JSON.parse(data)
-        field.empty()
-        for (var i =0; i < jsonArray.length; i++) {
-          var opt = $('<option/>')
-          opt.attr('value', jsonArray[i][0])
-          opt.text(jsonArray[i][1])
-          opt.appendTo(field) 
+          for (var i =0; i < data.length; i++) {
+            var opt = $('<option/>')
+
+            opt.attr('value', data[i].RefNo)
+            opt.text(data[i].Description)
+            opt.appendTo(field)              
           }
-         field.val(childId)
+
+          field.val(childId)
         }
       })
     }
-
             
     var permaRegion = $('#portal_contact_detail_PermanentRegionRefNo')        
     var permaProvince = $('#portal_contact_detail_PermanentProvinceRefNo')
