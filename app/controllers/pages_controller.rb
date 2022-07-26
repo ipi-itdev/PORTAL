@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
 
-  #prepend_before_action :check_update_contact
+  prepend_before_action :check_update_contact
   prepend_before_action :check_poster
   #prepend_before_action :check_dependent_booster
   #prepend_before_action :check_get_vac_booster
