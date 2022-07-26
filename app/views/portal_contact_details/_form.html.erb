@@ -544,7 +544,7 @@
     $.ajax({
       url: 'https://api.ipiphil.com/api/cronus/ddaddress?type='+ type + '&referenceValue=' + refNo,
       type: "GET",
-      headers: { "x-api-key": "14D7F4F394ECBC8B70BFDCDFFE2A93B3" }
+      headers: { "x-api-key": "14D7F4F394ECBC8B70BFDCDFFE2A93B3" },
       async: false,
       success: function(data) {
         var jsonArray = JSON.parse(data)
