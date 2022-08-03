@@ -3,8 +3,9 @@ class PortalDtrUploadDetailsController < ApplicationController
   before_action :set_portal_dtr_upload_detail, only: [:show, :edit, :update]
 
   def index
-    @get_url_valuex = request.original_url     
-    @portal_dtr_upload_details = PortalDtrUploadDetail.where(DtrUploadRefNo: session[:portal_dtr_upload_id])    
+    @hash_url = request.params     
+    @portal_dtr_upload_details = PortalDtrUploadDetail.where(DtrUploadRefNo: @hash_url[:dtr_upload_id])
+    session[:set_base_dtr_upload_id] = @hash_url[:dtr_upload_id]    
 
     render :layout => false
   end
@@ -13,12 +14,16 @@ class PortalDtrUploadDetailsController < ApplicationController
     render :layout => false
   end
 
-  def new    
+  def new
+    @hash_url_dtr_details = request.params
+    session[:set_base_dtr_upload_id] = @hash_url_dtr_details[:dtr_upload_id]    
     @portal_dtr_upload_detail = PortalDtrUploadDetail.new
     render :layout => false
   end
 
-  def edit      
+  def edit
+    @hash_url_dtr_details = request.params
+    session[:set_base_dtr_upload_id] = @hash_url_dtr_details[:dtr_upload_id]      
     render :layout => false
   end
 
@@ -41,9 +46,13 @@ class PortalDtrUploadDetailsController < ApplicationController
     respond_to do |format|
       if @portal_dtr_upload_detail.save
 
-        format.html { redirect_to portal_dtr_upload_details_path, notice: 'DTR Attachment was successfully created.' }
+        get_DTRUploadRefNo = params[:portal_dtr_upload_detail]
+        format.html { redirect_to "/portal_dtr_upload_details?dtr_upload_id=#{get_DTRUploadRefNo[:DTRUploadRefNo]}", notice: "DTR Attachment was successfully created." }
+        #format.html { redirect_to portal_dtr_upload_details_path, notice: 'DTR Attachment was successfully created.' }
         format.json { render :show, status: :created, location: @portal_dtr_upload_detail }
       else
+        get_DTRUploadRefNo = params[:portal_dtr_upload_detail]
+        session[:set_base_dtr_upload_id] = get_DTRUploadRefNo[:DTRUploadRefNo]
         format.html { render :new, :layout => false }
         format.json { render json: @portal_dtr_upload_detail.errors, status: :unprocessable_entity }
       end
@@ -54,6 +63,8 @@ class PortalDtrUploadDetailsController < ApplicationController
     respond_to do |format|
       if @portal_dtr_upload_detail.update(portal_dtr_upload_detail_params)
         
+        get_DTRUploadRefNo = params[:portal_dtr_upload_detail]
+        format.html { redirect_to "/portal_dtr_upload_details?dtr_upload_id=#{get_DTRUploadRefNo[:DTRUploadRefNo]}", notice: "DTR Attachment was successfully updated." }
         format.html { redirect_to portal_dtr_upload_details_path, notice: 'DTR Attachment was successfully updated.' }
         format.json { render :show, status: :ok, location: @portal_dtr_upload_detail }
       else

@@ -17,12 +17,13 @@
 
       <% if session[:portal_dtrupload_isadd] == 1 %>
         <div class="col-sm-6"  align="right">
-            <p><%= link_to '<i class="fa fa-plus" aria-hidden="true"></i> Add attachment'.html_safe, new_portal_dtr_upload_detail_path, class:'btn btn-success btn-sm' %></p>
+            <p><%= link_to '<i class="fa fa-plus" aria-hidden="true"></i> Add attachment'.html_safe, new_portal_dtr_upload_detail_path(dtr_upload_id: @hash_url[:dtr_upload_id]), class:'btn btn-success btn-sm' %></p>
         </div>
       <% end %>
     </div>
     
-    <strong>DTR Attachment</strong>  
+    <strong>DTR Attachment </strong>  
+    
     <div class="table-responsive">
       <table class="table table-striped table-condensed" id="portal_dtr_upload_detail_table">    
         <thead>
@@ -42,8 +43,8 @@
               <td align="center">
                 <% if session[:portal_dtrupload_isadd] == 1 %>
                   <div class="btn-group btn-group-sm btn-group-block" role="group" aria-label="Basic example">
-                    <%= link_to '<i></i>'.html_safe, edit_portal_dtr_upload_detail_path(portal_dtr_upload_detail), class: 'far fa-edit btn btn-primary', data: { confirm: 'Are you sure? test' }, "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Edit" %>
-                    <%= link_to '<i></i>'.html_safe, tmsdetailremove_index_path(detail_refno: portal_dtr_upload_detail.ID, tms_type: 'dtrupload'), method: 'post', data: { confirm: 'Are you sure? test' }, class: 'far fa-trash-alt btn btn-danger', "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Delete" %>                
+                    <%= link_to '<i></i>'.html_safe, "/portal_dtr_upload_details/#{portal_dtr_upload_detail.ID}/edit?dtr_upload_id=#{@hash_url[:dtr_upload_id]}", class: 'far fa-edit btn btn-primary', data: { confirm: 'Are you sure? test' }, "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Edit" %>
+                    <%= link_to '<i></i>'.html_safe, tmsdetailremove_index_path(detail_refno: portal_dtr_upload_detail.ID, tms_type: 'dtrupload', dtr_upload_id: @hash_url[:dtr_upload_id] ), method: 'post', data: { confirm: 'Are you sure? test' }, class: 'far fa-trash-alt btn btn-danger', "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Delete" %>                
                     <a href="<%= portal_dtr_upload_detail.AttachmentFile %>" target="_blank" class="far fa-file btn btn-primary" data-toggle="tooltip" data-placement="top" title="View"></a>
                   </div> 
                 <% else %>

@@ -32,9 +32,10 @@
         </div>
       <% end %>
 
+ 
       <div class="row"> 
         <div class="col-sm-6" >        
-          <%= form.hidden_field :DTRUploadRefNo, value: session[:portal_dtr_upload_id] %>
+          <%= form.hidden_field :DTRUploadRefNo, value: session[:set_base_dtr_upload_id] %>
           <%= form.hidden_field :EmployeeRefNo, value: current_user.EmployeeRefNo %>
           <%= form.hidden_field :CreatedDate, value: DateTime.now + 8.hours %>
           <%= form.hidden_field :CreatedBy, value: current_user.EmployeeRefNo %>
@@ -98,7 +99,7 @@
             </script>
 
             <div class="col-sm-6" >
-              <%= link_to 'Back to List', portal_dtr_upload_details_path, class:'btn btn-primary btn-sm btn-block' %>
+              <%= link_to 'Back to List', portal_dtr_upload_details_path(dtr_upload_id: session[:set_base_dtr_upload_id] ), class:'btn btn-primary btn-sm btn-block' %>
             </div>
           </div>
       </div>

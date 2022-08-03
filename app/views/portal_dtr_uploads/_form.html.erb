@@ -24,7 +24,8 @@
           </div>
         <% end %>
 
-        <% session[:portal_dtr_upload_id] = @portal_dtr_upload.ID %>
+      
+
       
         <div class="panel panel-default" id="panelframe" style="">
           <div class="panel-heading" id="panelheader" >
@@ -49,17 +50,6 @@
 
                     <br>
 
-                    <div class="row">
-                      <div class="col-sm-4" >
-                        <strong>Created By: </strong>
-                      </div>
-
-                      <div class="col-sm-8" >
-                        <%= PisEmployeeU.where(EmployeeRefNo: @portal_dtr_upload.CreatedBy).pluck(:Description).to_sentence %>
-                      </div>
-                    </div> 
-
-                    <br>
                     
                     <div class="row">
                       <div class="col-sm-4" >
@@ -111,7 +101,7 @@
                 <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;" >
               <% end %>
 
-                <iframe src="/portal_dtr_upload_details?dtr_upload_id=<%= @get_edit_id.to_param %>" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
+                <iframe src="/portal_dtr_upload_details?dtr_upload_id=<%= @get_edit_id.ID %>" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
               </div>
             </div>
           </div>
