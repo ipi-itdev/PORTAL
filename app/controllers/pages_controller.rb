@@ -26,39 +26,40 @@ class PagesController < ApplicationController
   #prepend_before_action :check_vacsurvey
   prepend_before_action :check_ros_survey
   prepend_before_action :media_checker
-  prepend_before_action :check_expire_password
+  #prepend_before_action :check_expire_password
   prepend_before_action :log_login
   prepend_before_action :check_current_user
 
-  def index					
-  	#get birthday month of User
-  	@gettodayis = Time.now.strftime("%m")
+  def index         
+    #get birthday month of User
+    @gettodayis = Time.now.strftime("%m")
 
     if current_user.EmployeeRefNo != 0
       getempdetails = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck_to_hash(:Birthdate, :FirstName)
     
       if getempdetails[0][:Birthdate] != '1900-01-01 00:00:00.000'
         birthmonth = getempdetails[0][:Birthdate].to_date
-        @getuserbday = birthmonth.to_date.strftime("%m") #Time.now.strftime("%m")			
-      end	
+        @getuserbday = birthmonth.to_date.strftime("%m") #Time.now.strftime("%m")     
+      end 
 
       @getfname = getempdetails[0][:FirstName]
     else
       @getfname = current_user.EmployeeNumber
-    end  	
-  	#@getSA = SysWebUser.all
-  	#@getemployee = PisEmployeeU.all
-  	@datetodayis = Time.now.strftime("%B %d, %Y - %A")
+    end   
+    #@getSA = SysWebUser.all
+    #@getemployee = PisEmployeeU.all
+    @datetodayis = Time.now.strftime("%B %d, %Y - %A")
   
-  	#check announcements for all and per user
-  	@getannouncements = Announcement.find_by_sql("SELECT * FROM PORTAL_Announcements_U  WHERE  post = 1 and EmployeeRefNo = #{current_user.EmployeeRefNo} UNION SELECT * FROM PORTAL_Announcements_U  WHERE  post = 1 AND EmployeeRefNo IS NULL").first(5)
-  	#View Holiday
-  	@getholidays = ViewGenHolidayM.all
-  	#get quotes
-  	#@quote = PorQuote.where(IsPost: true)
+    #check announcements for all and per user
+    @getannouncements = Announcement.find_by_sql("SELECT * FROM PORTAL_Announcements_U  WHERE  post = 1 and EmployeeRefNo = #{current_user.EmployeeRefNo} UNION SELECT * FROM PORTAL_Announcements_U  WHERE  post = 1 AND EmployeeRefNo IS NULL").first(5)
+    #View Holiday
+    @getholidays = ViewGenHolidayM.all
+    #get quotes
+    #@quote = PorQuote.where(IsPost: true)
 
     ##start week sched
     @check_emp_client_acct =  PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck(:ClientAccountRefNo).to_sentence
+    @get_if_clientrefno_hasweeklysched = GenClientAccountM.where(HasWeeklySched: 1, IsActive: 1)
     
     #current dattime      
     get_current_datetime = DateTime.now 
@@ -81,16 +82,16 @@ class PagesController < ApplicationController
 
   private
   def checker_oldpass
-  	if current_user.blank?
-  		flash[:success] = "Welcome!"	
-  	else
-     	ycur = User.where(id: current_user.id).pluck(:encrypted_password).to_sentence 
-  	  if ycur.to_s == "$2a$11$txIf0M5feHeEkP4KGPkdf.5RCka0DHycG.bav3oKhlhzgEj.LTeFW"
-  		  redirect_to '/users/password/new' and return
-  	  else
-  		  flash[:success] = "Welcome!"	
-  		end
-    end  			
+    if current_user.blank?
+      flash[:success] = "Welcome!"  
+    else
+      ycur = User.where(id: current_user.id).pluck(:encrypted_password).to_sentence 
+      if ycur.to_s == "$2a$11$txIf0M5feHeEkP4KGPkdf.5RCka0DHycG.bav3oKhlhzgEj.LTeFW"
+        redirect_to '/users/password/new' and return
+      else
+        flash[:success] = "Welcome!"  
+      end
+    end       
   end
 
   #check if Admin for Admin Utilities
@@ -100,28 +101,28 @@ class PagesController < ApplicationController
       @getuserrefno110 = 0      
     else
       @getuserrefno110 = User.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:IsAdmin).to_sentence
-    end	
+    end 
   end
 
   private
   def checksurvey
-  	if user_signed_in? == false
-  		redirect_to '/sign_in' and return
-  	else
-  		porsurveychecker = PorSurvey.exists?(EmployeeRefNo: current_user.EmployeeRefNo)
-  		if porsurveychecker == false
-  			redirect_to new_por_survey_path and return
-  		end  	
-  	end
+    if user_signed_in? == false
+      redirect_to '/sign_in' and return
+    else
+      porsurveychecker = PorSurvey.exists?(EmployeeRefNo: current_user.EmployeeRefNo)
+      if porsurveychecker == false
+        redirect_to new_por_survey_path and return
+      end   
+    end
   end
 
   private
   def privacychecker
-  	if user_signed_in? == true    
+    if user_signed_in? == true    
       if current_user.IsAgreedPrivacy == false
-  		  redirect_to new_privacy_path
-  	  end
-    end	
+        redirect_to new_privacy_path
+      end
+    end 
   end
 
   ##temp survey
@@ -143,13 +144,13 @@ class PagesController < ApplicationController
 
   ##temp survey
   private
-  def covid_survey_checker  	
-  	if current_user.EmployeeGroupRefNo != '1'
-  		check_covid_survey_exist = PortalSurveyCovid19.where(employeerefno: current_user.EmployeeRefNo).exists?
-  		if check_covid_survey_exist == false
-  			redirect_to new_portal_survey_covid19_path
-  		end
-  	end  			
+  def covid_survey_checker    
+    if current_user.EmployeeGroupRefNo != '1'
+      check_covid_survey_exist = PortalSurveyCovid19.where(employeerefno: current_user.EmployeeRefNo).exists?
+      if check_covid_survey_exist == false
+        redirect_to new_portal_survey_covid19_path
+      end
+    end       
   end
 
   private
@@ -220,7 +221,7 @@ class PagesController < ApplicationController
       flash[:notice] = 'Session ended, Please try to login.'
       redirect_to '/'
     else
-      session[:portal_dtr_upload_id] = 0
+      #session[:portal_dtr_upload_id] = 0
     end    
   end
 
@@ -259,12 +260,18 @@ class PagesController < ApplicationController
       hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:ClientAccountRefNo, :PayFrequencyRefNo , :BasicRate, :EmployeeGroupRefNo, :JobPosition,:DepartmentRefNo, :PayrollRateRefNo )
       @PisEmploymentInfoU1 = hashPisEmploymentInfoU[0]
 
-      if @PisEmploymentInfoU1[:EmployeeGroupRefNo] == 1 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 180 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 181 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 1390 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 1391 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 179 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 2432 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 3490 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 195 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 183 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 1293 || @PisEmploymentInfoU1[:ClientAccountRefNo].to_i == 101
+      get_if_clientrefno_hasweeklysched = GenClientAccountM.where(HasWeeklySched: 1, IsActive: 1)
 
-
-
-        #for internal only and p&g
+      if @PisEmploymentInfoU1[:EmployeeGroupRefNo] == 1
+        #if internal emp
         if current_user.sched_confirmed != true && current_user.fixed_sched != true
+          redirect_to '/schedule_confirmation'
+        end
+
+      else
+        #if external with HasWeeklySched flag = true
+        get_if_clientrefno_hasweeklysched = GenClientAccountM.where(HasWeeklySched: 1)
+        if get_if_clientrefno_hasweeklysched.include?(@PisEmploymentInfoU1[:ClientAccountRefNo]) == true
           redirect_to '/schedule_confirmation'
         end
       end
@@ -399,3 +406,5 @@ class PagesController < ApplicationController
     end
   end
 end
+
+
