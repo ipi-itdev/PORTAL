@@ -59,7 +59,7 @@ class PagesController < ApplicationController
 
     ##start week sched
     @check_emp_client_acct =  PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck(:ClientAccountRefNo).to_sentence
-    @get_if_clientrefno_hasweeklysched = GenClientAccountM.where(HasWeeklySched: 1, IsActive: 1)
+    @get_if_clientrefno_hasweeklysched = GenClientAccountM.where(HasWeeklySched: 1, IsActive: 1, ClientAccountRefNo: @check_emp_client_acct ).exists?
     
     #current dattime      
     get_current_datetime = DateTime.now 
@@ -270,9 +270,11 @@ class PagesController < ApplicationController
 
       else
         #if external with HasWeeklySched flag = true
-        get_if_clientrefno_hasweeklysched = GenClientAccountM.where(HasWeeklySched: 1)
-        if get_if_clientrefno_hasweeklysched.include?(@PisEmploymentInfoU1[:ClientAccountRefNo]) == true
-          redirect_to '/schedule_confirmation'
+        get_if_clientrefno_hasweeklysched = GenClientAccountM.where(HasWeeklySched: 1, IsActive: 1, ClientAccountRefNo: @PisEmploymentInfoU1[:ClientAccountRefNo]).exists?
+        if get_if_clientrefno_hasweeklysched == true
+          if current_user.sched_confirmed != true && current_user.fixed_sched != true
+            redirect_to '/schedule_confirmation'
+          end
         end
       end
 
