@@ -3,6 +3,8 @@ class PortalOtApprovalsController < ApplicationController
   before_action :set_portal_ot_approval, only: [:edit]
 
   def index
+    session[:portal_ot_application_id] = nil
+    session[:portal_ot_approval_id] =  nil
     @portal_ot_approvals = PortalOtApplication.find_by_sql("select * from dbo.PORTAL_OtApprover(#{current_user.EmployeeRefNo})")
   end
 

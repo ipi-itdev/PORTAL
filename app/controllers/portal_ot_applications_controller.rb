@@ -4,6 +4,8 @@ class PortalOtApplicationsController < ApplicationController
 
   def index
     #@portal_ot_applications = ActiveRecord::Base.connection.exec_query("Select * from dbo.VW_PORTAL_OvertimeApplication WHERE CreatedBy = #{current_user.EmployeeRefNo}")
+    session[:portal_ot_application_id] = nil
+    session[:portal_ot_approval_id] =  nil
     @portal_ot_applications = PortalOtApplication.find_by_sql("select * from PORTAL_OvertimeApplication_U where FilingStatusRefNo <> 3 AND IsActive = 1 AND CreatedBy = #{current_user.EmployeeRefNo}")
     @OTOpen = 0
   end
