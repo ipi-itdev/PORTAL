@@ -135,7 +135,7 @@ td {
 
 
 
-    <h4 align='center'>Information Professional Inc.</h4>
+    <h4 align='center'><%= GenCompanyM.where(IsActive: 1).pluck(:Description).to_sentence %></h4>
     <h5 align='center'>Activity Sheet</h5>
     <table width="100%">
       <tbody>
