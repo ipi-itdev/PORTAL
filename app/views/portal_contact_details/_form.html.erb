@@ -743,7 +743,9 @@
           document.getElementById('divAddress').setAttribute("style", "display: none")
           document.getElementById('divContact').setAttribute("style", "display: none")          
           document.getElementById('divConfirmation').setAttribute("style", "display: none")
-        }                    
+        }
+        document.body.scrollTop = -5;
+        document.documentElement.scrollTop = -5;                    
       })
 
       $("#showNext").click(function () {
@@ -760,6 +762,7 @@
           document.getElementById('divContact').setAttribute("style", "display: none")
           document.getElementById('divEmergency').setAttribute("style", "display: none")
           document.getElementById('divConfirmation').setAttribute("style", "display: none")
+
         }
         else if (a == 3)
         {
@@ -829,6 +832,9 @@
           document.getElementById('divContact').setAttribute("style", "display: none")          
           document.getElementById('divEmergency').setAttribute("style", "display: none")                    
         }
+
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
       })
 
       function redirecttopage() {
