@@ -42,8 +42,15 @@ $(function(){
               <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
              <small> <%= f.text_field :EmployeeNumber, autofocus: true, class: 'form-control', label: 'Employee Number'%> </small>
+             
+             <small> 
+              <%= f.password_field :password, autocomplete: "off", class: 'form-control', label: 'Password' %> 
+              <input type="checkbox" onclick="myFunction()">Show Password
+             </small>
+             <br>
+             <br>
+             <br>
 
-             <small> <%= f.password_field :password, autocomplete: "off", class: 'form-control', label: 'Password' %> </small>
 
 		 <div class="row">
              		
@@ -92,5 +99,14 @@ $(function(){
 <br>
 
 
-
+<script>
+function myFunction() {
+  var x = document.getElementById("user_password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
 
