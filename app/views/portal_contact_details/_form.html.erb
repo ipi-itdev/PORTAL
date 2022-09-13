@@ -183,7 +183,14 @@
           <br>
 
           <p id="required_field"> *</p>
-          <small><%= form.text_field :MobileNumber, class: 'form-control input-sm', style: 'resize: none;', label: 'Primary Mobile No', placeholder: "09xxxxxxxxx" %></small>
+          <small> Primary Mobile No
+
+            <!--<%= form.text_field :MobileNumber, class: 'form-control input-sm', style: 'resize: none;', label: 'Primary Mobile No', placeholder: "09xxxxxxxxx" %> -->
+
+            <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="11" placeholder="09xxxxxxxxx" name="portal_contact_detail[MobileNumber]" id="portal_contact_detail_MobileNumber"  class="form-control form-control input-sm" /> </small> 
+            <br>
+
+
         </div>
                
         <div class="col-sm-6" >
@@ -197,7 +204,13 @@
 
       <div class="row">
         <div class="col-sm-6" >
-          <small><%= form.text_field :MobileNumber2, class: 'form-control input-sm', style: 'resize: none;', label: 'Secondary Mobile No', placeholder: "09xxxxxxxxx" %></small>
+          <small>Secondary Mobile No 
+            <!--<%= form.text_field :MobileNumber2, class: 'form-control input-sm', style: 'resize: none;', label: 'Secondary Mobile No', placeholder: "09xxxxxxxxx" %> -->
+            
+             <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="11" placeholder="09xxxxxxxxx" name="portal_contact_detail[MobileNumber2]" id="portal_contact_detail_MobileNumber2"  class="form-control form-control input-sm" />
+
+
+          </small>
         </div> 
 
         <div class="col-sm-6" >
@@ -250,22 +263,40 @@
       <div class="row">
         <div class="col-sm-6" >
           <p id="required_field"> *</p>
-          <small><%= form.text_field :EmergencyContactNo1, label: 'Primary Mobile No', class: 'form-control input-sm', style: 'resize: none;', placeholder: "09xxxxxxxxx" %></small>
+          <small>Primary Mobile No
+            <!--<%= form.text_field :EmergencyContactNo1, label: 'Primary Mobile No', class: 'form-control input-sm', style: 'resize: none;', placeholder: "09xxxxxxxxx" %>-->
+
+            <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="11" placeholder="09xxxxxxxxx" name="portal_contact_detail[EmergencyContactNo1]" id="portal_contact_detail_EmergencyContactNo1"  class="form-control form-control input-sm" /> </small> 
+            <br>
+            
+
+
+          </small>
         </div>
 
         <div class="col-sm-6" >
           <p id="required_field"> *</p>
-          <small><%= form.text_field :EmergencyContactNo2, label: 'Primary Mobile No', class: 'form-control input-sm', style: 'resize: none;', placeholder: "09xxxxxxxxx" %></small>
+          <small>Primary Mobile No
+            <!--<%= form.telephone_field :EmergencyContactNo2, label: 'Primary Mobile No', class: 'form-control input-sm', style: 'resize: none;', placeholder: "09xxxxxxxxx" %>-->
+
+            <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="11" placeholder="09xxxxxxxxx" name="portal_contact_detail[EmergencyContactNo2]" id="portal_contact_detail_EmergencyContactNo2"  class="form-control form-control input-sm" /> </small> 
+            <br>  
+
+            </small>
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-6" >
-          <small><%= form.text_field :EmergencySecondaryContact1, label: 'Secondary Contact No', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          <small>
+            <%= form.text_field :EmergencySecondaryContact1, label: 'Secondary Contact No', class: 'form-control input-sm', style: 'resize: none;' %>
+            </small>
         </div>
 
         <div class="col-sm-6" >
-          <small><%= form.text_field :EmergencySecondaryContact2, label: 'Secondary Contact No', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          <small>
+            <%= form.text_field :EmergencySecondaryContact2, label: 'Secondary Contact No', class: 'form-control input-sm', style: 'resize: none;' %>
+            </small>
         </div>
       </div>
 
@@ -366,7 +397,13 @@
           <br>
           
           <p id="required_field"> *</p>
-          <small><%= form.text_field :MobileNumber, class: 'form-control input-sm', style: 'resize: none;', label: 'Primary Mobile No', placeholder: "09xxxxxxxxx" %></small>
+          <small>Primary Mobile No
+            <!--<%= form.text_field :MobileNumber, class: 'form-control input-sm', style: 'resize: none;', label: 'Primary Mobile No', placeholder: "09xxxxxxxxx" %> -->
+
+            <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="11" placeholder="09xxxxxxxxx" name="portal_contact_detail[MobileNumber]" id="portal_contact_detail_MobileNumber"  class="form-control form-control input-sm" /> </small> 
+            <br>    
+
+          </small>
         </div>
                
         <div class="col-sm-6" >
@@ -377,7 +414,12 @@
 
       <div class="row">
         <div class="col-sm-6" >
-          <small><%= form.text_field :MobileNumber2, class: 'form-control input-sm', style: 'resize: none;', label: 'Secondary Mobile No', placeholder: "09xxxxxxxxx" %></small>
+          <small>Secondary Mobile No
+            <!--<%= form.text_field :MobileNumber2, class: 'form-control input-sm', style: 'resize: none;', label: 'Secondary Mobile No', placeholder: "09xxxxxxxxx" %> -->
+
+            <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="11" placeholder="09xxxxxxxxx" name="portal_contact_detail[MobileNumber2]" id="portal_contact_detail_MobileNumber2"  class="form-control form-control input-sm" />  
+
+            </small>
         </div> 
 
         <div class="col-sm-6" >
@@ -410,11 +452,19 @@
 
         <div class="col-sm-6" >
           <p id="required_field"> *</p>
-          <small><%= form.text_field :EmergencyContactNo1, label: 'Primary Mobile No', class: 'form-control input-sm', style: 'resize: none;', placeholder: "09xxxxxxxxx" %></small>
+          <small>Primary Mobile No
+            <!--<%= form.text_field :EmergencyContactNo1, label: 'Primary Mobile No', class: 'form-control input-sm', style: 'resize: none;', placeholder: "09xxxxxxxxx" %>-->
+
+               <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="11" placeholder="09xxxxxxxxx" name="portal_contact_detail[EmergencyContactNo1]" id="portal_contact_detail_EmergencyContactNo1"  class="form-control form-control input-sm" />
+
+            </small>
         </div>
 
         <div class="col-sm-6" >
-          <small><%= form.text_field :EmergencySecondaryContact1, label: 'Secondary Contact No', class: 'form-control input-sm', style: 'resize: none;' %></small>
+          <small>
+            <%= form.text_field :EmergencySecondaryContact1, label: 'Secondary Contact No', class: 'form-control input-sm', style: 'resize: none;' %>
+              
+            </small>
         </div>
 
         <div class="col-sm-6" >
@@ -445,7 +495,10 @@
         
         <div class="col-sm-6" >
           <p id="required_field"> *</p>
-          <small><%= form.text_field :EmergencyContactNo2, label: 'Primary Mobile No', class: 'form-control input-sm', style: 'resize: none;', placeholder: "09xxxxxxxxx" %></small>
+          <small> Primary Mobile No
+
+            <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="11" placeholder="09xxxxxxxxx" name="portal_contact_detail[EmergencyContactNo1]" id="portal_contact_detail_EmergencyContactNo1"  class="form-control form-control input-sm" /> </small>
+            <br>
         </div>            
 
         <div class="col-sm-6" >
@@ -507,6 +560,8 @@
 
             <div class="col-sm-6" id="divNext">   
               <input type="button" id="showNext" class="btn btn-primary btn-sm btn-block" value="Next">
+
+
             </div>
 
             <div class="col-sm-6" id="divSave" style="display: none;">
@@ -842,7 +897,7 @@
       }      
     })    
     
-    var tele1 = document.querySelector('#portal_contact_detail_MobileNumber');    
+    /*var tele1 = document.querySelector('#portal_contact_detail_MobileNumber');    
     tele1.addEventListener('keyup', function(e){
       if (event.key != 'Backspace' && (tele1.value.length === 4 || tele1.value.length === 8)){
       tele1.value += '-';
@@ -882,8 +937,136 @@
       if (event.key != 'Backspace' && (tele6.value.length === 4 || tele6.value.length === 8)){
       tele6.value += '-';
       }
-    });
-  </script> 
+    });*/
+  </script>
+
+
+<script type="text/javascript">
+  $('#showNext').click(function(){ 
+      if($('#divEmergency').css('display') == 'block')
+      { 
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if(document.getElementById("portal_contact_detail_EmergencyName1").value.length == 0 || document.getElementById("portal_contact_detail_EmergencyName2").value.length == 0 ) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Please enter Primary / Secondary Contact Person Name');
+        }
+        else if (document.getElementById("portal_contact_detail_EmergencyRelationship1").value.length == 0 || document.getElementById("portal_contact_detail_EmergencyRelationship2").value.length == 0)
+        {
+          document.getElementById("showPrev").click();
+          alert('Please enter Primary/Secondary Contact Relationship');
+        } 
+        else if (document.getElementById("portal_contact_detail_EmergencyContactNo1").value.length == 0 || document.getElementById("portal_contact_detail_EmergencyContactNo2").value.length == 0) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Please enter Primary / Secondary Mobile No.');
+        }
+        else if (document.getElementById("portal_contact_detail_EmergencyAddress1").value.length == 0 || document.getElementById("portal_contact_detail_EmergencyAddress2").value.length == 0) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Please enter Primary / Secondary Address.');
+        }
+        else if (document.getElementById("portal_contact_detail_EmergencyEmail1").value.length != 0 && reg.test(portal_contact_detail_EmergencyEmail1.value) == false) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Invalid Primary Contact Person Email Address');
+        }
+        else if (document.getElementById("portal_contact_detail_EmergencyEmail2").value.length != 0 && reg.test(portal_contact_detail_EmergencyEmail2.value) == false) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Invalid Secondary Contact Person Email Address');
+        }
+
+      }
+      else if ($('#divContact').css('display') == 'block') 
+      {
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if(document.getElementById("portal_contact_detail_MobileNumber").value.length == 0 || document.getElementById("portal_contact_detail_PersonalEmailAddress").value.length == 0 ) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Primary Mobile / Email is required');
+        }
+
+        else if (reg.test(portal_contact_detail_PersonalEmailAddress.value) == false) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Invalid Primary Email Address');
+        }
+        else if (document.getElementById("portal_contact_detail_WorkEmailAddress").value.length != 0 && reg.test(portal_contact_detail_WorkEmailAddress.value) == false) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Invalid Secondary Email Address');
+        }
+        else if (document.getElementById("portal_contact_detail_MobileNumber").value.length != 0 && document.getElementById("portal_contact_detail_MobileNumber").value.length != 11) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Invalid Primary Mobile No, must be 11 characters');
+        }
+        else if (document.getElementById("portal_contact_detail_MobileNumber2").value.length != 0 && document.getElementById("portal_contact_detail_MobileNumber2").value.length != 11)
+        {
+          document.getElementById("showPrev").click();
+          alert('Invalid Secondary Mobile No, must be 11 characters');
+        }
+        else if (document.getElementById("portal_contact_detail_MobileNumber").value == document.getElementById("portal_contact_detail_MobileNumber2").value) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Primary & Secondary Mobile No. must be different');
+        }
+        else if (document.getElementById("portal_contact_detail_PersonalEmailAddress").value == document.getElementById("portal_contact_detail_WorkEmailAddress").value)
+        {
+          document.getElementById("showPrev").click();
+          alert('Primary & Secondary Email must be different');
+        } 
+
+      }
+      else if ($('#divAddress').css('display') == 'block') 
+      {
+        var checkBox = document.getElementById("portal_contact_detail_IsSame");
+        if ($("#portal_contact_detail_PermanentRegionRefNo").val() == 0 || $("#portal_contact_detail_PermanentProvinceRefNo").val() == 0 || $("#portal_contact_detail_PermanentMunicipalityRefNo").val() == 0 || $("#portal_contact_detail_PermanentBrgyRefNo").val() == 0 || document.getElementById("portal_contact_detail_PermanentAddress").value.length == 0 ) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Please check required field(s)');
+        }
+        else if (checkBox.checked != true && $("#portal_contact_detail_PresentRegionRefNo").val() == 0) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Please check required field(s)');
+        }
+        else if (checkBox.checked != true && $("#portal_contact_detail_PresentProvinceRefNo").val() == 0) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Please check required field(s)');
+        }
+        else if (checkBox.checked != true && $("#portal_contact_detail_PresentMunicipalityRefNo").val() == 0) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Please check required field(s)');
+        }
+        else if (checkBox.checked != true && $("#portal_contact_detail_PresentBrgyRefNo").val() == 0) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Please check required field(s)');
+        }
+        else if (checkBox.checked != true && document.getElementById("portal_contact_detail_PresentAddress").value.length == 0 ) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Please check required field(s)');
+        }       
+
+      }
+      else if ($('#divPersonal').css('display') == 'block')
+      {
+        if ($("#portal_contact_detail_CivilStatusRefNo").val() == 0) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Please select a civil status');
+        }
+      } 
+
+
+  });
+
+</script> 
 </body>
 </html>
 
