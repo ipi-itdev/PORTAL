@@ -976,6 +976,11 @@
           document.getElementById("showPrev").click();
           alert('Invalid Secondary Contact Person Email Address');
         }
+        else if (document.getElementById("portal_contact_detail_EmergencyContactNo1").value == document.getElementById("portal_contact_detail_EmergencyContactNo2").value ) 
+        {
+          document.getElementById("showPrev").click();
+          alert('Primary & Secondary Contact Person Primary Mobile No. must be different');
+        }
 
       }
       else if ($('#divContact').css('display') == 'block') 
