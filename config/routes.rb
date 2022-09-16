@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  
+  get 'Covid_9_Vax_Program', to: 'knowledges#Covid_9_Vax_Program'
   get 'login_report', to: 'portal_dtr_histories#login_report'
   get 'login_logs', to: 'portal_dtr_histories#login_logs'
   get 'dependent_booster', to: 'portal_vacsurvey_us#dependent_booster'
