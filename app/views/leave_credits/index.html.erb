@@ -20,12 +20,15 @@
 
 				<% if mobile_device == "mobile" %>
 					<br>
-					<div class="col-sm-4" >
-						<div class="btn-group">
+
+					<div class="col-sm-3" >
 						<%= link_to '<i class="fa fa-plus" aria-hidden="true"></i>File Leave Application'.html_safe, create_leave_path, method: 'post', class:'btn btn-primary btn-block btn-sm' %>
-						<%= button_tag '<i class="fa fa-info-circle"></i>'.html_safe, method: 'post', class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "User Manual", id: 'usermanual' %>
-						</div>
-					</div>
+					</div> 
+
+					<div class="col-sm-1" >              
+						<%= button_tag '<i class="fa fa-info-circle"></i>'.html_safe, method: 'post', class: "btn btn-primary btn-block btn-sm", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "User Manual", id: 'usermanual' %>
+					</div>  
+
 				<% else %>
 					<div class="col-sm-3" >
 						<%= link_to '<i class="fa fa-plus" aria-hidden="true"></i>File Leave Application'.html_safe, create_leave_path, method: 'post', class:'btn btn-primary btn-block btn-sm' %>
@@ -205,3 +208,6 @@ document.getElementById("defaultOpen").click();
     }
   <% end %>
 </script>
+
+<br>
+<br>
