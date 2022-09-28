@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  
-  get 'Covid_9_Vax_Program', to: 'knowledges#Covid_9_Vax_Program'
+
+  get 'dtrhistorydetails', to: 'portal_dhs_employee_weekly_schedule_us#dtrhistorydetails'  
+  resources :portal_homeposter_details
+  resources :portal_homeposter_us
+  get 'Covid_9_Vax_Program', to: 'knowledges#Covid_9_Vax_Program'  
   get 'login_report', to: 'portal_dtr_histories#login_report'
   get 'login_logs', to: 'portal_dtr_histories#login_logs'
   get 'dependent_booster', to: 'portal_vacsurvey_us#dependent_booster'
@@ -236,7 +239,11 @@ Rails.application.routes.draw do
   get'/hrc_effectiveness_survey', to: 'por_temp_surveys#hrc_effectiveness_survey'
 
   #confirm winner
-  post '/confirm_winner', to: 'por_temp_surveys#confirm_winner'    
+  post '/confirm_winner', to: 'por_temp_surveys#confirm_winner'
+
+  
+  #delete_poster_detail
+  post '/remove_posterdetails', to: 'portal_homeposter_us#remove_posterdetails'       
   
   #for non existing routes
   get '*path' => redirect('/')

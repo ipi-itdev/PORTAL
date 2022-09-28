@@ -6,9 +6,10 @@ git_source(:github) do |repo_name|
 end
 
 
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'rails', '~> 5.1.6', '>= 5.1.6.1'
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 5.2.3'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 # Use Puma as the app server
@@ -90,7 +91,12 @@ gem 'popper_js', '~> 1.14', '>= 1.14.5'
 
 gem 'pluck_to_hash', '~> 1.0', '>= 1.0.2'
 
-
 #ckeditor for text field
 gem 'paperclip'
 gem 'ckeditor', github: 'galetahub/ckeditor'
+
+gem 'email_validator'
+
+#html to pdf
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary' 

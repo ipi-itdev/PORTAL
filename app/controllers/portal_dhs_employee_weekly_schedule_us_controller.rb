@@ -42,21 +42,18 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
   # GET /portal_dhs_employee_weekly_schedule_us/1
   # GET /portal_dhs_employee_weekly_schedule_us/1.json
   def show
-    render :layout => false
+    respond_to do |format|
+          format.html
+          format.pdf do
 
-    @emprefno = current_user.EmployeeRefNo
-    @set_workdate_from = session[:WorkDateFrom_session]   
-    @set_workdate_to = session[:WorkDateTo_session]
-
-    #generate pdf section start here
-    respond_to do |pdfformat|
-            pdfformat.html
-            pdfformat.pdf do
-              pdf = Weeksched.new(@emprefno, @set_workdate_from, @set_workdate_to )
-              send_data pdf.render, filename: "timesheet.pdf", type: "application/pdf", disposition: "inline"
+            render pdf: 'DTR_Report',
+                   template: "portal_dhs_employee_weekly_schedule_us/dtrhistorydetails.html.erb",
+                   formats: [:html],
+                   disposition: :inline,
+                   orientation:'Landscape',
+                   footer: { right: "[page] of [topage] - #{DateTime.now.strftime("%m/%d/%Y %H:%M")}" }
           end
         end
-    #pdf generation ends here
   end
 
   # GET /portal_dhs_employee_weekly_schedule_us/new
@@ -302,6 +299,15 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
   def log_login
     portal_login  = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, IPAddress: request.remote_ip, Module: request.url  )
     portal_login.save    
+  end
+
+
+  def dtrhistorydetails
+    render :layout => false
+
+    @emprefno = current_user.EmployeeRefNo
+    @set_workdate_from = session[:WorkDateFrom_session]   
+    @set_workdate_to = session[:WorkDateTo_session]
   end
   
 
