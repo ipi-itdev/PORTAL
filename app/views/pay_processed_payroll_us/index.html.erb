@@ -641,8 +641,8 @@
          
                           <% @getotherdeductiontaxable.each do | getotherdeductiontaxable|%>
                        
-			<tr>
-			 <td align="left">
+      <tr>
+       <td align="left">
                           <%= getotherdeductiontaxable.PayItem %>
                         </td>
                         <td>
@@ -655,12 +655,12 @@
                           
                       </tr>
 
-			<% end %>
+      <% end %>
                       
                         <% @getotherdeductionnontaxable.each do | getotherdeductionnontaxable|%>
                        
-		      <tr>
-			 <td align="left">
+          <tr>
+       <td align="left">
                           <%= getotherdeductionnontaxable.PayItem %>
                         </td>
 
@@ -672,7 +672,7 @@
                           
                       </tr>
 
-			<% end  %>
+      <% end  %>
                     </table>
                   <% end %>
                   <!-- End OTHER DEDUCTION -->
@@ -693,8 +693,9 @@
                   <table width="100%">
                    
                        <tr>
-                       <td width="50%" align="left"><b>Loans</b></th> 
-                       <td width="30%" align="right"><b><small>Bal.</small></b></th> 
+                       <td width="45%" align="left"><b>Loans</b></th> 
+                       <td width="30%" align="right"><b><small>Bal.</small></b></th>
+                       <td width="5%" align="right"><b><small></small></b></th> 
                        <td width="20%" align="right"><b><small>Amount</small></b></th>     
                       </tr>
 
@@ -702,36 +703,41 @@
                         
                     <tr>
                       <% @getsetloan.each do |ff|%>
-                      <td >
 
+                      <td >
+                        <small>
                           <% getloanapprefno = ff.LoanApplicationRefNo %>
                           <% getloantype = PayLoanApplicationU.where(LoanApplicationRefNo: getloanapprefno, EmployeeRefNo: @emprefno).pluck(:LoanTypeRefNo).to_sentence %>
                           <% if  getloantype.to_i == 1 %>
-                          <%= "SSS "%>
-                          <% elsif getloantype.to_i == 2 %>
-                          <%= "PAGIBIG " %>
-                          <% elsif getloantype.to_i == 3 %>
-                          <%= "Clear Loan " %>
-                          <% elsif getloantype.to_i == 4 %>
-                          <%= "Provident Fund " %>
-                          <% elsif getloantype.to_i == 7 %>
-                          <%= "Bank Salary Loan " %>
-                          <% else %>
-                          <%= "Others" %>
-                       
+                          
+                            <%= "SSS "%>
+                            <% elsif getloantype.to_i == 2 %>
+                            <%= "PAGIBIG " %>
+                            <% elsif getloantype.to_i == 3 %>
+                            <%= "Clear Loan " %>
+                            <% elsif getloantype.to_i == 4 %>
+                            <%= "Provident Fund " %>
+                            <% elsif getloantype.to_i == 7 %>
+                            <%= "Bank Salary Loan " %>
+                            <% else %>
+                            <%= "Others" %>
                           <% end %>
-
-
+                          
+                        </small>
                       </td>
 
                       <td align="right"> 
                          <% loanbal = ff.LoanBalance%>
-                         <%= number_with_precision(loanbal.to_f, :precision => 2, :delimiter => ',') %>
+                         <small><%= number_with_precision(loanbal.to_f, :precision => 2, :delimiter => ',') %></small>
+                      </td>
+
+                      <td>
+
                       </td>
 
                        <td align="right"> 
                          <% loandeduc = ff.LoanDeduction%>    
-                         <%= number_with_precision(loandeduc.to_f, :precision => 2, :delimiter => ',') %>            
+                         <small><%= number_with_precision(loandeduc.to_f, :precision => 2, :delimiter => ',') %></small>            
                       </td>
                     </tr>
                      <% end %>
@@ -743,8 +749,9 @@
                   <% if @getnumberofloans <= 0 %>
                   <table id = "hidden" width="100%">
                     <tr>
-                      <td width="50%"><strong></strong></td>
+                      <td width="45%"><strong></strong></td>
                       <td width="30%" align="right"><b><small></small></b></td>
+                      <td width="5%" align="right"><b><small></small></b></td>
                       <td width="20%" align="right"><b><small></small></b></td>
                     </tr>
                     
@@ -754,17 +761,19 @@
 
                   <table width="100%">
                     <tr>
-                      <td width="50%"><strong></strong></td>
+                      <td width="45%"><strong></strong></td>
                       <td width="30%" align="right"><b><small></small></b></td>
+                      <td width="5%" align="right"><b><small></small></b></td>
                       <td width="20%" align="right"><b><small></small></b></td>
                     </tr>
+
+
                     <tr>
-                      <td><STRONG>TOTAL LOANS</STRONG></td>
-                      <td align="right"><%=number_with_precision(@getloanbalsum.to_f, :precision => 2, :delimiter => ',') %>
-                        
+                      <td width="45%"><STRONG><small>TOTAL LOANS</small></STRONG></td>
+                      <td align="right" width="30%"><small><%=number_with_precision(@getloanbalsum.to_f, :precision => 2, :delimiter => ',') %></small>
                       </td>
-                      
-                      <td align="right"><%=number_with_precision(@getloanamtsum.to_f, :precision => 2, :delimiter => ',')%>
+                      <td width="5%" align="right"><b><small></small></b></td>
+                      <small><td align="right" width="20%"><small><%=number_with_precision(@getloanamtsum.to_f, :precision => 2, :delimiter => ',')%></small>
                       </td>
                     </tr>
                   </table>
