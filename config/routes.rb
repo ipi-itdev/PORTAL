@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'dtrhistory_ossreport', to: 'portal_dtr_histories#dtrhistory_ossreport'
   get 'dtrhistorydetails', to: 'portal_dhs_employee_weekly_schedule_us#dtrhistorydetails'  
   resources :portal_homeposter_details
   resources :portal_homeposter_us

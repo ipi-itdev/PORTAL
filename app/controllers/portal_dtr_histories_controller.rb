@@ -24,21 +24,18 @@ class PortalDtrHistoriesController < ApplicationController
   end
 
   def show
-    render :layout => false
+    respond_to do |format|
+          format.html
+          format.pdf do
 
-    @emprefno = session[:portal_dtr_history_employeerefno]
-    @set_workdate_from = session[:WorkDateFrom_session]   
-    @set_workdate_to = session[:WorkDateTo_session]
-
-    #generate pdf section start here
-    respond_to do |pdfformat|
-            pdfformat.html
-            pdfformat.pdf do
-              pdf = Weeksched.new(@emprefno, @set_workdate_from, @set_workdate_to )
-              send_data pdf.render, filename: "timesheet.pdf", type: "application/pdf", disposition: "inline"
+            render pdf: 'DTR_Report_OSS',
+                   template: "portal_dtr_histories/dtrhistory_ossreport.html.erb",
+                   formats: [:html],
+                   disposition: :inline,
+                   orientation:'Landscape',
+                   footer: { right: "[page] of [topage] - #{DateTime.now.strftime("%m/%d/%Y %H:%M")}" }
           end
         end
-    #pdf generation ends here
   end
 
 
@@ -70,6 +67,15 @@ class PortalDtrHistoriesController < ApplicationController
         @login_ouput = PortalLoginLog.where(EmployeeRefNo: session[:loginlog_emprefno], Time_Login: get_loginfrom..get_loginto2).order(:Time_Login)
       end      
     end
+  end
+
+
+  def dtrhistory_ossreport
+    render :layout => false
+
+    @emprefno = session[:portal_dtr_history_employeerefno]
+    @set_workdate_from = session[:WorkDateFrom_session]   
+    @set_workdate_to = session[:WorkDateTo_session]
   end
 
 
