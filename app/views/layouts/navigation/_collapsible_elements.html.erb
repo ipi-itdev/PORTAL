@@ -45,6 +45,13 @@
           <li class="mobile-menu">
             <strong><%= link_to ' My Payslip', pay_processed_payroll_us_path, :method=> :get %></strong>
           </li>
+
+          
+          <% if activecompany == 1 %>
+            <li class="mobile-menu">
+              <strong><%= link_to "Support", 'https://support.ipiphil.com/',  :method=> :get,:title => 'Support', :rel => 'tooltip', target: "_blank"  %></strong>
+            </li>
+          <% end %>
           
           <% if activecompany == 3 %>
             <li class="mobile-menu">

@@ -38,6 +38,11 @@
 
                                           <li class="divider-vertical"></li>
                                           <li ><%= link_to "", pay_processed_payroll_us_path, class: "fas fa-money-bill-alt",  :method=> :get, :title => 'My Payslip', :rel => 'tooltip'   %></li>
+                                          
+                                          <% if activecompany == 1 %>
+                                                <li class="divider-vertical"></li>
+                                                <li ><%= link_to "", 'https://support.ipiphil.com/', class: "fas fa-headset",  :method=> :get,:title => 'Support', :rel => 'tooltip', target: "_blank"  %></li>
+                                          <% end %>
 
                                           <li class="divider-vertical"></li>
                                           <li><%= link_to "", knowledges_path, class: "fas fa-book",  :method=> :get, :title => 'Knowledge base', :rel => 'tooltip'   %></li>
