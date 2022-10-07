@@ -2,6 +2,7 @@ class PayProcessedPayrollUsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_pay_processed_payroll_u, only: [:show, :edit, :update, :destroy]
   #prepend_before_action :checker_oldpass, only: [:index] # Change this to be any actions you want to protect.
+  prepend_before_action :check_update_contact
   prepend_before_action :checkadminloggedin
   prepend_before_action :privacychecker, only: [:index]
   #prepend_before_action :covid_survey_checker
@@ -538,6 +539,17 @@ class PayProcessedPayrollUsController < ApplicationController
         flash[:notice] = 'Session ended, Please try to login.'
         redirect_to '/'
       end    
+    end
+
+      
+    private
+    def check_update_contact
+      if current_user.UpdatedContactInfo == false
+        session[:contactedit] = 1
+        ActiveRecord::Base.connection.execute("EXEC dbo.PIS_SP_PopulateUpdateContactInPortal @EmployeeRefNo = #{current_user.EmployeeRefNo}")
+
+        redirect_to edit_portal_contact_path(id: current_user.EmployeeRefNo)
+      end
     end
 
 
