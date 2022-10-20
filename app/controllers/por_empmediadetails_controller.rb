@@ -29,7 +29,7 @@ class PorEmpmediadetailsController < ApplicationController
     if hash_blank.blank?
 
       #@getempmediaID = ViewEmployeeMediaDetail.find_by_sql('SELECT *  FROM view_employee_media_details WHERE = AND starttime IS Null').pluck(:mediaid, :emp_media_details_emprefno, :title, :description, :mediapath)
-      @getempmediaID = ViewEmployeeMediaDetail.where(EmployeeRefNo: current_user.EmployeeRefNo, starttime: nil).pluck(:mediaid, :emp_media_details_emprefno, :title, :description, :mediapath, :media_seq_refno)
+      @getempmediaID = ViewEmployeeMediaDetail.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:mediaid, :emp_media_details_emprefno, :title, :description, :mediapath, :media_seq_refno)
       @por_empmediadetail = PorEmpmediadetail.new
 
     else
@@ -38,10 +38,10 @@ class PorEmpmediadetailsController < ApplicationController
       ##start loop
       ViewEmployeeMediaDetail.where(EmployeeRefNo: current_user.EmployeeRefNo).each do |empmediadetails|
 
-        if empmediadetails.media_seq_refno <= get_user_info[0][:last_media_refno]
+        if empmediadetails.media_seq_refno < get_user_info[0][:last_media_refno]
           #nothing to do
         else
-          @getempmediaID = ViewEmployeeMediaDetail.where(mediaid: empmediadetails.mediaid, EmployeeRefNo: empmediadetails.EmployeeRefNo, starttime: nil).pluck(:mediaid, :emp_media_details_emprefno, :title, :description, :mediapath, :media_seq_refno)
+          @getempmediaID = ViewEmployeeMediaDetail.where(mediaid: empmediadetails.mediaid, EmployeeRefNo: empmediadetails.EmployeeRefNo).pluck(:mediaid, :emp_media_details_emprefno, :title, :description, :mediapath, :media_seq_refno)
           @por_empmediadetail = PorEmpmediadetail.new
 
         end
