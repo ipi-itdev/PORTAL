@@ -49,7 +49,30 @@
         <div class="panel-heading" id="panelheader">
           <% get_date = ActiveRecord::Base.connection.exec_query("SELECT CAST(DATEADD(HOUR,8,GETUTCDATE()) AS DATE)").rows[0][0] %>
           <% if @foredit == 0 %>
-            <strong>My Weekly Schedule</strong>
+                        
+            <% if mobile_device == "mobile" %>
+
+              <table>
+                <tr>
+                  <td width="50%"><strong>My Weekly Schedule</strong></td>
+                  <td width="30%" align="right"><b><small></small></b></td>
+                  <td width="20%" align="right"><b><small><a target="_blank" href= '/manuals/weeklyschedule.pdf' style="color: white; " title="User's Manual" rel="tooltip"> <ic class="glyphicon glyphicon-info-sign " ></ic> </a></small></b></td>
+                </tr>
+              </table>
+
+            <% else %>
+
+              <div class="row">
+                <div class="col-sm-11">
+                  <strong>My Weekly Schedule</strong>
+                </div>
+                <div class="col-sm-1" align="center">
+                  <a target="_blank" href= '/manuals/weeklyschedule.pdf' style="color: white; font-size:5px" title="User's Manual" rel="tooltip"> <ic class="glyphicon glyphicon-info-sign " ></ic> </a>
+                </div>
+              </div>
+
+            <% end %>
+            
           <% else %>      
             <div class="row">
               <div class="col-sm-11" >                                            
