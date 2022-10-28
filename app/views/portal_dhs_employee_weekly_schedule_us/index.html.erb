@@ -131,8 +131,7 @@
 
 
         <!---mobile -->
-        <div class="mobile-menu">
-
+        <% if mobile_device == "mobile" %>
 
         <table class="table table-bordered table-condensed" >
 
@@ -143,7 +142,8 @@
               <tr align="left">
 
                 <td>
-                  <% if weeksched.shift_start.blank? == true || weeksched.time_in.blank? == true || get_date - 1.days == weeksched.WorkDate.to_date || weeksched.IsRD == true || @foredit == 1 %>
+                  <% if weeksched.shift_start.blank? == true || weeksched.time_in.blank? == true || get_date - 1.days <= weeksched.WorkDate.to_date || weeksched.IsRD == true || @foredit == 1 %>
+
                     <small><%= link_to '<i class="far fa-edit" style="color: green;"></i>'.html_safe, "/portal_dhs_employee_weekly_schedule_us/#{weeksched.ID}/edit", :title => 'Edit Schedule', :rel => 'tooltip' %></small>
                     <% weeksched.ID %>
                   <% end %>
@@ -201,12 +201,12 @@
         </table>
           
 
-        </div>
+ 
         <!---mobile -->
 
-        <!---desktop--->
-        <div class="pc-menu">
+        <% else %>
 
+        <!---desktop--->
         <table  class="table table-bordered table-condensed">
           <thead class="thead-dark" >
             <div>
@@ -300,8 +300,9 @@
               <% end %>
             
 
-        </table>           
-        </div>
+        </table>  
+
+        <% end %>
         <!---desktop--->
 
 
@@ -376,8 +377,14 @@
 </script>
 <% end %>
 
+<br>
+<br>
+<br>
+
+
 </body>
 </html>
+
 
 
 
