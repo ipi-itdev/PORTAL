@@ -3,15 +3,15 @@ class PortalDhsEmployeeWeeklyScheduleU < ApplicationRecord
 
 	default_scope { order(WorkDate: :asc) }
 
-	validate :check_shifts
+	#validate :check_shifts
 	validate :check_null
 	#validate :check_rd
 
 	#check_shifts
 	def check_shifts
 		if IsRD? == false && shift_start.blank? == false && shift_end.blank? == false
-			if shift_start > shift_end 
-			 	errors[:base] << "Shift Start is greater than Shift End"
+			if shift_start == shift_end 
+			 	errors[:base] << "Shift Start is equal to Shift End"
 			end
 	    end 
 	end
@@ -32,3 +32,4 @@ class PortalDhsEmployeeWeeklyScheduleU < ApplicationRecord
 	    end 
 	end
 end
+
