@@ -3,7 +3,7 @@ class PortalDhsEmployeeWeeklyScheduleU < ApplicationRecord
 
 	default_scope { order(WorkDate: :asc) }
 
-	#validate :check_shifts
+	validate :check_shifts
 	validate :check_null
 	#validate :check_rd
 
