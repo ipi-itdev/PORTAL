@@ -12,6 +12,8 @@
        appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
+      user-select: none;
+
       
    }
 
@@ -339,35 +341,68 @@
           $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_end_day1 %>');
           $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val('<%= get_end_hrs1 %>');
           $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val('<%= get_end_mins1 %>');
-          alert("Resetting Shifts!");
+          alert("Resetting Shifts!.");
 
         <% else %>
 
-          <% get_start_yr2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%Y") %>
-          <% get_start_mon2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%m") %>
-          <% get_start_day2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%-d") %>
-          <% get_start_hrs2 = @portal_dhs_employee_weekly_schedule_u.shift_start.strftime("%H") %>
-          <% get_start_mins2 = @portal_dhs_employee_weekly_schedule_u.shift_start.strftime("%M") %>
-          $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").val('<%= get_start_yr2 %>');
-          $("#portal_dhs_employee_weekly_schedule_u_shift_start_2i").val('<%= get_start_mon2 %>');
-          $("#portal_dhs_employee_weekly_schedule_u_shift_start_3i").val('<%= get_start_day2 %>');
-          $("#portal_dhs_employee_weekly_schedule_u_shift_start_4i").val('<%= get_start_hrs2 %>');
-          $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('<%= get_start_mins2 %>');
 
-          <% get_end_yr2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%Y") %>
-          <% get_end_mon2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%m") %>
-          <% get_end_day2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%-d") %>
-          <% get_end_hrs2 = @portal_dhs_employee_weekly_schedule_u.shift_end.strftime("%H") %>
-          <% get_end_mins2 = @portal_dhs_employee_weekly_schedule_u.shift_end.strftime("%M") %>
-          $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_end_yr2 %>');
-          $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('<%= get_end_mon2 %>');
-          $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_end_day2 %>');
-          $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val('<%= get_end_hrs2 %>');
-          $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val('<%= get_end_mins2 %>');
-          alert("Resetting Shifts!");
+          <% if @portal_dhs_employee_weekly_schedule_u.shift_start.to_date < @portal_dhs_employee_weekly_schedule_u.shift_end.to_date %>
+
+            <% get_start_yr2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
+            <% get_start_mon2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%m") %>
+            <% get_start_day2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").val('<%= get_start_yr2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_2i").val('<%= get_start_mon2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_3i").val('<%= get_start_day2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_4i").val('00');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('01');
+
+            <% get_end_yr2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
+            <% get_end_mon2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%m") %>
+            <% get_end_day2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
+           
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_end_yr2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('<%= get_end_mon2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_end_day2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val('00');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val('01');
+            alert("Resetting Shifts!..");
+
+          <% else %>
+
+            <% get_start_yr2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%Y") %>
+            <% get_start_mon2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%m") %>
+            <% get_start_day2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%-d") %>
+            <% get_start_hrs2 = @portal_dhs_employee_weekly_schedule_u.shift_start.strftime("%H") %>
+            <% get_start_mins2 = @portal_dhs_employee_weekly_schedule_u.shift_start.strftime("%M") %>
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").val('<%= get_start_yr2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_2i").val('<%= get_start_mon2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_3i").val('<%= get_start_day2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_4i").val('<%= get_start_hrs2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('<%= get_start_mins2 %>');
+
+            <% get_end_yr2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%Y") %>
+            <% get_end_mon2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%m") %>
+            <% get_end_day2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%-d") %>
+            <% get_end_hrs2 = @portal_dhs_employee_weekly_schedule_u.shift_end.strftime("%H") %>
+            <% get_end_mins2 = @portal_dhs_employee_weekly_schedule_u.shift_end.strftime("%M") %>
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_end_yr2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('<%= get_end_mon2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_end_day2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val('<%= get_end_hrs2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val('<%= get_end_mins2 %>');
+            alert("Resetting Shifts!...");
+
+          <% end %>
+
+
         <% end %>  
        
        }
+    </script>
+
+    <script type="text/javascript">
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").on("keydown keypress keyup click contextmenu", false);
     </script>
 
 
