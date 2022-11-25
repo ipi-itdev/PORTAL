@@ -6,7 +6,7 @@ class PayProcessedPayrollUsController < ApplicationController
   prepend_before_action :checkadminloggedin
   prepend_before_action :privacychecker, only: [:index]
   #prepend_before_action :covid_survey_checker
-  #prepend_before_action :tempsurvey_checker, only: [:index]
+  prepend_before_action :tempsurvey_checker
   #before_action :checksurvey
   #prepend_before_action :check_ODHD
   #prepend_before_action :media_checker
@@ -374,19 +374,15 @@ class PayProcessedPayrollUsController < ApplicationController
 
     end
 
-    # start tempsurvey_checker
-    private
-    def tempsurvey_checker
-      tempsurveycheck = User.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:HadSurveyed).to_sentence
-
-        if tempsurveycheck == 'true'       
-          #redirect_to '/pages' and return
-        else
-          redirect_to '/por_temp_surveys/new' and return
-        end
-      
+  ##temp survey
+  private
+  def tempsurvey_checker
+    if PorTempSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
+      redirect_to hrc_effectiveness_survey_path and return
     end
-    # end tempsurvey_checker
+  end
+  ##temp survey
+
 
     #start check covid survey
     private

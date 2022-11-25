@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   #prepend_before_action :emp_satis_survey_checker
   #prepend_before_action :check_user_tagconfirm
   #prepend_before_action :check_user_viewed_ads
-  #prepend_before_action :tempsurvey_checker
+  prepend_before_action :tempsurvey_checker
   prepend_before_action :check_covidbulletin
   #prepend_before_action :check_webinar_reg
   prepend_before_action :check_vaccampaign
@@ -128,21 +128,12 @@ class PagesController < ApplicationController
   ##temp survey
   private
   def tempsurvey_checker
-    if current_user.answer_survey_later == false
-      if PorTempSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
-        redirect_to hrc_effectiveness_survey_path and return
-      end
-
-    else # answered survey later is false check later survey date
-      if PorTempSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
-        if Date.today  >= current_user.LaterSurveyDate  
-          redirect_to hrc_effectiveness_survey_path and return
-        end
-      end
+    if PorTempSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
+      redirect_to hrc_effectiveness_survey_path and return
     end
   end
-
   ##temp survey
+
   private
   def covid_survey_checker    
     if current_user.EmployeeGroupRefNo != '1'
