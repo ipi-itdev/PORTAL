@@ -38,6 +38,10 @@ class PayProcessedPayrollUsController < ApplicationController
       @getBIRCredentials = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}")     
       @BIRlink = "#{@BIRpath}#{@getBIRCredentials.rows[0][0]}"
       ##bir2316
+
+      ##13thmonth
+      @get_emp_13thmonth  = PayViewReportThirteenthMonthDetail.where(EmployeeRefNo: current_user.EmployeeRefNo, YEAR: '2022')
+      ##13thmonth
   
       #get emp client
       ##get employee details

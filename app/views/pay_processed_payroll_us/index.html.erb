@@ -5,6 +5,20 @@
 
 
     <%= stylesheet_link_tag 'pay_processed_payroll_u'%>
+
+    <style type="text/css">
+      .blinking{
+          animation:blinkingText 1.2s infinite;
+      }
+      @keyframes blinkingText{
+          0%{     color: red;    }
+          49%{    color: red; }
+          60%{    color: transparent; }
+          99%{    color:transparent;  }
+          100%{   color: #000;    }
+      }
+
+    </style>
    
 </head>
 
@@ -265,6 +279,17 @@
                 <span ><%= @PayrollRate.to_sentence %></span> 
               </td>
             </tr>
+
+            <% if @PisEmploymentInfoU[:EmployeeGroupRefNo] == 2 %>
+            <tr>
+              <!--13th -->
+              <td>
+                <a target="_blank" data-toggle="modal" data-target="#13thmonthModal" class="blinking" title = "Click Here to view 13th Month" rel = "tooltip">*View 13th Monthpay(2022)</a>
+              </td>  
+              <!--13th -->
+            </tr>
+            <% end %>
+
             <tr>
               <td> <%=link_to '*View Leave Balances', '/leave_credits/index', target: "_blank" %></td>
             </tr>
@@ -849,7 +874,108 @@
 <br>
 <br>
 
-<%= render 'pay_processed_payroll_us/birmodal' %>
+<!-- 13th month Modal -->
+<div class="modal fade" id="13thmonthModal" tabindex="-1" role="dialog" aria-labelledby="13thmonthModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+      <div class="container-fluid">
+
+            
+         <% @get_emp_13thmonth.each do |get_emp_13thmonth|%>
+
+          <div class="row">
+            <table width="100%">
+                
+            </table>  
+          </div>      
+
+          <div class="row">
+
+              <table  class="table table-bordered table-striped">
+                <tr>
+                  <td align="left"><strong>13th Month Amount (2022):</strong> </td>
+                  <td align="right"> <%=  number_with_precision(get_emp_13thmonth.ThirteenthMonthPay, :precision => 2, :delimiter => ',') %> </td>
+                </tr>
+
+                <tr>
+                  <td><strong>January:</strong> </td>
+                  <td align="right"><%=  number_with_precision(get_emp_13thmonth.January, :precision => 2, :delimiter => ',') %></td>
+
+                </tr>
+                <tr>
+                  <td><strong>February:</strong> </td>
+                  <td align="right"><%= number_with_precision(get_emp_13thmonth.February, :precision => 2, :delimiter => ',') %></td>
+
+                </tr>
+                <tr>
+                  <td><strong>March:</strong></td>
+                  <td align="right"><%= number_with_precision(get_emp_13thmonth.March, :precision => 2, :delimiter => ',') %></td>
+
+                </tr>
+                <tr>
+                  <td><strong>April:</strong></td>
+                  <td align="right"><%= number_with_precision(get_emp_13thmonth.April, :precision => 2, :delimiter => ',') %></td>
+                </tr>
+                <tr>
+                  <td><strong>May:</strong></td>
+                  <td align="right"><%= number_with_precision(get_emp_13thmonth.May, :precision => 2, :delimiter => ',') %></td>
+                </tr>
+                <tr>
+                  <td><strong>June:</strong></td>
+                  <td align="right"><%= number_with_precision(get_emp_13thmonth.June, :precision => 2, :delimiter => ',') %></td>
+              
+                </tr>
+                <tr>  
+                  <td><strong>July: </strong></td>
+                  <td align="right"><%= number_with_precision(get_emp_13thmonth.July, :precision => 2, :delimiter => ',') %></td>
+                  
+                </tr>
+                <tr>
+                  <td><strong>August:</strong></td>
+                  <td align="right"><%= number_with_precision(get_emp_13thmonth.August, :precision => 2, :delimiter => ',') %></td>
+                 
+                </tr>
+                <tr>
+                  <td><strong>September:</strong></td>
+                  <td align="right"><%= number_with_precision(get_emp_13thmonth.September, :precision => 2, :delimiter => ',') %></td>
+                 
+
+                </tr>
+                <tr>
+                  <td><strong>October:</strong></td>
+                  <td align="right"><%= number_with_precision(get_emp_13thmonth.October, :precision => 2, :delimiter => ',') %></td>
+                 
+                </tr>
+                <tr>
+                  <td><strong>November:</strong></td>
+                  <td align="right"><%= number_with_precision(get_emp_13thmonth.November, :precision => 2, :delimiter => ',') %></td>
+                 
+                </tr>
+                <tr>
+                  <td><strong>December:</strong></td>
+                  <td align="right"><%= number_with_precision(get_emp_13thmonth.December, :precision => 2, :delimiter => ',') %></td>
+                 
+                </tr>
+
+
+
+              </table>
+
+
+           </div>
+      </div>     
+         <% end %>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 </body> 
 </html>
