@@ -64,6 +64,13 @@ class PorSurveysController < ApplicationController
   def destroy
 
   end
+  
+  def later_answer_syssurvey
+    user = User.where(EmployeeRefNo: current_user.EmployeeRefNo)
+    user.update(answer_survey_later: 1)
+    session[:syssurvey_later] = true
+    redirect_to '/pages'
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

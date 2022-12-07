@@ -15,7 +15,7 @@ class PagesController < ApplicationController
   #prepend_before_action :checker_oldpass
   prepend_before_action :checkadminloggedin, only: [:index]
   prepend_before_action :privacychecker, only: [:index]
-  #prepend_before_action :checksurvey
+  prepend_before_action :checksurvey
   #prepend_before_action :covid_survey_checker
   prepend_before_action :check_pisaudit
   #prepend_before_action :check_BRGY
@@ -104,17 +104,21 @@ class PagesController < ApplicationController
     end 
   end
 
+  #system survey
   private
   def checksurvey
     if user_signed_in? == false
       redirect_to '/sign_in' and return
     else
-      porsurveychecker = PorSurvey.exists?(EmployeeRefNo: current_user.EmployeeRefNo)
-      if porsurveychecker == false
-        redirect_to new_por_survey_path and return
-      end   
+      if current_user.answer_survey_later != true && session[:syssurvey_later] == nil
+        porsurveychecker = PorSurvey.exists?(EmployeeRefNo: current_user.EmployeeRefNo)
+        if porsurveychecker == false
+          redirect_to new_por_survey_path and return
+        end
+      end
     end
   end
+  #system survey
 
   private
   def privacychecker

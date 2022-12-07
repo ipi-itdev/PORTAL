@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource_or_scope)
     #update last log-in
     user = User.find_by(EmployeeRefNo: current_user.EmployeeRefNo)
-    user.update(datelastlogin: Time.now)
+    user.update(datelastlogin: Time.now, answer_survey_later: nil)
 
     #porsurveychecker = PorSurvey.exists?(EmployeeRefNo: current_user.EmployeeRefNo)
 

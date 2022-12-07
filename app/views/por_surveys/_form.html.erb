@@ -1,6 +1,6 @@
 
 
- <%= stylesheet_link_tag 'por_surveys'%>
+<%= stylesheet_link_tag 'por_surveys'%>
 
 <style type="text/css">
 
@@ -148,8 +148,8 @@
       
             <br>
             <div align="center">
-              <%= form.submit 'Submit Answer', class:'btn btn-md btn-primary btn-block', data: { disable_with: "Please wait..." } %>  
-              <!--<%= link_to 'Skip', pages_path, class:'btn btn-md btn-danger', data: { disable_with: "Please wait..." } %> -->
+              <%= form.submit 'Submit Answer', class:'btn btn-md btn-primary', onclick: 'syssurveybutFunc()', id:'syssurvey_submit_but' %>  
+              <%= link_to 'Answer Later', '/later_answer_syssurvey', class:'btn btn-md btn-danger', method: 'post',  onclick: 'syssurveybutFunc()', id:'syssurvey_later_but' %> 
 
             </div>
 
@@ -195,3 +195,12 @@ $('.section2').click(function(){
 });
   
 </script>
+
+<script type="text/javascript">
+  $(document).submit(function() {
+    $( "#syssurvey_submit_but" ).prop('disabled', true);
+    $( "#syssurvey_later_but" ).attr('disabled', true);
+  });                      
+</script>
+
+
