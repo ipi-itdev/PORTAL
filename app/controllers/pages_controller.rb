@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   prepend_before_action :check_poster
   #prepend_before_action :check_dependent_booster
   #prepend_before_action :check_get_vac_booster
-  #prepend_before_action :emp_satis_survey_checker
+  prepend_before_action :emp_satis_survey_checker
   #prepend_before_action :check_user_tagconfirm
   #prepend_before_action :check_user_viewed_ads
   prepend_before_action :tempsurvey_checker
@@ -366,24 +366,15 @@ class PagesController < ApplicationController
     end    
   end
 
+  #emp satisfaction survey
   private
   def emp_satis_survey_checker
-    #false
-    if current_user.answer_survey_later != true
-      emp_satis_surveycheck = PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists?
-      if emp_satis_surveycheck.blank? == true
-        redirect_to '/portal_employee_satisfaction_surveys/intro' 
-      end
-
-    else # answered survey later is true check later survey date 
-      emp_satis_surveycheck = PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists?
-      if emp_satis_surveycheck.blank? == true
-        if Date.today  >= current_user.LaterSurveyDate  
-        redirect_to '/portal_employee_satisfaction_surveys/intro' 
-        end
-      end
-    end 
+    emp_satis_surveycheck = PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists?
+    if emp_satis_surveycheck.blank? == true
+      redirect_to '/portal_employee_satisfaction_surveys/intro' 
+    end
   end
+  #emp satisfaction survey
 
   def check_user_tagconfirm
     if current_user.TagConfirmed != true

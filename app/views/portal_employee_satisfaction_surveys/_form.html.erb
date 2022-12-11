@@ -115,9 +115,11 @@ xx.tabs input:checked + label {
     <div class="modal-content">
 
       <div class="modal-body">
+
+        <% get_active_co = GenCompanyM.where(IsActive: 1).pluck_to_hash(:Code, :Description) %>
         <h1 align="center"> <i class="fas fa-poll"></i> Employee Satisfaction Survey</h1>
 
-        <p align="justify">This survey asks questions about your experience working with Information Professionals, Inc.  It starts and ends with some questions about your satisfaction with various aspects of work and contains other questions about how you think and feel about IPI.  </p>
+        <p align="justify">This survey asks questions about your experience working with <%= get_active_co[0][:Description] %>.  It starts and ends with some questions about your satisfaction with various aspects of work and contains other questions about how you think and feel about <%= get_active_co[0][:Code] %>  </p>
         <br>
         <p>Thank you for your honest opinions.</p>
         
@@ -222,7 +224,7 @@ xx.tabs input:checked + label {
                             
                             </div>
                             <div class="col-sm-5" align="left">
-                               <p id="coloritred1">1. Overall, how satisfied are you working with IPI? <span id="asterisksurvey">*</span></span>
+                               <p id="coloritred1">1. Overall, how satisfied are you working with <%= get_active_co[0][:Code] %>? <span id="asterisksurvey">*</span></span>
                             </div>
 
                             <div class="mobile-menu" align="left" >
@@ -817,7 +819,7 @@ xx.tabs input:checked + label {
                               </div>
 
                               <div class="col-sm-1" align="left">
-                                  <%= form.radio_button :Q6, '5' , label:'5. Very Dissatisfied' ,onclick: "enableFunction8()"%>
+                                  <%= form.radio_button :Q6, '5' , label:'5. Very Satisfied' ,onclick: "enableFunction8()"%>
                               </div>
 
                             </div>
