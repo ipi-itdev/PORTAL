@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  post '/remove_posterdetails', to: 'portal_homeposter_us#remove_posterdetails'
   post 'later_answer_syssurvey',  to: 'por_surveys#later_answer_syssurvey'
   get 'dtrhistory_ossreport', to: 'portal_dtr_histories#dtrhistory_ossreport'
   get 'dtrhistorydetails', to: 'portal_dhs_employee_weekly_schedule_us#dtrhistorydetails'  
@@ -243,10 +244,6 @@ Rails.application.routes.draw do
   #confirm winner
   post '/confirm_winner', to: 'por_temp_surveys#confirm_winner'
 
-  
-  #delete_poster_detail
-  post '/remove_posterdetails', to: 'portal_homeposter_us#remove_posterdetails'       
-  
   #for non existing routes
   get '*path' => redirect('/')
   

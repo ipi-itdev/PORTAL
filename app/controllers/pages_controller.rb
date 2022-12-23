@@ -70,6 +70,9 @@ class PagesController < ApplicationController
     ##end weeksched
 
     @srvy_checker = PorTempSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists?
+        
+    @portal_homeposter_us = PortalHomeposterU.all
+    @portal_homehposter_details = PortalHomeposterDetail.all
 
     #@emp_satis_srvy_checker =  PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? 
   end

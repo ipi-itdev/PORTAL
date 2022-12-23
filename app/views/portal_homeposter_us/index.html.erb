@@ -1,0 +1,264 @@
+<div class="container" >
+      <div class="row" >
+
+        <div class="col-sm-8" >
+
+          <% if @gettodayis == @getuserbday%>
+          <%= session[:portal_homeposter_u_id] = nil  %>
+                <h2><strong>Hello, Juan Dela Cruz!</strong></h2> 
+          <% else %>
+            <h2><strong>Hello, Juan Dela Cruz!!</strong></h2> 
+          <% end  %> 
+        </div>
+
+         
+
+          <div class="col-sm-4">
+              <b>Today is <%= Time.now.strftime("%B %d, %Y - %A") %></b> 
+          </div>
+
+        </div>
+
+
+    <!--advertisement -->
+    <!--end advertisement -->
+
+    
+    <div class="row" >
+    
+
+    <div class="col-sm-8" >
+
+          <!-- start  mobile -->
+          <!---end  mobile -->
+
+
+          <!--- start faq -->
+
+            <div class="panel panel-default" id="panelframe" align="center">
+                <div class="panel-body">
+                  <%= render 'portal_homeposter_us/section1' %>
+                </div>
+                  <div class="panel-footer">
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <%= link_to '<i class="far fa-edit"></i> Edit'.html_safe, "/portal_homeposter_us/#{@portal_homeposter_us.where(HomePosterRefno: 1).pluck(:HomePosterRefno).to_sentence}/edit", class: 'btn btn-primary btn-block btn-sm' %>
+                      </div>                      
+                    </div>
+
+                  </div>
+
+            </div>
+
+          <!--- end faq -->
+
+
+        
+        <!-----start webinar poster --->
+        <div class="panel panel-default"  id="panelframe" align="center">
+          <div  class="panel-body">
+              <%= render 'portal_homeposter_us/section2' %>
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+              <div class="col-sm-12">
+                <%= link_to '<i class="far fa-edit"></i> Edit'.html_safe, "/portal_homeposter_us/#{@portal_homeposter_us.where(HomePosterRefno: 2).pluck(:id).to_sentence}/edit", class: 'btn btn-primary btn-block btn-sm' %>
+              </div>                      
+            </div>
+          </div>
+        </div>
+        <!-----end webinar poster --->
+
+          
+        <!--Job Posting -->
+        <div class="panel panel-default"  id="panelframe" align="center">
+          <div  class="panel-body">
+              <%= render 'portal_homeposter_us/section3' %>
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+              <div class="col-sm-12">
+                <%= link_to '<i class="far fa-edit"></i> Edit'.html_safe, "/portal_homeposter_us/#{@portal_homeposter_us.where(HomePosterRefno: 3).pluck(:id).to_sentence}/edit", class: 'btn btn-primary btn-block btn-sm' %>
+              </div>                      
+            </div>
+          </div>
+        </div>
+        <!--Job Posting -->
+
+
+
+            <!---start poster section -->
+              <div class="panel panel-default" id="panelframe" align="center">
+                <div  class="panel-body">
+                    <%= render 'portal_homeposter_us/section4' %>           
+                </div>
+                <div class="panel-footer">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <%= link_to '<i class="far fa-edit"></i> Edit'.html_safe, "/portal_homeposter_us/#{@portal_homeposter_us.where(HomePosterRefno: 4).pluck(:id).to_sentence}/edit", class: 'btn btn-primary btn-block btn-sm' %>
+                    </div>                      
+                  </div>
+                </div>
+              </div>
+          <!---end poster section -->
+
+
+          <!---start holiday section -->
+          <!--- end holiday section -->
+    </div>
+
+
+    <div class="col-sm-4" >
+
+        <div class="dropdown pc-menu" align="left" >
+          <br>
+          <br>
+          <br>
+ 
+          <div class="panel panel-default" id="panelframe" align="center">
+            <div  class="panel-body">
+              <%= render 'portal_homeposter_us/section5' %>           
+            </div>
+
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-sm-12">
+                  <%= link_to '<i class="far fa-edit"></i> Edit'.html_safe, "/portal_homeposter_us/#{@portal_homeposter_us.where(HomePosterRefno: 5).pluck(:id).to_sentence}/edit", class: 'btn btn-primary btn-block btn-sm' %>
+                </div>                      
+              </div>
+            </div>
+
+          </div>
+    
+          <!--- start VACCINATION JOURNEY.png -->
+          <div class="panel panel-default" id="panelframe" align="center">
+            <div  class="panel-body">
+              <%= render 'portal_homeposter_us/section6' %>           
+            </div>
+
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-sm-12">
+                  <%= link_to '<i class="far fa-edit"></i> Edit'.html_safe, "/portal_homeposter_us/#{@portal_homeposter_us.where(HomePosterRefno: 6).pluck(:id).to_sentence}/edit", class: 'btn btn-primary btn-block btn-sm' %>
+                </div>                      
+              </div>
+            </div>
+
+          </div>
+          <!--- end VACCINATION JOURNEY.png -->
+
+
+        </div> 
+
+
+        <!--- start vac campaign -->
+          <div class="panel panel-default" id="panelframe" align="center">
+            <div  class="panel-body">
+              <%= render 'portal_homeposter_us/section7' %>           
+            </div>
+
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-sm-12">
+                  <%= link_to '<i class="far fa-edit"></i> Edit'.html_safe, "/portal_homeposter_us/#{@portal_homeposter_us.where(HomePosterRefno: 7).pluck(:id).to_sentence}/edit", class: 'btn btn-primary btn-block btn-sm' %>
+                </div>                      
+              </div>
+            </div>
+
+          </div>
+        <!--- end vac campaign -->
+
+
+      <!--- start Telemedicine  --->     
+          <div class="panel panel-default" id="panelframe" align="center">
+            <div  class="panel-body">
+              <%= render 'portal_homeposter_us/section8' %>           
+            </div>
+
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-sm-12">
+                  <%= link_to '<i class="far fa-edit"></i> Edit'.html_safe, "/portal_homeposter_us/#{@portal_homeposter_us.where(HomePosterRefno: 8).pluck(:id).to_sentence}/edit", class: 'btn btn-primary btn-block btn-sm' %>
+                </div>                      
+              </div>
+            </div>
+
+          </div>
+      <!--- end Telemedicine  --->
+
+
+
+    <!--- start video  --->     
+    <div class="panel panel-default" id="panelframe" align="center">
+          <img src="/content_covid.jpg" style="height: 100%; width: 100%;"  >
+          <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#VideoModal" onclick="playVid()">Watch This Video</button>
+
+    </div>
+    <!--- end video  --->
+
+    <!--- start slider --->
+          <div class="panel panel-default" id="panelframe" align="center">
+            <div  class="panel-body">
+              <%= render 'portal_homeposter_us/section9' %>           
+            </div>
+
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-sm-12">
+                  <%= link_to '<i class="far fa-edit"></i> Edit'.html_safe, "/portal_homeposter_us/#{@portal_homeposter_us.where(HomePosterRefno: 9).pluck(:id).to_sentence}/edit", class: 'btn btn-primary btn-block btn-sm' %>
+                </div>                      
+              </div>
+            </div>
+
+          </div>
+    <!--- end slider --->
+
+
+      <div  class="panel panel-warning" id="logopanel">
+
+              <div  class="panel-body" align="center">
+
+               <div class="panel panel-default" id="panelframe" align="center">
+                  <div  class="panel-body">
+                    <%= render 'portal_homeposter_us/section10' %>           
+                  </div>
+
+                  <div class="panel-footer">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <%= link_to '<i class="far fa-edit"></i> Edit'.html_safe, "/portal_homeposter_us/#{@portal_homeposter_us.where(HomePosterRefno: 10).pluck(:id).to_sentence}/edit", class: 'btn btn-primary btn-block btn-sm' %>
+                      </div>                      
+                    </div>
+                  </div>
+
+                </div>
+
+              <hr>
+              <h4 align="center"><strong>Quick Links</strong></h4>
+              <hr>
+              <%= link_to "My Payslip", '/portal_homeposter_us',  :method=> :get %>
+              <br>
+              <%= link_to "Contact Us", '/portal_homeposter_us' %>
+              <br>
+              <%= link_to "Knowledge base", '/portal_homeposter_us' %>
+              <br>
+              <br>
+              Help/Support? <%= link_to "Go to our Support Portal", '/portal_homeposter_us', target: "_blank" %>
+              <br>
+              <%= link_to "Open New Ticket", '/portal_homeposter_us', target: "_blank" %>
+              <br>
+              <%= link_to "Check Ticket Status", '/portal_homeposter_us', target: "_blank" %>
+              </div>
+        </div>
+    </div>
+  </div>
+
+
+</div>
+
+<br>
+<br>
+
+
+
