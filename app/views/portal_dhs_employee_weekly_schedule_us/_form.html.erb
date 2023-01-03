@@ -142,7 +142,7 @@
       //NOT checked
 
       <%= get_yr_uncheck= @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
-      <%= get_mon_uncheck = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%m") %>
+      <%= get_mon_uncheck = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-m") %>
       <%= get_day_uncheck = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
 
       $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").val('<%= get_yr_uncheck %>');
@@ -163,6 +163,8 @@
       $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val('00');
       $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val('00');
       document.getElementById("reset_but").style.display = "block"
+
+      alert('<%= get_mon_uncheck %>');
     }
   }
 
@@ -248,8 +250,8 @@
       <% get_workdate = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date %>
       <% get_workdate_PlusOne = get_workdate.advance(days: 1) %>
       <% get_yr_PlusOne = get_workdate_PlusOne.strftime("%Y") %>
-      <% get_mon_PlusOne = get_workdate_PlusOne.strftime("%m") %>
-      <% get_day_PlusOne = get_workdate_PlusOne.strftime("%d") %>
+      <% get_mon_PlusOne = get_workdate_PlusOne.strftime("%-m") %>
+      <% get_day_PlusOne = get_workdate_PlusOne.strftime("%-d") %>
       $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_yr_PlusOne %>');
       $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('<%= get_mon_PlusOne %>');
       $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_day_PlusOne %>');
@@ -279,8 +281,8 @@
       <% get_workdate = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date %>
       <% get_workdate_PlusOne = get_workdate.advance(days: 1) %>
       <% get_yr_PlusOne = get_workdate_PlusOne.strftime("%Y") %>
-      <% get_mon_PlusOne = get_workdate_PlusOne.strftime("%m") %>
-      <% get_day_PlusOne = get_workdate_PlusOne.strftime("%d") %>
+      <% get_mon_PlusOne = get_workdate_PlusOne.strftime("%-m") %>
+      <% get_day_PlusOne = get_workdate_PlusOne.strftime("%-d") %>
       $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_yr_PlusOne %>');
       $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('<%= get_mon_PlusOne %>');
       $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_day_PlusOne %>');
@@ -321,7 +323,7 @@
         <% if @portal_dhs_employee_weekly_schedule_u.IsRD == true %>
 
           <% get_start_yr1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
-          <% get_start_mon1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%m") %>
+          <% get_start_mon1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-m") %>
           <% get_start_day1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
           <% get_start_hrs1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%H") %>
           <% get_start_mins1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%M") %>
@@ -332,7 +334,7 @@
           $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('<%= get_start_mins1 %>');
 
           <% get_end_yr1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
-          <% get_end_mon1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%m") %>
+          <% get_end_mon1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-m") %>
           <% get_end_day1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
           <% get_end_hrs1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%H") %>
           <% get_end_mins1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%M") %>
@@ -349,7 +351,7 @@
           <% if @portal_dhs_employee_weekly_schedule_u.shift_start.to_date < @portal_dhs_employee_weekly_schedule_u.shift_end.to_date %>
 
             <% get_start_yr2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
-            <% get_start_mon2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%m") %>
+            <% get_start_mon2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-m") %>
             <% get_start_day2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
             $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").val('<%= get_start_yr2 %>');
             $("#portal_dhs_employee_weekly_schedule_u_shift_start_2i").val('<%= get_start_mon2 %>');
@@ -358,7 +360,7 @@
             $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('01');
 
             <% get_end_yr2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
-            <% get_end_mon2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%m") %>
+            <% get_end_mon2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-m") %>
             <% get_end_day2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
            
             $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_end_yr2 %>');
@@ -371,7 +373,7 @@
           <% else %>
 
             <% get_start_yr2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%Y") %>
-            <% get_start_mon2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%m") %>
+            <% get_start_mon2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%-m") %>
             <% get_start_day2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%-d") %>
             <% get_start_hrs2 = @portal_dhs_employee_weekly_schedule_u.shift_start.strftime("%H") %>
             <% get_start_mins2 = @portal_dhs_employee_weekly_schedule_u.shift_start.strftime("%M") %>
@@ -382,7 +384,7 @@
             $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('<%= get_start_mins2 %>');
 
             <% get_end_yr2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%Y") %>
-            <% get_end_mon2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%m") %>
+            <% get_end_mon2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%-m") %>
             <% get_end_day2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%-d") %>
             <% get_end_hrs2 = @portal_dhs_employee_weekly_schedule_u.shift_end.strftime("%H") %>
             <% get_end_mins2 = @portal_dhs_employee_weekly_schedule_u.shift_end.strftime("%M") %>
