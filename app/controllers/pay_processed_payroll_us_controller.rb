@@ -6,7 +6,7 @@ class PayProcessedPayrollUsController < ApplicationController
   prepend_before_action :checkadminloggedin
   prepend_before_action :privacychecker, only: [:index]
   #prepend_before_action :covid_survey_checker
-  prepend_before_action :tempsurvey_checker
+  #prepend_before_action :tempsurvey_checker
   #before_action :checksurvey
   #prepend_before_action :check_ODHD
   #prepend_before_action :media_checker
