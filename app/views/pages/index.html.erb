@@ -142,8 +142,6 @@
 
           </div>
 
-
-
         </div>
 
 
@@ -194,42 +192,13 @@
               <!--DHS -->
 
               <!-- emp satisfaction survey --> 
-
               <!-- emp satisfaction survey -->
               
-              <% hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:EmployeeGroupRefNo ) %>
+              <!--pisaduit -->
+              <!--pisaduit -->
 
-              <% @PisEmploymentInfoU4 = hashPisEmploymentInfoU[0] %>
-
-              <% if @PisEmploymentInfoU4[:EmployeeGroupRefNo] == 1 %>
-                <!--pisaduit -->
-                <% if current_user.done_pisaudit != true %>
-                  <%= link_to 'Employee Information Update', '/pisaudit',class: 'btn btn-primary btn-block btn-lg', method: 'get' %>
-                <% end %>
-                <br>
-                <!--pisaduit -->
-              <% end %>
-
-
-             <!-- <button type="button" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#13thModalmobile">My 13th Month Pay</button>-->
-
- 
-              <% if current_user.DoneBRGY == false %>
-                <%= link_to 'Barangay Hotlines', '/BRGY',class: 'btn btn-primary btn-block btn-lg', method: 'get' %>
-              <% end %>  		
-
-             	 <br>
 
             <!---webinar mobile-->
-            <!--
-              <div class="panel panel-default" id="panelframe" align="center">
-                <img src="/WEBINAR/Mindfulness.png"  style="width:100%;height:100%;">
-  
-               <div class="panel-footer">
-                <%= button_to raw('Click Here To Register'), create_checker_path ,id:'register_button_mobileX', method:'post', class: 'btn btn-primary btn-block btn-lg'%>
-               </div>
-              </div>
-              --> 
             <!---webinar mobile-->
 
             <div class="panel panel-default" id="panelframe" align="center">
@@ -246,11 +215,6 @@
         <!--- start vac campaign -->
         <!--- end vac campaign -->
 
-
-
-
-
-
           </div>
 
 
@@ -258,16 +222,12 @@
             <%= render 'portal_homeposter_us/section1' %> 
           <!--- end faq -->
 
-
-        
         <!-----start webinar poster --->
             <%= render 'portal_homeposter_us/section2' %>
         <!-----end webinar poster --->
-
-
         
-          <!--- start announcement section -->  
-          <!-- end announcement section -->
+        <!--- start announcement section -->  
+        <!-- end announcement section -->
 
           
         <!--Job Posting -->
@@ -276,13 +236,12 @@
 
 
 
-            <!---start poster section -->
-                  <div class="panel panel-default" id="panelframe">
-
-                        <div  class="panel-body">
-				                    <%= render 'pages/poster' %>           
-                        </div>
-                  </div>
+          <!---start poster section -->
+            <div class="panel panel-default" id="panelframe">
+              <div  class="panel-body">
+                <%= render 'pages/poster' %>           
+              </div>
+            </div>
           <!---end poster section -->
 
 
@@ -330,7 +289,6 @@
         <div class="dropdown pc-menu" align="left" >
 
             <!--- vac final list -->
-
             <!--- vac final list --->
 
             <!---start Weeksched desktop -->
@@ -346,30 +304,10 @@
           <!--DHS-->
           
           <!-- emp satisfaction survey --> 
-
           <!-- emp satisfaction survey -->
            
-            
-          <% hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:EmployeeGroupRefNo ) %>
-
-          <% @PisEmploymentInfoU3 = hashPisEmploymentInfoU[0] %>
-
-          <% if @PisEmploymentInfoU3[:EmployeeGroupRefNo] == 1 %> 
-            <!--pisaduit -->
-            <% if current_user.done_pisaudit != true %>
-              <%= link_to 'Employee Information Update', '/pisaudit',class: 'btn btn-primary btn-block btn-lg', method: 'get' %>
-            <% end %>
-            <br>
-            <!--pisaduit -->
-          <% end %>
-
-         <!-- <button type="button" class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#13thModaldesk">My 13th Month Pay</button> -->
-       
-  		    <% if current_user.DoneBRGY == false %>
-             <%= link_to 'Barangay Hotlines', '/BRGY',class: 'btn btn-primary btn-block btn-lg', method: 'get' %>
-          <% end %>  
-          <br>
-
+          <!--pisaduit -->
+          <!--pisaduit -->
 
             <!--- start webinar  desktop --->
             <!--
@@ -485,26 +423,6 @@
 <BR>
 
 
-<!-- Modal poster-->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-
-      <div class="modal-body">
-        <img src="/keep physical and mental healthy.png" class="img-fluid" alt="Responsive image" style="width:100%;height:100%;">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-      </div>
-    </div>
-  </div>
-</div>
-<!--- modal poster -->
-
-
-
-
 <!---- start modal video --->
 
 <!-- Modal -->
@@ -530,63 +448,6 @@
 <!---- end modal video --->
 
 
-<!-- 13Modal -->
-<!--<div class="modal fade" id="13thModalmobile" tabindex="-1" role="dialog" aria-labelledby="13thModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-
-      <div class="modal-body">
-        <iframe src="/thirteenmonth" style="border:none;" title="IframeExpenseDetails" height="510px" width="100%"></iframe>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-
-<!-- 13Modal -->
-<!--<div class="modal fade" id="13thModaldesk" tabindex="-1" role="dialog" aria-labelledby="13thModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-
-      <div class="modal-body">
-        <iframe src="/thirteenmonth" style="border:none;" title="IframeExpenseDetails" height="510px" width="100%"></iframe> 
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-
-
-<!--- hrc winners -->
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#winnerModal" id="winnerbutton" style="visibility: hidden;">
-  .
-</button>
-
-<!-- Modal -->
-<!--<div class="modal fade" id="winnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-           <img src="/hrc_winners.png"  style="width:100%;height:100%;">
-      </div>
-      <div class="modal-footer">
-        <%= link_to 'Close', '/update_user_ad', method: 'post', class:"btn btn-primary" %>
-      </div>
-    </div>
-  </div>
-</div> -->
-<!--- hrc winners -->
 
 
 <script> 
@@ -600,20 +461,6 @@ function pauseVid() {
   vid.pause(); 
 } 
 </script> 
-
-
-<script>
-  //onload page
-function onloadpageFunction() {
-
-  
-  <% if current_user.had_viewed_ads != true %>
-      $("#winnerbutton").click();
-  <% end %>
-
-}
-</script>
-
 
 
 
