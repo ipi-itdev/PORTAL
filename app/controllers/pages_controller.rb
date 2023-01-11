@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
 
+  prepend_before_action :check_weeklysched
   prepend_before_action :check_update_contact
   prepend_before_action :check_poster
   #prepend_before_action :check_dependent_booster
@@ -396,6 +397,21 @@ class PagesController < ApplicationController
       redirect_to '/dependent_booster'
     end
   end
+
+  def check_weeklysched
+    get_current_weeksched = PortalDhsEmployeeWeeklyScheduleU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1, IsNew: 1, IsRD: false )
+
+    if get_current_weeksched.count > 0 
+      get_current_weeksched.each do |current_weeklysched|
+        if current_weeklysched.shift_start >= current_weeklysched.shift_end  
+          flash[:notice] = "Please Review Your Schedules/Shifts"
+          redirect_to '/portal_dhs_employee_weekly_schedule_us' and return
+        end
+      end
+    end
+  end
+
+
 end
 
 

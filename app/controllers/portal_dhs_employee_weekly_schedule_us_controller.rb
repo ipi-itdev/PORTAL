@@ -2,6 +2,7 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_portal_dhs_employee_weekly_schedule_u, only: [:show, :edit, :update, :destroy]
   prepend_before_action :log_login
+  prepend_before_action :check_current_user
 
   # GET /portal_dhs_employee_weekly_schedule_us
   # GET /portal_dhs_employee_weekly_schedule_us.json
@@ -128,7 +129,7 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
     #update_rec = PortalDhsEmployeeWeeklyScheduleU.find_by(ID: params[:id_rec])
     ActiveRecord::Base.connection.execute("exec dbo.spTimeinLogs @EmployeeRefNo = #{params[:emprefno_rec]}, @ID = #{params[:id_rec]}")
     flash[:notice] = 'Time-in Saved'
-    redirect_to '/pages'
+    redirect_to '/portal_dhs_employee_weekly_schedule_us'
   end
 
   def timeout
@@ -140,7 +141,7 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
       else
         ActiveRecord::Base.connection.execute("exec dbo.spTimeoutLogs @EmployeeRefNo = #{params[:emprefno_rec]}, @ID = #{params[:id_rec]}, @Remarks = '#{params[:task_tag].gsub("'","`")}', @WorkLocationRefNo = #{params[:WorkLocationRefNo].to_s}")
         flash[:notice] = 'Time-out Saved'
-        redirect_to '/pages'
+        redirect_to '/portal_dhs_employee_weekly_schedule_us'
       end
 
     else
@@ -309,6 +310,15 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
     @set_workdate_from = session[:WorkDateFrom_session]   
     @set_workdate_to = session[:WorkDateTo_session]
   end
+
+  def check_current_user
+    if user_signed_in? == false
+      flash[:notice] = 'Session ended, Please try to login.'
+      redirect_to '/'
+    else
+      #session[:portal_dtr_upload_id] = 0
+    end    
+  end
   
 
   private
@@ -322,4 +332,6 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
       #params.fetch(:portal_dhs_employee_weekly_schedule_u, {})
       params.require(:portal_dhs_employee_weekly_schedule_u).permit(:ID, :CreatedBy, :ModifiedBy, :CreatedDate, :ModifiedDate, :IsActive, :WorkDate, :WorkSched, :IsRD, :EmployeeRefNo, :newworksched, :sched_id, :shift_start, :shift_end, :time_in, :time_out, :task, :WorkLocationRefNo)
     end
+
+
 end
