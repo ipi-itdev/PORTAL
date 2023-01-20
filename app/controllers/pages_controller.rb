@@ -154,7 +154,7 @@ class PagesController < ApplicationController
 
   private
   def check_update_contact
-    if current_user.UpdatedContactInfo == false
+    if current_user.UpdatedContactInfo != true
       session[:contactedit] = 1
       ActiveRecord::Base.connection.execute("EXEC dbo.PIS_SP_PopulateUpdateContactInPortal @EmployeeRefNo = #{current_user.EmployeeRefNo}")
 
