@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'ot_report_show', to: 'portal_ot_application_details#ot_report_show'
+  get 'ot_report', to: 'portal_ot_application_details#ot_report'
   post '/remove_posterdetails', to: 'portal_homeposter_us#remove_posterdetails'
   post 'later_answer_syssurvey',  to: 'por_surveys#later_answer_syssurvey'
   get 'dtrhistory_ossreport', to: 'portal_dtr_histories#dtrhistory_ossreport'

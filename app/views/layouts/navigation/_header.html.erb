@@ -115,7 +115,8 @@
                                                       <% if current_user.EmployeeGroupRefNo == 2 %>                                                                        
                                                         <li><%= link_to "DTR Timesheet", portal_dhs_employee_weekly_schedule_us_path, :method=> :get %></li>
                                                         <li><%= link_to "Upload DTR", portal_dtr_uploads_path, :method=> :get %></li>                                         
-                                                      <% end %> 
+                                                      <% end %>
+                                                      <li><%= link_to "OT Report", '/ot_report', :method=> :get %></li> 
                                                 </ul>
                                           </li>
                                           <!----end TMS -->

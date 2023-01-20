@@ -120,7 +120,8 @@
                 <li> <%= link_to "Leave Credits", leave_credits_index_path, :method=> :get %> </li>            
                 <li> <%= link_to "Leave Application", portal_leave_applications_path, :method=> :get %> </li>
                 <li> <%= link_to "OT Application", portal_ot_applications_path, :method=> :get %> </li>
-                <li> <%= link_to "OB Application", portal_ob_applications_path, :method=> :get %> </li>                                         
+                <li> <%= link_to "OB Application", portal_ob_applications_path, :method=> :get %> </li>
+                <li><%= link_to "OT Report", '/ot_report', :method=> :get %></li>                                         
 
 
             <% if current_user.EmployeeGroupRefNo == 2 %>                            

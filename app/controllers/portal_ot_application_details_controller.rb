@@ -50,6 +50,41 @@ class PortalOtApplicationDetailsController < ApplicationController
     end
   end
 
+
+  def ot_report
+
+    @testssss = current_user.EmployeeRefNo
+
+    @get_existing_ot = ViewPortalOtreport.where(WorkDate: (params[:WorkDateFrom])..params[:WorkDateTo], EmployeeRefNo: current_user.EmployeeRefNo,  ).order(:WorkDate)
+
+    @get_count_existing_ot = @get_existing_ot.count
+
+    if @get_count_existing_ot <= 0
+      #nothing to do
+    else    
+      session[:WorkDateFrom_session] = params[:WorkDateFrom]
+      session[:WorkDateTo_session] = params[:WorkDateTo]
+
+      @get_otreport_pdf_path = "/ot_report_show.pdf"        
+    end
+
+  end
+
+
+  def ot_report_show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: 'OT_Report',
+               template: "portal_ot_application_details/ot_report_show.html.erb",
+               formats: [:html],
+               disposition: :inline,
+               orientation:'Landscape',
+               footer: { right: "[page] of [topage] - #{DateTime.now.strftime("%m/%d/%Y %H:%M")}" }
+      end
+    end
+  end
+
   private
     def set_portal_ot_application_detail
       @portal_ot_application_detail = PortalOtApplicationDetail.find(params[:id])
