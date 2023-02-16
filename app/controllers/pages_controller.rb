@@ -255,33 +255,35 @@ class PagesController < ApplicationController
   end
 
   def check_weeksched
-    if ActiveRecord::Base.connection.exec_query("Select CompanyRefNo from dbo.GEN_Company_M WHERE IsActive = 1").rows[0][0] == 1
-      hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:ClientAccountRefNo, :PayFrequencyRefNo , :BasicRate, :EmployeeGroupRefNo, :JobPosition,:DepartmentRefNo, :PayrollRateRefNo )
-      @PisEmploymentInfoU1 = hashPisEmploymentInfoU[0]
+    if current_user.EmployeeRefNo != 0
+      if ActiveRecord::Base.connection.exec_query("Select CompanyRefNo from dbo.GEN_Company_M WHERE IsActive = 1").rows[0][0] == 1
+        hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:ClientAccountRefNo, :PayFrequencyRefNo , :BasicRate, :EmployeeGroupRefNo, :JobPosition,:DepartmentRefNo, :PayrollRateRefNo )
+        @PisEmploymentInfoU1 = hashPisEmploymentInfoU[0]
 
-      get_if_clientrefno_hasweeklysched = GenClientAccountM.where(HasWeeklySched: 1, IsActive: 1)
+        get_if_clientrefno_hasweeklysched = GenClientAccountM.where(HasWeeklySched: 1, IsActive: 1)
 
-      if @PisEmploymentInfoU1[:EmployeeGroupRefNo] == 1
-        #if internal emp
-        if current_user.sched_confirmed != true && current_user.fixed_sched != true
-          redirect_to '/schedule_confirmation'
-        end
-
-      else
-        #if external with HasWeeklySched flag = true
-        get_if_clientrefno_hasweeklysched = GenClientAccountM.where(HasWeeklySched: 1, IsActive: 1, ClientAccountRefNo: @PisEmploymentInfoU1[:ClientAccountRefNo]).exists?
-        if get_if_clientrefno_hasweeklysched == true
+        if @PisEmploymentInfoU1[:EmployeeGroupRefNo] == 1
+          #if internal emp
           if current_user.sched_confirmed != true && current_user.fixed_sched != true
             redirect_to '/schedule_confirmation'
           end
+
+        else
+          #if external with HasWeeklySched flag = true
+          get_if_clientrefno_hasweeklysched = GenClientAccountM.where(HasWeeklySched: 1, IsActive: 1, ClientAccountRefNo: @PisEmploymentInfoU1[:ClientAccountRefNo]).exists?
+          if get_if_clientrefno_hasweeklysched == true
+            if current_user.sched_confirmed != true && current_user.fixed_sched != true
+              redirect_to '/schedule_confirmation'
+            end
+          end
+        end
+
+      else
+        if current_user.sched_confirmed != true && current_user.fixed_sched != true
+          redirect_to '/schedule_confirmation'
         end
       end
-
-    else
-      if current_user.sched_confirmed != true && current_user.fixed_sched != true
-        redirect_to '/schedule_confirmation'
-      end
-    end
+    end 
   end
 
   def check_ros_survey
