@@ -100,3 +100,6 @@ gem 'email_validator'
 #html to pdf
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary' 
+
+#save attachment ftp
+gem 'carrierwave-ftp', '~> 0.4.1' 
