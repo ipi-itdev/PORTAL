@@ -5,8 +5,8 @@ CarrierWave.configure do |config|
   #config.ftp_port = 21
   config.ftp_user = Rails.application.credentials.ftp_user
   config.ftp_passwd = Rails.application.credentials.ftp_password
-  config.ftp_folder = "/tmsprhi"
-  config.ftp_url = 'https://prhitms.ipiphil.com/'
+  config.ftp_folder = "/tms"
+  config.ftp_url = 'https://tms.ipiphil.com'
   config.ftp_passive = false # false by default
   config.ftp_tls = false # false by default
   config.ftp_chmod = false
