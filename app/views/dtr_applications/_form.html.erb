@@ -24,7 +24,7 @@
           </div>
         <% end %>
 
-        <% session[:dtr_application_id] = @dtr_application.DTRApplicationRefNo %>
+        <% session[:dtr_app_id] = @dtr_application.DTRApplicationRefNo %>
         <% session[:dtr_detail_id] = @dtr_application.DTRDetailRefNo %>
         <% session[:dtr_application_employeerefno] = @dtr_application.EmployeeRefNo %>
         <% session[:dtr_remarks] = "" %>
@@ -43,6 +43,8 @@
                     <div class="row">                                              
                       <div class="col-sm-12" >
                         <strong>ID: </strong> <%= @dtr_application.ID %>
+                        <br>
+
                       </div>
                     </div>
 
@@ -54,7 +56,6 @@
                       </div>
                     </div>
 
-                    <br> 
 
                     <div class="row">                      
                       <div class="col-sm-12" >
@@ -148,8 +149,8 @@
                 <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;" >
               <% end %>
 
-                <div id="dtrdetails"> 
-                  <iframe src="/dtr_application_details?dtr_id=<%= @get_edit_id.to_param %>" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
+                <div id="dtrdetails">
+                  <iframe src="/dtr_application_details?dtr_app_id=<%= @dtr_application.DTRApplicationRefNo %>&employeerefno=<%= @dtr_application.EmployeeRefNo %>" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
                 </div>
 
                 <div id="dtrattachment" style="display: none">
@@ -168,3 +169,4 @@
 
 <br>
 <br>
+

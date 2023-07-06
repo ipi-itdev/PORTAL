@@ -16,13 +16,18 @@
       </div>
     </div>
 
-    <strong>DTR Details</strong>  
+    <strong>DTR Details </strong>
+    <small> - <%= PisEmployeeU.where(EmployeeRefNo: @hash_url[:employeerefno]).pluck(:Description).to_sentence %> </small> 
+    <br>
+    <br>
     <div class="table-responsive">
       <table class="table table-striped table-condensed" id="dtr_application_detail_table">    
         <thead>
           <tr>
             <th ><small><b>ID</b></small></th>
             <th id="datetabheader"><small><b>Date</b></small></th>
+            <th ><small><b>Shift Start</b></small></th>
+            <th ><small><b>Shift End</b></small></th>
             <th ><small><b>Status</b></small></th>
             <th ><small><b>Time in</b></small></th>
             <th ><small><b>Time out</b></small></th>
@@ -46,13 +51,25 @@
             <% end %>
 
               <td><small><%= dtr_application_detail.ID %></small></td>
-              <td ><small><%= dtr_application_detail.WorkDate.strftime("%m/%d/%Y") %></small></td>              
+              <td ><small><%= dtr_application_detail.WorkDate.strftime("%m/%d/%Y") %></small></td>
+              <% if dtr_application_detail.ShiftStart.blank? == true %>
+                <td ><small> - </small></td>
+              <% else %>
+                <td ><small><%= dtr_application_detail.ShiftStart.strftime("%m/%d/%Y - %I:%M %p")%></small></td>
+              <% end %> 
+
+              <% if dtr_application_detail.ShiftEnd.blank? == true %>
+                <td ><small> - </small></td>
+              <% else %>
+                <td ><small><%= dtr_application_detail.ShiftEnd.strftime("%m/%d/%Y - %I:%M %p") %></small></td>
+              <% end %>              
               <td ><small><%= dtr_application_detail.DayStatus %></small></td>
-              <td ><small><%= dtr_application_detail.TimeIn.try(:strftime,"%I:%M %p") %></small></td>
+              <td ><small><%= dtr_application_detail.TimeIn.try(:strftime,"%I:%M %p") %></small></td> 
               <td ><small><%= dtr_application_detail.TimeOut.try(:strftime,"%I:%M %p") %></small></td>
               <td ><small><%= dtr_application_detail.Remarks %></small></td>
               <td align="center">                    
-                <%= link_to '<i></i>'.html_safe, edit_dtr_application_detail_path(dtr_application_detail), class: 'far fa-edit btn btn-primary', data: { confirm: 'Are you sure? test' }, "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Edit" %>                
+
+                <a class="far fa-edit btn btn-primary" data-confirm="Are you sure? test" data-toggle="tooltip" data-placement="top" title="Edit" href="/dtr_application_details/<%= dtr_application_detail.ID %>/edit?emprefno=<%= @hash_url[:employeerefno] %>&base_id=<%= @hash_url[:dtr_app_id] %>"><i></i></a>                
               </td>
             </tr>
           <% end %>

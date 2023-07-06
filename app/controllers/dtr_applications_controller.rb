@@ -4,6 +4,8 @@ class DtrApplicationsController < ApplicationController
 
   def index
     @dtr_applications = DtrApplication.find_by_sql("select * from dbo.TMS_FN_DTRApprovalPortal(#{current_user.EmployeeRefNo})")
+    session[:set_base_dtr_approval_id] = ''
+    session[:set_base_emprefno] = ''
   end
 
   def edit
@@ -18,7 +20,7 @@ class DtrApplicationsController < ApplicationController
     #ActiveRecord::Base.connection.exec_query("EXEC dbo.TMS_SP_PortalDTRApproval #{current_user.EmployeeRefNo}, #{params[:dtr_id]}, #{params[:dtr_employee]}")
     ActiveRecord::Base.connection.execute("exec dbo.pTMSApplicationApproval @TMSType = 1, @ID =  #{params[:dtr_detail_id]}, @UserRefNo = '#{current_user.EmployeeRefNo}', @Status = 40, @Remarks = ''")
     
-    flash[:notice] = "Application approved."
+    flash[:notice] = "Application appxroved."
     redirect_to dtr_applications_path
   end
 

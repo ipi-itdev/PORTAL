@@ -33,10 +33,11 @@
       <% end %>
 
       <div class="row">
-        <div class="col-sm-6" >        
-          <%= form.hidden_field :WeeklyScheduleRefNo, value: session[:dtr_application_id] %>
-          <%= form.hidden_field :ModifiedBy, value: current_user.EmployeeRefNo %>        
-                            
+        <div class="col-sm-6" >                    
+          <%= form.hidden_field :WeeklyScheduleRefNo, value: session[:dtr_app_id] %>
+          <%= form.hidden_field :ModifiedBy, value: current_user.EmployeeRefNo %>
+          <%= hidden_field_tag "base_id", "#{@hash_url_edit[:base_id]}" %>
+          <%= hidden_field_tag "emprefno", "#{@hash_url_edit[:emprefno]}" %>
           <small><%= form.date_field :WorkDate, label: 'Date', :disabled => true %></small>         
         </div> 
         
@@ -82,11 +83,12 @@
             <script type="text/javascript">
               $(document).submit(function() {
                 $( "#submit_detail_but" ).prop('disabled', true);
+                $( "#dtr_detail_back_but" ).prop('disabled', true);
               });                      
             </script>
 
             <div class="col-sm-6" >
-              <%= link_to 'Back to List', dtr_application_details_path, class:'btn btn-primary btn-sm btn-block' %>
+              <%= link_to 'Back to List', "/dtr_application_details?dtr_app_id=#{@hash_url_edit[:base_id]}&employeerefno=#{@hash_url_edit[:emprefno]} ", class:'btn btn-primary btn-sm btn-block', method: 'get', type:  'button', id:'dtr_detail_back_but' %>
             </div>
           </div>
         </div>
