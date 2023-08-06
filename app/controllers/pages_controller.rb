@@ -11,7 +11,7 @@ class PagesController < ApplicationController
   #prepend_before_action :check_user_viewed_ads
   #prepend_before_action :tempsurvey_checker
   prepend_before_action :check_covidbulletin
-  #prepend_before_action :check_webinar_reg
+  prepend_before_action :check_webinar_reg
   prepend_before_action :check_vaccampaign
   #prepend_before_action :checker_oldpass
   prepend_before_action :checkadminloggedin, only: [:index]
@@ -329,10 +329,15 @@ class PagesController < ApplicationController
   end
 
   def check_webinar_reg
-    user_webinareg_value = User.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:webinareg_later).to_sentence
+      get_portalads_value = ActiveRecord::Base.connection.exec_query("select Value  from TMS_Settings_U tsu where SettingsRefNo = 67 and IsActive = 1").rows[0][0].to_i
 
-    if user_webinareg_value != 'true'
-      redirect_to portal_tempwebinars_path
+    if  get_portalads_value == 1
+        get_emp_group =  PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck(:EmployeeGroupRefNo).to_sentence
+        if get_emp_group == '1'
+            if PortalTempwebinar.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
+              redirect_to '/portal_tempwebinars/new'
+            end
+        end
     end
   end
 

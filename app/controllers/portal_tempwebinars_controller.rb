@@ -17,17 +17,13 @@ class PortalTempwebinarsController < ApplicationController
   # GET /portal_tempwebinars/new
   def new
 
-      update_user = User.where(EmployeeRefNo: current_user.EmployeeRefNo)
-      update_user.update(webinareg_later: 1)
 
-      get_fillingstatus_exists = PortalTempwebinar.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:webinar_refno).to_sentence
+      get_fillingstatus_exists = PortalTempwebinar.where(EmployeeRefNo: current_user.EmployeeRefNo).exists?
 
-      if get_fillingstatus_exists.to_i == 6
+      if get_fillingstatus_exists == true
         flash[:notice] = "Record Already Exists1"
            redirect_to '/pages'
       else
-
-            #flash[:notice] = "Sorry but you had already cancelled a previous registraion "
             @portal_tempwebinar = PortalTempwebinar.new
       end
 
@@ -58,37 +54,16 @@ class PortalTempwebinarsController < ApplicationController
   def create
     @portal_tempwebinar = PortalTempwebinar.new(portal_tempwebinar_params)
 
-    check_last_webinar = PortalTempwebinar.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:webinar_refno).last
-
-    check_employee = PortalTempwebinar.where(EmployeeRefNo: @portal_tempwebinar.EmployeeRefNo).exists?
-    get_existing_id = PortalTempwebinar.where(EmployeeRefNo: @portal_tempwebinar.EmployeeRefNo).pluck(:id).to_sentence
-
-    if check_employee == true && check_last_webinar == 6
-
-      flash[:notice] = "Registration Already Exists"
-      redirect_to pages_path
-      #redirect_to "/portal_tempwebinars/#{get_existing_id}/edit"
-    
-    else
-
       respond_to do |format|
         if @portal_tempwebinar.save
 
-          format.html { redirect_to '/portal_tempwebinars/thank_you', notice: "Registration successfully created." }
+          format.html { redirect_to '/pages', notice: "Thank You!" }
           format.json { render :show, status: :created, location: @portal_tempwebinar }
         else
           format.html { render :new }
           format.json { render json: @portal_tempwebinar.errors, status: :unprocessable_entity }
         end
-
       end
-      
-    end
-
-
-
-
-
   end
 
   # PATCH/PUT /portal_tempwebinars/1
@@ -204,7 +179,7 @@ class PortalTempwebinarsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def portal_tempwebinar_params
-      params.require(:portal_tempwebinar).permit(:EmployeeRefNo, :Name, :Email, :Nickname, :Mobilenumber, :PossibleQuestion, :HadRegistered, :webinar_refno)
+      params.require(:portal_tempwebinar).permit(:EmployeeRefNo, :Name, :Email, :Nickname, :Mobilenumber, :PossibleQuestion, :HadRegistered, :webinar_refno, :answer)
     end
 end
 

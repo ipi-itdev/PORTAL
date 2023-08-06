@@ -27,27 +27,72 @@ background: rgb(103, 58, 183);
 }
 
 
+.input-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+input[type=radio]:checked + label>img {
+  border: 1px solid #fff;
+  box-shadow: 0 0 3px 3px #090;
+}
+
+/* Stuff after this is only to make things more pretty */
+input[type=radio] + label>img {
+  border: 1px dashed #444;
+  width: 200px;
+  height: 150px;
+  transition: 500ms all;
+}
+
+input[type=radio]:checked + label>img {
+  transform: 
+    rotateZ(-10deg) 
+    rotateX(10deg);
+}
+
+/*
+ | //lea.verou.me/css3patterns
+ | Because white bgs are boring.
+*/
+html {
+  background-color: #fff;
+  background-size: 100% 1.2em;
+  background-image: 
+    linear-gradient(
+      90deg, 
+      transparent 79px, 
+      #abced4 79px, 
+      #abced4 81px, 
+      transparent 81px
+    ),
+    linear-gradient(
+      #eee .1em, 
+      transparent .1em
+    );
+}
+
+
+
 </style>
 
 
 
 <div class="container"> 
  <div class="row">
-    <div class="col-sm-3" >
+    <div class="col-sm-2" >
       
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-8">
 
       <div class="panel panel-default" id="panelwebinar">
-        <div class="panel-heading" id="panelheaderwebinar"></div>
         <div class="panel-body">
           <%= bootstrap_form_with(model: portal_tempwebinar, local: true) do |form| %>
 
-          <p id="header_one" align="center"><b>Talk to the Experts:</b></p>
-          <p id="header_one" align="center"><b>Mindfulness At Work</b></p>
-          <p id="header_two" align="center"><b>with Coach Angel Manalo, RN </b></p>
-          <p id="header_two" align="center">March 18, 2022 (Friday) | 4:00 pm via MS Teams  </p>
+          <p id="header_one" align="center"><b>Your thought matters!</b></p>
+          <p id="header_one" align="center"><b>Kindly participate in our survey to help us shape the perfect Christmas Party Theme by choosing  from the option below</b></p>
+
         </div>
       </div>
   
@@ -57,43 +102,59 @@ background: rgb(103, 58, 183);
       <div class="panel panel-default" id="panelwebinar">
         <div class="panel-body">
           <%= form.hidden_field :EmployeeRefNo, value: current_user.EmployeeRefNo %>
-          <%= form.hidden_field :webinar_refno, value: 6 %>
+          <%= form.hidden_field :webinar_refno, value: 1 %>
 
-          <% emp_details = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:Description).to_sentence %>
-          <% emp_details1 = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:NickName).to_sentence %>
-          <% getfname  = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:FirstName).to_sentence %>
-          <% get_mobile  = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:MobileNumber).to_sentence %>
-          <% get_email  = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo).pluck(:PersonalEmailAddress).to_sentence %>
-
-          <h4>Name: <%= emp_details %> </h4>
-
-          <% if emp_details1.empty? == true %>
-            <h4>Nickname: <%= getfname %> </h4>
-            <%= form.hidden_field :Nickname, value: getfname %>
-          <% else %>
-            <h4>Nickname: <%= emp_details1 %> </h4>
-            <%= form.hidden_field :Nickname, value:  emp_details1 %>
-          <% end %>
-          <%= form.hidden_field :Name, value: emp_details %>
           <hr>
+          
+          
 
           <div class="row">
-            <div class="col-sm-6" >
-              <p id="webinar_required"> *</p>
-              <%= form.text_field :Email, value: get_email, label:'Email Address', placeholder:'Your Answer'  %>
+
+
+            <div class="col-sm-4" align="center" >
+
+  
+              <input type="radio" name="portal_tempwebinar[answer]" id="portal_tempwebinar_answer_1" class="input-hidden" value="1" onclick="checkRadio()" />
+              <label for="portal_tempwebinar_answer_1">
+                <img 
+                  src="/christmas_post/filipiniana.png" alt="I'm sad" />
+                  <h1>Modern Filipiana</h1>
+              </label>
+
+            </div> 
+
+
+            <div class="col-sm-4" align="center">
+
+              <input type="radio" name="portal_tempwebinar[answer]" id="portal_tempwebinar_answer_2" class="input-hidden" value="2" onclick="checkRadio()" />
+              <label for="portal_tempwebinar_answer_2">
+                <img 
+                  src="/christmas_post/panjama.png" alt="I'm sad" />
+                  <h1>Pajama Party</h1>
+              </label>
               
             </div>
-            <div class="col-sm-6" >
-              <%= form.text_field :Mobilenumber, value: get_mobile, label:'Mobile Number', placeholder:'Your Answer' %>
-            </div>
+
+
+            <div class="col-sm-4" align="center">
+
+              <input type="radio" name="portal_tempwebinar[answer]" id="portal_tempwebinar_answer_3" class="input-hidden" value="3" onclick="checkRadio()" />
+              <label for="portal_tempwebinar_answer_3">
+                <img 
+                  src="/christmas_post/masquerade.png" alt="I'm sad" />
+                  <h1>Christmas Masquerade</h1>
+              </label>
+              
+            </div>      
+
+
           </div>
 
-          <%= form.text_area :PossibleQuestion, label:'Your possible questions to the speaker during the Live Webinar' %>
-
+          <p style="color: red;">*click on the images</p>
           <div class="row">
             <div class="col-sm-12" >
 
-             <input type="submit" name="commit" value=" &#x2714; Submit" class="btn btn-primary  btn-block" id="submit_button" data-disable-with="Saving..."> 
+             <input type="submit" name="commit" value=" &#x2714; Submit" class="btn btn-success  btn-block" id="submit_button" data-disable-with="Saving..."> 
 
             </div>
           
@@ -111,15 +172,33 @@ background: rgb(103, 58, 183);
       <br>
       <br>
 
-    </div>
 
 
     </div>
 
-    <div class="col-sm-3" >
+
+    </div>
+
+    <div class="col-sm-2" >
       
     </div>
  </div>
+
+ <script type="text/javascript">
+    function checkRadio(){
+      $( "#submit_button" ).prop('disabled', false);
+    }
+
+ </script>
+
+ <script type="text/javascript">
+       
+    // A $( document ).ready() block.
+    $( document ).ready(function() {
+        $( "#submit_button" ).prop('disabled', true);
+        console.log( "ready!" );
+    });
+ </script>
 
 
 
