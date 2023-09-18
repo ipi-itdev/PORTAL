@@ -66,6 +66,46 @@ class PortalLeaveApplicationDetailsController < ApplicationController
     end
   end
 
+  def leave_report
+
+    @testssss = current_user.EmployeeRefNo
+
+
+    @portal_leave_applications = ViewPortalGetEmpLeaveDetail.where(EmployeeRefNo: current_user.EmployeeRefNo, WorkDate: params[:WorkDateFrom]..params[:WorkDateTo])
+
+    #@get_count_existing_ot = @portal_leave_applications.count
+    @get_count_existing_leave = @portal_leave_applications.count
+
+
+    if @get_count_existing_leave <= 0
+      #nothing to do
+    else    
+      session[:WorkDateFrom_session] = params[:WorkDateFrom]
+      session[:WorkDateTo_session] = params[:WorkDateTo]
+
+      @get_leavereport_pdf_path = "/leave_report_show.pdf"        
+    end
+
+  end
+
+
+  def leave_report_show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: 'Leave_Report',
+               template: "portal_leave_application_details/leave_report_show.html.erb",
+               formats: [:html],
+               disposition: :inline,
+               orientation:'Landscape',
+               footer: { right: "[``page] of [topage] - #{DateTime.now.strftime("%m/%d/%Y %H:%M")}" }
+      end
+    end
+  end
+
+
+  
+
   private
     def set_portal_leave_application_detail
       @portal_leave_application_detail = PortalLeaveApplicationDetail.find(params[:id])

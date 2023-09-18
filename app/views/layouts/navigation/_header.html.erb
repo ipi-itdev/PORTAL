@@ -6,7 +6,7 @@
                   <div class="col-sm-5" align="left">
                         <div class="dropdown pc-menu" align="left" >       
 	                        <% if activecompany  == 1%>
-	                              <%= image_tag image_url("logo.png"), id: 'ipidesklogo' %>
+	                              <%= image_tag image_url("/pea6.PNG"), id: 'ipidesklogo' %>
 	                        <% elsif activecompany  == 4 %>
 	                        	<%= image_tag image_url("/pits_14.PNG"), id: 'pitsheaderlogodesk1' %>
 	                        <% elsif activecompany  == 2%>
@@ -18,7 +18,7 @@
                         </div>
                   </div>
 
-                  <% if session[:currentuser_employeestatusrefno]  == 2 %>
+                  <% if current_user.IsResigned  == true %>
                         <div class="col-sm-5" >
                               <div class="dropdown pc-menu" align="left" >                    
                                     <ul class="nav navbar-nav">                        
@@ -116,7 +116,9 @@
                                                         <li><%= link_to "DTR Timesheet", portal_dhs_employee_weekly_schedule_us_path, :method=> :get %></li>
                                                         <li><%= link_to "Upload DTR", portal_dtr_uploads_path, :method=> :get %></li>                                         
                                                       <% end %>
-                                                      <li><%= link_to "OT Report", '/ot_report', :method=> :get %></li> 
+                                                      <li><%= link_to "OT Report", '/ot_report', :method=> :get %></li>
+                                                      <li><%= link_to "Leave Report", '/leave_report', :method=> :get %></li> 
+
                                                 </ul>
                                           </li>
                                           <!----end TMS -->
@@ -177,7 +179,7 @@
             <div class="col-sm-2">                         
                   <div class="mobile-menu" >
 		            <% if activecompany  == 1%>
-	                        <%= image_tag image_url("logo.png"), id: 'ipimobilelogo' %>
+	                        <%= image_tag image_url("/pea6.PNG"), id: 'ipimobilelogo' %>
 		            <% elsif activecompany  == 4%>
 		            	<%= image_tag image_url("/pits_14.PNG"), id: 'pitsheaderlogomobile1' %>
 		            <% elsif activecompany  == 2%>

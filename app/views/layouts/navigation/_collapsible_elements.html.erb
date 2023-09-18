@@ -24,7 +24,7 @@
 
         <% else %>
           <ul  class="dropdown-menu" role="menu" >
-            <% if session[:currentuser_employeestatusrefno]  != 2 %>
+            <% if current_user.IsResigned  == true %>
               <li><%= link_to 'Change Password', user_edit_password_path  %></li>
             <% end %>
           
@@ -33,7 +33,7 @@
         <% end %>
 
       </li>
-        <% if session[:currentuser_employeestatusrefno]  == 2 %>
+        <% if current_user.IsResigned == true %>
           <li class="mobile-menu">
             <strong><%= link_to ' My Payslip', pay_processed_payroll_us_path, :method=> :get %></strong>
           </li>
@@ -121,7 +121,8 @@
                 <li> <%= link_to "Leave Application", portal_leave_applications_path, :method=> :get %> </li>
                 <li> <%= link_to "OT Application", portal_ot_applications_path, :method=> :get %> </li>
                 <li> <%= link_to "OB Application", portal_ob_applications_path, :method=> :get %> </li>
-                <li><%= link_to "OT Report", '/ot_report', :method=> :get %></li>                                         
+                <li><%= link_to "OT Report", '/ot_report', :method=> :get %></li>
+                <li><%= link_to "Leave Report", '/leave_report', :method=> :get %></li>                                           
 
 
             <% if current_user.EmployeeGroupRefNo == 2 %>                            
@@ -184,7 +185,7 @@
       <% end %>
 
       <li class="mobile-menu">
-        <% if session[:currentuser_employeestatusrefno]  != 2 %>
+        <% if current_user.IsResigned ==  false %>
           <strong><%= link_to ' Change Password', user_edit_password_path  %></strong>
         <% end %>
       </li>
