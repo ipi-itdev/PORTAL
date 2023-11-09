@@ -9,7 +9,7 @@ class PagesController < ApplicationController
   #prepend_before_action :emp_satis_survey_checker
   #prepend_before_action :check_user_tagconfirm
   #prepend_before_action :check_user_viewed_ads
-  #prepend_before_action :tempsurvey_checker
+  prepend_before_action :tempsurvey_checker
   prepend_before_action :check_covidbulletin
   prepend_before_action :check_webinar_reg
   prepend_before_action :check_vaccampaign
@@ -136,8 +136,11 @@ class PagesController < ApplicationController
   ##temp survey
   private
   def tempsurvey_checker
-    if PorTempSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
-      redirect_to hrc_effectiveness_survey_path and return
+    @get_HREFSUR_value = ActiveRecord::Base.connection.exec_query("select Value from TMS_Settings_U tsu where SettingsRefNo = 68 and Code = 'HREFSURV';").rows[0][0]
+    if @get_HREFSUR_value.to_s == '1'
+      if PorTempSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
+        redirect_to hrc_effectiveness_survey_path and return
+      end
     end
   end
   ##temp survey
