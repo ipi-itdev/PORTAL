@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   prepend_before_action :check_poster
   #prepend_before_action :check_dependent_booster
   #prepend_before_action :check_get_vac_booster
-  #prepend_before_action :emp_satis_survey_checker
+  prepend_before_action :emp_satis_survey_checker
   #prepend_before_action :check_user_tagconfirm
   #prepend_before_action :check_user_viewed_ads
   prepend_before_action :tempsurvey_checker
@@ -383,10 +383,14 @@ class PagesController < ApplicationController
   #emp satisfaction survey
   private
   def emp_satis_survey_checker
-    emp_satis_surveycheck = PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists?
-    if emp_satis_surveycheck.blank? == true
-      redirect_to '/portal_employee_satisfaction_surveys/intro' 
+    @EMPSATISSURV = ActiveRecord::Base.connection.exec_query("select Value from TMS_Settings_U tsu where SettingsRefNo = 69 and Code = 'EMPSATISSURV';").rows[0][0]
+    if @EMPSATISSURV.to_s == '1'
+      emp_satis_surveycheck = PortalEmployeeSatisfactionSurvey.where(EmployeeRefNo: current_user.EmployeeRefNo).exists?
+      if emp_satis_surveycheck.blank? == true
+        redirect_to '/portal_employee_satisfaction_surveys/intro' 
+      end
     end
+
   end
   #emp satisfaction survey
 
