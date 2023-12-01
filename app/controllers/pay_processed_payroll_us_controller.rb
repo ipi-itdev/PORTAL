@@ -40,6 +40,7 @@ class PayProcessedPayrollUsController < ApplicationController
       ##bir2316
 
       ##13thmonth
+      @get_13thmonth_yr =  ActiveRecord::Base.connection.exec_query("select Value  from TMS_Settings_U tsu where SettingsRefNo = 71 and Code = '13THMONYR'")
       @get_emp_13thmonth  = PayViewReportThirteenthMonthDetail.where(EmployeeRefNo: current_user.EmployeeRefNo, YEAR: '2022')
       ##13thmonth
   
