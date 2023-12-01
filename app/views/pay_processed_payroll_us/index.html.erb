@@ -281,10 +281,17 @@
             </tr>
 
             <tr>
-              
+
               <!--13th -->
               <td>
-                <a target="_blank" data-toggle="modal" data-target="#13thmonthModal" class="blinking" title = "Click Here to view 13th Month" rel = "tooltip">*View 13th Monthpay(2022)</a>
+                
+                <% get_13thmonth_switch =  ActiveRecord::Base.connection.exec_query("select Value  from TMS_Settings_U tsu where SettingsRefNo = 70  ")%>
+
+
+
+                <% if get_13thmonth_switch.rows[0][0].to_s == '1'   %>
+                    <a target="_blank" data-toggle="modal" data-target="#13thmonthModal" class="blinking" title = "Click Here to view 13th Month" rel = "tooltip">*View 13th Monthpay(<%= @get_13thmonth_yr.rows[0][0]   %>)</a>
+                <% end %>
               </td>  
               <!--13th -->
 
@@ -296,7 +303,7 @@
             <tr>
               <!--bir -->
               <td>
-                <a target="_blank" href="<%= @BIRlink %>">*View BIR2316-YR2022</a><a type="button" data-toggle="modal" data-target="#birModal" title = "How to get the BIR2316 Password" rel = "tooltip" ><ic class="glyphicon glyphicon-info-sign "  ></ic></a> 
+                <a target="_blank" href="<%= @BIRlink %>">*View BIR2316-YR2021</a><a type="button" data-toggle="modal" data-target="#birModal" title = "How to get the BIR2316 Password" rel = "tooltip" ><ic class="glyphicon glyphicon-info-sign "  ></ic></a> 
               </td>  
               <!--bir -->
             </tr>
