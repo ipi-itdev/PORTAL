@@ -1,0 +1,1 @@
+json.partial! "inv_emp_accountability_us/inv_emp_accountability_u", inv_emp_accountability_u: @inv_emp_accountability_u

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+
+  resources :inv_emp_accountability_us
   get 'leave_report_show', to: 'portal_leave_application_details#leave_report_show'
   get 'leave_report', to: 'portal_leave_application_details#leave_report'
   get 'ot_report_show', to: 'portal_ot_application_details#ot_report_show'
