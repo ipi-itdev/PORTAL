@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-
+    
+  get 'workschedreportpdf', to: 'portal_dhs_employee_weekly_schedule_us#workschedreportpdf'
+  get 'workschedreport', to: 'portal_dhs_employee_weekly_schedule_us#workschedreport'
   resources :inv_emp_accountability_us
   get 'leave_report_show', to: 'portal_leave_application_details#leave_report_show'
   get 'leave_report', to: 'portal_leave_application_details#leave_report'

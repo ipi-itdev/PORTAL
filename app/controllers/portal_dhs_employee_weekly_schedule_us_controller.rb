@@ -25,7 +25,9 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
   def weekschedhist
     @testssss = current_user.EmployeeRefNo
     
-    @get_existing_sched = PortalDhsEmployeeWeeklyScheduleU.where(WorkDate: (params[:WorkDateFrom])..params[:WorkDateTo], EmployeeRefNo: current_user.EmployeeRefNo ).order(:WorkDate)
+    #@get_existing_sched = PortalDhsEmployeeWeeklyScheduleU.where(WorkDate: (params[:WorkDateFrom])..params[:WorkDateTo], EmployeeRefNo: current_user.EmployeeRefNo ).order(:WorkDate)
+    @get_existing_sched = DtrWeeklysched.where(WorkDate: (params[:WorkDateFrom])..params[:WorkDateTo], EmployeeRefNo: current_user.EmployeeRefNo ).order(:WorkDate)
+
 
       #set workdate
       @get_count_existing_sched = @get_existing_sched.count
@@ -36,7 +38,7 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
         session[:WorkDateFrom_session] = params[:WorkDateFrom]
         session[:WorkDateTo_session] = params[:WorkDateTo]
 
-        @get_worksched_pdf_path = "/portal_dhs_employee_weekly_schedule_us/#{@get_existing_sched.ids.first}.pdf"        
+        #@get_worksched_pdf_path = "/portal_dhs_employee_weekly_schedule_us/#{@get_existing_sched.ids.first}.pdf"        
       end
   end
 
@@ -318,6 +320,27 @@ class PortalDhsEmployeeWeeklyScheduleUsController < ApplicationController
     else
       #session[:portal_dtr_upload_id] = 0
     end    
+  end
+
+
+  def workschedreport
+
+  end
+
+
+  def workschedreportpdf
+    respond_to do |format|
+      format.html
+      format.pdf do
+
+        render pdf: 'WorkSchedReportPDF',
+               template: "portal_dhs_employee_weekly_schedule_us/workschedreportpdf.html.erb",
+               formats: [:html],
+               disposition: :inline,
+               orientation:'Landscape',
+               footer: { right: "[page] of [topage] - #{DateTime.now.strftime("%m/%d/%Y %H:%M")}" }
+      end
+    end
   end
   
 
