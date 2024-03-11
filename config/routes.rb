@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
 
     
+  get 'portal_bir_uploaded_list', to: 'portal_bir_upload_details#portal_bir_uploaded_list'  
+  get 'portal_bir_upload_confirmed', to: 'portal_bir_upload_details#portal_bir_upload_confirmed'
+  get 'portal_bir_download_confirmed', to: 'portal_bir_upload_details#portal_bir_download_confirmed'
+  post 'portal_bir_download_form_process', to: 'portal_bir_upload_details#portal_bir_download_form_process'
+  get 'portal_bir_download_form', to: 'portal_bir_upload_details#portal_bir_download_form'
+  resources :portal_bir_upload_details
+  resources :portal_bir_uploads
+
   get 'workschedreportpdf', to: 'portal_dhs_employee_weekly_schedule_us#workschedreportpdf'
   get 'workschedreport', to: 'portal_dhs_employee_weekly_schedule_us#workschedreport'
   resources :inv_emp_accountability_us

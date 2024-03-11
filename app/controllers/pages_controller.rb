@@ -1,6 +1,9 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
 
+  prepend_before_action :bir2316_upload_checker
+  prepend_before_action :bir2316_download_checker
+
   prepend_before_action :check_weeklysched
   prepend_before_action :check_update_contact
   prepend_before_action :check_poster
@@ -424,6 +427,37 @@ class PagesController < ApplicationController
       end
     end
   end
+
+  
+  def bir2316_download_checker
+    #check if emp has 2316 pdf
+      @getBIRCredentials_a= ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}")     
+      @BIRlink = "#{@BIRpath}#{@getBIRCredentials_a.rows[0][0]}"
+      if File.file?("#{Rails.root}/public/BIRFORMS/IPI/#{@BIRlink}") == true
+        
+        #check if emp downloaded the 2316
+        if PortalBirAccessLog.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
+          redirect_to portal_bir_download_form_path
+        end
+
+      end
+
+  end
+
+
+  def bir2316_upload_checker
+    #check if emp has uploaded the form
+    if PortalBirUploadDetail.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
+        #check flag
+        #get_returnflag = PortalBirAccessLog.where(EmployeeRefNo:current_user.EmployeeRefNo).pluck(:FormReturned).to_sentence 
+      if session[:bir_upload_flag] == true # session[:bir_upload_flag] = true # true = prompt / false = no prompt
+        redirect_to '/portal_bir_upload_details/new'
+      end
+
+    end
+  end
+
+
 
 
 end

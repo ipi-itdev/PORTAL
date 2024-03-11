@@ -1,0 +1,116 @@
+<% if current_user.IsAdmin == true %>
+
+<div class="panel-body">
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12" >
+
+      <p id="notice"><%= notice %></p>
+
+      <h1>BIR Uploaded Forms </h1>
+
+      <div class="table  ">
+      <table class="table" >
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Employee Name </th>
+            <th>Created Date</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @portal_bir_upload_details.each do |portal_bir_upload_detail| %>
+            <tr>
+              <td><%= portal_bir_upload_detail.id %></td>
+              <td>
+                <%= PisEmployeeU.where(EmployeeRefNo: portal_bir_upload_detail.EmployeeRefNo).pluck(:FullName).to_sentence %>
+              </td>
+
+              <td>
+                <%= portal_bir_upload_detail.CreatedDate %>
+              </td>
+              <td>
+                <% get_path = portal_bir_upload_detail.AttachmentFile %>
+                <%= link_to 'Show', get_path.to_s, target: :blank %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+        <br>
+
+        <% end  %>
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% else %>
+
+<div class="panel-body">
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12" >
+
+      <p id="notice"><%= notice %></p>
+
+      <h1>BIR Uploaded Forms </h1>
+
+      <div class="table  ">
+      <table class="table" >
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Employee Name </th>
+            <th>Created Date</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @portal_bir_upload_details.each do |portal_bir_upload_detail| %>
+            <tr>
+              <td><%= portal_bir_upload_detail.id %></td>
+              <td>
+                <%= PisEmployeeU.where(EmployeeRefNo: portal_bir_upload_detail.EmployeeRefNo).pluck(:FullName).to_sentence %>
+              </td>
+
+              <td>
+                <%= portal_bir_upload_detail.CreatedDate %>
+              </td>
+              <td>
+                <% get_path = portal_bir_upload_detail.AttachmentFile %>
+                <%= link_to 'Show', get_path.to_s, target: :blank %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+        <br>
+
+        <% end  %>
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

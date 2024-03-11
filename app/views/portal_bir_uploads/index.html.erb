@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Portal Bir Uploads</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Biruploadrefno</th>
+      <th>Year</th>
+      <th>Createddate</th>
+      <th>Createdby</th>
+      <th>Modifieddate</th>
+      <th>Modifiedby</th>
+      <th>Isactive</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @portal_bir_uploads.each do |portal_bir_upload| %>
+      <tr>
+        <td><%= portal_bir_upload.BIRUploadRefNo %></td>
+        <td><%= portal_bir_upload.Year %></td>
+        <td><%= portal_bir_upload.CreatedDate %></td>
+        <td><%= portal_bir_upload.CreatedBy %></td>
+        <td><%= portal_bir_upload.ModifiedDate %></td>
+        <td><%= portal_bir_upload.ModifiedBy %></td>
+        <td><%= portal_bir_upload.IsActive %></td>
+        <td><%= link_to 'Show', portal_bir_upload %></td>
+        <td><%= link_to 'Edit', edit_portal_bir_upload_path(portal_bir_upload) %></td>
+        <td><%= link_to 'Destroy', portal_bir_upload, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Portal Bir Upload', new_portal_bir_upload_path %>

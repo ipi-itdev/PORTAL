@@ -27,6 +27,23 @@ class ApplicationController < ActionController::Base
     #check if empposter rec exist
 
     
+    #bir2316
+    if PortalBirAccessLog.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == true
+          #check if emp has uploaded the form
+      if PortalBirUploadDetail.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
+          ##check flag
+          #get_returnflag = PortalBirAccessLog.where(EmployeeRefNo:current_user.EmployeeRefNo).pluck(:FormReturned).to_sentence 
+        #if get_returnflag == 'true'
+          #get_bir_rec = PortalBirAccessLog.where(EmployeeRefNo: current_user.EmployeeRefNo)
+          #get_bir_rec.update(FormReturned: false)
+          session[:bir_upload_flag] = true # true = prompt / false = no prompt
+        #end
+
+      end
+    end
+    #bir2316
+
+    
     #get if resigned
     if current_user.EmployeeRefNo == 0
       session[:currentuser_employeestatusrefno] = 1
