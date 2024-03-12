@@ -5,16 +5,24 @@
     <div class="col-sm-8" >
       <div class="panel panel-default">
         <div class="panel-heading" align="center">
-        	<h1>Thank you!</h1>
-        	
+          <h1>Thank you!</h1>
+          
         </div>
         <div class="panel-body" align="justify">
           <%= session[:bir_upload_flag] %>
-        	<h1 align="center" style="color:red;">Reminders: Please sign your BIR 2316 form and upload it to portal</h1>
+          <h1 align="center" style="color:red;">Reminders: Please sign your BIR 2316 form and upload it to portal</h1>
           <br>
           <br>
           <br>
-        	<p align="center"><%= link_to 'Click here to upload', '/portal_bir_upload_details/new', method:'get' %></p>
+          <div class="row">
+            <div class="col-sm-6" >
+              <p align="center"><%= link_to 'Skip', '/pages', method:'get' %></p>
+            </div>
+            <div class="col-sm-6" >
+              <p align="center"><%= link_to 'Click here to upload', '/portal_bir_upload_details/new', method:'get' %></p>
+            </div>
+          </div>
+
 
 
         </div>
