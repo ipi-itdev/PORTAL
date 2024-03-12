@@ -1,14 +1,16 @@
 <% if current_user.IsAdmin == true %>
 
-<div class="panel-body">
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-12" >
+    <div class="col-sm-4" >
+    </div>
+
+    <div class="col-sm-4" >
 
       <p id="notice"><%= notice %></p>
 
-      <h1>BIR Uploaded Forms </h1>
+      <h1>Uploaded BIR Forms - Admin </h1>
 
       <div class="table  ">
       <table class="table" >
@@ -35,6 +37,8 @@
               <td>
                 <% get_path = portal_bir_upload_detail.AttachmentFile %>
                 <%= link_to 'Show', get_path.to_s, target: :blank %>
+                <% get_path = portal_bir_upload_detail.AttachmentFile %>
+                <%= link_to 'Delete', portal_bir_upload_remove_path(EmpRefNo: portal_bir_upload_detail.EmployeeRefNo ), method:'POST', data: { confirm: 'Are you sure?' } %>
               </td>
             </tr>
           <% end %>
@@ -43,19 +47,13 @@
 
         <br>
 
-        <% end  %>
-
-
-
-
-
-
-
       </div>
     </div>
+    <div class="col-sm-4" >
+    </div>
+
   </div>
 </div>
-
 
 <% else %>
 
@@ -63,11 +61,14 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-12" >
+    <div class="col-sm-4" >
+    </div>
+
+    <div class="col-sm-4" >
 
       <p id="notice"><%= notice %></p>
 
-      <h1>BIR Uploaded Forms </h1>
+      <h1>My Uploaded BIR Forms </h1>
 
       <div class="table  ">
       <table class="table" >
@@ -102,15 +103,15 @@
 
         <br>
 
-        <% end  %>
-
-
-
-
 
 
 
       </div>
     </div>
+    <div class="col-sm-4" >
+    </div>
+
   </div>
 </div>
+
+<% end %>

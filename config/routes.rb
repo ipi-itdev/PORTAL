@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-    
+  post 'portal_bir_upload_remove', to: 'portal_bir_upload_details#portal_bir_upload_remove'   
   get 'portal_bir_uploaded_list', to: 'portal_bir_upload_details#portal_bir_uploaded_list'  
   get 'portal_bir_upload_confirmed', to: 'portal_bir_upload_details#portal_bir_upload_confirmed'
   get 'portal_bir_download_confirmed', to: 'portal_bir_upload_details#portal_bir_download_confirmed'

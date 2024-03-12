@@ -9,8 +9,11 @@
         	
         </div>
         <div class="panel-body" align="justify">
-        	<h1 align="center">Reminders: Please sign your BIR 2316 form and upload it to portal</h1>
-
+          <%= session[:bir_upload_flag] %>
+        	<h1 align="center" style="color:red;">Reminders: Please sign your BIR 2316 form and upload it to portal</h1>
+          <br>
+          <br>
+          <br>
         	<p align="center"><%= link_to 'Click here to upload', '/portal_bir_upload_details/new', method:'get' %></p>
 
 

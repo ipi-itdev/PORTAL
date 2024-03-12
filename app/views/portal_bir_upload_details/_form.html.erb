@@ -1,4 +1,20 @@
+<!DOCTYPE html>
 <html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script>
+    //onload page
+  function onloadpageFunc() {
+        $("#ads_modal").click();
+  }
+  </script>
+
+
+
+</head>
+
 
 
 <body onload="onloadpageFunc()">
@@ -68,6 +84,8 @@
                 </div>
 
                 <small><%= form.hidden_field :AttachmentFile_cache %></small>
+                <small style="color: red;">*Attachment is required</small>  
+                <br>
                 <small style="color: red;">*Allowed file: pdf (2mb max file size)</small>    
               </div>
             </div>
@@ -76,6 +94,8 @@
             <div>
              <%= form.submit 'Save', class:'btn btn-success btn-sm btn-block', id: 'submit_detail_but' %>
              <% end %>
+
+             <%= session[:bir_upload_flag] %>
 
             <script type="text/javascript">
               $(document).submit(function() {
@@ -92,13 +112,6 @@
   </div>
 </div>
 
-
-<script>
-  //onload page
-function onloadpageFunc() {
-      $("#ads_modal").click();
-}
-</script>
 
 
   <script type="text/javascript">
@@ -120,5 +133,15 @@ function onloadpageFunc() {
 
 
 </body>
+
+
+
+
+
+
 </html>
+
+
+
+
 

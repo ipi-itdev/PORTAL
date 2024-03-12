@@ -1,0 +1,7 @@
+
+<% if session[:show_bir_forms] == true %>
+
+	<small><p align="center" style="color: red;">If you haven't upload your signed BIR 2316, click the link below</p></small>
+	<p align="center"><%= link_to 'Click here to upload signed 2316 ', '/portal_bir_upload_details/new', method:'get' %></p>
+
+<% end %>

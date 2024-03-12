@@ -415,6 +415,7 @@ class PagesController < ApplicationController
     end
   end
 
+
   def check_weeklysched
     get_current_weeksched = PortalDhsEmployeeWeeklyScheduleU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1, IsNew: 1, IsRD: false )
 
@@ -428,35 +429,34 @@ class PagesController < ApplicationController
     end
   end
 
-  
+
   def bir2316_download_checker
-    #check if emp has 2316 pdf
-      @getBIRCredentials_a= ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}")     
-      @BIRlink = "#{@BIRpath}#{@getBIRCredentials_a.rows[0][0]}"
-      if File.file?("#{Rails.root}/public/BIRFORMS/IPI/#{@BIRlink}") == true
-        
-        #check if emp downloaded the 2316
-        if PortalBirAccessLog.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
-          redirect_to portal_bir_download_form_path
+    if session[:show_bir_forms] == true
+      #check if emp has 2316 pdf
+        @getBIRCredentials_a= ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}")     
+        @BIRlink = "#{@BIRpath}#{@getBIRCredentials_a.rows[0][0]}"
+        if File.file?("#{Rails.root}/public/BIRFORMS/IPI/#{@BIRlink}") == true
+          
+          #check if emp downloaded the 2316
+          if PortalBirAccessLog.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
+            redirect_to portal_bir_download_form_path
+          end
         end
-
-      end
-
+    end
   end
 
 
   def bir2316_upload_checker
-    #check if emp has uploaded the form
-    if PortalBirUploadDetail.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
-        #check flag
-        #get_returnflag = PortalBirAccessLog.where(EmployeeRefNo:current_user.EmployeeRefNo).pluck(:FormReturned).to_sentence 
-      if session[:bir_upload_flag] == true # session[:bir_upload_flag] = true # true = prompt / false = no prompt
-        redirect_to '/portal_bir_upload_details/new'
+    if session[:show_bir_forms] == true
+      #check if emp has uploaded the form
+      if PortalBirUploadDetail.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false 
+          #check flag
+        if current_user.IsLater == nil  && session[:bir_upload_flag_later] == nil 
+          redirect_to '/portal_bir_upload_details/new'
+        end
       end
-
-    end
+    end  
   end
-
 
 
 

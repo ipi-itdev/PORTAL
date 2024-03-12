@@ -62,14 +62,15 @@ class PortalBirUploadDetailsController < ApplicationController
   end
 
   ## DELETE /portal_bir_upload_details/1 or /portal_bir_upload_details/1.json
-  #def destroy
-  #  @portal_bir_upload_detail.destroy
+  def destroy
+    @portal_bir_upload_detail.destroy
 
-  #  respond_to do |format|
-  #    format.html { redirect_to portal_bir_upload_details_url, notice: "Portal bir upload detail was successfully destroyed." }
-  #    format.json { head :no_content }
-  #  end
-  #end
+    respond_to do |format|
+      format.html { redirect_to portal_bir_upload_details_url, notice: "Portal bir upload detail was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
 
   def portal_bir_download_form
     #check if emp has existing  rec
@@ -100,7 +101,10 @@ class PortalBirUploadDetailsController < ApplicationController
     portal_login  = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, IPAddress: request.remote_ip, Module: request.url  )
     portal_login.save
 
-    session[:bir_upload_flag] = false # true = prompt / false = no prompt
+    user = User.where(EmployeeRefNo: current_user.EmployeeRefNo)
+    user.update(IsLater: true)
+
+    session[:bir_upload_flag_later] = true # true = prompt / false = no prompt
 
     redirect_to portal_bir_download_confirmed_path
 
@@ -116,10 +120,21 @@ class PortalBirUploadDetailsController < ApplicationController
 
   def portal_bir_uploaded_list
     if current_user.IsAdmin == true
-      @portal_bir_upload_details = PortalBirUploadDetail.all
+      @portal_bir_upload_details = PortalBirUploadDetail.all.order(id: :desc)
     else
-      @portal_bir_upload_details = PortalBirUploadDetail.where(EmployeeRefNo:current_user.EmployeeRefNo)
+      @portal_bir_upload_details = PortalBirUploadDetail.where(EmployeeRefNo:current_user.EmployeeRefNo).order(id: :desc)
     end
+  end
+
+  def portal_bir_upload_remove
+
+    bir_rec_del = PortalBirUploadDetail.find_by(EmployeeRefNo: params[:EmpRefNo])
+    bir_rec_del.destroy
+
+    flash[:notice] = 'Removed'
+
+    redirect_to '/portal_bir_uploaded_list', method: 'get'
+    
   end
 
 

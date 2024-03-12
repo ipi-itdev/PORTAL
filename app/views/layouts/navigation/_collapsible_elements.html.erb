@@ -94,6 +94,7 @@
                       <% if current_user.EmployeeGroupRefNo  == 1 %>
                         <li><%= link_to 'SDE Request Form', '/SDE-Request-Form.docx', target: "_blank" %></li>
                     <% end %>
+                    <li><%= link_to 'My BIR Uploaded Forms', '/portal_bir_uploaded_list', method:'get' %></li>
 
                   <% elsif activecompany  == 4 %>
 
@@ -110,6 +111,7 @@
                     <li><%= link_to 'SSS Salary Loan Form', '/pits_forms/SSS Salary Loan Form.pdf', target: "_blank" %></li>
                     <li><%= link_to 'SSS Sickness Benefit Reimbursement Form', '/pits_forms/SSS Sickness Benefit Reimbursement Form.pdf' , target: "_blank"%></li>
                     <li><%= link_to 'SSS Sickness Notification Form', '/pits_forms/SSS Sickness Notification Form.pdf', target: "_blank" %></li>
+                    <li><%= link_to 'My BIR Uploaded Forms', '/portal_bir_uploaded_list', method:'get' %></li>
 
                   <% else %>
                     <!-- empty -->  

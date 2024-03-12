@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource_or_scope)
     #update last log-in
     user = User.find_by(EmployeeRefNo: current_user.EmployeeRefNo)
-    user.update(datelastlogin: Time.now, answer_survey_later: nil)
+    user.update(datelastlogin: Time.now, answer_survey_later: nil, IsLater: nil )
 
     #porsurveychecker = PorSurvey.exists?(EmployeeRefNo: current_user.EmployeeRefNo)
 
@@ -26,24 +26,13 @@ class ApplicationController < ActionController::Base
     end
     #check if empposter rec exist
 
-    
     #bir2316
-    if PortalBirAccessLog.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == true
-          #check if emp has uploaded the form
-      if PortalBirUploadDetail.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
-          ##check flag
-          #get_returnflag = PortalBirAccessLog.where(EmployeeRefNo:current_user.EmployeeRefNo).pluck(:FormReturned).to_sentence 
-        #if get_returnflag == 'true'
-          #get_bir_rec = PortalBirAccessLog.where(EmployeeRefNo: current_user.EmployeeRefNo)
-          #get_bir_rec.update(FormReturned: false)
-          session[:bir_upload_flag] = true # true = prompt / false = no prompt
-        #end
-
-      end
-    end
+    bir_switch = ActiveRecord::Base.connection.exec_query("select Value from TMS_Settings_U tsu where Code = '2316SWTCH';").rows[0][0]
+    if bir_switch.to_s == '1'
+      session[:show_bir_forms] = true
+    end 
     #bir2316
 
-    
     #get if resigned
     if current_user.EmployeeRefNo == 0
       session[:currentuser_employeestatusrefno] = 1
