@@ -432,29 +432,32 @@ class PagesController < ApplicationController
 
   def bir2316_download_checker
     if session[:show_bir_forms] == true
+      get_co = GenCompanyM.where(IsActive:1 ).pluck(:code).to_sentence
       #check if emp has 2316 pdf
         @getBIRCredentials_a= ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}")     
         @BIRlink = "#{@BIRpath}#{@getBIRCredentials_a.rows[0][0]}"
-        if File.file?("#{Rails.root}/public/BIRFORMS/IPI/#{@BIRlink}") == true
-          
+        if File.file?("#{Rails.root}/public/BIRFORMS/#{get_co}/#{@BIRlink}") == true     
           #check if emp downloaded the 2316
           if PortalBirAccessLog.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
             redirect_to portal_bir_download_form_path
           end
         end
+
     end
   end
 
 
   def bir2316_upload_checker
     if session[:show_bir_forms] == true
-      #check if emp has uploaded the form
-      if PortalBirUploadDetail.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false 
-          #check flag
-        if current_user.IsLater == nil  && session[:bir_upload_flag_later] == nil 
-          redirect_to '/portal_bir_upload_details/new'
+      if PortalBirAccessLog.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == true
+        #check if emp has uploaded the form
+        if PortalBirUploadDetail.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false 
+            #check flag
+          if current_user.IsLater == nil  && session[:bir_upload_flag_later] == nil 
+            redirect_to '/portal_bir_upload_details/new'
+          end
         end
-      end
+      end 
     end  
   end
 
