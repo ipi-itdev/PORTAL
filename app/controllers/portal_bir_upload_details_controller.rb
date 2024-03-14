@@ -14,7 +14,13 @@ class PortalBirUploadDetailsController < ApplicationController
   # GET /portal_bir_upload_details/new
   def new
     if PortalBirUploadDetail.where(EmployeeRefNo:current_user.EmployeeRefNo ).exists? == false
-          @portal_bir_upload_detail = PortalBirUploadDetail.new
+      @portal_bir_upload_detail = PortalBirUploadDetail.new
+      ##bir2316
+      get_companycode = GenCompanyM.where(IsActive: 1).pluck(:Code).to_sentence
+      @BIRpath = "/BIRFORMS/#{get_companycode}/"
+      @getBIRCredentials = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}")     
+      @BIRlink = "#{@BIRpath}#{@getBIRCredentials.rows[0][0]}"
+      ##bir2316
     else
       flash[:notice] = 'Record Already Exists!'
       redirect_to pages_path

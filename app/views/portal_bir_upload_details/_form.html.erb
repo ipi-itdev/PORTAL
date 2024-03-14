@@ -31,6 +31,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2 class="modal-title" style="color: red; " align="center">Please upload your signed 2316 form </h2>
+        <br>
+        <br>
+         <small> <a href="<%= @BIRlink %>" download="<%= @getBIRCredentials.rows[0][0] %>" >
+        You can re-download your unsigned BIR 2316 if you lost or forgot to download it, Click Here</a></small>
+        <br>
+        <br>
+        <small style="color:red;">*Please make sure you signed all the fields that require a signature (#52 and #54 of the form)</small>
+        <br>
+        <small style="color:red;">*You can edit your pdf using <a href="https://acrobat.adobe.com/" target="_blank">Adobe Acrobat</a>, <a href="https://www.ilovepdf.com/" target="_blank" >IlovePDF</a> , etc </small>
+        <br>
+        <small style="color: red;">*Make sure you attached the file on .PDF file format (2mb max file size)</small> 
+
       </div>
       <div class="modal-body">
 
@@ -86,7 +98,7 @@
                 <small><%= form.hidden_field :AttachmentFile_cache %></small>
                 <small style="color: red;">*Attachment is required</small>  
                 <br>
-                <small style="color: red;">*Allowed file: pdf (2mb max file size)</small>    
+                   
               </div>
             </div>
 
