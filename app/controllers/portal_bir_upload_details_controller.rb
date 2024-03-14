@@ -74,7 +74,7 @@ class PortalBirUploadDetailsController < ApplicationController
 
   def portal_bir_download_form
     #check if emp has existing  rec
-    if PortalBirAccessLog.where(EmployeeRefNo:current_user).exists? == false
+    if PortalBirAccessLog.where(EmployeeRefNo:current_user.EmployeeRefNo ).exists? == false
 
     ##bir2316
     get_companycode = GenCompanyM.where(IsActive: 1).pluck(:Code).to_sentence
