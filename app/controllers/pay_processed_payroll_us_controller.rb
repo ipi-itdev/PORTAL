@@ -34,9 +34,10 @@ class PayProcessedPayrollUsController < ApplicationController
       #@emprefno = current_user.EmployeeRefNo
 
       ##bir2316
-      @BIRpath = "#{current_user.AttachmentPath}"
-      @getBIRCredentials = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}")     
-      @BIRlink = "#{@BIRpath}#{@getBIRCredentials.rows[0][0]}"
+      #@BIRpath = "#{current_user.AttachmentPath}"
+      #@getBIRCredentials = ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}")     
+      #@BIRlink = "#{@BIRpath}#{@getBIRCredentials.rows[0][0]}"
+      @BIRlink = "/portal_bir_uploaded_list"
       ##bir2316
 
       ##13thmonth
