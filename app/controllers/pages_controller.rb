@@ -68,7 +68,7 @@ class PagesController < ApplicationController
     #current dattime      
     get_current_datetime = DateTime.now 
 
-    @get_utc = ActiveRecord::Base.connection.exec_query("select utc_plus_8 = CAST(DATEADD(HOUR,8,GETUTCDATE()) AS datetime);")
+    @get_utc = ActiveRecord::Base.connection.exec_query("SELECT CAST(DATEADD(MINUTE, 3, DATEADD(HOUR, 8, GETUTCDATE())) AS datetime) AS utc_plus_8_plus_4min;")
     @current_datetime = @get_utc.rows[0][0].to_time.strftime('%Y-%m-%d %H:%M:%S')
     @datetime_range = ActiveRecord::Base.connection.exec_query("SELECT * FROM fnSchedEmployee(#{current_user.EmployeeRefNo})")     
     ##end weeksched
