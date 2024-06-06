@@ -42,8 +42,8 @@ class PortalBirUploadDetailsController < ApplicationController
         get_bir_rec = PortalBirAccessLog.where(EmployeeRefNo: current_user.EmployeeRefNo)
         get_bir_rec.update(FormReturned: true)
   
-        portal_login  = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, IPAddress: request.remote_ip, Module: request.url  )
-        portal_login.save
+        #portal_login  = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, IPAddress: request.remote_ip, Module: request.url  )
+        #portal_login.save
 
         format.html { redirect_to '/portal_bir_upload_confirmed', notice: "Saved" }
         format.json { render :show, status: :created, location: @portal_bir_upload_detail }
@@ -89,8 +89,8 @@ class PortalBirUploadDetailsController < ApplicationController
     @BIRlink = "#{@BIRpath}#{@getBIRCredentials.rows[0][0]}"
     ##bir2316
 
-    portal_login  = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, IPAddress: request.remote_ip, Module: request.url  )
-    portal_login.save
+    #portal_login  = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, IPAddress: request.remote_ip, Module: request.url  )
+    #portal_login.save
 
     else
       redirect_to pages_path
@@ -104,8 +104,8 @@ class PortalBirUploadDetailsController < ApplicationController
     bir_access_log = PortalBirAccessLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, TimeLog: current_datetime, IsActive: true, FormReturned: true )
     bir_access_log.save
 
-    portal_login  = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, IPAddress: request.remote_ip, Module: request.url  )
-    portal_login.save
+    #portal_login  = PortalLoginLog.create(EmployeeRefNo: current_user.EmployeeRefNo, EmployeeNumber: current_user.EmployeeNumber, IPAddress: request.remote_ip, Module: request.url  )
+    #portal_login.save
 
     user = User.where(EmployeeRefNo: current_user.EmployeeRefNo)
     user.update(IsLater: true)
@@ -125,16 +125,18 @@ class PortalBirUploadDetailsController < ApplicationController
 
 
   def portal_bir_uploaded_list
+    @get_deletebut_setting = ActiveRecord::Base.connection.exec_query("SELECT value from TMS_Settings_U tsu where SettingsRefNo = 74 and Code = '2316SWTCHDELBUT'").rows[0][0]
     if current_user.IsAdmin == true
-      @portal_bir_upload_details = PortalBirUploadDetail.all.order(id: :desc)
+      @portal_bir_upload_details = ViewPortalUploadedBirForm.all.order(id: :desc)
     else
-      @portal_bir_upload_details = PortalBirUploadDetail.where(EmployeeRefNo:current_user.EmployeeRefNo).order(id: :desc)
+      @portal_bir_upload_details = ViewPortalUploadedBirForm.where(EmployeeRefNo:current_user.EmployeeRefNo).order(id: :desc)
     end
   end
 
+
   def portal_bir_upload_remove
 
-    bir_rec_del = PortalBirUploadDetail.find_by(EmployeeRefNo: params[:EmpRefNo])
+    bir_rec_del = PortalBirUploadDetail.find_by(EmployeeRefNo: params[:EmpRefNo], id: params[:ID])
     bir_rec_del.destroy
 
     flash[:notice] = 'Removed'
