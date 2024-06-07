@@ -41,7 +41,7 @@
               </td>
               <td>
                 <% get_path = portal_bir_upload_detail.AttachmentFile %>
-                <%= link_to 'Show', get_path.to_s, target: :blank %>
+                <%= link_to 'Show', "/uploads/portal_bir_upload_detail/AttachmentFile/#{portal_bir_upload_detail.id}/#{get_path.to_s}", target: :blank %>
                 <% get_path = portal_bir_upload_detail.AttachmentFile %>
                   <% if @get_deletebut_setting.to_i == 1 # true %>
                     <%= link_to 'Delete', portal_bir_upload_remove_path(EmpRefNo: portal_bir_upload_detail.EmployeeRefNo, ID: portal_bir_upload_detail.id ), method:'POST', data: { confirm: 'Are you sure?' } %>
@@ -106,7 +106,7 @@
               </td>
               <td>
                 <% get_path = portal_bir_upload_detail.AttachmentFile %>
-                <%= link_to 'Show', get_path.to_s, target: :blank %>
+                <%= link_to 'Show', "/uploads/portal_bir_upload_detail/AttachmentFile/#{portal_bir_upload_detail.id}/#{get_path.to_s}", target: :blank %>
                 <% if @get_deletebut_setting.to_i == 1 # true %>
                   <%= link_to 'Delete', portal_bir_upload_remove_path(EmpRefNo: portal_bir_upload_detail.EmployeeRefNo, ID: portal_bir_upload_detail.id ), method:'POST', data: { confirm: 'Are you sure?' } %>
                 <% end %>
