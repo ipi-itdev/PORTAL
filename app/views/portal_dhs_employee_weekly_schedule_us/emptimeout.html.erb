@@ -45,9 +45,15 @@ $(document).ready(function(){
 				<h5 style="color: black;"><asterisk style="color: red;" >*</asterisk>Tasks Performed</h5>
 				<% if @datetime_range.blank? == false %>		       				
 					<% if @datetime_range.rows[0][7].blank? == true #task%>
-						<%= cktext_area_tag :task_tag, nil, ckeditor: {resize_enabled:false, removePlugins: "toolbar,elementspath", toolbar: 'mini'} %>								  
+
+						<input name="task_tag" id="task_tag" type="hidden">
+						<trix-editor input="task_tag"></trix-editor>
+
 					<% else %>
-						<%= cktext_area_tag :task_tag, @datetime_range.rows[0][7], ckeditor: {resize_enabled:false, removePlugins: "toolbar,elementspath", toolbar: 'mini'} %>
+
+						<input name="task_tag" id="task_tag" type="hidden" value="<%= @datetime_range.rows[0][7] %>">
+						<trix-editor input="task_tag"></trix-editor>
+						
 					<% end %>				     
 				<% end %>
 			</div>
