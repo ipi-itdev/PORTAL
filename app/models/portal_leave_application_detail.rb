@@ -1,7 +1,7 @@
 class PortalLeaveApplicationDetail < ApplicationRecord
 	self.table_name = 'PORTAL_LeaveApplicationDetails_C'
 
-	mount_uploader :AttachmentFile, AttachmentUploader
+	mount_uploader :AttachmentFile, Attachment1aUploader
 
 	validates :WorkDate, :LeaveTypeRefNo, :LeaveCreditTypeRefNo, :Reason, presence: true
 

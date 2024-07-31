@@ -1,7 +1,7 @@
 class PortalOtApplicationDetail < ApplicationRecord
 	self.table_name = 'PORTAL_OvertimeApplicationDetails_C'
 
-	mount_uploader :AttachmentFile, AttachmentUploader
+	mount_uploader :AttachmentFile, Attachment1aUploader
 	
 	validates :WorkDate, :StartTime, :EndTime, :Task, presence: true
 
