@@ -90,8 +90,16 @@ html {
         <div class="panel-body">
           <%= bootstrap_form_with(model: portal_tempwebinar, local: true) do |form| %>
 
-          <p id="header_one" align="center"><b>Your thought matters!</b></p>
-          <p id="header_one" align="center"><b>Kindly participate in our survey to help us shape the perfect Christmas Party Theme by choosing  from the option below</b></p>
+          <div class="row">
+            <div class="col-sm-8" >
+               <h1><strong>Your thoughts matter!</strong></h1>
+               <h1>Kindly participate in our survey to help us shape the perfect Christmas party theme by choosing from the options below: </h1>
+ 
+            </div>
+            <div class="col-sm-4" >
+               <div><img src="/celebrate.jpg" alt="I'm sad" style=" max-width: 100%; height: auto; display: block;" /></div>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -117,8 +125,8 @@ html {
               <input type="radio" name="portal_tempwebinar[answer]" id="portal_tempwebinar_answer_1" class="input-hidden" value="1" onclick="checkRadio()" />
               <label for="portal_tempwebinar_answer_1">
                 <img 
-                  src="/christmas_post/filipiniana.png" alt="I'm sad" />
-                  <h1>Modern Filipiana</h1>
+                  src="/christmas_post/school.png" alt="I'm sad" />
+                  <h1>Back To School🏫</h1>
               </label>
 
             </div> 
@@ -129,8 +137,8 @@ html {
               <input type="radio" name="portal_tempwebinar[answer]" id="portal_tempwebinar_answer_2" class="input-hidden" value="2" onclick="checkRadio()" />
               <label for="portal_tempwebinar_answer_2">
                 <img 
-                  src="/christmas_post/panjama.png" alt="I'm sad" />
-                  <h1>Pajama Party</h1>
+                  src="/christmas_post/rockenroll.png" alt="I'm sad" />
+                  <h1>Rock n Roll🤘</h1>
               </label>
               
             </div>
@@ -141,8 +149,8 @@ html {
               <input type="radio" name="portal_tempwebinar[answer]" id="portal_tempwebinar_answer_3" class="input-hidden" value="3" onclick="checkRadio()" />
               <label for="portal_tempwebinar_answer_3">
                 <img 
-                  src="/christmas_post/masquerade.PNG" alt="I'm sad" />
-                  <h1>Christmas Masquerade</h1>
+                  src="/christmas_post/sporty.png" alt="I'm sad" />
+                  <h1>Sporty Christmas⚽</h1>
               </label>
               
             </div>      

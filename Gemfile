@@ -103,3 +103,5 @@ gem 'wkhtmltopdf-binary'
 
 #save attachment ftp
 gem 'carrierwave-ftp', '~> 0.4.1' 
+
+gem 'loofah', '~>2.19.1'
