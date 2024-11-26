@@ -107,7 +107,7 @@
         
         <div class="col-sm-6" >
           <p id="required_field"> *</p>
-          <small><%= form.text_area :Reason, class: 'form-control input-sm', style: 'resize: none;' %></small>
+          <small><%= form.text_area :Reason, class: 'form-control input-sm', style: 'resize: none;', oninput: "this.value = this.value.replace(/'/g, '`')" %></small>
         </div>
       </div>
 
