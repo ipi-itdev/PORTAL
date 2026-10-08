@@ -1,0 +1,7 @@
+production:
+  adapter: sqlserver
+  host: sql5052.site4now.net
+  port: 1433
+  database: DB_9B2FF8_PITS
+  username: <%= Rails.application.credentials.username %>
+  password: P@55w0rd2o25PITSM4r

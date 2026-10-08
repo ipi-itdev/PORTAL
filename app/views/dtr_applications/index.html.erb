@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+</head>
+<body>
+<div class="container-fluid">  
+  <div class="row">
+    <div class="col-sm-2" >
+    </div>
+
+    <div class="col-sm-8" >
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader">
+          <div class="row">
+            <div class="col-sm-9" >
+              <strong><i class="fas fa-calendar-check"></i>DTR Approval</strong>
+              / set_base_dtr_approval_id <%= session[:set_base_dtr_approval_id] %> / set_base_emprefno: <%= session[:set_base_emprefno] %> / detailsappid: <%= session[:dtr_app_id] %>
+            </div>
+          </div>         
+        </div>
+
+        <div class="panel-body">
+          <!--<p id="notice"><%= notice %></p>-->
+          
+          <div class="table table-responsive ">
+            <table class="table" id="weekly_view_table" >
+              <thead>
+                <tr>
+                  <th >ID</th>
+                  <th >Employee Number</th>
+                  <th >Employee Name</th>
+                  <th >Job Position</th>
+                  <th ></th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <% @dtr_applications.each do |weekly_view| %>
+                  <tr>
+                    <td ><%= weekly_view.ID %></td>
+                    <td ><%= weekly_view.EmployeeNumber %></td>
+                    <td ><%= weekly_view.Description %></td>
+                    <td ><%= weekly_view.JobPosition %></td>
+                    <td align="left">                      
+                      <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_dtr_application_path(weekly_view.ID), class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Edit" %>                    
+                    </td>      
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+            <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+            <script>
+            $(function(){
+              $("#weekly_view_table").dataTable();
+            })
+            </script>
+          </div>   
+        </div>        
+      </div>
+    </div>
+
+    <div class="col-sm-2" >
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+
+</body>
+</html>

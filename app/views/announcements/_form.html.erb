@@ -1,0 +1,120 @@
+
+<div class="container-fluid">
+  
+  <div class="row">
+    <div class="col-sm-1" >
+
+    </div>
+
+    <div class="col-sm-10" >
+      <h2> </h2>
+      <div class="panel panel-info">
+
+        <div class="panel-body">
+
+          <%= bootstrap_form_for(@announcement, :html => { :multipart => true }) do |form| %>
+          <% if announcement.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(announcement.errors.count, "error") %> prohibited this announcement from being saved:</h2>
+
+              <ul>
+              <% announcement.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+
+         
+          <% end %>
+
+          <div class="field">
+      
+            <%= form.text_field :title %>
+          </div>
+
+          <div class="field">
+            <%= form.label :message %>
+            <%= form.cktext_area :message %>
+          </div>
+          <br>
+
+           <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-2" >
+                <%= form.check_box :post,  label:'Post?' %>
+              </div>
+              <div class="col-sm-2" >
+                <%= form.check_box :IsImportant,  label:'Important?' %>
+              </div>
+              <div class="col-sm-3" >
+        
+              </div>
+
+              <div class="col-sm-1" >
+
+    
+               
+              </div>
+
+               <div class="col-sm-4" >
+                  <%= form.submit 'Save' ,class:'btn btn-success btn-block'  %>
+                  <% end %>
+               
+              </div>
+
+            </div>
+          </div>  
+
+          <br>
+          <br>
+
+          <div class="row">
+            <div class="col-sm-5" >
+              
+            </div>
+            <div class="col-sm-2" >
+             
+            </div>
+            <div class="col-sm-5" >
+          
+            </div>
+
+          </div>
+
+        </div>
+        <div class="panel-footer">
+
+          <div class="container-fluid">
+
+            <div class="row">
+
+              <div class="col-sm-5" >
+                <div class="btn-group">
+                  <%= link_to 'Show', @announcement, class:'btn btn-md btn-primary'  %> 
+                  <%= link_to 'Back', announcements_path, class:'btn btn-md btn-primary' %>
+               </div> 
+              </div>
+              <div class="col-sm-2" >
+                <div class="actions" align="center">
+           
+                </div>
+                
+              </div>
+               <div class="col-sm-5" >
+                <!--empty -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    
+    </div>
+
+    <div class="col-sm-1" >
+     
+    </div>
+  </div>
+</div>

@@ -1,0 +1,200 @@
+<html>
+
+<head>
+
+      <!-- Required meta tags -->
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<style type="text/css">
+  table td, table td * {
+    vertical-align: top;
+}
+#table_details {
+        font-size: 15px;
+    }
+
+
+  table, td, th {
+  border: 1px solid;
+  border-top: 1px solid #000!important;
+}
+</style>
+
+
+<body>
+<div class="container">
+
+<% hashPisEmployeeU = PisEmployeeU.where(EmployeeRefNo: current_user.EmployeeRefNo ).pluck_to_hash(:EmployeeNumber,:Description)
+      getPisEmployeeU = hashPisEmployeeU[0]  %>
+
+    <% hashPisEmploymentInfoU = PisEmploymentInfoU.where(EmployeeRefNo: current_user.EmployeeRefNo, IsActive: 1).pluck_to_hash(:ClientAccountRefNo, :PayFrequencyRefNo , :BasicRate, :EmployeeGroupRefNo, :JobPosition,:DepartmentRefNo, :PayrollRateRefNo, :JobPositionRefNo )%>  
+
+    <% getPisEmploymentInfoU = hashPisEmploymentInfoU[0] %>
+
+      <% if getPisEmploymentInfoU[:EmployeeGroupRefNo] == 1 %>
+        
+       <% @get_job_position_int = GenJobPositionM.where(JobPositionRefNo: getPisEmploymentInfoU[:JobPositionRefNo] ).pluck(:Description).to_sentence %> 
+
+      <% else %>
+        .
+       
+      <% end %>
+
+
+
+    <h2 align='center'><%= GenCompanyM.where(IsActive: 1).pluck(:Description).to_sentence %></h2>
+    <h5 align='center'>OT Report</h5>
+
+
+    
+    <table width="100%" class="table">
+      <tbody>
+        <tr>
+          <td width="15%"><small><b>NAME OF EMPLOYEE:</b></small></td>
+          <td width="35%"><small><%= getPisEmployeeU[:Description] %></td>
+          <td width="15%"><small><b>CLIENT/PROJ/DEPT:</b></small></td>
+     
+
+
+              <% if getPisEmploymentInfoU[:EmployeeGroupRefNo] == 1 #checkdepartment%>
+
+                <td align="left" width="35%">
+                  <span >
+                   <small> <%= GenDepartmentM.where(DepartmentRefNo: getPisEmploymentInfoU[:DepartmentRefNo]).pluck(:Description).to_sentence%> </small>
+                  </span>
+                </td>
+
+              <% else %>
+
+     
+                <td align="left" width="35%">
+                  <span ><%= GenClientAccountM.where(ClientAccountRefno: getPisEmploymentInfoU[:ClientAccountRefNo]).pluck(:Description).to_sentence %> 
+
+                    </span>
+                </td>
+
+
+              <% end %>
+
+  
+
+        </tr>
+        <tr>
+          <td><small><b>DESIGNATION:</b></small></td>
+
+
+            <% if getPisEmploymentInfoU[:EmployeeGroupRefNo] == 1 #check Department%>
+
+                <td width="30%"> <%= @get_job_position_int %> </td>
+            <% else %>
+                <td width="30%"> <%= getPisEmploymentInfoU[:JobPosition] %> </td>
+            <% end %>
+
+
+
+          <td><small><b>PROJ. SUPERVISOR</b></small></td>
+          <td><small><b></b></small></td>
+        </tr>
+
+      </tbody>
+    </table>
+  <!-- end  header --> 
+  <% get_emp_ots = ViewPortalOtreport.where(EmployeeRefNo: current_user.EmployeeRefNo, WorkDate: session[:WorkDateFrom_session]..session[:WorkDateTo_session]).order(:WorkDate) %>
+  <table width="100%" class="table " id="table_details">
+    
+      <tr>
+          <th width="10%"><small><b>Work Date</b></small></th>
+          <th width="838px"><small><b>Tasks Performed</b></small></th>
+          <th width="150px"><small><b>Start Time</b></small></th>
+          <th width="153px"><small><b>End Time</b></small></th>
+          <th width="150px"><small><b>Hour/s</b></small></th>
+          <th width="150px"><small><b>Date Filed</b></small></th>
+      </tr>
+    
+    <font  size="2">
+    <% get_emp_ots.each do |get_emp_ots| %>
+    
+    <tr>
+      <td width="10%">
+       <small><%= get_emp_ots.WorkDate.to_date.strftime("%m/%d/%Y") %></small>
+      </td>
+      <td width="400px">
+
+       <small> <%= sanitize get_emp_ots.Task %> </small>
+      </td> 
+      <td width="150px">
+        <% if get_emp_ots.StartTime.blank? == false%>
+          <small><%= get_emp_ots.StartTime.to_datetime.strftime("%I:%M %P") %>
+        <% end %> 
+      </td>
+      <td width="150px">
+        <% if get_emp_ots.EndTime.blank? == false %>
+          <small><%= get_emp_ots.EndTime.to_datetime.strftime("%I:%M %P") %></small>
+        <% end %>
+      </td>
+      <td width="150px">
+        <% if get_emp_ots.Hours.blank? == false%>
+          <small><%= get_emp_ots.Hours %></small>
+        <% end %>
+      </td>
+      <td width="150px">
+        <% if get_emp_ots.DateFiled.blank? == false%>
+          <small><%= get_emp_ots.DateFiled.to_datetime.strftime("%m/%d/%Y %I:%M %P") %></small>
+        <% end %>
+      </td>
+    </tr>
+     <% end %>
+   </font>
+
+  </table>
+
+  <br>
+
+    <table width="100%" id="footer" class="table ">
+        <tr id="footer">
+          <td width="30%" id="footer"><small><b>PREPARED BY:</b></small></td>
+          <td width="10%" align="center" id="footer"><b></b></td>
+          <td width="30%" align="center" id="footer"><small><b><span style="border-bottom: 1px solid black; padding-left: 50px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></b></small></td>
+          <td width="30%" align="center" id="footer"><small><b>Date:</b><span style="border-bottom: 1px solid black; padding-left: 50px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></small></td>
+
+        </tr>
+        <tr>
+          <td width="30%" id="footer"><b></b></td>
+          <td width="10%" align="center" id="footer"><small></small></td>
+          <td width="30%" align="center" id="footer"><small><b>(Signature Over Printed Name)</b></small></td>
+          <td width="30%"  id="footer"></td>
+        </tr>
+
+        <tr>
+          <td width="30%" id="footer"><small><b>APPROVED BY IPI SUPERVISOR / TEAM LEAD:</b></small></td>
+          <td width="10%" id="footer"><b></b></td>
+          <td width="30%" id="footer" align="center"><small><b><span style="border-bottom: 1px solid black; padding-left: 50px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></b></small></td>
+          <td width="30%"id="footer" align="center"><small><b>Date:</b><span style="border-bottom: 1px solid black; padding-left: 50px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></small></td>
+
+        </tr>
+        <tr>
+          <td width="30%" id="footer"><small><b>RECEIVED BY (For Billing Purposes):</b></small></td>
+          <td width="10%" align="center" id="footer"><b></b></td>
+          <td width="30%" id="footer" align="center"><small><b><span style="border-bottom: 1px solid black; padding-left: 50px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></b></small></td>
+          <td width="30%" id="footer" align="center"><small><b>Date:</b><span style="border-bottom: 1px solid black; padding-left: 50px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></small></td>
+
+        </tr>
+    </table>
+
+
+
+</div> 
+
+</body>
+
+
+
+</html> 

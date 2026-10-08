@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+  <style type="text/css">
+
+  #table_one {
+          font-size: 15px;
+          border: 2px solid;
+          border-top: 2px solid #000!important;
+      }
+
+  #th_one {
+    border: 2px solid;
+    border-top: 2px solid #000!important;
+    background-color: #FFB169;
+    text-align: center;
+  }
+
+  #td_one {
+        border: 2px solid;
+    border-top: 2px solid #000!important;
+  }
+
+
+  /*table, td, th {
+    border: 2px solid;
+    border-top: 2px solid #000!important;
+  } */
+
+  /*th {
+  height: 5px;
+  
+  padding: 1px !important;
+ 
+  }*/
+
+  #table3 {
+    font-size: 15px;
+    border: 0px solid;
+    border: none;
+  }
+
+  #td_four{
+    border-top: 2px solid #000!important;
+  }
+
+
+  </style>
+
+</head>
+<body>
+
+<div class="container-fluid">
+  
+  <div class="row">
+
+    <div class="col-sm-12" >
+
+      <p align="right"><small>REF#7</small></p>
+      <div>  
+        <% activecompany = ActiveRecord::Base.connection.exec_query("Select CompanyRefNo from dbo.GEN_Company_M WHERE IsActive = 1").rows[0][0] %>                      
+         <% if activecompany  == 1%>
+            <div align="center"><img src="<%= request.base_url %>/ipi_logo_half.png" alt="ipi" width="350" height="60"></div>
+        <% elsif activecompany  == 4 %>
+          <%= image_tag image_url("/pits_14.PNG"), id: 'pitsheaderlogodesk1' %>
+        <% elsif activecompany  == 2%>
+          <%= image_tag image_url("/pea6.PNG"), id: 'prhiheaderlogodesk1' %>
+        <% end %> 
+      </div>
+
+      <br>
+      
+
+
+      <p align="center"><strong>Employee Accountability Form</strong></p>
+
+      <br>
+
+      <font  size="2">
+      <p align="justify">I acknowledge that I have received the equipment listed below in good working condition.</p>
+
+      <p align="justify">I understand that it is my complete responsibility to keep equipment in a safe place within the authorized office/workspace only. I will not allow the equipment to be accessed or used by anyone other than the authorized IT staff that the General Manager appointed to provide technical support.</p>
+
+      <p align="justify">I am aware that it is my responsibility to immediately report to the IT-Infra Department and my Manager if the equipment under my accountability becomes broken, stolen, missing, damaged, has been accessed by an unauthorized person, or when security settings has been compromised (virus, malware, hacking, etc.).</p>
+
+      <p align="justify">I also understand that I may be charged for any damages incurred while the equipment is in my possession because of misuse or carelessness.</p>
+
+
+      <p align="justify">I understand that once my employment ends with the  <strong> Information Professionals, Inc. </strong>, it is my responsibility to return on my last day of work all equipment issued to me and that failure to do so may result in delay with the processing of my exit clearance. </p>
+      </font>
+
+      
+
+      <table width="100%" class="table table-condensed" id="table_one">
+
+          <tr align="center">
+              <th width="5%" id="th_one"><small><b>Qty</b></small></th>
+              <th width="250px" id="th_one"><small><b>Description</b></small></th>
+              <th width="300px" id="th_one"><small><b>Serial Number</b></small></th>
+              <th width="30px" id="th_one"><small><b>Date Issued</b></small></th>
+              <th width="30px" id="th_one"><small><b>Date Returned</b></small></th>
+              
+          </tr>
+
+        <font  size="2">
+
+        <% get_emp_account_details = ViewInvEmpAccountPdfReport.where(ID: @inv_emp_accountability_u.ID ) %>
+
+        <% get_emp_account_details.each do |get_emp_account_details| %>
+        <tr id="tr_one">
+          <td width="1%" id="td_one">
+            1
+          </td>
+          <td width="250px" id="td_one">
+            <%= raw get_emp_account_details.ItemType %>
+          </td> 
+          <td width="300px" id="td_one">
+            <%= raw get_emp_account_details.ItemName %>
+          </td>
+          <td width="30px" id="td_one">
+            <%= get_emp_account_details.DateIssue.strftime("%m/%d/%Y") %>
+          </td>
+          <td width="30px" id="td_one">
+            <% if get_emp_account_details.DateReturned.blank? == false%>
+              <%= get_emp_account_details.DateReturned.strftime("%m/%d/%Y") %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+    
+
+        <tr>
+          <td colspan=5> <strong>Total Quantity Issued:  <%= get_emp_account_details.count %> </strong></td>
+        </tr>
+
+
+      </table>
+
+
+      <br>
+      <br>
+      <table style="width:100%" id="table_two" style="" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="45%">Verified & Issued by:</td>
+          <td width="10%"></td>
+          <td width="45%">Acknowledge & Received by</td>
+        </tr>
+      </table>
+      <br>
+      <br>
+      <br>
+      <table style="width:100%" border="0">
+        <tr>
+          <td width="45%" align=""><strong></strong></td>
+          <td width="10%" align="center"></td>
+           <td width="45%" align="center"><strong><%= ViewInvEmpAccountPdfReport.where(ID: @inv_emp_accountability_u.ID ).pluck(:EmployeeName).first %></strong></td>
+        </tr>
+
+        <tr>
+          <td width="45%" align="center" id="td_four">Signature over printed name & <br> designation </td>
+          <td width="10%"></td>
+          <td width="45%" align="center" id="td_four">Signature over printed name & employee<br> ID# </td>
+        </tr>
+      </table>
+
+      <br>
+
+      <p align="justify"><u>Issuance Authorization:</u> Approval by the General Manager must be documented via RFC or PAR Form which lists the equipment/access to be issued to the Employee as requested by the Manager.</p>
+
+      <p align="justify"><u>Form Retention:</u>  IT Net Admin must retain the original signed copy of this form (ink-signed hard copy or electronically signed copy plus its email where it is attached) throughout the employment of the equipment recipient. A digital log must be maintained to consolidate all equipment accountabilities in the company. No later than one (1) year after exit clearance of a separated employee, any accountability form must be endorsed to HR for 201 archiving. PAR Ref#: _____________ Log entry #_____________</p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Por Surveys</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Employeerefno</th>
+      <th>Answer</th>
+      <th>Comments</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @por_surveys.each do |por_survey| %>
+      <tr>
+        <td><%= por_survey.EmployeeRefNo %></td>
+        <td><%= por_survey.answer %></td>
+        <td><%= por_survey.comments %></td>
+        <td><%= link_to 'Show', por_survey %></td>
+        <td><%= link_to 'Edit', edit_por_survey_path(por_survey) %></td>
+        <td><%= link_to 'Destroy', por_survey, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Por Survey', new_por_survey_path %>

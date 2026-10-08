@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+
+<style>
+
+
+@media screen and (min-width: 500px) {
+  .mobile-menu {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .pc-menu {
+    display: none !important;
+  }
+}
+
+
+</style>
+
+
+
+</head>
+<body >
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-4">
+ 
+    </div>
+    <div class="col-sm-4" >
+
+      <div class="panel panel-primary" id="panelframe">
+        <div class="panel-heading" id="panelheader"><strong>My Timesheet</strong></div>
+        <div class="panel-body">
+
+ 
+                  <%= form_tag(weekschedhist_path, method: :get) do %>
+                  
+                    <div class="row">
+
+
+                      <div class="col-sm-6" align="left">
+                    <tr>
+                      <td>From:&nbsp</td>
+                      <td align="left"><%= date_field_tag :WorkDateFrom %></td>
+                    </tr>
+                
+                      </div>
+
+
+                      <div class="col-sm-6" >
+                     
+                                            <tr>
+                      <td>To:&nbsp &nbsp &nbsp</td>
+                      <td align="left"><%= date_field_tag :WorkDateTo %></td>
+                    </tr>
+                      </div>
+
+                    </div>
+            
+
+                <hr>
+
+                <% if @get_count_existing_sched <= 0 %>
+
+                  <p align="center" style="color: red;">No Record(s) Found</p>
+
+                <% else %>
+                  <% @get_worksched_pdf_path %>   
+                  <p align="center">Record(s) Found  / <%= link_to "View DTR Report", '/workschedreportpdf.pdf',target: "_blank", :title => 'View DTR Report', :rel => 'tooltip'  %> </p>
+
+                <% end %>
+
+                <br>
+                <br>
+                <%= submit_tag 'Search ', class: "btn btn-success  btn-block btn-sm", id: 'submit_button_tag', data: { disable_with: "Please wait..." }  %>
+                <%= link_to 'Back ','/portal_dhs_employee_weekly_schedule_us',class: "btn btn-secondary  btn-block btn-sm", id: 'submit_button_tag'  %>
+   
+                <% end %>
+      
+
+        </div>
+      </div>
+
+                  
+
+
+    </div>
+      <div class="col-sm-4" >
+
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
+
+             

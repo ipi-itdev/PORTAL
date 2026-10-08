@@ -1,0 +1,21 @@
+<% if session[:show_bir_forms] == true %>
+    <% get_co = GenCompanyM.where(IsActive:1 ).pluck(:code).to_sentence %>
+    <% @getBIRCredentials_a= ActiveRecord::Base.connection.exec_query("EXEC dbo.PORTAL_SP_BIR2316Credentials @EmpRefNo= #{current_user.EmployeeRefNo}") %>     
+    <% @BIRlink = "#{@BIRpath}#{@getBIRCredentials_a.rows[0][0]}" %>
+    <% if File.file?("#{Rails.root}/public/BIRFORMS/#{get_co}/#{@BIRlink}") == true %>
+
+		<% if PortalBirUploadDetail.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false %>
+
+			<small><p align="center" style="color: red;">If you haven't upload your signed BIR 2316, click the link below</p></small>
+			<p align="center"><%= link_to 'Click here to upload signed 2316 ', '/portal_bir_upload_details/new', method:'get' %></p>
+
+		<% else %>
+			<p style="color: blue;">You already uploaded your BIR2316,  <%= link_to 'click here to view', '/portal_bir_uploaded_list', method:'get' %> </p>
+		<% end %> 
+	<% end %>			
+
+<% end %>
+
+
+
+	

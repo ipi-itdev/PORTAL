@@ -1,0 +1,96 @@
+
+<%= stylesheet_link_tag    'registration_edit' %>
+<%= javascript_include_tag  'registration_edit' %>
+
+
+<% if devise_error_messages!.empty?%>  
+  <div id="hide">
+  </div>
+<% else %>
+  
+  <div class="alert1" role="alert" align="center">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <p class="alert" align = 'center'><%= devise_error_messages! %></p> 
+  </div>   
+<% end %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4" >
+      <!---empty -->
+    </div>
+    <div class="col-sm-4" >
+
+      <div class="panel panel-info" id="panelframe">
+        <div class="panel-heading" id="panelheader"><h3 align="center">Change Password</h3></div>
+        <div class="panel-body">
+          
+            <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+
+            
+            <small><strong>Employee Number:</strong> <%= current_user.EmployeeNumber%> </small>
+            <br>
+            <small><strong>Email:</strong> <%= current_user.email%> </small>
+              <hr>
+
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+              <% end %>
+
+              <div id="deskasteriskpass1">*</div>
+
+              <div class="field">
+              <small><%= f.password_field :password, autocomplete: "new-password", placeholder: 'leave blank if you dont want to change it',label: "New Password" %></small>
+              <% if @minimum_password_length %>
+              <small><em><%= @minimum_password_length %> characters minimum</em></small>
+              <% end %>
+              </div>
+              <br>
+
+              <div id="deskasteriskpass2"> *</div>
+              <div class="field">
+              <small><%= f.password_field :password_confirmation, autocomplete: "new-password", label: " Confirm New Password" %></small>
+              </div>
+
+
+              <div id="deskasteriskpass3"> *</div>  
+              <div class="field">
+              <small><%= f.password_field :current_password, autocomplete: "current-password", placeholder: 'we need your current password to confirm your changes'  %> </small>
+              </div>
+
+              <br>
+        
+                
+
+              <div class="actions">
+              <%= f.submit "Update",class: "btn btn-primary  btn-block btn-sm"  %>
+              </div>
+              <% end %>
+
+              <!--<h3>Cancel my account</h3>
+
+              <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p> --> 
+
+                <br>
+                <%= button_to "Back", pages_path, class: "btn btn-secondary  btn-block btn-sm",  :method=> :get %>
+         
+
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-4" >
+      <!---empty -->
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+

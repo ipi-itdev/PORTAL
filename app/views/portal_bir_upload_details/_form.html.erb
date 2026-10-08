@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script>
+    //onload page
+  function onloadpageFunc() {
+        $("#ads_modal").click();
+  }
+  </script>
+
+
+
+</head>
+
+
+
+<body onload="onloadpageFunc()">
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#winnerModal" id="ads_modal" style="visibility: hidden;">
+  .
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="winnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog " role="document" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" style="color: red; " align="center">Please upload your signed 2316 form </h2>
+        <br>
+        <br>
+         <small> <a href="<%= @BIRlink %>" download="<%= @getBIRCredentials.rows[0][0] %>" >
+        You can re-download your unsigned BIR 2316 if you lost or forgot to download it, Click Here</a></small>
+        <br>
+        <br>
+        <small style="color:red;">*Please make sure you signed all the fields that require a signature (#52 and #54 of the form)</small>
+        <br>
+        <small style="color:red;">*You can edit your pdf using <a href="https://acrobat.adobe.com/" target="_blank">Adobe Acrobat</a>, <a href="https://www.ilovepdf.com/" target="_blank" >IlovePDF</a> , etc </small>
+        <br>
+        <small style="color: red;">*Make sure you attached the file on .PDF file format (2mb max file size)</small> 
+
+      </div>
+      <div class="modal-body">
+
+
+
+          <%= bootstrap_form_with(model: portal_bir_upload_detail, local: true) do |form| %>
+            <% if portal_bir_upload_detail.errors.any? %>
+              <div id="error_explanation">
+                <ul>
+                  <p style="color: red;font-size: 80%;">
+                    <% portal_bir_upload_detail.errors.full_messages.each do |message| %>
+                      <%= message %> <br>
+                    <% end %>
+                  </p>
+                </ul>
+              </div>
+            <% end %>
+
+
+            <%= form.hidden_field :BIRUploadDetailRefNo, value: 1 %>          
+            <%= form.hidden_field :CreatedDate, value: DateTime.now + 8.hours %>
+            <%= form.hidden_field :CreatedBy, value: current_user.EmployeeRefNo %>
+            <%= form.hidden_field :ModifiedDate, value: DateTime.now + 8.hours %>
+            <%= form.hidden_field :ModifiedBy, value: current_user.EmployeeRefNo %>
+            <%= form.hidden_field :IsActive, value: true %>
+            <%= form.hidden_field :EmployeeRefNo, value: current_user.EmployeeRefNo %>
+            <%= form.hidden_field :Description, value: 'BIR 2316' %>
+
+
+                             
+            <div class="row">
+              <div class="col-sm-12" >
+                <small><%= form.file_field :AttachmentFile, label: 'Attachment File', onchange: "myFunction_hidediv()", :accept => 'application/pdf', class: "form-control" %></small>
+
+                <script type="application/javascript">
+                    $('input[type="file"]').change(function(e){
+                        var fileName = e.target.files[0].name;
+                        $('.custom-file-label').html(fileName);
+                    });
+                </script>
+
+                <script>
+                  function myFunction_hidediv() {
+                    var x = document.getElementById("portal_bir_upload_detail_AttachmentFile").value;
+                    $("#div_filepath").hide();
+                  }
+                </script>  
+
+                <div id="div_filepath">
+                  <small><a href="<%= @portal_bir_upload_detail.AttachmentFile%>" target="_blank">  </a> </small>
+                </div>
+
+                <small><%= form.hidden_field :AttachmentFile_cache %></small>
+                <small style="color: red;">*Attachment is required</small>  
+                <br>
+                   
+              </div>
+            </div>
+
+            <br>
+            <div>
+             <%= form.submit 'Save', class:'btn btn-success btn-sm btn-block', id: 'submit_detail_but' %>
+             <% end %>
+
+             <%= session[:bir_upload_flag] %>
+
+            <script type="text/javascript">
+              $(document).submit(function() {
+                $( "#submit_detail_but" ).prop('disabled', true);
+              });                      
+            </script>
+            </div>
+
+
+                            
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <script type="text/javascript">
+    $('#portal_bir_upload_detail_AttachmentFile').on('change', function() {
+      var numb = $(this)[0].files[0].size / 1024 / 1024;
+    numb = numb.toFixed(2);
+    if (numb > 2) 
+    {
+      alert('to big, maximum is 2MiB. You file size is: ' + numb + ' MiB');
+      $( "#submit_detail_but" ).prop('disabled', true);
+    } 
+    else 
+    {
+      $( "#submit_detail_but" ).prop('disabled', false);
+    }
+     
+    });
+  </script>
+
+
+</body>
+
+
+
+
+
+
+</html>
+
+
+
+
+

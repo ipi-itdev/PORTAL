@@ -1,0 +1,25 @@
+current directory: /var/www/portal/pispayslipportal/vendor/bundle/ruby/2.3.0/gems/tiny_tds-2.1.2/ext/tiny_tds
+/usr/local/rvm/rubies/ruby-2.3.3/bin/ruby -r ./siteconf20190521-18970-5hyc20.rb extconf.rb
+checking for sybfront.h... yes
+checking for sybdb.h... yes
+checking for tdsdbopen() in -lsybdb... yes
+checking for dbanydatecrack() in -lsybdb... yes
+creating Makefile
+
+current directory: /var/www/portal/pispayslipportal/vendor/bundle/ruby/2.3.0/gems/tiny_tds-2.1.2/ext/tiny_tds
+make "DESTDIR=" clean
+
+current directory: /var/www/portal/pispayslipportal/vendor/bundle/ruby/2.3.0/gems/tiny_tds-2.1.2/ext/tiny_tds
+make "DESTDIR="
+compiling client.c
+client.c: In function ‘tinytds_msg_handler’:
+client.c:143:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   int is_message_an_error = severity > 10 ? 1 : 0;
+   ^
+compiling result.c
+compiling tiny_tds_ext.c
+linking shared-object tiny_tds/tiny_tds.so
+
+current directory: /var/www/portal/pispayslipportal/vendor/bundle/ruby/2.3.0/gems/tiny_tds-2.1.2/ext/tiny_tds
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 tiny_tds.so ./.gem.20190521-18970-19drrmz/tiny_tds

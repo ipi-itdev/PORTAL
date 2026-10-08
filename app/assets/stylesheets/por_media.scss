@@ -1,0 +1,35 @@
+// Place all the styles related to the por_media controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+ .thumbnail {
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+   transition: 0.3s;
+   min-width: 40%;
+   border-radius: 5px;
+ }
+
+ .thumbnail-description {
+   min-height: 40px;
+ }
+
+ .thumbnail:hover {
+   /*cursor: pointer;*/
+   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 1);
+ }
+
+
+ #float{
+  position:fixed;
+   width: 200px;
+
+}
+
+
+ #float:hover{
+  
+   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 1);
+
+}
+

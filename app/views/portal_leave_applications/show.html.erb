@@ -1,0 +1,115 @@
+<p id="notice"><%= notice %></p>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1" >      
+    </div>
+
+    <div class="col-sm-10" >
+      <% session[:portal_leave_application_id] = @portal_leave_application.ID %>
+
+      <div class="panel panel-default" id="panelframe" style="">
+        <div class="panel-heading" id="panelheader" >
+          <i class="fas fa-calendar-check"></i> <strong>Leave Application</strong>
+        </div>
+
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-4" >
+              <div class="row">
+                <div class="col-sm-12" >
+                <small>
+                  <div class="row">                      
+                    <div class="col-sm-4" >
+                      <strong>ID: </strong>
+                    </div>
+
+                    <div class="col-sm-8" >
+                      <%=  @portal_leave_application.ID %>
+                    </div>                                                                                
+                  </div>
+
+                  <br>
+
+                  <div class="row">
+                    <div class="col-sm-4" >
+                      <strong>Created Date: </strong>
+                    </div>
+
+                    <div class="col-sm-8" >
+                      <%= @portal_leave_application.DateFiled.strftime("%m/%d/%Y") %>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-4" >
+                      <strong>Created By: </strong>
+                    </div>
+
+                    <div class="col-sm-8" >
+                      <%= PisEmployeeU.where(EmployeeRefNo: @portal_leave_application.CreatedBy).pluck(:Description).to_sentence %>
+                    </div>
+                  </div>
+
+                  <br>
+
+                  <div class="row">                      
+                    <div class="col-sm-4" >
+                      <strong>Status: </strong>
+                    </div>
+
+                    <div class="col-sm-8" >
+                      <%= GenFilingStatusF.where(FilingStatusRefNo: @portal_leave_application.FilingStatusRefNo ).pluck(:Description).to_sentence %>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-sm-4" >
+                      <strong>Remarks: </strong>
+                    </div>
+
+                    <div class="col-sm-8" >
+                      <%= @portal_leave_application.Remarks %>
+                    </div>
+                  </div>
+
+                  <br>
+                </small>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12" >
+                  <%= link_to 'Back to List', portal_leave_applications_path,  class:'btn btn-primary  btn-block'%>
+    
+                  <br>
+                  <br>
+                  <br>                                  
+                </div> 
+              </div>
+            </div>
+
+            <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;">
+              <iframe src="/portal_leave_application_details?leave_application_id=<%= @get_edit_id.to_param %>" style="border:none;" title="IframeExpenseDetails" height="430px" width="100%"></iframe>
+            </div>
+          </div>      
+        </div>
+      </div>      
+    </div>
+
+    <div class="col-sm-1" >      
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+</body>
+</html>

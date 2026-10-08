@@ -1,0 +1,77 @@
+<<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script>
+    //onload page
+  function onloadpageFunc() 
+  {
+    $("#ads_modal").click();
+    $("#divradio").hide();
+    $("#savebutton").hide();
+  }
+  </script>
+
+</head>
+
+
+<body onload="onloadpageFunc()">
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#winnerModal" id="ads_modal" style="visibility: hidden;">
+  .
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="winnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog " role="document" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" style="color: red; " align="center">Please download your BIR 2316</h2>
+      </div>
+      <div class="modal-body">
+        <strong><%= @getBIRCredentials.rows[0][0] %></strong>
+        <p>
+          <a href="<%= @BIRlink %>" download="<%= @getBIRCredentials.rows[0][0] %>"  onclick="myFunctionShowRadio()" >
+        Click Here to download</a></p>
+        <br>
+
+        <div id="divradio">
+          <input type="radio" id="radioconfirm" name="radioconfirm" value="1" onclick="myFunctionSaveButton()"> <label for="radioconfirm">This is to confirm that I successfully downloaded and checked my BIR 2316 Form</label>
+        </div>
+        <br>
+        <br>
+        <small><p style="color:red;">*for inquiries and clarifications, please contact hrc@ipiphil.com</p></small>
+
+        <hr>
+        <%= link_to 'Save', portal_bir_download_form_process_path(EmployeeRefno: current_user.EmployeeRefNo),class: 'btn btn-warning btn-block', id: 'savebutton', method: 'POST' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  function myFunctionShowRadio() {
+    $("#divradio").show();
+}
+</script>
+
+
+<script>
+  function myFunctionSaveButton() {
+    $("#savebutton").show();
+}
+</script>
+
+
+
+</body>
+
+
+
+</html>

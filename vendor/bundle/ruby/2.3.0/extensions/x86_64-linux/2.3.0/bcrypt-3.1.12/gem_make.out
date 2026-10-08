@@ -1,0 +1,19 @@
+current directory: /var/www/portal/pispayslipportal/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.12/ext/mri
+/usr/local/rvm/rubies/ruby-2.3.3/bin/ruby -r ./siteconf20190521-18970-1qnoxv0.rb extconf.rb
+creating Makefile
+
+current directory: /var/www/portal/pispayslipportal/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.12/ext/mri
+make "DESTDIR=" clean
+
+current directory: /var/www/portal/pispayslipportal/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.12/ext/mri
+make "DESTDIR="
+compiling bcrypt_ext.c
+compiling crypt.c
+compiling crypt_blowfish.c
+compiling crypt_gensalt.c
+compiling wrapper.c
+linking shared-object bcrypt_ext.so
+
+current directory: /var/www/portal/pispayslipportal/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.12/ext/mri
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bcrypt_ext.so ./.gem.20190521-18970-n62k1e

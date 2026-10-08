@@ -1,0 +1,214 @@
+<style type="text/css">
+  
+#header_one {
+  font-size: 200%;
+}
+
+
+#panelwebinar{
+  box-shadow: 0 0px 2px 0 rgba(0, 0, 0, 1);
+}
+
+#panelheaderwebinar {
+background: rgb(103, 58, 183);
+
+}
+
+#webinar_required{
+  position: absolute;
+  bottom: px;
+  left: 115px;
+  font-size: 15px;
+  color: red;
+}
+
+#submit_button{
+  background: rgb(103, 58, 183);
+}
+
+
+.input-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+input[type=radio]:checked + label>img {
+  border: 1px solid #fff;
+  box-shadow: 0 0 3px 3px #090;
+}
+
+/* Stuff after this is only to make things more pretty */
+input[type=radio] + label>img {
+  border: 1px dashed #444;
+  width: 200px;
+  height: 150px;
+  transition: 500ms all;
+}
+
+input[type=radio]:checked + label>img {
+  transform: 
+    rotateZ(-10deg) 
+    rotateX(10deg);
+}
+
+/*
+ | //lea.verou.me/css3patterns
+ | Because white bgs are boring.
+*/
+html {
+  background-color: #fff;
+  background-size: 100% 1.2em;
+  background-image: 
+    linear-gradient(
+      90deg, 
+      transparent 79px, 
+      #abced4 79px, 
+      #abced4 81px, 
+      transparent 81px
+    ),
+    linear-gradient(
+      #eee .1em, 
+      transparent .1em
+    );
+}
+
+
+
+</style>
+
+
+
+<div class="container"> 
+ <div class="row">
+    <div class="col-sm-2" >
+      
+    </div>
+
+    <div class="col-sm-8">
+
+      <div class="panel panel-default" id="panelwebinar">
+        <div class="panel-body">
+          <%= bootstrap_form_with(model: portal_tempwebinar, local: true) do |form| %>
+
+          <div class="row">
+            <div class="col-sm-8" >
+               <h1><strong>Your thoughts matter!</strong></h1>
+               <h1>Kindly participate in our survey to help us shape the perfect Christmas party theme by choosing from the options below: </h1>
+ 
+            </div>
+            <div class="col-sm-4" >
+               <div><img src="/celebrate.jpg" alt="I'm sad" style=" max-width: 100%; height: auto; display: block;" /></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+  
+
+
+
+      <div class="panel panel-default" id="panelwebinar">
+        <div class="panel-body">
+          <%= form.hidden_field :EmployeeRefNo, value: current_user.EmployeeRefNo %>
+          <%= form.hidden_field :webinar_refno, value: 1 %>
+
+          <hr>
+          
+          
+
+          <div class="row">
+
+
+            <div class="col-sm-4" align="center" >
+
+  
+              <input type="radio" name="portal_tempwebinar[answer]" id="portal_tempwebinar_answer_1" class="input-hidden" value="1" onclick="checkRadio()" />
+              <label for="portal_tempwebinar_answer_1">
+                <img 
+                  src="/christmas_post/school.png" alt="I'm sad" />
+                  <h1>Back To School🏫</h1>
+              </label>
+
+            </div> 
+
+
+            <div class="col-sm-4" align="center">
+
+              <input type="radio" name="portal_tempwebinar[answer]" id="portal_tempwebinar_answer_2" class="input-hidden" value="2" onclick="checkRadio()" />
+              <label for="portal_tempwebinar_answer_2">
+                <img 
+                  src="/christmas_post/rockenroll.png" alt="I'm sad" />
+                  <h1>Rock n Roll🤘</h1>
+              </label>
+              
+            </div>
+
+
+            <div class="col-sm-4" align="center">
+
+              <input type="radio" name="portal_tempwebinar[answer]" id="portal_tempwebinar_answer_3" class="input-hidden" value="3" onclick="checkRadio()" />
+              <label for="portal_tempwebinar_answer_3">
+                <img 
+                  src="/christmas_post/sporty.png" alt="I'm sad" />
+                  <h1>Sporty Christmas⚽</h1>
+              </label>
+              
+            </div>      
+
+
+          </div>
+
+          <p style="color: red;">*click on the images</p>
+          <div class="row">
+            <div class="col-sm-12" >
+
+             <input type="submit" name="commit" value=" &#x2714; Submit" class="btn btn-success  btn-block" id="submit_button" data-disable-with="Saving..."> 
+
+            </div>
+          
+          </div>
+
+
+        </div>
+      </div>
+
+      <% end %>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+
+
+    </div>
+
+
+    </div>
+
+    <div class="col-sm-2" >
+      
+    </div>
+ </div>
+
+ <script type="text/javascript">
+    function checkRadio(){
+      $( "#submit_button" ).prop('disabled', false);
+    }
+
+ </script>
+
+ <script type="text/javascript">
+       
+    // A $( document ).ready() block.
+    $( document ).ready(function() {
+        $( "#submit_button" ).prop('disabled', true);
+        console.log( "ready!" );
+    });
+ </script>
+
+
+
+
+

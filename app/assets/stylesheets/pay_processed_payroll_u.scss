@@ -1,0 +1,49 @@
+// Place all the styles related to the PAY_ProcessedPayroll_Cs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+hr.style1{
+  width: 100%;
+  border-top: 1px solid #8c8b8b;
+} 
+ 
+#hidden {
+  display: none;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+ 
+
+.pointer {
+  cursor: pointer;
+}
+
+#asterisk{
+ color: red; 
+}
+
+
+input[type=date] {
+  width: 100%;
+  padding: 5px 20px;
+  border-radius: 5px;
+  border: 2px solid grey;
+  
+}
+
+#totallabel{
+  font-size: 18px;
+}

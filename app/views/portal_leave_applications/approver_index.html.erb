@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+  <%= stylesheet_link_tag 'leave_credits'%>
+
+</head>
+<body>
+
+
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-1" >
+      </div>
+      <!---start col 10 -->
+      <div class="col-sm-10" >
+
+        <div class="panel panel-default" id="panelframe">
+          <div class="panel-heading" align="center" id="panelheader">
+            <div class="row">
+              <div class="col-sm-6" align="left" >
+                <strong ><i class="fas fa-calendar-check"></i>Manage Leave Applications</strong>
+
+
+              </div>
+              <div class="col-sm-3" >
+               
+              </div> 
+              <div class="col-sm-3" >
+          
+              </div>
+            </div>             
+          </div>
+          <div class="panel-body">
+              <div class="w3-bar w3-white">
+      
+                <% if  session[:TabSelect] == '' %>
+                  <% session[:TabSelect] = 'firsttab'%>
+                <% end %>
+
+
+
+                <% if current_user.is_manager == true %>
+                  <button class="w3-bar-item w3-button tablink w3-red" onclick="openCity(event,'Team')" id="firsttab" ><b>My Team</b></button>
+                <% else %>
+                  <!-- nothing to do -->
+                <% end %>
+
+
+                <% if current_user.is_external_approver == true %>
+                  <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'External')" id="secondtab"><b>External Employees</b></button>
+                <% else %>
+                  <!-- nothing to do -->
+                <% end %>
+
+                <% if current_user.is_gen_manager == true %>
+                  <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'Manager')" id="thirdtab"><b>Manager's Leaves</b></button>
+                <% else %>
+                  <!-- nothing to do -->
+                <% end %>
+ 
+              </div>
+              
+              <!--- start team tab -->
+
+              <% if current_user.is_manager == true %>
+                <% if @portal_leave_applications_dept.count <= 0 %>
+                  <br>
+                  <div id="Team" class="w3-container w3-border city">
+                    <p align="center"><b>No Record</b></p>
+                  </div>
+                <% else %>
+                  <div id="Team" class="w3-container w3-border city">
+
+                    <div class="table table-responsive">   
+                            <table  id="example1">
+                              <thead >
+                                <tr>
+                                  <th><small>Leave Ref No.</small></th>
+                                  <th><small> Employee Name</small></th>
+                                  <th><small>Date Filled</small></th>
+                                  <th><small> Leave Type</small></th>
+                                  <th><small>Start Date</small></th>
+                                  <th><small>End Date</small></th>
+                                  <th><small>Total Hour(s)</small></th>
+                                  <th><small>Status</small></th>
+                                  <th><small> <!--- empty --> </small></th>
+           
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                    <% @portal_leave_applications_dept.each do |portal_leave_application| %>
+
+                                        <tr>
+                                          <td align="center"><small><%= portal_leave_application.id %></small></td>
+                                          <td><small><%= PisEmployeeU.where(EmployeeRefNo: portal_leave_application.employeerefno).pluck(:Description).to_sentence %></small>  </td>
+                                          <td><small><%= portal_leave_application.created_at.strftime("%m/%d/%Y") %></small></td>
+                                          <td ><small><%=  GenLeaveTypeM.where(LeaveTypeRefNo: portal_leave_application.leavetype_refno).pluck(:Code).to_sentence%></small></td>
+                                          <td><small><%= portal_leave_application.startdate.strftime("%m/%d/%Y") %></small></td>
+                                          <td><small><%= portal_leave_application.enddate.strftime("%m/%d/%Y") %></small></td>
+                                          <td ><small><%= PortalLeaveTimeLookupU.where(leave_value: portal_leave_application.end_hrs).pluck(:description).to_sentence  %></small></td>
+                                          <td><small><%= PortalLeaveStatusC.where(status_refno: portal_leave_application.leave_status_refno).pluck(:status_description).to_sentence %></small></td>
+
+                                          <td><%= link_to 'View', portal_leave_applications_approver_approver_edit_path(id: portal_leave_application.id, tab: 'firsttab'), class:'btn btn-sm btn-primary  btn-block' %></td>
+
+                                        </tr>
+                                
+
+
+                                    <% end %>
+                                                   
+                              </tbody>
+
+
+
+                            </table>
+
+
+                        <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+                        <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+                        
+                        <script>
+                        $(function(){
+                          $("#example1").dataTable();
+                        })
+                        </script>
+
+                    </div>
+                <% end %>
+              </div>
+
+              <% else %>
+              <!-- nothing to do -->
+              <% end %>
+              <!--- end team tab -->
+
+
+              <!-- start external tab -->
+              <% if current_user.is_external_approver == true %>
+                <% if @portal_leave_applications_ext.count <= 0 %>
+                    <div id="External" class="w3-container w3-border city" style="display:none">
+                      <p align="center"><b>No Record</b></p>
+                    </div>
+                <% else %>
+                  <div id="External" class="w3-container w3-border city" style="display:none">
+                    <div class="table table-responsive ">   
+                      <table id="example2">
+                        <thead >
+                          <tr>
+                            <th><small>Leave Ref No.</small></th>
+                            <th ><small> Employee Name</small></th>
+                            <th><small>Date Filled</small></th>
+                            <th><small>Leave Type</small></th>
+                            <th><small>Start Date</small></th>
+                            <th><small>End Date</small></th>
+                            <th><small>Total Hour(s)</small></th>
+                            <th><small>Status</small></th>  
+                            <th><small><!--empty --></small></th>
+              
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                              <% @portal_leave_applications_ext.each do |portal_leave_application| %>
+                                <tr>
+                                  <td align="center"><small><%= portal_leave_application.id %></small></td>
+                                  <td><small><%= PisEmployeeU.where(EmployeeRefNo: portal_leave_application.employeerefno).pluck(:Description).to_sentence %></small>  </td>
+                                  <td><small><%= portal_leave_application.created_at.strftime("%m/%d/%Y") %></small></td>
+                                  <td ><small><%=  GenLeaveTypeM.where(LeaveTypeRefNo: portal_leave_application.leavetype_refno).pluck(:Code).to_sentence%></small></td>
+                                  <td><small><%= portal_leave_application.startdate.strftime("%m/%d/%Y") %></small></td>
+                                  <td><small><%= portal_leave_application.enddate.strftime("%m/%d/%Y") %></small></td>
+                                  <td ><small><%= PortalLeaveTimeLookupU.where(leave_value: portal_leave_application.end_hrs).pluck(:description).to_sentence  %></small></td>
+                                  <td><small><%= PortalLeaveStatusC.where(status_refno: portal_leave_application.leave_status_refno).pluck(:status_description).to_sentence %></small></td>
+
+                                  <td><%= link_to 'View', portal_leave_applications_approver_approver_edit_path(id: portal_leave_application.id, tab: 'secondtab'), class:'btn btn-sm btn-primary  btn-block' %></td>
+
+                                </tr>
+                              <% end %>
+                                             
+                        </tbody>
+
+
+
+                      </table>
+
+                      <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+                      <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+                      <script>
+                      $(function(){
+                        $("#example2").dataTable();
+                      })
+                      </script>
+
+                    </div>
+                    <% end %>
+
+                  </div>
+              <% else %>
+              <!-- nothing to do -->
+              <% end %>
+              
+              <!-- end external tab -->
+
+
+              <!-- start external tab -->
+              <% if current_user.is_gen_manager == true %>
+                <% if @get_all_mngrs_leaves.count <= 0 %>
+                  <div id="Manager" class="w3-container w3-border city" style="display:none">
+                    <p align="center"><b>No Record</b></p>
+                  </div>
+                <% else %>
+                  <div id="Manager" class="w3-container w3-border city" style="display:none">
+
+                    <div class="table table-responsive">   
+                            <table  id="example4">
+                              <thead >
+                                <tr>
+                                  <th><small>Leave Ref No.</small></th>
+                                  <th><small> Employee Name</small></th>
+                                  <th><small>Date Filled</small></th>
+                                  <th><small> Leave Type</small></th>
+                                  <th><small>Start Date</small></th>
+                                  <th><small>End Date</small></th>
+                                  <th><small>Total Hour(s)</small></th>
+                                  <th><small>Status</small></th> 
+                                  <th><small></small></th>
+
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                    <% @get_all_mngrs_leaves.each do |portal_leave_application| %>
+                                      <tr>
+                                        <td align="center"><small><%= portal_leave_application.id %></small></td>
+                                        <td><small><%= PisEmployeeU.where(EmployeeRefNo: portal_leave_application.employeerefno).pluck(:Description).to_sentence %></small>  </td>
+                                        <td><small><%= portal_leave_application.created_at.strftime("%m/%d/%Y") %></small></td>
+                                        <td ><small><%=  GenLeaveTypeM.where(LeaveTypeRefNo: portal_leave_application.leavetype_refno).pluck(:Code).to_sentence%></small></td>
+                                        <td><small><%= portal_leave_application.startdate.strftime("%m/%d/%Y") %></small></td>
+                                        <td><small><%= portal_leave_application.enddate.strftime("%m/%d/%Y") %></small></td>
+                                        <td ><small><%= PortalLeaveTimeLookupU.where(leave_value: portal_leave_application.end_hrs).pluck(:description).to_sentence  %></small></td>
+                                        <td><small><%= PortalLeaveStatusC.where(status_refno: portal_leave_application.leave_status_refno).pluck(:status_description).to_sentence %></small></td>
+
+                                        <td><%= link_to 'View', portal_leave_applications_approver_approver_edit_path(id: portal_leave_application.id, tab: 'thirdtab'), class:'btn btn-sm btn-primary  btn-block' %></td>
+
+                                      </tr>
+                                    <% end %>
+                                                   
+                              </tbody>
+
+
+
+                            </table>
+
+                        <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+                        <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+                        
+                        <script>
+                        $(function(){
+                          $("#example4").dataTable();
+                        })
+                        </script>
+
+                    </div>
+                    
+                  </div>
+
+                <% end %>
+
+              <% else %>
+              <!-- nothing to do -->
+              <% end %>
+              <!-- end external tab -->
+
+          </div>
+
+        </div>
+      
+      </div>
+      <!---end col 10 -->
+      <div class="col-sm-1" >
+      </div>
+    </div>
+
+    
+</div>
+
+<script>
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-red";
+}
+
+document.getElementById("<%= session[:TabSelect] %>").click();
+</script>
+
+
+
+
+
+</body>
+</html>  

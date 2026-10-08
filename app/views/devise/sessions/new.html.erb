@@ -1,0 +1,117 @@
+<script type="text/javascript">
+  
+$(function(){
+  function rescaleCaptcha(){
+    var width = $('.g-recaptcha').parent().width();
+    var scale;
+    if (width < 302) {
+      scale = width / 302;
+    } else{
+      scale = 1.0; 
+    }
+
+    $('.g-recaptcha').css('transform', 'scale(' + scale + ')');
+    $('.g-recaptcha').css('-webkit-transform', 'scale(' + scale + ')');
+    $('.g-recaptcha').css('transform-origin', '0 0');
+    $('.g-recaptcha').css('-webkit-transform-origin', '0 0');
+  }
+
+  rescaleCaptcha();
+  $( window ).resize(function() { rescaleCaptcha(); });
+
+});
+
+</script>
+
+
+
+
+ <div class="container-fluid">
+ 
+  <div class="row">
+    <div class="col-sm-4" >
+    
+
+    </div>
+    <div class="col-sm-4" >
+      <div class="row">
+        <div class="col-sm-2" >
+          
+        </div>
+        <div class="col-sm-8" >
+
+           <%= image_tag image_url("/pits_12.PNG"), id: 'pits1headerlogodesk' %>
+           <br>
+           <br>
+           <br>
+            
+          <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+          <small><%= f.text_field :EmployeeNumber, autofocus: true, class: 'form-control ', label: 'Employee Number'%></small>
+
+         <small> 
+          <%= f.password_field :password, autocomplete: "off", class: 'form-control', label: 'Password' %> 
+          <input type="checkbox" onclick="myFunction()">Show Password
+         </small>
+         <br>
+         <br>
+         <br>
+
+                <div class="row">
+
+                  <div class="col-sm-12" align="center">
+
+                    <%= recaptcha_tags %>
+                    <p style="color: red;"><%= flash[:recaptcha_error] %></p>
+
+                  </div>
+
+
+                </div>
+
+
+          <small><%= f.submit "Log in", class: 'form-control  btn-success ' %></small>
+          <br>
+          <div align="center">
+            <small><%= render "devise/shared/links" %></small>
+          </div>
+          <% end %> 
+
+        </div>
+        <div class="col-sm-2" >
+          
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="col-sm-4" >
+
+    </div>
+
+  </div>
+</div> 
+
+
+<br>
+<br>
+<br>
+
+<script>
+function myFunction() {
+  var x = document.getElementById("user_password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employeerefno:</strong>
+  <%= @por_survey.EmployeeRefNo %>
+</p>
+
+<p>
+  <strong>Answer:</strong>
+  <%= @por_survey.answer %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @por_survey.comments %>
+</p>
+
+<%= link_to 'Edit', edit_por_survey_path(@por_survey) %> |
+<%= link_to 'Back', por_surveys_path %>

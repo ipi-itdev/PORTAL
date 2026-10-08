@@ -1,0 +1,37 @@
+<% @datetime_range.blank? %> 
+<br>
+
+<% if @datetime_range.blank? ==  true %>
+
+  <!-- show no recordh-->
+
+<% else %>
+        
+    <!-- if no record fetch -->
+  <% if @datetime_range.rows[0][0].blank? == true %>
+
+    <!-- show no recordh-->
+
+  <% else %>
+
+    <!-- check timein  within the range -->        
+    <% if @datetime_range.rows[0][3].blank? == true #timein%>
+
+      <%= form_tag('/timein', method:'post') do %>
+        <%= hidden_field_tag :id_rec, @datetime_range.rows[0][0] %>
+        <%= hidden_field_tag :emprefno_rec, current_user.EmployeeRefNo %>
+
+        <%= button_tag(type: 'submit', class: 'btn btn-success btn-lg btn-block') do %>
+          Time-in
+        <% end %>
+
+      <% end %>
+
+    <% else %> 
+
+      <!--timeout -->
+      <%= link_to 'Time-out', '/emptimeout', class: "btn btn-danger btn-lg btn-block" %>
+
+    <% end %>
+  <% end %>
+<% end %>

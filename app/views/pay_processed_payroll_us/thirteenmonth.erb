@@ -1,0 +1,134 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+
+  <style type="text/css">
+  	.row > div {
+  background: lightgrey;
+  border: 1px solid grey;
+}
+  </style>
+
+
+
+</head>
+<body>
+
+<h2  align="center">2020 -13th Month Pay</h2>
+
+<div class="container-fluid">
+   	<table width="100%">
+
+		  <tr>
+		    <td align="center"><strong>13th Month Amount:</strong> </td>
+		    <td> <%= @empdetails_sql.rows[0][3] %> </td>
+
+	
+
+
+		  </tr>
+	</table>          
+
+
+
+<hr>
+<% @empdetails_sql.rows[0][0] %>
+
+<% if @empdetails_sql.rows[0][0].blank? == false  %>
+
+<div class="row">
+
+		<table  class="table table-bordered table-striped">
+
+		  <tr>
+		    <td><strong>January:</strong> </td>
+		    <td align="right"><%= @empdetails_sql.rows[0][4] %></td>
+
+		  </tr>
+		  <tr>
+		    <td><strong>February:</strong> </td>
+		    <td align="right"><%= @empdetails_sql.rows[0][5] %></td>
+
+		  </tr>
+		  <tr>
+		    <td><strong>March:</strong></td>
+		    <td align="right"><%= @empdetails_sql.rows[0][6] %></td>
+
+		  </tr>
+		  <tr>
+		    <td><strong>April:</strong></td>
+		    <td align="right"><%= @empdetails_sql.rows[0][7] %></td>
+		  </tr>
+		  <tr>
+		    <td><strong>May:</strong></td>
+		    <td align="right"><%= @empdetails_sql.rows[0][8] %></td>
+		  </tr>
+		  <tr>
+		    <td><strong>June:</strong></td>
+		    <td align="right"><%= @empdetails_sql.rows[0][9] %></td>
+		
+		  </tr>
+		  <tr>
+		    <td><strong>July: </strong></td>
+		    <td align="right"><%= @empdetails_sql.rows[0][10] %></td>
+		    
+		  </tr>
+		  <tr>
+		    <td><strong>August:</strong></td>
+		    <td align="right"><%= @empdetails_sql.rows[0][11] %></td>
+		   
+		  </tr>
+		  <tr>
+		    <td><strong>September:</strong></td>
+		    <td align="right"><%= @empdetails_sql.rows[0][12] %></td>
+		   
+
+		  </tr>
+		  <tr>
+		    <td><strong>October:</strong></td>
+		    <td align="right"><%= @empdetails_sql.rows[0][13] %></td>
+		   
+		  </tr>
+		  <tr>
+		    <td><strong>November:</strong></td>
+		    <td align="right"><%= @empdetails_sql.rows[0][14] %></td>
+		   
+		  </tr>
+		  <tr>
+		    <td><strong>December:</strong></td>
+		    <td align="right"><%= @empdetails_sql.rows[0][16] %></td>
+		   
+		  </tr>
+
+		  <tr>
+		    <td><strong>Total Amount:</strong></td>
+		    <td align="right"><strong> <%= @empdetails_sql.rows[0][4] + @empdetails_sql.rows[0][5] + @empdetails_sql.rows[0][6] + @empdetails_sql.rows[0][7] + @empdetails_sql.rows[0][8] + @empdetails_sql.rows[0][9] + @empdetails_sql.rows[0][10] + @empdetails_sql.rows[0][11]+ @empdetails_sql.rows[0][12] + @empdetails_sql.rows[0][13] + @empdetails_sql.rows[0][14] + @empdetails_sql.rows[0][16]%></strong></td>
+		   
+		  </tr>
+
+		</table>
+
+
+ </div>
+
+
+<% else %>
+<strong>NO RECORD FOUND</strong>
+<% end %>
+</div>
+
+</body>
+</html>
+	   

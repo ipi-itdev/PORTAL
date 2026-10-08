@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  <style type="text/css">
+    #required_field {
+      position: absolute;
+      bottom: px;
+      left: 7px;
+      font-size: 18px;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">        
+    <%= bootstrap_form_with(model: kpi_core_competency, local: true) do |form| %>
+      <% if kpi_core_competency.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <p style="color: red;font-size: 80%;">
+              <% kpi_core_competency.errors.full_messages.each do |message| %>
+                <%= message %> <br>
+              <% end %>
+            </p>
+          </ul>
+        </div>
+      <% end %>
+
+      <br>
+      <small>
+      <%= hidden_field_tag :kpi_employee, session[:kpi_employee] %> 
+
+      <div class="row" id="01">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Fill up all fields to continue in evaluation.</strong>
+          </div>
+        </div>
+      </div>
+                        
+      <div class="row" id="11" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br> 
+
+        <div class="col-sm-12">        
+          <%= form.hidden_field :KpiAssignment, value: session[:kpi_assignment_id] %>          
+          <% set1 = ActiveRecord::Base.connection.exec_query("Select Description from dbo.PIS_CoreCompetencies WHERE ID = 1").rows[0][0] %>
+          <% set2 = ActiveRecord::Base.connection.exec_query("Select Description from dbo.PIS_CoreCompetencies WHERE ID = 2").rows[0][0] %>
+          <% set3 = ActiveRecord::Base.connection.exec_query("Select Description from dbo.PIS_CoreCompetencies WHERE ID = 3").rows[0][0] %>
+          <% set4 = ActiveRecord::Base.connection.exec_query("Select Description from dbo.PIS_CoreCompetencies WHERE ID = 4").rows[0][0] %>
+          <% set5 = ActiveRecord::Base.connection.exec_query("Select Description from dbo.PIS_CoreCompetencies WHERE ID = 5").rows[0][0] %>
+      
+          <%= form.collection_radio_buttons(:CoreCompetency11, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 1, SetNo: 1), :CoreCompetencyDetailsRefNo, :Description, label: "#{set1} [1 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>
+        </div>
+      </div>
+
+      <div class="row" id="12" style="display: none;">
+       <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br> 
+         
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency12, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 1, SetNo: 2), :CoreCompetencyDetailsRefNo, :Description, label: "#{set1} [2 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>
+        </div>
+      </div> 
+
+      <div class="row" id="13" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br> 
+         
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency13, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 1, SetNo: 3), :CoreCompetencyDetailsRefNo, :Description, label: "#{set1} [3 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div> 
+
+      <div class="row" id="21" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br> 
+         
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency21, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 2, SetNo: 1), :CoreCompetencyDetailsRefNo, :Description, label: "#{set2} [4 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div> 
+
+      <div class="row" id="22" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br> 
+         
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency22, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 2, SetNo: 2), :CoreCompetencyDetailsRefNo, :Description, label: "#{set2} [5 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div> 
+
+      <div class="row" id="23" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br> 
+         
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency23, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 2, SetNo: 3), :CoreCompetencyDetailsRefNo, :Description, label: "#{set2} [6 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div>
+
+      <div class="row" id="31" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br> 
+         
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency31, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 3, SetNo: 1), :CoreCompetencyDetailsRefNo, :Description, label: "#{set3} [7 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div> 
+
+      <div class="row" id="32" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br>
+
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency32, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 3, SetNo: 2), :CoreCompetencyDetailsRefNo, :Description, label: "#{set3} [8 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div> 
+
+      <div class="row" id="33" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br>
+        
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency33, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 3, SetNo: 3), :CoreCompetencyDetailsRefNo, :Description, label: "#{set3} [9 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div>
+
+      <div class="row" id="41" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br>
+        
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency41, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 4, SetNo: 1), :CoreCompetencyDetailsRefNo, :Description, label: "#{set4} [10 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div> 
+
+      <div class="row" id="42" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br>
+        
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency42, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 4, SetNo: 2), :CoreCompetencyDetailsRefNo, :Description, label: "#{set4} [11 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div> 
+
+      <div class="row" id="43" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br>
+        
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency43, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 4, SetNo: 3), :CoreCompetencyDetailsRefNo, :Description, label: "#{set4} [12 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div>
+
+      <div class="row" id="51" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br>
+        
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency51, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 5, SetNo: 1), :CoreCompetencyDetailsRefNo, :Description, label: "#{set5} [13 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div> 
+
+      <div class="row" id="52" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br>
+        
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency52, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 5, SetNo: 2), :CoreCompetencyDetailsRefNo, :Description, label: "#{set5} [14 of 15]", onClick: "document.getElementById('showNext').disabled = false") %>              
+        </div>
+      </div> 
+
+      <div class="row" id="53" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>Core Competencies</strong>
+          </div>
+        </div>
+        <br><br>
+        
+        <div class="col-sm-12">
+          <%= form.collection_radio_buttons(:CoreCompetency53, KpiCoreCompetencyDetail.where(CoreCompetencyRefNo: 5, SetNo: 3), :CoreCompetencyDetailsRefNo, :Description, label: "#{set5} [15 of 15]", onClick: "document.getElementById('divNextPart').setAttribute('style', 'display: block')") %>              
+        </div>
+      </div>
+
+      <div class="row" id="divGrowth" style="display: none;">
+        <div class="row">
+          <div class="col-sm-12" >                                                  
+            <strong>GROWTH, LEARNING AND SPECIAL ASSIGNMENTS</strong>
+          </div>
+        </div>
+        <br><br>
+        
+        <div class="row">
+          <div class="col-sm-6" >          
+            <small><%= form.text_area :CoreStrengthsHighest, class: 'form-control input-sm', style: 'resize: none;', label: 'Core Strengths for (ratings 1.0 to 3.0)' %></small>
+          </div>        
+
+          <div class="col-sm-6" >
+            <small><%= form.text_area :SpecialAssignment, class: 'form-control input-sm', style: 'resize: none;', label: 'Special assignment or project' %></small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6" >
+            <small><%= form.text_area :CoreStrengthsLowest, class: 'form-control input-sm', style: 'resize: none;', label: 'Core Areas for improvement (rating 3.5 to 5.0)' %></small>
+          </div>        
+
+          <div class="col-sm-6" >
+            <small><%= form.text_area :Objectives, class: 'form-control input-sm', style: 'resize: none;', label: 'Objectives or desired impact on growth' %></small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6" >
+            <small><%= form.text_area :ActionPlanA, class: 'form-control input-sm', style: 'resize: none;', label: 'Action Plan with timeline & desired outcomes' %></small>
+          </div>        
+
+          <div class="col-sm-6" >
+            <small><%= form.text_area :ActionPlanB, class: 'form-control input-sm', style: 'resize: none;', label: 'Action Plan with timeline & desired outcomes' %></small>
+          </div>
+        </div>
+      </div>  
+      
+      </small><br><br>  
+
+      <% if mobile_device != "mobile" %> 
+      <div class="row" id="divNav" style="display: none;">
+        <div class="col-sm-6" >
+          <div class="row">
+            <div class="col-sm-6">   
+              <input type="button" id="showPrev" class="btn btn-primary btn-sm btn-block" value="Previous", disabled="true">
+            </div>
+
+            <div class="col-sm-6">   
+              <input type="button" id="showNext" class="btn btn-primary btn-sm btn-block" value="Next", disabled="true">
+            </div>
+          </div> 
+        </div>
+
+        <br>
+
+        <div class="col-sm-6" >   
+          <div class="row">     
+            <div class="col-sm-6" id="divNextPart" style="display: none;">
+              <input type="button" id="showNextPart" class="btn btn-primary btn-sm btn-block" value="Next Part">
+            </div>
+
+            <div class="col-sm-6" id="divSave" style="display: none;">
+              <%= form.submit 'Save', class:'btn btn-success btn-sm btn-block', id: 'submit_detail_but' %>                                  
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% else %>
+        <div class="row" id="divNav" style="display: none;">
+          <div class="col-sm-6">   
+            <input type="button" id="showPrev" class="btn btn-primary btn-sm btn-block" value="Previous", disabled="true">
+            <br>
+          </div>
+                  
+          <div class="col-sm-6">   
+            <input type="button" id="showNext" class="btn btn-primary btn-sm btn-block" value="Next">
+            <br>
+          </div>
+          
+          <div class="col-sm-6" id="divNextPart" style="display: none;">
+            <input type="button" id="showNextPart" class="btn btn-primary btn-sm btn-block" value="Next Part">
+            <br>
+          </div>
+
+          <div class="col-sm-6" id="divSave" style="display: none;">
+            <%= form.submit 'Save', class:'btn btn-success btn-sm btn-block', id: 'submit_detail_but', :disabled => true %>
+          </div>
+        </div>
+      <% end %>      
+    <% end %>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $(function () {
+        $('[data-toggle="popover"]').popover()
+      })
+
+      $('[data-toggle="tooltip"]').tooltip(
+        {container:'body', trigger: 'hover', placement:"right"}
+      ) 
+
+      $('label[for="kpi_core_competency_CoreCompetency11"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency12"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency13"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency21"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency22"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency23"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency31"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency32"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency33"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency41"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency42"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency43"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency51"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency52"').wrapInner("<strong />")
+      $('label[for="kpi_core_competency_CoreCompetency53"').wrapInner("<strong />")
+      
+      if ($("#kpi_employee").val() != 0) {
+        document.getElementById('divNav').setAttribute("style", "display: block")
+        document.getElementById('11').setAttribute("style", "display: block")
+        document.getElementById('01').setAttribute("style", "display: none")
+      }
+      
+      if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency11]"]:checked') != null) {
+        document.getElementById('showNext').disabled = false
+      }
+      else {
+        document.getElementById('showNext').disabled = true
+      }
+       
+      let a = 1
+
+      $("#showNextPart").click(function () {
+        if (($("#kpi_core_competency_CoreCompetency11_1").prop("checked") == true) || ($("#kpi_core_competency_CoreCompetency11_2").prop("checked") == true)) {
+        } 
+        
+        if (($("#kpi_core_competency_CoreCompetency11_3").prop("checked") == true) || ($("#kpi_core_competency_CoreCompetency11_4").prop("checked") == true)) {
+        } 
+
+        document.getElementById('divGrowth').setAttribute("style", "display: block")
+        document.getElementById('53').setAttribute("style", "display: none")
+
+        document.getElementById('divSave').setAttribute("style", "display: block")
+        document.getElementById('showNext').setAttribute("style", "display: none")
+        document.getElementById('showPrev').setAttribute("style", "display: none")
+        document.getElementById('divNextPart').setAttribute("style", "display: none")
+      })
+                      
+      $("#showPrev").click(function () {
+        a = a - 1
+        document.getElementById('showNext').disabled = false
+
+        if (a == 1)
+        {                              
+          document.getElementById('showPrev').disabled = true          
+
+          document.getElementById('11').setAttribute("style", "display: block")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")          
+        }
+        else if (a == 2)
+        {
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: block")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none") 
+        }
+        else if (a == 3)
+        {
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: block")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 4)
+        {
+          document.getElementById('showPrev').disabled = false
+          
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: block")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 5)
+        {
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: block")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        } 
+        else if (a == 6)
+        {
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: block")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        } 
+        else if (a == 7)
+        {
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: block")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        } 
+        else if (a == 8)
+        {
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: block")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        } 
+        else if (a == 9)
+        {
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: block")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        } 
+        else if (a == 10)
+        {
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: block")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        } 
+        else if (a == 11)
+        {
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: block")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        } 
+        else if (a == 12)
+        {
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: block")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        } 
+        else if (a == 13)
+        {
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: block")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        } 
+        else if (a == 14)
+        {
+          document.getElementById('showPrev').disabled = false
+          document.getElementById('divNextPart').setAttribute("style", "display: none")
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: block")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }                    
+      })
+
+      $("#showNext").click(function () {
+        a = a + 1
+
+        if (a == 2)
+        {          
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency12]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+          
+          if ($("#kpi_core_competency_CoreCompetency11_1").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency12_5"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency12_6"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency12_7"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency12_8"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency11_2").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency12_5"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency12_6"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency12_7"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency12_8"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency11_3").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency12_5"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency12_6"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency12_7"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency12_8"').css("color", "black")
+          }
+          else {            
+            $('label[for="kpi_core_competency_CoreCompetency12_5"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency12_6"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency12_7"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency12_8"').css("color", "black")
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: block")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")          
+        }
+        else if (a == 3)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency13]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+
+          if ($("#kpi_core_competency_CoreCompetency12_5").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency13_9"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency13_10"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency13_11"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency13_12"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency12_6").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency13_9"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency13_10"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency13_11"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency13_12"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency12_7").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency13_9"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency13_10"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency13_11"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency13_12"').css("color", "black")
+          }
+          else {            
+            $('label[for="kpi_core_competency_CoreCompetency13_9"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency13_10"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency13_11"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency13_12"').css("color", "black")
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: block")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 4)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency21]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }          
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: block")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 5)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency22]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+
+          if ($("#kpi_core_competency_CoreCompetency21_13").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency22_17"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency22_18"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency22_19"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency22_20"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency21_14").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency22_17"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency22_18"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency22_19"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency22_20"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency21_15").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency22_17"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency22_18"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency22_19"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency22_20"').css("color", "black")
+          }
+          else {            
+            $('label[for="kpi_core_competency_CoreCompetency22_17"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency22_18"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency22_19"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency22_20"').css("color", "black")
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: block")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 6)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency23]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+
+          if ($("#kpi_core_competency_CoreCompetency22_17").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency23_21"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency23_22"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency23_23"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency23_24"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency22_18").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency23_21"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency23_22"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency23_23"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency23_24"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency22_19").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency23_21"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency23_22"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency23_23"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency23_24"').css("color", "black")
+          }
+          else {            
+            $('label[for="kpi_core_competency_CoreCompetency23_21"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency23_22"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency23_23"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency23_24"').css("color", "black")
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: block")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 7)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency31]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: block")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 8)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency32]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+
+          if ($("#kpi_core_competency_CoreCompetency31_25").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency32_29"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency32_30"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency32_31"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency32_32"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency31_26").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency32_29"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency32_30"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency32_31"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency32_32"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency31_27").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency32_29"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency32_30"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency32_31"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency32_32"').css("color", "black")
+          }
+          else {            
+            $('label[for="kpi_core_competency_CoreCompetency32_29"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency32_30"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency32_31"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency32_32"').css("color", "black")
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: block")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 9)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency33]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+
+          if ($("#kpi_core_competency_CoreCompetency32_29").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency33_33"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency33_34"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency33_35"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency33_36"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency32_30").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency33_33"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency33_34"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency33_35"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency33_36"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency32_31").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency33_33"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency33_34"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency33_35"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency33_36"').css("color", "black")
+          }
+          else {            
+            $('label[for="kpi_core_competency_CoreCompetency33_33"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency33_34"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency33_35"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency33_36"').css("color", "black")
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: block")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 10)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency41]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: block")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 11)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency42]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+
+          if ($("#kpi_core_competency_CoreCompetency41_37").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency42_41"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency42_42"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency42_43"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency42_44"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency41_38").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency42_41"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency42_42"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency42_43"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency42_44"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency41_39").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency42_41"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency42_42"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency42_43"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency42_44"').css("color", "black")
+          }
+          else {            
+            $('label[for="kpi_core_competency_CoreCompetency42_41"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency42_42"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency42_43"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency42_44"').css("color", "black")
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: block")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 12)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency43]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+
+          if ($("#kpi_core_competency_CoreCompetency42_41").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency43_45"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency43_46"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency43_47"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency43_48"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency42_42").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency43_45"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency43_46"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency43_47"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency43_48"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency42_43").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency43_45"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency43_46"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency43_47"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency43_48"').css("color", "black")
+          }
+          else {            
+            $('label[for="kpi_core_competency_CoreCompetency43_45"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency43_46"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency43_47"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency43_48"').css("color", "black")
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: block")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 13)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency51]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: block")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }
+        else if (a == 14)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency52]"]:checked') != null) {
+            document.getElementById('showNext').disabled = false
+          }
+          else {
+            document.getElementById('showNext').disabled = true
+          }
+
+          if ($("#kpi_core_competency_CoreCompetency51_49").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency52_53"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency52_54"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency52_55"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency52_56"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency51_50").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency52_53"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency52_54"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency52_55"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency52_56"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency51_51").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency52_53"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency52_54"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency52_55"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency52_56"').css("color", "black")
+          }
+          else {            
+            $('label[for="kpi_core_competency_CoreCompetency52_53"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency52_54"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency52_55"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency52_56"').css("color", "black")
+          }
+
+          document.getElementById('showPrev').disabled = false
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: block")
+          document.getElementById('53').setAttribute("style", "display: none")
+        }        
+        else if (a == 15)
+        {
+          if (document.querySelector('input[name = "kpi_core_competency[CoreCompetency53]"]:checked') != null) {
+            document.getElementById('divNextPart').setAttribute("style", "display: block")
+          }
+          else {
+            document.getElementById('divNextPart').setAttribute("style", "display: none")
+          }
+
+          if ($("#kpi_core_competency_CoreCompetency52_53").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency53_57"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency53_58"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency53_59"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency53_60"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency52_54").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency53_57"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency53_58"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency53_59"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency53_60"').css("color", "red")
+          }
+          else if ($("#kpi_core_competency_CoreCompetency52_55").prop("checked") == true) {
+            $('label[for="kpi_core_competency_CoreCompetency53_57"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency53_58"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency53_59"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency53_60"').css("color", "black")
+          }
+          else {            
+            $('label[for="kpi_core_competency_CoreCompetency53_57"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency53_58"').css("color", "red")
+            $('label[for="kpi_core_competency_CoreCompetency53_59"').css("color", "black")
+            $('label[for="kpi_core_competency_CoreCompetency53_60"').css("color", "black")
+          }
+
+          document.getElementById('showPrev').disabled = false     
+          document.getElementById('showNext').disabled = true    
+
+          document.getElementById('11').setAttribute("style", "display: none")
+          document.getElementById('12').setAttribute("style", "display: none")
+          document.getElementById('13').setAttribute("style", "display: none")
+          document.getElementById('21').setAttribute("style", "display: none")
+          document.getElementById('22').setAttribute("style", "display: none")
+          document.getElementById('23').setAttribute("style", "display: none")
+          document.getElementById('31').setAttribute("style", "display: none")
+          document.getElementById('32').setAttribute("style", "display: none")
+          document.getElementById('33').setAttribute("style", "display: none")
+          document.getElementById('41').setAttribute("style", "display: none")
+          document.getElementById('42').setAttribute("style", "display: none")
+          document.getElementById('43').setAttribute("style", "display: none")
+          document.getElementById('51').setAttribute("style", "display: none")
+          document.getElementById('52').setAttribute("style", "display: none")
+          document.getElementById('53').setAttribute("style", "display: block")                   
+        }
+      })      
+    })
+  </script>
+</body>
+</html>

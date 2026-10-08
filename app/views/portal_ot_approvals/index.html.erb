@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+
+</head>
+<body>
+
+<div class="container-fluid">
+  
+  <div class="row">
+    <div class="col-sm-2" >
+
+    </div>
+    <div class="col-sm-8" >
+
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader">
+          <div class="row">
+            <div class="col-sm-9" >
+              <strong><i class="fas fa-calendar-check"></i>Overtime Approvals</strong>
+            </div>
+          </div>
+
+         
+        </div>
+        <div class="panel-body">
+
+          <!--<p id="notice"><%= notice %></p>-->
+          <div class="table table-responsive ">
+          <table class="table" id="portal_ot_view_table" >
+            <thead>
+              <tr>
+                <th >ID</th>
+                <th >Employee</th>
+                <th >Created Date</th>
+                <th >Requested Date</th>
+                <th >Duration</th>
+                <th ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <% @portal_ot_approvals.each do |portal_ot_view| %>
+                <tr>
+                  <td ><%= portal_ot_view.ID %></td>
+                  <td ><%= PisEmployeeU.where(EmployeeRefNo: portal_ot_view.EmployeeRefNo).pluck(:Description).to_sentence  %> </td>
+                  <td ><%= portal_ot_view.DateFiled.strftime("%m/%d/%Y") %></td>
+                  <td ><%= portal_ot_view.DateRequested.strftime("%m/%d/%Y") %></td>
+                  <td ><%= portal_ot_view.Duration %></td>
+
+                  <td align="left">                                    
+                    <%= link_to 'View'.html_safe, edit_portal_ot_approval_path(portal_ot_view ), method: 'get',  class: "btn btn-primary" %>  
+                  </td>
+      
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+
+          <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+          <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+          <script>
+          $(function(){
+            $("#portal_ot_view_table").dataTable();
+          })
+          </script>
+
+          </div>   
+
+        </div>
+        
+      </div>
+
+    </div>
+    <div class="col-sm-2" >
+
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+
+</body>
+</html>

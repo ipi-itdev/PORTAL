@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+
+
+</head>
+<body onload="myFunctionload()">
+
+<script>
+  function myFunctionload() 
+  {
+    //alert("test");
+    $("#buttontotal").click();
+  }
+</script>
+
+
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-6" >
+      <p id="notice"><%= notice %></p>
+
+      <% get_filing_stat = TreExpense.where(ID: session[:tre_expense_id]).pluck(:FillingStatusRefNo).to_sentence %>
+      <p><strong></strong>
+
+        <% if @get_amount_sum.blank? == true %>
+
+        <% else%>
+          <% @get_amount_sum %>
+
+          <% x = TreExpenseDetail.where(ExpenseRefNo: session[:tre_expense_id]).pluck(:Amount) %>
+          <% sum1 = 0 %>
+
+          <% x.each do |xxx| %>
+            <% y =  xxx %>
+            <% y.to_f %> 
+            <% sum1 = y + sum1 %>
+          <% end %>
+          <% sum1 %>
+
+        <% end %>
+
+
+<form name="frm2" style="display: hidden;">
+<input type="hidden" name="resp" id="input" value="<%= sum1 %>" />
+<input type="button" onclick="parent.hello(this.form.resp.value);" value="Submit" style="visibility: hidden;" id="buttontotal" />
+</form>
+  
+        
+      </p>
+      
+      
+    </div>
+    <div class="col-sm-6"  align="right">
+      <% if get_filing_stat.to_i == 4  || get_filing_stat.to_i == 23 || get_filing_stat.to_i == 24 || get_filing_stat.to_i == 25 || get_filing_stat.to_i == 26 %>
+        <!-- empty -->
+      <% else %>
+        <p><%= link_to '<i class="fa fa-plus" aria-hidden="true"></i> Add Expenses'.html_safe, new_tre_expense_detail_path, class:'btn btn-success btn-sm' %></p>
+      <% end %>
+
+    </div>
+  </div>
+
+
+  
+
+<strong>List of Expenses</strong>  
+<div class="table-responsive">
+<table class="table table-striped table-condensed" id="tre_expense_table">    
+  <thead>
+    <tr>
+      <th ><small><b>ID</b></small></th>
+      <th ><small><b>Entry</b></small></th>
+      <th ><small><b>Client Account</b></small></th>
+      <th ><small><b>Amount</b></small></th>
+      <th ></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tre_expense_details.each do |tre_expense_detail| %>
+      <tr>
+        <td><small><%= tre_expense_detail.ID %></small></td>
+        <td><small><%=  BilEntryM.where(EntryRefNo: tre_expense_detail.EntryRefNo).pluck(:Description).to_sentence %></small></td>
+        <td><small><%=  GenClientAccountM.where(ClientAccountRefNo: tre_expense_detail.ClientAccountRefNo).pluck(:Description).to_sentence %></small></td>
+
+
+
+        <td align="right"><small><%= number_with_precision(tre_expense_detail.Amount, :precision => 2, :delimiter => ',') %></small></td>
+        <td align="center">
+
+
+            <% if get_filing_stat.to_i == 4  || get_filing_stat.to_i == 23 || get_filing_stat.to_i == 24  || get_filing_stat.to_i == 25 || get_filing_stat.to_i == 26 %>
+
+                <%= link_to '<i class="far fa-file"></i>'.html_safe, tre_expense_detail, class: 'btn btn-secondary' %>
+
+            <% else %>
+
+             <div class="btn-group btn-group-sm btn-group-block" role="group" aria-label="Basic example">
+                <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_tre_expense_detail_path(tre_expense_detail), class: 'btn btn-secondary', data: { confirm: 'Are you sure? test' } %>
+                <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, detailsremove_index_path(tre_detail_refno: tre_expense_detail.ID), method: 'post', data: { confirm: 'Are you sure? test' }, class: 'btn btn-danger' %>
+
+              </div>
+
+            <% end%>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+<script>
+$(function(){
+  $("#tre_expense_table").dataTable();
+})
+</script>
+
+</div>
+
+
+</div>
+
+
+
+</body>
+</html>
+
+

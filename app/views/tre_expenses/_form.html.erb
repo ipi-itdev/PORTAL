@@ -1,0 +1,297 @@
+
+
+
+
+
+<style type="text/css"> 
+  
+    #required_field {         
+      position: absolute;
+      bottom: px;
+      left: 7px;
+      font-size: 18px;
+      color: red;
+    }
+
+</style>
+
+
+
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-sm-1" >
+      
+    </div>
+
+    <div class="col-sm-10" >
+      <%= bootstrap_form_with(model: tre_expense, local: true) do |form| %>
+        <% if tre_expense.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+            <% tre_expense.errors.full_messages.each do |message| %>
+
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+
+      <% session[:tre_expense_id] = @tre_expense.id %>
+
+      <div class="panel panel-default" id="panelframe" style="">
+        <div class="panel-heading" id="panelheader" >
+          <i class="fas fa-money-check"></i> <strong>TRE</strong>
+        </div>
+        <div class="panel-body">
+
+           <div class="row">
+
+            <div class="col-sm-4" >
+
+               <div class="row">
+
+                <div class="col-sm-12" >
+
+                  <div class="row">
+                    <div class="col-sm-6" >
+                      <strong><small>ID:</small> </strong> <%=  @tre_expense.ID %>
+                      <br>
+                      
+
+                    </div>
+                    <div class="col-sm-6" >
+        
+                    </div>
+
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-sm-12" >
+
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-sm-12" >
+                      <small>
+                          <p id="required_field"> *</p>
+                          <%= form.collection_select :CompanyRefNo, GenCompanyM.all,:CompanyRefNo, :Code, label: 'Company' %>
+
+                      </small>
+                    </div>
+                  </div>
+
+                  <p id="required_field"> *</p>
+                  <small><%= form.text_area :Description, label: 'Description:' %></small>
+
+                  <div class="row">
+
+                    <div class="col-sm-12" >
+                         <p id="required_field"> *</p>
+                         <small><%= form.date_field :Date, label: 'Date:', min: '2020-01-01', max: '2030-01-01' %></small> 
+                    </div>
+                    
+
+                  </div>
+
+
+
+                  <div class="row">
+
+                    <div class="col-sm-4" >
+                         <p><small><b>Total Amount:</b>  </small></p> 
+
+                    </div>
+                    <div class="col-sm-4" align="left">
+                        <input type="text" id="myAnchor" , step= "0.01", disabled="true" >
+                    </div>
+                    <div class="col-sm-4" align="left">
+                        
+                    </div>
+
+                  </div>
+
+
+                  <div class="row">
+
+                    <div class="col-sm-12" >
+
+
+                      <small><b>Created Date: </b></small><%= @tre_expense.CreatedDate.strftime("%m/%d/%Y") %>
+
+                    </div>
+
+                  </div>
+
+
+
+
+                  <div class="row">
+
+                    <div class="col-sm-12" >
+                        <small><b>Created By:</b> <%= PisEmployeeU.where(EmployeeRefNo: @tre_expense.CreatedBy).pluck(:Description).to_sentence %></small>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-sm-12" >
+
+                      <small><b>Status:</b> </small><%= GenFilingStatusF.where(FilingStatusRefNo: @tre_expense.FillingStatusRefNo ).pluck(:Description).to_sentence %>
+
+                    </div>
+
+                  </div>
+
+
+
+
+
+
+                </div>
+
+              </div>
+
+
+              <div class="row">
+
+                <div class="col-sm-12" >
+
+                  <br>
+                  <br>
+
+
+
+
+              <div class="row">
+
+                <div class="col-sm-6" >
+                  <%= form.submit 'Save', class:'btn btn-primary  btn-block' %>
+
+                      <% if current_user.is_gen_manager == true %>
+                        
+                        <%= link_to "Post", tre_gm_post_path(tre_id: @tre_expense.ID), method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Once the application was posted, it cannot be amend or canceled.' }, id: 'postbutton' %>
+
+
+                      <% elsif current_user.is_manager == true %>
+                        <!--start manager-->
+                        <%= link_to "Post", tre_manager_post_path(tre_id: @tre_expense.ID), method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Once the application was posted, it cannot be amend or canceled. This record it will be forwarded to Gen. Manager for approval.' }, id: 'postbutton' %>
+                        <!--end manager-->
+
+                      <% else %>
+
+                        <%= link_to "Post", post_tre_path(tre_id: tre_expense.ID), method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Once the application was posted, it cannot be amend or canceled.' }, id: 'postbutton' %>
+
+
+                      <% end %>
+
+                 
+
+
+                </div>
+                <div class="col-sm-6" >
+
+                  <%= link_to 'Remove', tre_expense, method: :delete, data: { confirm: 'Are you sure?' },  class: "btn btn-primary btn-block" %>
+
+
+
+                  <%  if @tre_expense.Description.blank? == true || tre_expense.Date.blank? == true%>
+                    <!-- empty -->
+                  <% else %>
+                  
+                    <div id="postdiv"> 
+
+                    </div>
+
+                  <% end %> 
+
+
+
+ 
+                </div>
+
+              </div>
+              <br>
+
+
+
+                  <%= link_to 'Back to List', tre_expenses_path, class:'btn btn-primary  btn-block' %>
+                </div>
+
+
+ 
+
+              </div>
+
+
+               <% end #  end of form%>
+
+            </div>
+
+
+            <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;">
+
+              <iframe src="/tre_expense_details?expense_id=<%= @get_edit_id.to_param %>" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
+
+            </div>
+
+          </div>
+
+      
+
+        </div>
+
+
+      </div>
+      
+    </div>
+
+    <div class="col-sm-1" >
+      
+    </div>
+
+  </div>
+</div>
+
+<br>
+<br>
+
+<script language="javascript">
+  function hello(string){
+   var name=string
+   var converttofloat = parseFloat(name).toFixed(2);
+   document.getElementById('myAnchor').value=converttofloat;
+
+    if (isNaN(converttofloat) == true ) 
+    {
+      //alert("xero");
+      document.getElementById('myAnchor').value=0.00;
+     $("#postdiv").hide();
+
+    } 
+    else
+    {
+      //alert("with value");
+      $("#postdiv").show();
+    }
+
+   }
+</script>
+
+
+<script type="text/javascript">
+  
+  if ($("#tre_expense_Description").val() == '' || $("#tre_expense_Date").val() == '' ) 
+    {
+      $( "#postbutton" ).prop('disabled', true);
+      //alert("test!xxx11111")
+    }
+  else
+    {
+      //alert("test!xxx")
+    }
+</script>

@@ -1,0 +1,32 @@
+<%= form_with(model: portal_leave_time_lookup_u, local: true) do |form| %>
+  <% if portal_leave_time_lookup_u.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(portal_leave_time_lookup_u.errors.count, "error") %> prohibited this portal_leave_time_lookup_u from being saved:</h2>
+
+      <ul>
+      <% portal_leave_time_lookup_u.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :leavetimelookup_refno %>
+    <%= form.number_field :leavetimelookup_refno %>
+  </div>
+
+  <div class="field">
+    <%= form.label :leave_value %>
+    <%= form.number_field :leave_value %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

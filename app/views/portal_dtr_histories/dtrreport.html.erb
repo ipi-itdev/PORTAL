@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+
+
+
+</head>
+<body >
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-4">
+ 
+    </div>
+    <div class="col-sm-4" >
+
+      <div class="panel panel-primary" id="panelframe">
+        <div class="panel-heading" id="panelheader"><strong>DTR History</strong></div>        
+        <div class="panel-body">
+
+                  
+                  <%= form_tag(dtrreport_path, method: :get) do %>
+                    <% if params[:portal_dtr_history_employeerefno] != nil %>
+                      <% session[:portal_dtr_history_employeerefno] = params[:portal_dtr_history_employeerefno]%>
+                    <% end %>
+                    
+                    <div class="row">
+                      <div class="col-sm-12" align="left">
+                        <tr>
+                          <td>Employee : </td>
+                          <td align="left"><%=  PisEmployeeU.where(EmployeeRefNo: session[:portal_dtr_history_employeerefno]).pluck(:Description).to_sentence %></td>
+                        </tr>
+                      </div>    
+                    </div>
+
+                    <br>
+                  
+                    <div class="row">
+                      <div class="col-sm-6" align="left">
+                        <tr>
+                          <td>From:&nbsp</td>
+                          <td align="left"><%= date_field_tag :WorkDateFrom %></td>
+                        </tr>                
+                      </div>
+
+                      <div class="col-sm-6" >
+                     
+                                            <tr>
+                      <td>To:&nbsp &nbsp &nbsp</td>
+                      <td align="left"><%= date_field_tag :WorkDateTo %></td>
+                    </tr>
+                      </div>
+
+                    </div>
+            
+
+                <hr>
+
+                <% if @get_count_existing_sched <= 0 %>
+
+                  <p align="center" style="color: red;">No Record(s) Found</p>
+                  
+                <% else %>
+                  <% get_id =  @get_existing_sched.ids.first.to_a %> 
+                  <% get_id[0] %>  
+                  <p align="center">Record(s) Found  / <%= link_to "View DTR Report", "/portal_dtr_histories/#{get_id[0]}.pdf",target: "_blank", :title => 'View DTR Report', :rel => 'tooltip'  %>
+
+                <% end %>
+
+                <br>
+                <br>
+                <%= submit_tag 'Search ', class: "btn btn-success  btn-block btn-sm", id: 'submit_button_tag',  data: { disable_with: "Please wait..." } %>
+                <%= link_to 'Back ',portal_dtr_histories_path,class: "btn btn-secondary  btn-block btn-sm", id: 'submit_button_tag'  %>
+   
+                <% end %>
+      
+
+        </div>
+      </div>
+
+                  
+
+
+    </div>
+      <div class="col-sm-4" >
+
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>
+
+             

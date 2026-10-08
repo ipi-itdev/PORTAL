@@ -1,0 +1,1 @@
+json.array! @portal_ob_application_details, partial: 'portal_ob_application_details/portal_ob_application_detail', as: :portal_ob_application_detail

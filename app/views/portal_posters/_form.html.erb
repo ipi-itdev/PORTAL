@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3" >
+      
+    </div>
+    <div class="col-sm-6" >
+
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader"><b>Posters</b></div>
+        <div class="panel-body">
+
+          <%= bootstrap_form_with(model: portal_poster, local: true) do |form| %>
+            <% if portal_poster.errors.any? %>
+              <div id="error_explanation">
+                <ul>
+                <% portal_poster.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+          <%= form.text_field :description, label: '*Description' %>
+
+          <%= form.hidden_field :date_post, value: Time.now + 8.hours %>
+
+          <%= form.date_field :start_date, label: '*Start Date' %>
+
+          <%=  get_lastrefno = PortalPoster.last(1).pluck(:poster_refno).to_sentence%>
+          <%= new_refno = get_lastrefno.to_i + 1%>
+          <%= form.hidden_field :poster_refno, value: new_refno %>
+
+          <%= form.file_field :attachedfile, label: '*Attach File' %>
+
+          <%= form.submit 'Save', class:'btn btn-primary  btn-block' %>
+
+          <%= link_to 'Back', portal_posters_path, class:'btn btn-primary  btn-block' %>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3" >
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<% end %>

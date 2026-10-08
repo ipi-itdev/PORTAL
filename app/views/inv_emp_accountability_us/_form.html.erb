@@ -1,0 +1,82 @@
+<%= form_with(model: inv_emp_accountability_u, local: true) do |form| %>
+  <% if inv_emp_accountability_u.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(inv_emp_accountability_u.errors.count, "error") %> prohibited this inv_emp_accountability_u from being saved:</h2>
+
+      <ul>
+      <% inv_emp_accountability_u.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :CreatedBy %>
+    <%= form.text_field :CreatedBy %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ModifiedBy %>
+    <%= form.text_field :ModifiedBy %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CreatedDate %>
+    <%= form.datetime_select :CreatedDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ModifiedDate %>
+    <%= form.datetime_select :ModifiedDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :IsActive %>
+    <%= form.check_box :IsActive %>
+  </div>
+
+  <div class="field">
+    <%= form.label :EmployeeRefNo %>
+    <%= form.number_field :EmployeeRefNo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Remarks %>
+    <%= form.text_field :Remarks %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DeployedBy %>
+    <%= form.number_field :DeployedBy %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DeploymentDate %>
+    <%= form.datetime_select :DeploymentDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :PDFFileName %>
+    <%= form.text_field :PDFFileName %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ClearBy %>
+    <%= form.number_field :ClearBy %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ReturnedDate %>
+    <%= form.datetime_select :ReturnedDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :FilingStatusRefNo %>
+    <%= form.number_field :FilingStatusRefNo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

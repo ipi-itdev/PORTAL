@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2" >
+    </div>
+    <div class="col-sm-8" >
+    	<div class="panel panel-default" id="panelframe">
+		  <div class="panel-heading" id="panelheader"><strong><i class="fas fa-money-check"></i> Manage TRE Expenses</strong></div>
+		  <div class="panel-body">
+		  	<table class="table" id="tre_expense_table">
+			    <thead> 
+			      <tr>
+			        <th>ID</th>
+			        <th>Description</th>
+			        <th align="center">Total Amount</th>
+			        <th>Date</th>
+			        <th>Created By</th>
+			        <th>Status</th>
+			        <th></th>
+			      </tr>
+			    </thead>			   
+			    <tbody>
+			    <% @view_tre_int_emp_dept.each do|view_tre_int_emp_dept| %>
+			      <tr>
+			        <td><small><%= view_tre_int_emp_dept.ID %></small></td>
+			        <td><small><%= view_tre_int_emp_dept.Description %></small></td>
+			        <td align="right"><small><%= view_tre_int_emp_dept.Amount %></small></td>
+			        <td><small>
+			        	<% date = view_tre_int_emp_dept.Date %>
+			        	<% d1 = date.to_s %>
+						<% d2 = d1.to_datetime %>
+						<%= d2.strftime("%m/%d/%Y")%>
+						</small>
+			        </td>
+			        <td> <%= PisEmployeeU.where(EmployeeRefNo:view_tre_int_emp_dept.CreatedBy).pluck(:Description).to_sentence %></td>
+			        <td><small><%= GenFilingStatusF.where(FilingStatusRefNo: view_tre_int_emp_dept.FillingStatusRefNo).pluck(:Description).to_sentence  %> <%=  %></small></td>
+			        <td align="center">
+			        	<% if view_tre_int_emp_dept.FillingStatusRefNo ==  22 || view_tre_int_emp_dept.FillingStatusRefNo == 27 %>
+
+			        		
+			        	<% else %>
+			        		<%= link_to '<i class="far fa-file"></i>View'.html_safe, "/tre_expenses/#{view_tre_int_emp_dept.ID}", class: "btn btn-primary btn-sm btn-block" %>
+			        	<% end %>	
+			        	
+			        </td>
+			      </tr>
+			    <% end %>
+
+
+			    </tbody>
+			</table>
+			<script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+            <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+            <script>
+            $(function(){
+              $("#tre_expense_table").dataTable();
+            })
+            </script>
+
+
+		  </div>
+		</div>
+    </div>
+
+    <div class="col-sm-2" >
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

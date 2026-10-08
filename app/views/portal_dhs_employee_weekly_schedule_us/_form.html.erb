@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+ <style type="text/css">
+   #portal_dhs_employee_weekly_schedule_u_shift_start_1i, #portal_dhs_employee_weekly_schedule_u_shift_start_2i, #portal_dhs_employee_weekly_schedule_u_shift_start_3i, #portal_dhs_employee_weekly_schedule_u_shift_end_1i, #portal_dhs_employee_weekly_schedule_u_shift_end_2i, #portal_dhs_employee_weekly_schedule_u_shift_end_3i {
+      pointer-events: none;
+      border: 1px solid grey;
+      background-color: lightgrey;
+       appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      user-select: none;
+
+      
+   }
+
+
+ </style> 
+
+</head>
+<body >
+
+
+
+<div class="container-fluid">
+
+  <%= bootstrap_form_with(model: portal_dhs_employee_weekly_schedule_u, local: true) do |form| %>
+  <% if portal_dhs_employee_weekly_schedule_u.errors.any? %>
+    <div id="error_explanation">
+      <!--<h2><%= pluralize(portal_dhs_employee_weekly_schedule_u.errors.count, "error") %> prohibited this portal_dhs_employee_weekly_schedule_u from being saved:</h2> -->
+
+      <ul align='center'>
+      <% portal_dhs_employee_weekly_schedule_u.errors.full_messages.each do |message| %>
+        <li align='center' style="color: red;"><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-sm-4" >
+
+
+    </div>
+
+    <div class="col-sm-4" >
+
+
+
+      <div class="panel panel-default">
+
+        <div class="panel-heading" id="panelheader">
+          <i class="fa fa-calendar" aria-hidden="true"></i><strong>Edit My Schedule</strong>
+        </div>
+
+        <div class="panel-body" id="panelframe">
+  
+          <div class="row">
+            <div class="col-sm-12" >
+             <b>Workdate:</b> <%= @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%m/%d/%Y") %>
+            </div>
+            <div class="col-sm-12" >
+             <%= form.check_box :IsRD,  onclick: "check_RD_Func()", label: 'Is My Restday?', id:'checkbox'%>
+            </div>
+          </div>
+
+            <br>
+      
+        <div class="row">
+
+          <div class="col-sm-6" >
+            <%= form.datetime_select :shift_start , label: 'Shift Start',  ampm: true %>
+          </div>
+           <div class="col-sm-6" >
+            <%= form.datetime_select :shift_end , label: 'Shift End',  ampm: true  %>
+           <button type="button" id="reset_but" class='btn btn-primary btn-block btn-sm'>Reset Shifts <i class="fa fa-refresh" aria-hidden="true"></i></button>
+          </div>
+
+        </div>
+
+        <br>
+
+
+        <br>
+        <br>
+        <div class="row">
+          <div class="col-sm-12" >      
+            <%= form.submit 'Save', class:'btn btn-primary btn-block btn-sm', id:'save_sched_button',  data: { disable_with: " Please wait..." }%>
+            <%= link_to 'Back', portal_dhs_employee_weekly_schedule_us_path, class:'btn btn-primary btn-block btn-sm', id: 'back_sched_button' %>
+          </div>
+        </div>
+
+        </div>
+
+
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-sm-4" >
+
+    </div>
+
+
+
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+  //RD checkbox
+  function check_RD_Func() 
+  {
+    
+    if($("#checkbox").prop('checked') == true)
+    {
+      //checked  
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_2i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_3i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_4i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val('');
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_4i").disabled = true;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_5i").disabled = true;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end_4i").disabled = true;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end_5i").disabled = true;
+      document.getElementById("reset_but").style.display = "none"
+    }
+    else
+    {
+      //NOT checked
+
+      <%= get_yr_uncheck= @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
+      <%= get_mon_uncheck = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-m") %>
+      <%= get_day_uncheck = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
+
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").val('<%= get_yr_uncheck %>');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_2i").val('<%= get_mon_uncheck %>');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_3i").val('<%= get_day_uncheck %>');
+
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_yr_uncheck %>');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('<%= get_mon_uncheck %>');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_day_uncheck %>');
+
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_4i").disabled = false;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_5i").disabled = false;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end_4i").disabled = false;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end_5i").disabled = false;
+
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_4i").val('00');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('00');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val('00');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val('00');
+      document.getElementById("reset_but").style.display = "block"
+
+      alert('<%= get_mon_uncheck %>');
+    }
+  }
+
+
+  //onload func
+  function hidedivFunction() {
+    $("#savingsaveschedmsg").hide();
+    document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_date").disabled = true;
+    document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_time").disabled = true;
+  }
+
+
+  //on click save button
+  document.getElementById('save_sched_button').onclick = function() {
+    $("#back_sched_button").prop('disabled', true);
+    //$("#save_sched_button").prop('disabled', true);
+    //$( "#timeoutdisabled_button" ).show();
+    //$( "#save_sched_button" ).hide();
+    //$("#savingsaveschedmsg").show();
+
+  }
+</script>
+
+<script type="text/javascript">
+   
+   //onload of page
+
+    if($("#checkbox").prop('checked') == true)
+    {
+      //checked
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_2i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_3i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_4i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val('');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val('');
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_4i").disabled = true;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_5i").disabled = true;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end_4i").disabled = true;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end_5i").disabled = true;
+      document.getElementById("reset_but").style.display = "none"
+
+
+    }
+    else
+    {
+      //NOT checked
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_4i").disabled = false;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_5i").disabled = false;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end_4i").disabled = false;
+      document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end_5i").disabled = false;
+      document.getElementById("reset_but").style.display = "block"
+     
+    }
+
+</script>
+
+
+<script>
+
+  document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end_4i").addEventListener("change", shiftendFunc);
+
+  function shiftendFunc() {
+
+    var shift_end_yr = $('#portal_dhs_employee_weekly_schedule_u_shift_end_1i').val()
+    var shift_end_mons = $('#portal_dhs_employee_weekly_schedule_u_shift_end_2i').val()
+    var shift_end_day = $('#portal_dhs_employee_weekly_schedule_u_shift_end_3i').val()
+    var shift_end_hrs = $('#portal_dhs_employee_weekly_schedule_u_shift_end_4i').val()
+    var shift_end_mins = $('#portal_dhs_employee_weekly_schedule_u_shift_end_5i').val()
+    var shift_end_result = shift_end_hrs.concat(shift_end_mins);
+
+    var shift_start_hrs = $('#portal_dhs_employee_weekly_schedule_u_shift_start_4i').val()
+    var shift_start_mins = $('#portal_dhs_employee_weekly_schedule_u_shift_start_5i').val()
+    var shift_start_result = shift_start_hrs.concat(shift_start_mins);
+
+
+   if (shift_end_result < shift_start_result )
+   {
+      <% get_workdate = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date %>
+      <% get_workdate_PlusOne = get_workdate.advance(days: 1) %>
+      <% get_yr_PlusOne = get_workdate_PlusOne.strftime("%Y") %>
+      <% get_mon_PlusOne = get_workdate_PlusOne.strftime("%-m") %>
+      <% get_day_PlusOne = get_workdate_PlusOne.strftime("%-d") %>
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_yr_PlusOne %>');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('<%= get_mon_PlusOne %>');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_day_PlusOne %>');
+         
+   }
+  }
+
+
+  document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_end_5i").addEventListener("change", shiftend_minFunc);
+
+  function shiftend_minFunc() {
+
+    var shift_end_yr = $('#portal_dhs_employee_weekly_schedule_u_shift_end_1i').val()
+    var shift_end_mons = $('#portal_dhs_employee_weekly_schedule_u_shift_end_2i').val()
+    var shift_end_day = $('#portal_dhs_employee_weekly_schedule_u_shift_end_3i').val()
+    var shift_end_hrs = $('#portal_dhs_employee_weekly_schedule_u_shift_end_4i').val()
+    var shift_end_mins = $('#portal_dhs_employee_weekly_schedule_u_shift_end_5i').val()
+    var shift_end_result = shift_end_hrs.concat(shift_end_mins);
+    
+    var shift_start_hrs = $('#portal_dhs_employee_weekly_schedule_u_shift_start_4i').val()
+    var shift_start_mins = $('#portal_dhs_employee_weekly_schedule_u_shift_start_5i').val()
+    var shift_start_result = shift_start_hrs.concat(shift_start_mins);
+
+
+   if (shift_end_result < shift_start_result )
+   {
+      <% get_workdate = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date %>
+      <% get_workdate_PlusOne = get_workdate.advance(days: 1) %>
+      <% get_yr_PlusOne = get_workdate_PlusOne.strftime("%Y") %>
+      <% get_mon_PlusOne = get_workdate_PlusOne.strftime("%-m") %>
+      <% get_day_PlusOne = get_workdate_PlusOne.strftime("%-d") %>
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_yr_PlusOne %>');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('<%= get_mon_PlusOne %>');
+      $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_day_PlusOne %>');
+         
+   }
+  }
+
+
+  document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_4i"  ).addEventListener("change", shiftstartFunc);
+
+      function shiftstartFunc() {
+
+        var get_shiftstart_hours_val = $("#portal_dhs_employee_weekly_schedule_u_shift_start_4i").val();
+        var get_shiftstart_mins_val  = $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val();
+        $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val(get_shiftstart_hours_val);
+        $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val(get_shiftstart_mins_val);
+        
+  }
+
+
+  document.getElementById("portal_dhs_employee_weekly_schedule_u_shift_start_5i"  ).addEventListener("change", shiftstart_minFunc);
+
+      function shiftstart_minFunc() {
+        var get_shiftstart_mins1_val  = $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val();
+        $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val(get_shiftstart_mins1_val);
+  }
+
+
+</script>
+
+ 
+    <script type="text/javascript">
+      //reset button
+      document.getElementById("reset_but").addEventListener("click", resetFunc);
+
+      function resetFunc() {
+
+        <% if @portal_dhs_employee_weekly_schedule_u.IsRD == true %>
+
+          <% get_start_yr1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
+          <% get_start_mon1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-m") %>
+          <% get_start_day1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
+          <% get_start_hrs1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%H") %>
+          <% get_start_mins1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%M") %>
+          $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").val('<%= get_start_yr1 %>');
+          $("#portal_dhs_employee_weekly_schedule_u_shift_start_2i").val('<%= get_start_mon1 %>');
+          $("#portal_dhs_employee_weekly_schedule_u_shift_start_3i").val('<%= get_start_day1 %>');
+          $("#portal_dhs_employee_weekly_schedule_u_shift_start_4i").val('<%= get_start_hrs1 %>');
+          $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('<%= get_start_mins1 %>');
+
+          <% get_end_yr1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
+          <% get_end_mon1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-m") %>
+          <% get_end_day1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
+          <% get_end_hrs1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%H") %>
+          <% get_end_mins1 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%M") %>
+          $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_end_yr1 %>');
+          $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('<%= get_end_mon1 %>');
+          $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_end_day1 %>');
+          $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val('<%= get_end_hrs1 %>');
+          $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val('<%= get_end_mins1 %>');
+          alert("Resetting Shifts!.");
+
+        <% else %>
+
+
+          <% if @portal_dhs_employee_weekly_schedule_u.shift_start.to_date < @portal_dhs_employee_weekly_schedule_u.shift_end.to_date %>
+
+            <% get_start_yr2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
+            <% get_start_mon2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-m") %>
+            <% get_start_day2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").val('<%= get_start_yr2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_2i").val('<%= get_start_mon2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_3i").val('<%= get_start_day2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_4i").val('00');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('01');
+
+            <% get_end_yr2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%Y") %>
+            <% get_end_mon2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-m") %>
+            <% get_end_day2 = @portal_dhs_employee_weekly_schedule_u.WorkDate.to_date.strftime("%-d") %>
+           
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_end_yr2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('<%= get_end_mon2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_end_day2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val('00');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val('01');
+            alert("Resetting Shifts!..");
+
+          <% else %>
+
+            <% get_start_yr2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%Y") %>
+            <% get_start_mon2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%-m") %>
+            <% get_start_day2 = @portal_dhs_employee_weekly_schedule_u.shift_start.to_date.strftime("%-d") %>
+            <% get_start_hrs2 = @portal_dhs_employee_weekly_schedule_u.shift_start.strftime("%H") %>
+            <% get_start_mins2 = @portal_dhs_employee_weekly_schedule_u.shift_start.strftime("%M") %>
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").val('<%= get_start_yr2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_2i").val('<%= get_start_mon2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_3i").val('<%= get_start_day2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_4i").val('<%= get_start_hrs2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_start_5i").val('<%= get_start_mins2 %>');
+
+            <% get_end_yr2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%Y") %>
+            <% get_end_mon2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%-m") %>
+            <% get_end_day2 = @portal_dhs_employee_weekly_schedule_u.shift_end.to_date.strftime("%-d") %>
+            <% get_end_hrs2 = @portal_dhs_employee_weekly_schedule_u.shift_end.strftime("%H") %>
+            <% get_end_mins2 = @portal_dhs_employee_weekly_schedule_u.shift_end.strftime("%M") %>
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_1i").val('<%= get_end_yr2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_2i").val('<%= get_end_mon2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_3i").val('<%= get_end_day2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_4i").val('<%= get_end_hrs2 %>');
+            $("#portal_dhs_employee_weekly_schedule_u_shift_end_5i").val('<%= get_end_mins2 %>');
+            alert("Resetting Shifts!...");
+
+          <% end %>
+
+
+        <% end %>  
+       
+       }
+    </script>
+
+    <script type="text/javascript">
+      $("#portal_dhs_employee_weekly_schedule_u_shift_start_1i").on("keydown keypress keyup click contextmenu", false);
+    </script>
+
+
+<% end %>
+
+<br>
+<br>
+</body>
+</html>

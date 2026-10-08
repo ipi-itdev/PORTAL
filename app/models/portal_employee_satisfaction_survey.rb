@@ -1,0 +1,2 @@
+class PortalEmployeeSatisfactionSurvey < ApplicationRecord
+end

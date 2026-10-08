@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+</head>
+<body>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3" >
+      
+    </div>
+    <div class="col-sm-6" >
+
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader">
+          <div class="row">
+            <div class="col-sm-4" >
+              <b>Posters</b>
+            </div>
+            <div class="col-sm-4" >
+
+            </div>
+            <div class="col-sm-4" align="right">
+              <%= link_to '<i class="fa fa-plus" aria-hidden="true"></i>Add Poster'.html_safe, new_portal_poster_path, class:'btn btn-primary btn-sm btn-block', "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Add Poster" %>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body">
+
+          <table id="portal_poster_table">
+            <thead>
+              <tr>
+                <th>Reference No.</th>
+                <th>Start Date</th>
+                <th>Description</th>
+                <th ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @portal_posters.each do |portal_poster| %>
+                <tr>
+                  <td><%= portal_poster.poster_refno %></td>
+                  <td><%= portal_poster.start_date %></td>
+                  <td><%= portal_poster.description %></td>
+                  <td>
+
+                    <div class="btn-group btn-group-sm btn-group-block">
+                      <%= link_to '<i class="far fa-paper-plane"></i>'.html_safe, portal_poster, method: 'get',  class: "btn btn-primary"%>
+                      <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_portal_poster_path(portal_poster),  class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Edit" %>
+                      <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, portal_poster, method: :delete, data: { confirm: 'Are you sure you want to delete?', disable_with: "<i class='fa fa-spinner fa-spin'></i>" },  class: "btn btn-primary", "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Delete" %>    
+                    </div>
+
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+          <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+          <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+          <script>
+          $(function(){
+            $("#portal_poster_table").dataTable();
+          })
+          </script>
+
+          <br>
+
+        
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-sm-3" >
+      
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
+
+
+

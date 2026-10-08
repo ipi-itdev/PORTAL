@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+
+
+<style type="text/css">
+  
+#portal_vacsurvey_u_answer_1 {
+  font-size: 30px;
+}
+
+</style>
+
+
+</head>
+<body onload="myFuncLoad()">
+
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-3" >
+
+    </div>
+
+
+    <div class="col-sm-6" >
+
+
+    <%= bootstrap_form_with(model: portal_vacsurvey_u, local: true) do |form| %>
+      <% if portal_vacsurvey_u.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(portal_vacsurvey_u.errors.count, "error") %> prohibited this portal_vacsurvey_u from being saved:</h2>
+
+          <ul>
+          <% portal_vacsurvey_u.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="panel panel-default" id="panelframe">
+        <div class="panel-heading" id="panelheader"><strong><i class="fas fa-poll"></i> Vaccination Survey</strong></div>
+        <div class="panel-body">
+
+
+            <h1 align="justify">If the Company will be providing vaccines will you be taking it? </h1>
+
+            <%= form.hidden_field :EmployeeRefNo, value:current_user.EmployeeRefNo %>
+
+            <br>
+
+             <div class="row">
+              <div class="col-sm-6" >
+                <h4><%= form.radio_button :answer, '1', label:'YES', onclick: "enableFunction1()"%></h4>
+              </div>
+              <div class="col-sm-6" >
+                <h4><%= form.radio_button :answer, '0', label:'NO', onclick: "enableFunction1()" %></h4>
+              </div>
+            </div>
+          
+            <br>
+
+            <div id="div_reason">
+
+              <p style="color: red;">*If NO, please state reason(s):</p>
+              <textarea id="reason_area" onfocusout="myFunction_2()" onfocusin="myFunction3()" class="form-control" name="portal_vacsurvey_u[reason]"></textarea>
+
+            </div>
+
+            <hr>
+     
+            <%= form.submit 'Submit',class:"btn btn-primary btn-block", id: 'submit_button'%>
+          
+
+        </div>
+      </div>
+
+
+
+    <% end %>
+
+
+    </div>
+
+
+    <div class="col-sm-3" >
+
+    </div>
+  </div>
+</div>
+
+<script>
+  //onload
+function myFuncLoad() {
+  $( "#div_reason" ).hide();
+  $( "#submit_button" ).prop('disabled', true);
+}
+</script>
+
+
+<script>
+ // enable next button 
+function enableFunction1() 
+{ 
+
+  var answer1  = document.querySelector('input[name="portal_vacsurvey_u[answer]"]:checked').value;
+
+  if(answer1 == '1')
+    {
+      //alert('YES');
+      $( "#submit_button" ).prop('disabled', false);
+      $( "#div_reason" ).hide();  
+      $('#reason_area').val('');
+    }
+  else
+    {
+      //alert('NO');
+      $( "#submit_button" ).prop('disabled', true);
+      $( "#div_reason" ).show();
+    }
+
+  }
+
+</script>
+
+<script>
+function myFunction_2() {
+  var x = document.getElementById("reason_area").value;
+  if(x == '')
+  {
+    alert("Please enter your reason.");
+    $( "#submit_button" ).prop('disabled', true);
+  }
+  else
+  {
+     $( "#submit_button" ).prop('disabled', false);
+  }
+}
+</script>
+
+<script>
+function myFunction3() {
+  $( "#submit_button" ).prop('disabled', false);
+}
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+

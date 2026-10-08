@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+<style>
+.four_zero_four_bg
+{
+    background: url('/bg.gif') no-repeat;
+    height: 400px;
+    background-position: center;
+    margin: 0 7% 7% 7% auto;
+}
+
+
+
+button
+{
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    background: #39ac31;
+    display: inline-block;
+    outline: none;
+    border: none;
+}
+
+a:hover
+{
+    text-decoration: none;
+    color: rgb(145, 104, 21);
+    cursor: pointer;
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    
+}   
+.content_box_404
+{
+    margin-top: -50px;
+}
+</style>
+</head>
+<body>
+
+
+<section class="page_500">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="text-center">
+                <div class="four_zero_four_bg">
+                    <h1 align="center">Oopss!</h1>
+                </div>
+                <div align="center">
+                    <h3 >The page you are looking is not available</h3>
+                    <p>Please contact the system administrator.</p>
+                    <button type="button" onclick="CreateTicket()">Send a ticket</button><br><br>
+                    <p>Send us a <a href="#" onclick="CreateTicket()">ticket</a> now or email us at <a href="mailto:itdev@ipiphil.com">itdev@ipiphil.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script  type="text/javascript">
+  function CreateTicket(){
+        window.open('https://support.ipiphil.com/','_blank');
+    }
+</script>
+
+
+</body>
+</html>

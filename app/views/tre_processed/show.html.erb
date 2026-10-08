@@ -1,0 +1,156 @@
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-sm-1" >
+      
+    </div>
+
+    <div class="col-sm-10" >
+
+
+
+
+
+      <div class="panel panel-default" id="panelframe" >
+        <div class="panel-heading" id="panelheader" >
+        	<strong><i class="fas fa-money-check"></i>My TRE(Processed) </strong>
+        </div>
+        <div class="panel-body">
+
+        	<div class="row">
+				<div class="col-sm-4" >
+					<% @get_tre_processed.each do |get_tre_processed| %>
+
+						<% session[:tre_expense_id] = get_tre_processed.ID %>
+
+					<div class="row">
+						<div class="col-sm-6" >
+							<b>ID:</b>
+						</div>
+						<div class="col-sm-6" >
+							<%=  get_tre_processed.ID  %>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6" >
+							<b>Company:</b>
+						</div>
+						<div class="col-sm-6" >
+							<%=  GenCompanyM.where(CompanyRefNo: get_tre_processed.CompanyRefNo ).pluck(:Description).to_sentence %>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6" >
+							<b>Duration Date:</b>
+						</div>
+						<div class="col-sm-6" >
+							
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6" >
+							<b>Total Amount:</b>
+						</div>
+						<div class="col-sm-6" >
+							<%=  number_with_precision(get_tre_processed.Amount, :precision => 2, :delimiter => ',') %>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-sm-6" >
+							<b>Replenishment Date:</b>
+						</div>
+						<div class="col-sm-6" >
+							<%= get_tre_processed.ReplenishDate.strftime("%m/%d/%Y") %>	
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6" >
+							<b>Replenished By:</b>
+						</div>
+						<div class="col-sm-6" >
+							<%= get_tre_processed.ReplenishBy %>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6" >
+							<b>Date Received:</b>
+						</div>
+						<div class="col-sm-6" >
+							<% if get_tre_processed.ReceivedDate.blank? == true %>
+								-
+							<% else %>
+								<%= get_tre_processed.ReceivedDate.strftime("%m/%d/%Y") %>
+							<% end %>
+							
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6" >
+							<b>Status:</b>
+						</div>
+						<div class="col-sm-6" >
+							<%= GenFilingStatusF.where(FilingStatusRefNo: get_tre_processed.FillingStatusRefNo ).pluck(:Description).to_sentence  %>
+							
+						</div>
+					</div>
+					<br>
+					<br>
+					<% if get_tre_processed.FillingStatusRefNo == 27 %>
+
+					<% else %>
+
+						<div class="row">
+							<div class="col-sm-12" >
+								<%= link_to 'Received', tre_processed_received_path(tre_expense_id_received: get_tre_processed.ID), method: 'post', class:'btn btn-primary  btn-block' %>
+							</div>
+
+						</div>
+
+					<% end%>
+
+
+
+
+
+					<br>
+					<div class="row">
+
+						<div class="col-sm-12" >
+							<%= link_to 'Back to List', tre_processed_index_path, class:'btn btn-default  btn-block' %>
+						</div>
+					</div>
+
+					<% end %>	
+				</div>
+
+				<div class="col-sm-8" >
+
+					 <iframe src="<%= tre_processed_details_path %>" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
+
+				</div>
+
+
+    		</div>
+
+      	</div>
+      
+    </div>
+
+    <div class="col-sm-1" >
+      
+    </div>
+
+  </div>
+</div>
+
+<br>
+<br>

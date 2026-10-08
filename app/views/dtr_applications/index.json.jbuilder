@@ -1,0 +1,1 @@
+json.array! @dtr_application, partial: 'dtr_applications/dtr_application', as: :dtr_application

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12"  align="right">
+        <p><%= link_to '<i class="fa fa-plus" aria-hidden="true"></i> Add Dependent'.html_safe, new_portal_dependent_path, class:'btn btn-success btn-sm' %></p>
+      </div>
+    </div>
+
+    <strong>Dependent Details</strong>  
+    <div class="table-responsive">
+      <table class="table table-striped table-condensed" id="portal_dependent_table">    
+        <thead>
+          <tr>
+            <th ><small><b>ID</b></small></th>
+            <th ><small><b>Name</b></small></th>
+            <th ><small><b>Relationship</b></small></th>
+            <th ><small><b>Birth Date</b></small></th>            
+            <th ><small><b>Age</b></small></th>
+            <th ><small><b>Is PWD</b></small></th>
+            <th ></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @portal_dependents.each do |portal_dependent| %>
+            <tr>
+              <td><small><%= portal_dependent.ID %></small></td>
+              <td><small><%= portal_dependent.Description %></small></td>
+              <td><small><%= portal_dependent.Relationship %></small></td>
+              <td ><small><%= portal_dependent.BirthDate.strftime("%m/%d/%Y") %></small></td>
+              <td><small><%= portal_dependent.Age %></small></td>
+              <% if portal_dependent.IsPWD == true %>              
+                <td ><small>Yes</small></td>
+              <% else %>
+                <td ><small>No</small></td>
+              <% end %>
+              
+              <td align="center">                  
+                <div class="btn-group btn-group-sm btn-group-block" role="group" aria-label="Basic example">
+                  <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_portal_dependent_path(portal_dependent), class: 'btn btn-secondary', data: { confirm: 'Are you sure? test' }, "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Edit" %>                
+                  <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, tmsdetailremove_index_path(detail_refno: portal_dependent.ID, tms_type: 'dependent'), method: 'post', data: { confirm: 'Are you sure? test' }, class: 'btn btn-danger', "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Delete" %>                
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>      
+
+      <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+      <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+      <script>
+        $(function(){
+          $("#portal_dependent_table").dataTable();
+        })
+      </script>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-sm-11" style="font-size: 12px;">
+        <b style="color: red;">**Dependent</b>
+        <ul>
+          <li>Legitimate Spouse</li>
+          <li>Child or children (legitimate, acknowledged and illegitimate (as appearing in the birth certificate), legally adopted below 21 years old, unmarried and unemployed</li>
+          <li>Parents who are 60 years old or above</li>            
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
+
+
+
+

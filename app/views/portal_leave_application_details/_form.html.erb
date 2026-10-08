@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+
+
+
+  <style type="text/css">
+    #required_field {
+      position: absolute;
+      bottom: px;
+      left: 7px;
+      font-size: 18px;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <%= bootstrap_form_with(model: portal_leave_application_detail, local: true) do |form| %>
+      <% if portal_leave_application_detail.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <p style="color: red;font-size: 80%;">
+              <% portal_leave_application_detail.errors.full_messages.each do |message| %>
+                <%= message %> <br>
+              <% end %>
+            </p>
+          </ul>
+        </div>
+      <% end %>
+
+      <ul><p style="color: red;font-size: 80%;"><%= flash.now[:message] = "#{@warning}" %></p></ul>
+
+      <div class="row">
+        <div class="col-sm-6" >      
+          <%= form.hidden_field :LeaveApplicationRefNo, value: session[:portal_leave_application_id] %>
+          <%= form.hidden_field :EmployeeRefNo, value: current_user.EmployeeRefNo %>
+          <%= form.hidden_field :CreatedDate, value: DateTime.now + 8.hours %>
+          <%= form.hidden_field :CreatedBy, value: current_user.EmployeeRefNo %>
+          <%= form.hidden_field :ModifiedDate, value: DateTime.now + 8.hours %>
+          <%= form.hidden_field :ModifiedBy, value: current_user.EmployeeRefNo %>
+          <%= form.hidden_field :IsActive, value: true %>
+          <%= form.hidden_field :ServerCompanyCodeID, value: '1-1' %>
+          
+          <% portal_GetLeaveType = ActiveRecord::Base.connection.exec_query("Select LeaveTypeRefNo from dbo.PORTAL_FN_GetLeaveType(#{current_user.EmployeeRefNo})") %>
+          
+          <% leavetypelist = "" %>
+          <% portal_GetLeaveType.each do |row| %>
+            <% leavetypelist = leavetypelist + row['LeaveTypeRefNo'].to_s + ',' %>
+          <% end %>
+
+          <% leavetypelist = leavetypelist.from(0).to(leavetypelist.length - 2) %>
+          <% @leavetypearr = leavetypelist.split(',') %>
+          
+          <p id="required_field"> *</p>                                          
+          <small><%= form.collection_select :LeaveTypeRefNo, GenLeaveTypeM.where(LeaveTypeRefNo: @leavetypearr), :LeaveTypeRefNo, :Description, label: 'Leave Type' %></small>
+
+          <script type="text/javascript">
+              $('#portal_leave_application_detail_LeaveTypeRefNo').on('change', function() {
+                if (document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 17 || document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 18 || document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 27 || document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 12)
+                  {                  
+                    document.getElementById('row-AsSL').setAttribute("style", "display: block")
+                    document.getElementById('slDiv').setAttribute("style", "display: block")
+                  }
+                else if (document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 2)
+                  {
+                    document.getElementById('row-AsSL').setAttribute("style", "display: block")
+                    document.getElementById('slDiv').setAttribute("style", "display: none")
+                  }
+                else              
+                  {
+                    $('#portal_leave_application_detail_AsSL').prop('checked', false)                   
+                    $('#portal_leave_application_detail_AsEL').prop('checked', false)
+                    document.getElementById('row-AsSL').setAttribute("style", "display: none")
+                  }              
+              });
+          </script>
+        </div>
+
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.collection_select :LeaveCreditTypeRefNo, PortalLeaveApplicationCredit.where(IsActive: 1),:LeaveCreditTypeRefNo, :Description, label: 'Credits' %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" >    
+          <p id="required_field"> *</p>   
+          <% if @edit == 1 %>
+            <small><%= form.date_field :WorkDate, label: 'Date', min: '2020-01-01', max: '2030-01-01' %></small> 
+          <% else %>
+            <small><%= form.date_field :WorkDate, label: 'Start Date', min: '2020-01-01', max: '2030-01-01', onchange: 'fnOnChange()' %></small> 
+
+            <script>
+              function fnOnChange(){
+                document.getElementById("portal_leave_application_detail_EndDate").value = document.getElementById("portal_leave_application_detail_WorkDate").value;              
+              }
+            </script>
+          <% end %>         
+        </div>      
+        
+        <div class="col-sm-6" >
+          <p id="required_field"> *</p>
+          <small><%= form.text_area :Reason, class: 'form-control input-sm', style: 'resize: none;', oninput: "this.value = this.value.replace(/'/g, '`')" %></small>
+        </div>
+      </div>
+
+      <div class="row">
+        <% if @edit == 1 %>
+          <div class="col-sm-6" style="display : none;"> 
+        <% else %>
+          <div class="col-sm-6" > 
+        <% end %>
+            
+          <small><%= form.date_field :EndDate, label: 'End Date', min: '2020-01-01', max: '2030-01-01' %></small> 
+        </div>      
+
+        <div class="col-sm-6" >
+          <small><%= form.file_field :AttachmentFile, label: 'Attach File', onchange: "myFunction_hidediv()", :accept => 'image/jpeg,image/jpg,image/png,image/gif,application/pdf' %></small>
+
+
+          <script type="application/javascript">
+              $('input[type="file"]').change(function(e){
+                  var fileName = e.target.files[0].name;
+                  $('.custom-file-label').html(fileName);
+              });
+          </script>
+
+          <script>
+            function myFunction_hidediv() {
+              var x = document.getElementById("portal_leave_application_detail_AttachmentFile").value;
+              $("#div_filepath").hide();
+            }
+          </script>  
+
+          <div id="div_filepath">
+            <small><a href="<%= @portal_leave_application_detail.AttachmentFile%>" target="_blank"> <%= @portal_leave_application_detail.AttachmentFile_identifier %> </a> </small>
+          </div>
+
+          <small><%= form.hidden_field :AttachmentFile_cache %></small>
+          <small style="color: red;">*Allowed files: jpg, jpeg, png and pdf (2mb max file size)</small>    
+        </div>
+      </div>
+
+      <div id="row-AsSL" class="row" style="display: none;">      
+        <div class="col-sm-6">
+          <%= form.check_box :AsEL, label: 'Is Emergency?' %>
+        </div>
+
+        <div class="col-sm-6" id="slDiv"  >   
+          <%= form.check_box :AsSL, label: 'Is Sick Leave?' %>
+        </div>
+
+        <script type="text/javascript">
+          $('#portal_leave_application_detail_AsSL').click(function(){
+              if($(this).is(':checked')){
+                $('#portal_leave_application_detail_AsEL').prop('checked', false)
+              }
+          });
+
+          $('#portal_leave_application_detail_AsEL').click(function(){
+              if($(this).is(':checked')){
+                $('#portal_leave_application_detail_AsSL').prop('checked', false)
+              }
+          });
+
+          if (document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 17 || document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 18 || document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 27 || document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 12)
+            {                  
+              document.getElementById('row-AsSL').setAttribute("style", "display: block")
+              document.getElementById('slDiv').setAttribute("style", "display: block")
+            }
+          else if (document.getElementById("portal_leave_application_detail_LeaveTypeRefNo").value == 2)
+            {
+              document.getElementById('row-AsSL').setAttribute("style", "display: block")
+              document.getElementById('slDiv').setAttribute("style", "display: none")
+            }
+          else              
+            {
+              $('#portal_leave_application_detail_AsSL').prop('checked', false)
+              $('#portal_leave_application_detail_AsEL').prop('checked', false)
+              document.getElementById('row-AsSL').setAttribute("style", "display: none")
+            }
+        </script>
+
+        <script type="text/javascript">
+          $('#portal_leave_application_detail_AttachmentFile').on('change', function() {
+            var numb = $(this)[0].files[0].size / 1024 / 1024;
+          numb = numb.toFixed(2);
+          if (numb > 2) 
+          {
+            alert('to big, maximum is 2MiB. You file size is: ' + numb + ' MiB');
+            $( "#submit_detail_but" ).prop('disabled', true);
+          } 
+          else 
+          {
+            $( "#submit_detail_but" ).prop('disabled', false);
+          }
+           
+          });
+        </script>
+        
+      </div>
+
+      <br>
+      <br>  
+
+      <div class="row">
+        <div class="col-sm-6" >
+        </div>
+
+        <div class="col-sm-6" >
+          <div class="row">
+            <div class="col-sm-6" >
+              <%= form.submit 'Save', class:'btn btn-success btn-sm btn-block', id: 'submit_detail_but' %>
+            </div>
+
+            <script type="text/javascript">
+              $(document).submit(function() {
+                $( "#submit_detail_but" ).prop('disabled', true);
+              });                      
+            </script>
+
+            <div class="col-sm-6" >
+              <%= link_to 'Back to List', portal_leave_application_details_path, class:'btn btn-primary btn-sm btn-block' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+
+
+
+</body>
+</html>

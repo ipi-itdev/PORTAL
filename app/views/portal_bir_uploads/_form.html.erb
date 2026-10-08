@@ -1,0 +1,52 @@
+<%= form_with(model: portal_bir_upload, local: true) do |form| %>
+  <% if portal_bir_upload.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(portal_bir_upload.errors.count, "error") %> prohibited this portal_bir_upload from being saved:</h2>
+
+      <ul>
+      <% portal_bir_upload.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :BIRUploadRefNo %>
+    <%= form.number_field :BIRUploadRefNo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Year %>
+    <%= form.text_field :Year %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CreatedDate %>
+    <%= form.datetime_select :CreatedDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CreatedBy %>
+    <%= form.number_field :CreatedBy %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ModifiedDate %>
+    <%= form.datetime_select :ModifiedDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ModifiedBy %>
+    <%= form.number_field :ModifiedBy %>
+  </div>
+
+  <div class="field">
+    <%= form.label :IsActive %>
+    <%= form.check_box :IsActive %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

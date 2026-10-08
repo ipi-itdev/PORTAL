@@ -1,0 +1,1 @@
+json.partial! "portal_ob_applications/portal_ob_application", portal_ob_application: @portal_ob_application

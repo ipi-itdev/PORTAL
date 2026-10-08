@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6" >
+        <p id="notice"><%= notice %></p>    
+        <% get_filing_stat = PortalTreApplication.where(ID: session[:portal_tre_application_id]).pluck(:FilingStatusRefNo).to_sentence %>
+      </div>
+
+      <div class="col-sm-6"  align="right">
+        <% if get_filing_stat.to_i == 1 %>
+          <p><%= link_to '<i class="fa fa-plus" aria-hidden="true"></i> Add detail'.html_safe, new_portal_tre_application_detail_path, class:'btn btn-success btn-sm' %></p>
+        <% end %>
+      </div>
+    </div>
+    
+    <strong>TRE Details</strong>  
+    <div class="table-responsive">
+      <table class="table table-striped table-condensed" id="portal_tre_application_detail_table">    
+        <thead>
+          <tr>
+            <th ><small><b>ID</b></small></th>
+            <th ><small><b>Client Account</b></small></th>            
+            <th ><small><b>Entry Type</b></small></th>
+            <th ><small><b>Date</b></small></th>
+            <th ><small><b>Amount</b></small></th>            
+            <th ></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @portal_tre_application_details.each do |portal_tre_application_detail| %>
+            <tr>
+              <td><small><%= portal_tre_application_detail.ID %></small></td>              
+              <td><small><%=  GenClientAccountM.where(ClientAccountRefNo: portal_tre_application_detail.ClientAccountRefNo).pluck(:Description).to_sentence %></small></td>
+              <td><small><%=  BilEntryM.where(EntryRefNo: portal_tre_application_detail.EntryRefNo).pluck(:Description).to_sentence %></small></td>              
+              <td ><small><%= portal_tre_application_detail.WorkDate.strftime("%m/%d/%Y") %></small></td>
+              <td align="right"><small><%= number_with_precision(portal_tre_application_detail.Amount, :precision => 2, :delimiter => ',') %></small></td>
+              
+              <td align="center">
+                  <% if get_filing_stat.to_i == 1 %>
+                    <div class="btn-group btn-group-sm btn-group-block" role="group" aria-label="Basic example">
+                      <%= link_to '<i class="far fa-edit"></i>'.html_safe, edit_portal_tre_application_detail_path(portal_tre_application_detail), class: 'btn btn-secondary', data: { confirm: 'Are you sure? test' }, "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Edit" %>
+                      <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, tmsdetailremove_index_path(detail_refno: portal_tre_application_detail.ID, tms_type: 'tre'), method: 'post', data: { confirm: 'Are you sure? test' }, class: 'btn btn-danger', "data-toggle" => "tooltip", "data-placement" => "top", "title" => "Delete" %>                
+                    </div>
+                      
+                  <% else %>
+                    <%= link_to '<i class="far fa-file"></i>'.html_safe, portal_tre_application_detail, class: 'btn btn-secondary', "data-toggle" => "tooltip", "data-placement" => "top", "title" => "View" %>                  
+                  <% end%>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+      <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+      <script>
+        $(function(){
+          $("#portal_tre_application_detail_table").dataTable();
+        })
+      </script>
+
+    </div>
+  </div>
+</body>
+</html>

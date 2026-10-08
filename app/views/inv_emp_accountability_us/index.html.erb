@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Inv Emp Accountability Us</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Createdby</th>
+      <th>Modifiedby</th>
+      <th>Createddate</th>
+      <th>Modifieddate</th>
+      <th>Isactive</th>
+      <th>Employeerefno</th>
+      <th>Remarks</th>
+      <th>Deployedby</th>
+      <th>Deploymentdate</th>
+      <th>Pdffilename</th>
+      <th>Clearby</th>
+      <th>Returneddate</th>
+      <th>Filingstatusrefno</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @inv_emp_accountability_us.each do |inv_emp_accountability_u| %>
+      <tr>
+        <td><%= inv_emp_accountability_u.CreatedBy %></td>
+        <td><%= inv_emp_accountability_u.ModifiedBy %></td>
+        <td><%= inv_emp_accountability_u.CreatedDate %></td>
+        <td><%= inv_emp_accountability_u.ModifiedDate %></td>
+        <td><%= inv_emp_accountability_u.IsActive %></td>
+        <td><%= inv_emp_accountability_u.EmployeeRefNo %></td>
+        <td><%= inv_emp_accountability_u.Remarks %></td>
+        <td><%= inv_emp_accountability_u.DeployedBy %></td>
+        <td><%= inv_emp_accountability_u.PDFFileName %></td>
+        <td><%= inv_emp_accountability_u.ClearBy %></td>
+        <td><%= inv_emp_accountability_u.ReturnedDate %></td>
+        <td><%= inv_emp_accountability_u.FilingStatusRefNo %></td>
+        <td><%= link_to 'Show', inv_emp_accountability_u %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Inv Emp Accountability U', new_inv_emp_accountability_u_path %>

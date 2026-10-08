@@ -1,0 +1,22 @@
+IPI Employee Referral
+<% getreferername = PisEmployeeU.where(employeerefno: @referral.employeerefno).pluck(:Description).to_sentence %>
+<% getrefererempnum = PisEmployeeU.where(employeerefno: @referral.employeerefno).pluck(:EmployeeNumber).to_sentence%>
+<%= getreferername %> - <%= getrefererempnum %>
+
+Referrer: <%= getreferername %> - <%= getrefererempnum %> 
+
+Details:
+
+Name: <%= @referral.name %>
+          
+Contact: <%= @referral.contact %>
+
+Skills: <%= @referral.skills %>
+
+Remarks: <%= @referral.remarks %>
+
+-------------------------------------------------------
+This is a system generated mail. Please do not reply.
+IPI Payslip Portal.
+
+

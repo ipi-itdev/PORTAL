@@ -1,0 +1,95 @@
+
+  <style type="text/css">   
+    #required_field {         
+      position: absolute;
+      bottom: px;
+      left: 7px;
+      font-size: 18px;
+      color: red;
+    }
+  </style>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-1" >      
+      </div>
+
+      <div class="col-sm-10" >
+        <%= bootstrap_form_with(model: portal_homeposter_u, local: true) do |form| %>
+          <% if portal_homeposter_u.errors.any? %>
+            <!--
+            <div id="error_explanation_header">
+              <ul>
+                <%  portal_homeposter_u.errors.full_messages.each do |message| %>
+                  <%= flash[:notice]= message %>
+                <% end %>
+              </ul>
+            </div>
+          -->
+
+            
+          <% end %>
+            <br>
+          <br>
+          
+          <%  session[:portal_homeposter_u_id] = @portal_homeposter_u.HomePosterRefno %>
+
+          <div class="panel panel-default" id="panelframe" style="">
+            <div class="panel-heading" id="panelheader" >
+              <i class="fas fa-calendar-check"></i> <strong>Homepage Poster</strong>
+            </div>
+
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-4" >
+                  <div class="row">
+                    <div class="col-sm-12" >
+                    <small>
+                      <br>
+                      
+                      <div class="row">
+                        <div class="col-sm-12" >
+                          <b>Description: <%= @portal_homeposter_u.Description %></b>
+                          <%= form.check_box :IsVisible , label: 'Is Visible' %>
+                          <%= form.check_box :IsSlides, label:'On Slides' %>
+                          <%= form.date_field :StartDate, label: 'Start Date', min: '2022-01-01', max: '2025-12-31'%>
+                          <%= form.date_field :EndDate, label: 'End Date', min: '2022-01-01', max: '2025-12-31'%>
+                          <%= form.submit 'Save', class: "btn btn-primary btn-block" %>
+                          <%= link_to 'Back', portal_homeposter_us_path, class:'btn btn-primary  btn-block' %>
+                          
+                        </div>
+
+                      </div>
+                    </small>
+                    </div>
+                  </div>
+          
+                </div>
+
+                <% if mobile_device == "mobile" %>
+                  <div class="col-sm-8" >
+                <% else %>
+                <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;" >
+                <% end %>
+
+                  <iframe src="/portal_homeposter_details?homeposter_refno=<%= @portal_homeposter_u.HomePosterRefno %>" style="border:none;" title="HomePosterDetails" height="530px" width="100%"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <% end #  end of form%>     
+      </div>
+
+      <div class="col-sm-1" >      
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+
+
+

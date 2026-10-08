@@ -1,0 +1,172 @@
+<style type="text/css"> 
+    #required_field {         
+      position: absolute;
+      bottom: px;
+      left: 7px;
+      font-size: 18px;
+      color: red;
+    }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-1" >    
+    </div>
+
+    <div class="col-sm-10" >
+      <%= bootstrap_form_with(model: dtr_application, local: true) do |form| %>
+        <% if dtr_application.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+              <% dtr_application.errors.full_messages.each do |message| %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% session[:dtr_app_id] = @dtr_application.DTRApplicationRefNo %>
+        <% session[:dtr_detail_id] = @dtr_application.DTRDetailRefNo %>
+        <% session[:dtr_application_employeerefno] = @dtr_application.EmployeeRefNo %>
+        <% session[:dtr_remarks] = "" %>
+
+        <div class="panel panel-default" id="panelframe" style="">
+          <div class="panel-heading" id="panelheader" >
+            <i class="fas fa-calendar-check"></i> <strong>DTR Approval</strong>
+          </div>
+
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-4" >
+                <div class="row">
+                  <div class="col-sm-12" >
+                  <small>                  
+                    <div class="row">                                              
+                      <div class="col-sm-12" >
+                        <strong>ID: </strong> <%= @dtr_application.ID %>
+                        <br>
+
+                      </div>
+                    </div>
+
+                    <br>               
+
+                    <div class="row">
+                      <div class="col-sm-12" >
+                        <strong>Employee: </strong> <%= PisEmployeeU.where(EmployeeRefNo: @dtr_application.EmployeeRefNo).pluck(:Description).to_sentence %>
+                      </div>
+                    </div>
+
+
+                    <div class="row">                      
+                      <div class="col-sm-12" >
+                        <strong>Job Position: </strong> <%= @dtr_application.JobPosition %>
+                      </div>
+                    </div>
+                  </small>
+                  </div>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="row">
+                  <div class="col-sm-6" >   
+                    <input type="button" id="showDetails" class="btn btn-primary btn-block" value="DTR Details">
+                  </div>
+
+                  <% if mobile_device == "mobile" %>
+                    <br>
+                  <% end %>
+
+                  <div class="col-sm-6" >   
+                    <input type="button" id="showUpload" class="btn btn-primary btn-block" value="DTR Attachment">
+                  </div>
+
+                  <script type="text/javascript">
+                    $(document).ready(function () {
+                      $("#showDetails").click(function () {
+                        document.getElementById('dtrdetails').setAttribute("style", "display: block")
+                        document.getElementById('dtrattachment').setAttribute("style", "display: none")
+                      });
+
+                      $("#showUpload").click(function () {
+                        document.getElementById('dtrattachment').setAttribute("style", "display: block")
+                        document.getElementById('dtrdetails').setAttribute("style", "display: none")
+                      });
+                    });
+                  </script>
+                </div>
+      <% end #  end of form%>
+
+                <%= form_tag('/back_dtr', method: :post) do %>
+                <div class="row">
+                  <div class="col-sm-12" >
+                    <%= hidden_field_tag :dtr_detail_id, session[:dtr_detail_id] %>
+                    <%= hidden_field_tag :dtr_application_employeerefno, session[:dtr_application_employeerefno] %>
+                    <br>
+                    <br>                                                                       
+                                            
+                    <small>
+                      <%= label_tag "Remarks" %>
+                      <%= text_area_tag :Remarks %>
+                    </small>                
+                  </div>      
+                      
+                    <script type="text/javascript">
+                      document.getElementById('Remarks').setAttribute("style", "resize: none");
+                      document.getElementById('Remarks').className = "form-control input-sm";
+                    </script>
+                </div>                
+
+                <div class="row">
+                  <div class="col-sm-12" >
+
+                    <br>
+                    <div class="row">                
+                      <div class="col-sm-6" >
+                        <%= link_to "Approve", approve_dtr_path(dtr_detail_id: session[:dtr_detail_id]), method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to approve this application?', disable_with: "<i class='fa fa-spinner fa-spin'></i> Please wait..." } %>                                            
+                      </div>
+              
+                      <% if mobile_device == "mobile" %>
+                        <br>
+                      <% end %>
+                      
+                      <div class="col-sm-6" >                        
+                        <%= submit_tag "Return to Employee", method: 'post',  class: "btn btn-primary btn-block", data: { confirm: 'Are you sure you want to return this application?', disable_with: "Please wait..." } %>
+                      </div>
+                    </div>                                        
+
+                    <br>
+                    <%= link_to 'Back to List', dtr_applications_path, class:'btn btn-primary  btn-block' %>
+                  </div>
+                </div>  
+                <% end %>            
+              </div>
+
+              <% if mobile_device == "mobile" %>
+                <div class="col-sm-8" >
+              <% else %>
+                <div class="col-sm-8"  style="border-left-style: dotted; border-color: #555555;" >
+              <% end %>
+
+                <div id="dtrdetails">
+                  <iframe src="/dtr_application_details?dtr_app_id=<%= @dtr_application.DTRApplicationRefNo %>&employeerefno=<%= @dtr_application.EmployeeRefNo %>" style="border:none;" title="IframeExpenseDetails" height="530px" width="100%"></iframe>
+                </div>
+
+                <div id="dtrattachment" style="display: none">
+                  <iframe src="/portal_dtr_upload_details?dtr_upload_id=<%= @dtr_upload.to_param %>" style="border:none;" title="IframeUploadDetails" height="530px" width="100%"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>            
+    </div>
+
+    <div class="col-sm-1" >      
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+

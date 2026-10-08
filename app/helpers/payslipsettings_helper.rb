@@ -1,0 +1,2 @@
+module PayslipsettingsHelper
+end

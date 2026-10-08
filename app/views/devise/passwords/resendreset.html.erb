@@ -1,0 +1,74 @@
+
+
+<div class="container-fluid">
+	
+  <div class="row">
+    <div class="col-sm-1"> </div>
+    <div class="col-sm-10" >
+    	<h4> Send Reset Password for the following Employees: </h4>
+    	<table class="table  table-hover table-responsive table-bordered" width="50%">
+ 			<thead>
+ 				<tr>
+          <td width="3%"><strong> Check All <input type="checkbox" name="select-all" id="select-all" /> </strong></td>
+ 					<td width="3%"><strong> ID </strong></td>
+ 					<td width="2%"><strong><strong><strong><strong> Employee Number</strong></strong></strong></strong></td>
+ 					<td width="5%"><strong><strong><strong>Employee RefNo.</strong></strong></strong></td>
+ 					<td width="5%"><strong><strong>Employee Name</strong></strong> </td>
+ 					<td width="5%"><strong>Email</strong></td>
+ 				</tr>
+ 				
+ 			</thead>		
+
+
+          <tr>
+            <% @resendlist.each do |resendlist|%>
+          
+           
+            <td width="2%">
+          	   <%= resendlist.EmployeeNumber%>
+          	</td>
+          	<td width="5%">
+          	   <%= resendlist.EmployeeRefNo %>
+          	</td>
+          	<td width="5%">
+          	   <%  checkemprefno = resendlist.EmployeeRefNo %>
+          	   <%= PisEmployeeU.where(EmployeeRefNo: checkemprefno).pluck(:Description).to_sentence %>
+          	</td>
+          	<td width="5%">
+          	   <%= resendlist.email%>
+          	</td>
+
+          </tr>
+         
+            <% end %>
+        </table>
+        <b>Total Count: <%= @resendlistcount %></b>
+        <br>
+        <br>
+
+
+     
+
+		<%= button_to "Send Reset Password", '/portal/users/password/resendresetnow', method: "post",class: 'btn btn-primary btn-lg' %> 
+
+		<br>
+		<br>
+
+
+    </div>
+    <div class="col-sm-1" ></div>
+  
+  </div>
+</div>
+
+
+HTML:
+
+<input type="checkbox" name="checkbox-1" id="checkbox-1" />
+<input type="checkbox" name="checkbox-2" id="checkbox-2" />
+<input type="checkbox" name="checkbox-3" id="checkbox-3" />
+---
+<!-- select all boxes -->
+<input type="checkbox" name="select-all" id="select-all" />
+
+

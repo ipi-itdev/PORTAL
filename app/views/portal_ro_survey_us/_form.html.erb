@@ -1,0 +1,2549 @@
+
+<script type="text/javascript">
+$( document ).ready(function() {
+    $("#mod").click();
+});
+
+</script>
+
+
+
+<style type="text/css">
+
+html {
+  scroll-behavior: smooth;
+}
+
+    #myBtn {
+  display: none;
+  position: fixed;
+  bottom: 5px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: black;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#myBtn:hover {
+  background-color: #555;
+}
+
+
+
+
+/*Tabs*/
+xx.tabs {
+  max-width: 800px;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+xx.tabs input {
+  display: none;
+}
+xx.tabs label {
+  display: inline-block;
+  padding: 6px 0 6px 0;
+  margin: 0 -2px;
+  width: 25%; /* =100/tabs number */
+  border-bottom: 1px solid #000;
+  text-align: left;
+}
+.tabs label:hover {
+  cursor: pointer;
+}
+xx.tabs input:checked + label {
+  border: 0px solid #000;
+  border-width: 1px 1px 0 1px;
+}
+.tabs #tab1:checked ~ .content #content1,
+.tabs #tab2:checked ~ .content #content2,
+.tabs #tab3:checked ~ .content #content3,
+.tabs #tab4:checked ~ .content #content4,
+.tabs #tab5:checked ~ .content #content5,
+.tabs #tab6:checked ~ .content #content6,
+.tabs #tab7:checked ~ .content #content7,
+.tabs #tab8:checked ~ .content #content8,
+.tabs #tab9:checked ~ .content #content9,
+.tabs #tab10:checked ~ .content #content10,
+.tabs #tab11:checked ~ .content #content11, 
+.tabs #tab12:checked ~ .content #content12, 
+.tabs #tab13:checked ~ .content #content13, 
+.tabs #tab14:checked ~ .content #content14, 
+.tabs #tab15:checked ~ .content #content15, 
+.tabs #tab16:checked ~ .content #content16, 
+.tabs #tab17:checked ~ .content #content17, 
+.tabs #tab18:checked ~ .content #content18 
+{
+  display: block;
+}
+.tabs .content > div {
+  display: none;
+  padding-top: 20px;
+  text-align: left;
+  /*height: 192px;*/
+  overflow: auto;
+}
+/*Tabs*/
+
+
+.form-check-label{
+  font-size: 10px;
+  pointer-events: none;
+}
+
+hr.style1{
+  border-top: 1px solid #8c8b8b;
+}
+
+
+
+
+
+</style>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+
+  <!--- modal --->
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="mod" style="visibility: hidden;"></button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document" >
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <h2 align="center"><i>How Are We Doing?</i></h2>
+
+        <p align="justify">We are committed to providing the best employee experience possible, we value your feedback. Please fill out this questionnaire. Thank you! 😊 </p>
+        
+      </div>
+      <div class="modal-footer">
+
+
+        <button type="button" class="btn btn-success btn-block btn-bg" data-dismiss="modal" onclick="myFunction_q0()">Proceed</button>
+
+        
+
+        <script>
+        function myFunction_q0() {
+          $("#tab1").click();
+        }
+        </script>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!--- end modal --->
+
+<%= stylesheet_link_tag 'por_temp_surveys'%>
+
+<% current_user.EmployeeRefNo %>
+
+<%=bootstrap_form_with(model: portal_ro_survey_u, local: true,  :html => {:id => "surveyform"}) do |form| %>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3" >
+
+    </div>
+    <div class="col-sm-6" >
+      <div class="panel panel-primary" id="panelframe">
+        
+        <div class="panel-body">
+
+            <div class="tabs">
+               <input id="tab1" type="radio" name="tabs" style="visibility: hidden;">
+
+               <input id="tab2" type="radio" name="tabs" style="visibility: hidden;">
+ 
+               <input id="tab3" type="radio" name="tabs" style="visibility: hidden;">
+         
+               <input id="tab4" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab5" type="radio" name="tabs" style="visibility: hidden;">
+
+               <input id="tab6" type="radio" name="tabs" style="visibility: hidden;">
+
+               <input id="tab7" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab8" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab9" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab10" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab11" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab12" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab13" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab14" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab15" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab16" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab17" type="radio" name="tabs" style="visibility: hidden;">
+
+              <input id="tab18" type="radio" name="tabs" style="visibility: hidden;">
+
+
+               <div class="content">
+
+
+                  <!--- start q123-->
+                  <div id="content1">
+                    <%= form.hidden_field :EmployeeRefNo, :value => current_user.EmployeeRefNo %>
+
+
+                    <div class="container-fluid">
+                        <div class="row">
+    
+                            <div class="col-sm-6" align="left">
+                               <p id="coloritred1">1. How would you rate your experience with our Recruitment department?<span id="asterisksurvey">*</span></span>
+                            </div>
+
+                            <div class="mobile-menu" align="left" >
+
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q1, '5', label:'5. Exceptional' , onclick: "enableFunction1()" %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q1, '4', label:'4' , onclick: "enableFunction1()" %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q1, '3', label:'3' , onclick: "enableFunction1()" %>
+                                </div>
+                                <div class="col-sm-1" align="left">
+                                   <%= form.radio_button :Q1, '2', label:'2', onclick: "enableFunction1()" %>
+                                </div>
+                                <div class="col-sm-1" align="left">
+                                   <%= form.radio_button :Q1, '1', label:'1. Disappointing', onclick: "enableFunction1()" %>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="dropdown pc-menu" align="left" > 
+
+                                <div class="col-sm-1" align="left">
+                                   <small><%= form.radio_button :Q1, '1', label:' 1', onclick: "enableFunction1()" %></small>
+                                   <small><b>Disappointing</b></small>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                                   <%= form.radio_button :Q1, '2', label:'2', onclick: "enableFunction1()" %>
+                                </div>
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q1, '3', label:'3' , onclick: "enableFunction1()" %>
+                                </div>
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q1, '4', label:'4' , onclick: "enableFunction1()" %>
+                                </div>
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q1, '5', label:'5' , onclick: "enableFunction1()" %>
+                                    <small><b>Exceptional</b></small>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="style1">
+                    <br>
+
+
+                    <!-- start q2 -->
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-6" align="left">
+                               <p id="coloritred2">2. How knowledgeable was your recruiter about our Company?<span id="asterisksurvey">*</span></span>
+                            </div>
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q2, '5', label:'5 Extremely' ,onclick: "enableFunction1()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q2, '4', label:'4', onclick: "enableFunction1()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q2, '3', label:'3' , onclick: "enableFunction1()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q2, '2', label:'2',onclick: "enableFunction1()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q2, '1', label:'1. Not at all', onclick: "enableFunction1()" %>
+                              </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q2, '1', label:'1', onclick: "enableFunction1()" %>
+                                 <small><b>Not_at_all</b></small>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q2, '2', label:'2',onclick: "enableFunction1()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q2, '3', label:'3' , onclick: "enableFunction1()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q2, '4', label:'4', onclick: "enableFunction1()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q2, '5', label:'5' ,onclick: "enableFunction1()" %>
+                                  <small><b>Extremely</b></small>
+                              </div>
+
+
+                            </div>
+
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- end q2 -->
+                    <hr class="style1">
+                    <br>
+
+                    <!-- start q3 -->
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-6" align="left">
+                               <p id="coloritred3">3. How clearly did your recruiter explain the details of the job to you?<span id="asterisksurvey">*</span></span>
+                            </div>
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q3, '5', label:' 5. Extremely' , onclick: "enableFunction1()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q3, '4', label:'4' , onclick: "enableFunction1()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q3, '3', label:'3' ,onclick: "enableFunction1()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q3, '2', label:'2 ',onclick: "enableFunction1()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q3, '1',  label:'1 Not_at_all', onclick: "enableFunction1()" %>
+                              </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q3, '1',  label:'1', onclick: "enableFunction1()" %>
+                                 <small><b>Not_at_all</b></small>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q3, '2', label:'2',onclick: "enableFunction1()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q3, '3', label:'3' ,onclick: "enableFunction1()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q3, '4', label:'4' , onclick: "enableFunction1()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q3, '5', label:'5' , onclick: "enableFunction1()" %>
+                                  <small><b>Extremely</b></small>
+                              </div>
+
+                            </div>
+
+
+
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="container-fluid">
+
+
+
+
+                      <div class="row">
+                        <div class="col-sm-8" >
+
+
+                 
+                        </div>
+                        <div class="col-sm-4" >
+                          <button onclick="myFunction_n1()" class="btn btn-primary btn-block" id="button_q1" type="button">Next</button>
+
+
+                          <script> 
+                          function myFunction_n1() {
+                            $("#tab2").click();
+                            //alert("test");
+                            document.body.scrollTop = 0;
+                            document.documentElement.scrollTop = 0;
+
+                          }
+                          </script>
+
+                          <script type="text/javascript">
+                            
+                            //check if radio button was clicked onload
+                            if ($('#por_temp_survey_Q1_1').is(':checked') ==  true ) 
+                              {
+                                //alert("1"); nothing to do
+                              }
+                            else
+                              {
+                                //alert("1xx");
+                                $( "#button_q1" ).prop('disabled', true);
+                              }
+                          </script>
+
+
+                          <script>
+                           // enable next button 
+                          function enableFunction1() 
+                          { 
+
+                            var answer1  = document.querySelector('input[name="portal_ro_survey_u[Q1]"]:checked').value;
+                            var answer2  = document.querySelector('input[name="portal_ro_survey_u[Q2]"]:checked').value;
+                            var answer3  = document.querySelector('input[name="portal_ro_survey_u[Q3]"]:checked').value;
+
+                            if(answer1 == '' || answer2 == '' || answer3 == '')
+                              {
+                                //alert('null lahat');
+                                $( "#button_q1" ).prop('disabled', true);  
+                              }
+                            else
+                              {
+                                //alert('di null');
+                                $( "#button_q1" ).prop('disabled', false);
+                              }
+
+                            
+
+                            }
+                          
+                          </script>
+
+
+                        </div>
+                        
+                      </div>
+
+     
+                    </div>
+                    <!-- end q3 -->
+
+                  </div>
+                  <!--- end q123 -->
+
+
+
+                  <!---q45 --->
+                  <div id="content2">
+
+                 <!--- start q4 --->
+                  <div id="content4x">
+
+
+                     <!-- start q4 -->
+                    <div class="container-fluid">
+
+                        <div class="row">
+                          <div class="col-sm-12" >
+                            <b>4. Was your Recruiter…</b>
+                          </div>
+                        </div>
+
+                        <!--- Q4a --->
+                        <div class="row">
+
+                            <div class="mobile-menu" align="left" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Courteous? <span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Courteous? <span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q4a, '1' , label:'Yes' ,onclick: "enableFunction2()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q4a, '0' ,  label:'No' , onclick: "enableFunction2()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+    
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                        
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+            
+                              </div>
+
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+
+
+                              <div class="col-sm-2" align="left">
+                                 <%= form.radio_button :Q4a, '1', label:'Yes',  onclick: "enableFunction2()"  %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q4a, '0' , label:'No', onclick: "enableFunction2()" %>
+                                 
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                   
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+               
+                              </div>
+
+
+                            </div>
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                        <!--- Q4a --->
+
+                        <!--- Q4b --->
+
+                        <div class="row">
+
+
+                            <div class="mobile-menu" align="left" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Professional?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Professional?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q4b, '1' , label:'Yes' ,onclick: "enableFunction2()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q4b, '2' ,  label:'No' , onclick: "enableFunction2()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+    
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                        
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+            
+                              </div>
+
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+
+
+                              <div class="col-sm-2" align="left">
+                                 <%= form.radio_button :Q4b, '1', label:'Yes',  onclick: "enableFunction2()"  %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q4b, '0' , label:'No', onclick: "enableFunction2()" %>
+                                 
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                   
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+               
+                              </div>
+
+
+                            </div>
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+
+                        <!--- Q4b --->
+
+                        <!--- Q4c --->
+                        <div class="row"> 
+
+                            <div class="mobile-menu" align="left" >
+                                <div class="col-sm-6" >
+                                  <p id="coloritred4">Informative?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+                                <div class="col-sm-6" >
+                                  <p id="coloritred4">Informative?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q4c, '1' , label:'Yes' ,onclick: "enableFunction2()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q4c, '0' ,  label:'No' , onclick: "enableFunction2()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+    
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                        
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+            
+                              </div>
+
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+
+
+                              <div class="col-sm-2" align="left">
+                                 <%= form.radio_button :Q4c, '1', label:'Yes',  onclick: "enableFunction2()"  %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q4c, '0' , label:'No', onclick: "enableFunction2()" %>
+                                 
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                   
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+               
+                              </div>
+
+
+                            </div>
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                        <!--- Q4c --->
+
+                    </div>
+
+                     <!-- end q4 -->
+                  </div>
+                  <!-- end q4 -->
+
+                  <hr class="style1">
+                  <br>
+
+                  <!-- start q5 -->
+                  <div id="content5x">
+                    <!-- start q5 -->
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-6" align="left">
+                               <p id="coloritred5">5. How clearly did your recruiter explain the rest of the recruiting process following your interview?<span id="asterisksurvey">*</span>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q5, '5' , label:'5. Extremely', onclick: "enableFunction2()"%>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q5, '4' ,  label:'4' , onclick: "enableFunction2()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q5, '3' ,  label:'3' , onclick: "enableFunction2()"%>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q5, '2',  label:'2',onclick: "enableFunction2()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q5, '1', label:'1. Not at all',  onclick: "enableFunction2()" %>
+                              </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q5, '1', label:'1',  onclick: "enableFunction2()" %>
+                                 <small><b>Not_at_all</b></small>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q5, '2',  label:'2',onclick: "enableFunction2()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q5, '3' ,  label:'3' , onclick: "enableFunction2()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q5, '4' ,  label:'4' , onclick: "enableFunction2()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q5, '5' , label:'5', onclick: "enableFunction2()"%>
+                                  <small><b>Extremely</b></small>
+                              </div>
+
+                            </div>
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="container-fluid">
+
+
+                      <div class="row">
+                        <div class="col-sm-4" >
+                 
+                        </div>
+                        <div class="col-sm-4" >
+                           <button onclick="myFunction_p2()" class="btn btn-primary btn-block" type="button">Back</button>
+
+
+                           <br>
+
+                          <script>
+                          function myFunction_p2() {
+                            $("#tab1").click();
+                          }
+                          </script>
+                 
+                        </div>
+                        <div class="col-sm-4" >
+                          <button onclick="myFunction_n2()" class="btn btn-primary btn-block" id="button_q2" type="button" >Next</button>
+
+                          <script>
+                          function myFunction_n2() {
+                            $("#tab3").click();
+                            document.body.scrollTop = 0;
+                            document.documentElement.scrollTop = 0;
+                          }
+                          </script>
+
+
+                          <script type="text/javascript">
+                            
+                            //check if radio button was clicked onload
+                            if ($('#portal_ro_survey_u_Q4a_1').is(':checked') ==  true ) 
+                              {
+                                //alert("1"); nothing to do
+                              }
+                            else
+                              {
+                                //alert("1xx");
+                                $( "#button_q2" ).prop('disabled', true);
+                              }
+                          </script>
+                  
+
+                          <script>
+                           // enable next button 
+                          function enableFunction2() 
+                          { 
+
+                            answer5a  = document.querySelector('input[name="portal_ro_survey_u[Q5]"]:checked').value;
+                            answer4a  = document.querySelector('input[name="portal_ro_survey_u[Q4a]"]:checked').value;
+                            answer4b  = document.querySelector('input[name="portal_ro_survey_u[Q4b]"]:checked').value;
+                            answer4c  = document.querySelector('input[name="portal_ro_survey_u[Q4c]"]:checked').value;
+                            
+
+                            if(answer4a == '' || answer4b == '' || answer4c == '' || answer5a == '')
+                              {
+                                alert('null lahat');
+                                $( "#button_q2" ).prop('disabled', true);
+                              }
+                            else
+                              {
+                                //alert('di null');
+                                $( "#button_q2" ).prop('disabled', false);
+                              }
+
+                              
+
+                            }
+                          
+                          </script>
+
+
+                        </div>
+                      </div>
+         
+
+                    </div>
+                    <!-- end q5 -->
+                  </div>
+                  <!-- end q5 -->
+
+                  </div>
+                  <!---end q45 --->
+
+
+
+                  <!---q678 --->                  
+                  <div id="content3">
+
+
+                  <!-- start q6 -->
+                  <div id="content6x">
+
+                    <!-- start q6 -->
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-6" align="left">
+                               <p id="coloritred6">6. How quickly did your recruiter respond to your phone calls, SMS or emails?<span id="asterisksurvey">*</span></span>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q6, '5' , label:'5. Extremely' ,onclick: "enableFunction8()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q6, '4' , label:'4. ' , onclick: "enableFunction8()"%>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q6, '3' , label:'3. ' ,onclick: "enableFunction8()"%>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q6, '2' ,  label:'2. ', onclick: "enableFunction8()"%>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q6, '1', label:'1. Not at all',onclick: "enableFunction8()" %>
+                              </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q6, '1', label:'1',onclick: "enableFunction8()" %>
+                                 <small><b>Not_at_all</b></small>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q6, '2' ,  label:'2', onclick: "enableFunction8()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q6, '3' , label:'3' ,onclick: "enableFunction8()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q6, '4' , label:'4' , onclick: "enableFunction8()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q6, '5' , label:'5' ,onclick: "enableFunction8()"%>
+                                  <small><b>Extremely</b></small>
+                              </div>
+
+                            </div>
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+
+                    </div>
+                    <!-- end q6 -->
+                  </div>
+                  <!-- end q6 -->
+
+                  <hr class="style1">
+
+                  <!-- START q7 -->
+                  <div id="content7x">
+                    <!-- start q7 -->
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-6" align="left">
+                               <p id="coloritred7">7. How would you rate your HR – Employee Care onboarding experience?<span id="asterisksurvey">*</span></span>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q7, '5' , label:'5. Exceptional' ,  onclick: "enableFunction8()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q7, '4' ,  label:'4' , onclick: "enableFunction8()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q7, '3' ,  label:'3' , onclick: "enableFunction8()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q7, '2' , label:'2', onclick: "enableFunction8()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q7, '1', label:'1. Disappointing',onclick: "enableFunction8()" %>
+                              </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+                              
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q7, '1', label:'1',onclick: "enableFunction8()" %>
+                                 <small><b>Disappointing</b></small>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q7, '2' , label:'2', onclick: "enableFunction8()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q7, '3' ,  label:'3' , onclick: "enableFunction8()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q7, '4' ,  label:'4' , onclick: "enableFunction8()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q7, '5' , label:'5' ,  onclick: "enableFunction8()" %>
+                                  <small><b>Exceptional</b></small>
+                              </div>
+
+                            </div>
+
+
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- end q7 -->
+                  </div>
+                  <!-- end q7 -->
+                  
+                  <hr class="style1">
+
+                  <!-- start q8 -->
+                  <div id="content8x">
+                    <!-- start q8 -->
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-6" align="left">
+                               <p id="coloritred8">8. How clearly did HR brief you about the Company policies, procedures, handbook, and emp. portal?<span id="asterisksurvey">*</span></span>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q8, '5' , label:'5. Extremely' , onclick: "enableFunction8()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q8, '4' , label:'4' , onclick: "enableFunction8()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q8, '3' , label:'3' , onclick: "enableFunction8()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q8, '2' , label:'2', onclick: "enableFunction8()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q8, '1' , label:'1. Not at all', onclick: "enableFunction8()" %>
+                              </div>
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q8, '1' , label:'1', onclick: "enableFunction8()" %>
+                                 <small><b>Not_at_all</b></small>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q8, '2' , label:'2', onclick: "enableFunction8()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q8, '3' , label:'3' , onclick: "enableFunction8()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q8, '4' , label:'4' , onclick: "enableFunction8()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q8, '5' , label:'5' , onclick: "enableFunction8()" %>
+                                  <small><b>Extremely</b></small>
+                              </div>
+
+                            </div>
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="container-fluid">
+ 
+                      <div class="row">
+                          <div class="col-sm-4" >
+                   
+                          </div>
+                          <div class="col-sm-4" >
+                             <button onclick="myFunction_p8()" class="btn btn-primary btn-block" type="button">Back</button>
+
+                             <br> 
+                                      <script>
+                                      function myFunction_p8() {
+                                        $("#tab2").click();
+                                      }
+                                      </script>
+                   
+                          </div>
+
+                          
+
+                          <div class="col-sm-4" >
+                            <button onclick="myFunction_n8()" class="btn btn-primary btn-block" id="button_q3" type="button">Next</button>
+
+                                      <script>
+                                      function myFunction_n8() {
+                                        $("#tab4").click();
+
+                                        document.body.scrollTop = 0;
+                                        document.documentElement.scrollTop = 0;
+                                      }
+                                      </script>
+
+
+
+                          <script type="text/javascript">
+                            
+                            //check if radio button was clicked onload
+                            if ($('#portal_ro_survey_u_Q6_1').is(':checked') ==  true ) 
+                              {
+                                //alert("1"); nothing to do
+                              }
+                            else
+                              {
+                                //alert("1xx");
+                                $( "#button_q3" ).prop('disabled', true);
+                              }
+                          </script>
+                  
+
+                          <script>
+                           // enable next button 
+                          function enableFunction8() 
+                          { 
+
+                            var answer6  = document.querySelector('input[name="portal_ro_survey_u[Q6]"]:checked').value;
+                            var answer7  = document.querySelector('input[name="portal_ro_survey_u[Q7]"]:checked').value;
+                            var answer8  = document.querySelector('input[name="portal_ro_survey_u[Q8]"]:checked').value;
+
+                            if(answer6 == '' && answer7 == '' && answer8 == '')
+                              {
+                                //alert('null lahat');
+                                $( "#button_q3" ).prop('disabled', true);
+                              }
+                            else
+                              {
+                                //alert('di null');
+                                $( "#button_q3" ).prop('disabled', false);
+                              }
+
+                            }
+                          
+                          </script>
+
+
+                          </div>
+                      </div>
+
+
+                    </div>
+                    <!-- end q8 -->
+                  </div>
+                  <!-- end q8 -->
+
+                  </div>
+                 <!--- end q678 --->
+
+
+                  <!-- start q91011 -->
+                  <div id="content4">
+
+
+                    <!-- start q9 -->
+                    <div class="container-fluid">
+
+
+                        <div class="row">
+                          <div class="col-sm-12" >
+                            <b>9. Was your HR – Employee Care…</b>
+                          </div>
+                        </div>
+
+                        <br>
+                        <br>
+
+                        <!----Q9a--->
+                        <div class="row">
+
+                            <div class="mobile-menu" align="left" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Courteous? <span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Courteous? <span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+                            <div class="mobile-menu" align="left" >
+
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q9a, '1' ,  label:'Yes' , onclick: "enableFunction11()" %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q9a, '0' , label:'No' , onclick: "enableFunction11()" %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                            
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                 
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+             
+                                </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+                                <div class="col-sm-2" align="left">
+                                   <%= form.radio_button :Q9a, '1', label:'Yes', onclick: "enableFunction11()"  %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                                   <%= form.radio_button :Q9a, '0' ,  label:'No', onclick: "enableFunction11()" %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                 
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+      
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                        <!----Q9a--->
+
+
+                        <!----Q9b--->
+                        <div class="row">
+
+
+                            <div class="mobile-menu" align="left" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Professional?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Professional?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q9b, '1' ,  label:'Yes' , onclick: "enableFunction11()" %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q9b, '0' , label:'No' , onclick: "enableFunction11()" %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                            
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                 
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+             
+                                </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+                                <div class="col-sm-2" align="left">
+                                   <%= form.radio_button :Q9b, '1', label:'Yes', onclick: "enableFunction11()"  %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                                   <%= form.radio_button :Q9b, '0' ,  label:'No', onclick: "enableFunction11()" %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                 
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+      
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                        <!----Q9b--->
+
+
+                        <!----Q9c--->
+                        <div class="row">
+
+
+                            <div class="mobile-menu" align="left" >
+                                <div class="col-sm-6" >
+                                  <p id="coloritred4">Informative?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+                                <div class="col-sm-6" >
+                                  <p id="coloritred4">Informative?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q9c, '1' ,  label:'Yes' , onclick: "enableFunction11()" %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                                    <%= form.radio_button :Q9c, '0' , label:'No' , onclick: "enableFunction11()" %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                            
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                 
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+             
+                                </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+                                <div class="col-sm-2" align="left">
+                                   <%= form.radio_button :Q9c, '1', label:'Yes', onclick: "enableFunction11()"  %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                                   <%= form.radio_button :Q9c, '0' ,  label:'No', onclick: "enableFunction11()" %>
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+                 
+                                </div>
+
+                                <div class="col-sm-1" align="left">
+      
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                        <!----Q9c--->
+
+                    </div>
+
+                    <hr class="style1">
+
+                    <!-- end q9 -->
+
+
+                    <!-- start q10 -->
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-6" align="left">
+                               <p id="coloritred10">10. How would you rate your Marketing Representative onboarding experience?<span id="asterisksurvey">*</span></span>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q10, '5' ,  label:'5. Exceptional' , onclick: "enableFunction11()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q10, '4' , label:'4' ,onclick: "enableFunction11()"%>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q10, '3', label:'3' , onclick: "enableFunction11()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q10, '2', label:'2',onclick: "enableFunction11()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q10, '1', label:'1. Disappointing',onclick: "enableFunction11()" %>
+                              </div>
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q10, '1', label:'1',onclick: "enableFunction11()" %>
+                                 <small><b>Disappointing</b></small>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q10, '2', label:'2',onclick: "enableFunction11()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q10, '3', label:'3' , onclick: "enableFunction11()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q10, '4' , label:'4' ,onclick: "enableFunction11()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q10, '5' ,  label:'5' , onclick: "enableFunction11()"%>
+                                  <small><b>Exceptional</b></small>
+                              </div>
+
+                            </div>
+
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                  <!-- end q10 -->
+                    
+                    <hr class="style1">
+
+                    <!-- start q11 -->
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-6" align="left">
+                               <p id="coloritred11">11. How clearly did Marketing brief you about the project details, scope of work, SOPs, policies, and house rules?<span id="asterisksurvey">*</span></span>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q11, '5',  label:'5. Extremely' ,onclick: "enableFunction11()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q11, '4', label:'4' , onclick: "enableFunction11()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q11, '3',  label:'3' , onclick: "enableFunction11()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q11, '2', label:'2', onclick: "enableFunction11()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q11, '1', label:'1. Not at all',onclick: "enableFunction11()" %>
+                              </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q11, '1', label:'1',onclick: "enableFunction11()" %>
+                                 <small><b>Not_at_all</b></small>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q11, '2', label:'2', onclick: "enableFunction11()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q11, '3',  label:'3' , onclick: "enableFunction11()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q11, '4', label:'4' , onclick: "enableFunction11()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q11, '5',  label:'5' ,onclick: "enableFunction11()" %>
+                                  <small><b>Extremely</b></small>
+                              </div>
+
+                            </div>
+
+
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+
+
+                      <div class="row">
+                          <div class="col-sm-4" >
+
+
+                   
+                          </div>
+                          <div class="col-sm-4" >
+                             <button onclick="myFunction_p11()" class="btn btn-primary btn-block" type="button">Back</button>
+
+                                      <script>
+                                      function myFunction_p11() {
+                                        $("#tab3").click();
+                                      }
+                                      </script>
+                   
+                          </div>
+                          <div class="col-sm-4" >
+                            <button onclick="myFunction_n11()" class="btn btn-primary btn-block" id="button_q11" type="button">Next</button>
+
+                                      <script>
+                                      function myFunction_n11() {
+                                        $("#tab5").click();                                        
+                                        document.body.scrollTop = 0;
+                                        document.documentElement.scrollTop = 0;
+                                      }
+                                      </script>
+
+
+
+                          <script type="text/javascript">
+                            
+                            //check if radio button was clicked onload
+                            if ($('#portal_ro_survey_u_Q9a_1').is(':checked') ==  true ) 
+                              {
+                                //alert("1"); nothing to do
+                              }
+                            else
+                              {
+                                //alert("1xx");
+                                $( "#button_q11" ).prop('disabled', true);
+                              }
+                          </script>
+                  
+
+                          <script>
+                           // enable next button 
+                          function enableFunction11() 
+                          { 
+
+                             answer9a  = document.querySelector('input[name="portal_ro_survey_u[Q9a]"]:checked').value;
+                             answer9b  = document.querySelector('input[name="portal_ro_survey_u[Q9b]"]:checked').value;
+                             answer9c  = document.querySelector('input[name="portal_ro_survey_u[Q9c]"]:checked').value;
+                             answer10  = document.querySelector('input[name="portal_ro_survey_u[Q10]"]:checked').value;
+                             answer11  = document.querySelector('input[name="portal_ro_survey_u[Q11]"]:checked').value;
+
+                            if(answer9a == '' || answer9b == '' || answer9c == '' || answer10 == '' || answer11 == '')
+                              {
+                                //alert('null lahat');
+                                $( "#button_q11" ).prop('disabled', true);
+                              }
+                            else
+                              {
+                                //alert('di null');
+                                $( "#button_q11" ).prop('disabled', false);
+                              }
+
+                            }
+                          
+                          </script>
+
+
+                          </div>
+                      </div>
+
+                    </div>
+                    <!-- end q11 -->
+
+                  </div>
+
+                  <!-- end q91011 -->
+
+
+                  <!-- start q1213141516 -->
+                  <div id="content5">
+
+            
+                    <!-- start q12 -->
+                    <div class="container-fluid">
+
+
+                        <div class="row">
+                          <div class="col-sm-12" >
+                            <b>12. Was your Marketing Representative…</b>
+                          </div>
+                        </div>
+
+                        <!-- q12a -->
+                        <div class="row">
+
+                            <div class="mobile-menu" align="left" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Courteous? <span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Courteous? <span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q12a, '1', label: 'Yes', onclick: "enableFunction16()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q12a, '0', label: 'No',onclick: "enableFunction16()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+     
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+
+                              </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+                              <div class="col-sm-2" align="left">
+                                 <%= form.radio_button :Q12a, '1', label: 'Yes', onclick: "enableFunction16()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q12a, '0', label: 'No',onclick: "enableFunction16()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                   
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                 
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                   
+                              </div>
+
+                            </div>
+
+                        </div>
+                        <!-- q12a -->
+
+
+                        <!-- q12b -->
+                        <div class="row">
+
+
+                            <div class="mobile-menu" align="left" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Professional?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+                                <div class="col-sm-6" >
+                                   <p id="coloritred4">Professional?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q12b, '1', label: 'Yes', onclick: "enableFunction16()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q12b, '0', label: 'No',onclick: "enableFunction16()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+     
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+
+                              </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+                              <div class="col-sm-2" align="left">
+                                 <%= form.radio_button :Q12b, '1', label: 'Yes', onclick: "enableFunction16()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q12b, '0', label: 'No',onclick: "enableFunction16()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                   
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                 
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                   
+                              </div>
+
+                            </div>
+
+                        </div>
+                        <!-- q12b -->
+
+
+                        <!-- q12c -->
+                        <div class="row">
+
+                            <div class="mobile-menu" align="left" >
+                                <div class="col-sm-6" >
+                                  <p id="coloritred4">Informative?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+                            <div class="dropdown pc-menu" align="center" >
+                                <div class="col-sm-6" >
+                                  <p id="coloritred4">Informative?<span id="asterisksurvey">*</span></span>
+                                </div>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q12c, '1', label: 'Yes', onclick: "enableFunction16()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q12c, '0', label: 'No',onclick: "enableFunction16()" %>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+     
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+
+                              </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+
+                              <div class="col-sm-2" align="left">
+                                 <%= form.radio_button :Q12c, '1', label: 'Yes', onclick: "enableFunction16()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q12c, '0', label: 'No',onclick: "enableFunction16()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                   
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                 
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                   
+                              </div>
+
+                            </div>
+
+                        </div>
+                        <!-- q12c -->
+
+                    </div>
+
+                    <!-- end q12 -->
+                    
+                    <hr class="style1">
+
+                    <!-- start q13 -->
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-6" align="left">
+                               <p id="coloritred13">13. Overall, how satisfied were you with the recruiting and onboarding process in our Company?<span id="asterisksurvey">*</span></span>
+                            </div>
+
+
+                            <div class="mobile-menu" align="left" >
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q13, '5' , label: '5. Very Satisfied', onclick: "enableFunction16()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q13, '4' , label: '4', onclick: "enableFunction16()"%>
+                              </div>
+
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q13, '3' , label: '3',onclick: "enableFunction16()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q13, '2', label: '2', onclick: "enableFunction16()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q13, '1', label: '1. Very Dissatisfied', onclick: "enableFunction16()" %>
+                              </div>
+
+
+                            </div>
+
+                            <div class="dropdown pc-menu" align="left" >
+                            
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q13, '1', label: '1', onclick: "enableFunction16()" %>
+                                 <small><b>Very_Dissatisfied </b></small>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                 <%= form.radio_button :Q13, '2', label: '2', onclick: "enableFunction16()" %>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q13, '3' , label: '3',onclick: "enableFunction16()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q13, '4' , label: '4', onclick: "enableFunction16()"%>
+                              </div>
+
+                              <div class="col-sm-1" align="left">
+                                  <%= form.radio_button :Q13, '5' , label: '5', onclick: "enableFunction16()"%>
+                                  <small><b>Very_Satisfied</b></small>
+                              </div>
+                            </div>
+
+
+                            <div class="col-sm-1" align="left">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- end q13 -->
+
+                    <hr class="style1">
+
+
+                    <div class="container-fluid">
+
+                      <div class="row">
+                          <div class="col-sm-4" >
+                   
+                          </div>
+                          <div class="col-sm-4" >
+                             <button onclick="myFunction_p16()" class="btn btn-primary btn-block" type="button">Back</button>
+
+                                      <script>
+                                      function myFunction_p16() {
+                                        $("#tab4").click();
+                                      }
+                                      </script>
+                   
+                          </div>
+                          <div class="col-sm-4" >
+                            <button onclick="myFunction_n16()" class="btn btn-primary btn-block" id="button_q16" type="button">Next</button>
+
+                                      <script>
+                                      function myFunction_n16() {
+                                        $("#tab6").click();
+                                        document.body.scrollTop = 0;
+                                        document.documentElement.scrollTop = 0;
+                                      }
+                                      </script>
+
+
+
+
+                          <script type="text/javascript">
+                            
+                            //check if radio button was clicked onload
+                            if ($('#portal_ro_survey_u_Q12_1').is(':checked') ==  true ) 
+                              {
+                                //alert("1"); nothing to do
+                              }
+                            else
+                              {
+                                //alert("1xx");
+                                $( "#button_q16" ).prop('disabled', true);
+                              }
+                          </script>
+                  
+
+                          <script>
+                           // enable next button 
+                          function enableFunction16() 
+                          { 
+
+                            var answer12a  = document.querySelector('input[name="portal_ro_survey_u[Q12a]"]:checked').value;
+                            var answer12b  = document.querySelector('input[name="portal_ro_survey_u[Q12b]"]:checked').value;
+                            var answer12c  = document.querySelector('input[name="portal_ro_survey_u[Q12c]"]:checked').value;
+                            var answer13  = document.querySelector('input[name="portal_ro_survey_u[Q13]"]:checked').value;
+                            //var answer16  = document.querySelector('input[name="por_temp_survey[Q16]"]:checked').value;
+
+                            if(answer12a == '' || answer12b == '' || answer12c == '' || answer13 == '' )
+                              {
+                                ///alert('null lahat');
+                                $( "#button_q16" ).prop('disabled', true);
+                              }
+                            else
+                              {
+                                //alert('di null');
+                                $( "#button_q16" ).prop('disabled', false);
+                              }
+
+                            }
+                          
+                          </script>
+
+
+                          </div>
+                      </div>
+                    </div>
+                    <!-- end q16 -->
+
+                  </div>
+                  <!-- end q1213 -->
+                  <!-- end qIII -->
+
+      
+
+                   <!-- start q141516 -->
+                  <div id="content6">
+
+                              
+                    <!-- start q14 -->
+                    <div class="container-fluid">
+
+
+                        <div class="row">
+                          <div class="col-sm-12" >
+                            <b>Part II</b>
+                          </div>
+                        </div>
+
+                        <!-- q14 -->
+                        <div class="row">
+
+                            <div class="col-sm-12" >
+                               <p id="coloritred4">1. How did you first learn about the job opening at our Company?<span id="asterisksurvey">*</span>
+                                <textarea class="form-control" name="portal_ro_survey_u[Q14]" id="portal_ro_survey_u_Q14" onfocusout="enableFunction17()"></textarea>
+                            </div>
+
+                        </div>
+                        <!-- q14 -->
+
+                    </div>
+                    <!-- end q14 -->
+
+                    <hr class="style1">
+
+                    <!-- start q15 -->
+                    <div class="container-fluid">
+
+                        <!-- q15 -->
+                        <div class="row">
+
+                            <div class="col-sm-12" >
+                               <p id="coloritred4">2. What are some things that you think we could improve about our recruiting and onboarding process?<span id="asterisksurvey">*</span>
+                                <textarea class="form-control" name="portal_ro_survey_u[Q15]" id="portal_ro_survey_u_Q15" onfocusout="enableFunction17()"></textarea>
+                            </div>
+
+                        </div>
+                        <!-- q15 -->
+
+                    </div>
+                    <!-- end q15 -->
+
+                    <hr class="style1">
+
+                    <!-- start q16 -->
+                    <div class="container-fluid">
+
+                        <div class="row">
+
+                            <div class="col-sm-12" >
+                               <p id="coloritred13">3. On a scale of 1 to 10, how likely are you to recommend IPI to a friend or colleague? (1 being Not at all likely  and 10 being “Extremely likely”. ) <span id="asterisksurvey">*</span></p>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="row">
+
+                          <div class="col-sm-12" align="left">
+                                
+                              <div class="form-group">
+                                <label for="portal_ro_survey_u_Q16"></label>
+                                <select class="form-control" name="portal_ro_survey_u[Q16]" id="portal_ro_survey_u_Q16">
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                  <option value="6">6</option>
+                                  <option value="7">7</option>
+                                  <option value="8">8</option>
+                                  <option value="9">9</option>
+                                  <option value="10">10</option>
+                                </select>
+                              </div>
+           
+                          </div>
+                        </div>
+                    </div>
+
+                    <!-- end q16 -->
+
+                    <br>
+
+
+                    <div class="container-fluid">
+
+                      <div class="row">
+                          <div class="col-sm-4" >
+                   
+                          </div>
+                          <div class="col-sm-4" >
+                             <button onclick="myFunction_p17()" class="btn btn-primary btn-block" type="button">Back</button>
+
+                                      <script>
+                                      function myFunction_p17() {
+                                        
+                                        $("#tab5").click();
+                                      }
+                                      </script>
+                   
+                          </div>
+                          <div class="col-sm-4" >
+                            <button onclick="myFunction_n17()" class="btn btn-primary btn-block" id="button_q17" type="button">Next</button>
+
+                                      <script>
+                                      function myFunction_n17() {
+                                        $("#tab18").click();
+                                        document.body.scrollTop = 0;
+                                        document.documentElement.scrollTop = 0;
+                                      }
+                                      </script>
+
+
+
+
+                          <script type="text/javascript">
+                            
+                            //check if radio button was clicked onload
+                            if ($('#portal_ro_survey_u_Q14').is(':checked') ==  true ) 
+                              {
+                                //alert("1"); nothing to do
+                              }
+                            else
+                              {
+                                //alert("1xx");id=""
+                                $( "#button_q17" ).prop('disabled', true);
+                              }
+                          </script>
+                  
+
+                          <script>
+                           // enable next button 
+                          function enableFunction17() 
+                          { 
+
+                    
+                            if($("#portal_ro_survey_u_Q15").val() == '' || $("#portal_ro_survey_u_Q15").val() == '' )
+                              {
+                                ///alert('null lahat');
+                                $( "#button_q17" ).prop('disabled', true);
+                              }
+                            else
+                              {
+                                //alert('di null');
+                                $( "#button_q17" ).prop('disabled', false);
+                              }
+
+                            }
+                          
+                          </script>
+
+
+                          </div>
+                      </div>
+                    </div>
+                    <!-- end q16 -->
+
+                  </div>
+                  <!-- end q141516 -->
+
+
+
+
+
+                  <!-- start q17181920 -->
+                  <div id="content18">
+                    <div class="container-fluid">
+
+                      <div class="form-group"> 
+                        4. Please share any additional comments or suggestions.
+                        <textarea class="form-control" name="portal_ro_survey_u[Q17]" id="portal_ro_survey_u_Q17"></textarea>
+
+                      </div>
+
+                      <hr class="style1">
+                    
+                      <div class="row">
+                          <div class="col-sm-6" >
+                            <%= form.text_field :Q18, label:'Name of Recruiter:', id:'q18',onfocusout:"enableFunction18()"%>
+                            <%= form.text_field :Q19, label:'Name of HR – Emp Care Rep:',id:'q19', onfocusout:"enableFunction18()" %>
+                            <%= form.text_field :Q20, label:'Name of Marketing Rep:', id:'q20', onfocusout:"enableFunction18()" %>
+                          </div>
+                          <div class="col-sm-6" >
+                            
+                          </div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-sm-12" align="left">
+                          <h3>Thank you! 😊 </h3>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br>
+                    <br>
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-sm-4" >
+
+
+
+                        </div>
+                        <div class="col-sm-4" >
+                            <button onclick="myFunction_p18()" class="btn btn-primary btn-block" type="button">Back</button>
+
+                                      <script>
+                                      function myFunction_p18() {
+                                        $("#tab6").click();
+                                      }
+                                      </script>
+
+
+
+                        </div>
+                        <div class="col-sm-4" >
+                            <%= form.submit 'Save', class:'btn btn-primary btn-block', id:'button_save'  %>
+                            <% end %>
+
+
+                          <script type="text/javascript">
+                            
+                            //check if radio button was clicked onload
+                            if ($("#q20").val() == '' ) 
+                              {
+                                
+                                $( "#button_save" ).prop('disabled', true);
+                              }
+                            else
+                              {
+                                //nothing to do
+                              }
+                          </script>
+                  
+
+                          <script>
+                           // enable next button 
+                          function enableFunction18() 
+                          { 
+
+                    
+                            if($("#q18").val() == '' || $("#q19").val() == '' || $("#q20").val() == '' )
+                              {
+                                ///alert('null lahat');
+                                $( "#button_save" ).prop('disabled', true);
+                              }
+                            else
+                              {
+                                //alert('di null');
+                                $( "#button_save" ).prop('disabled', false);
+                              }
+
+                            }
+                          
+                          </script>
+
+
+
+
+
+
+
+
+
+                        </div>
+                      </div>
+
+
+
+                    </div>
+                    
+                  </div>
+                  <!-- end q17181920 -->
+
+
+               </div>
+
+            </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-sm-3" >
+  
+    </div>
+  </div>
+</div>
+<br>
+<br> 
+<br>
+
+<% if portal_ro_survey_u.errors.any? #start error message popup%>
+    <div id="error_explanation" >
+
+
+      <% por_temp_survey.errors.full_messages.each do |message| %>
+ 
+      <div class="alert1" role="alert" align="left" id="hide">
+          <p class="alert" align = 'left'>
+
+            <%if message == 'Q1 cant be blank'%>
+              <span style="color:red;" >A.1. is required field.</span>
+              <script>
+                document.getElementById("coloritred1").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+               
+              </script>
+
+            <% elsif  message == 'Q2 cant be blank'%>
+              <span style="color:red;">A.2. is required field.</span>
+              <script>
+                document.getElementById("coloritred2").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q3 cant be blank'%>
+              <span style="color:red;">A.3. is required field.</span>
+              <script>
+                document.getElementById("coloritred3").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q4 cant be blank'%>
+              <span style="color:red;">B.4. is required field.</span>
+              <script>
+                document.getElementById("coloritred4").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q5 cant be blank'%>
+              <span style="color:red;">B.5. is required field.</span>
+              <script>
+                document.getElementById("coloritred5").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q6 cant be blank'%>
+              <span style="color:red;">C.6. is required field.</span>
+              <script>
+                document.getElementById("coloritred6").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q7 cant be blank'%>
+              <span style="color:red;">C.7. is required field.</span>
+              <script>
+                document.getElementById("coloritred7").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q8 cant be blank'%>
+              <span style="color:red;">C.8. is required field.</span>
+              <script>
+                document.getElementById("coloritred8").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q9 cant be blank'%>
+              <span style="color:red;">D.9. is required field.</span>
+              <script>
+                document.getElementById("coloritred9").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q10 cant be blank'%>
+              <span style="color:red;">D.10. is required field.</span>
+              <script>
+                document.getElementById("coloritred10").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q11 cant be blank'%>
+              <span style="color:red;">D.11. is required field.</span>
+              <script>
+                document.getElementById("coloritred11").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q12 cant be blank'%>
+              <span style="color:red;">II.1. is required field.</span>
+              <script>
+                document.getElementById("coloritred12").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q13 cant be blank'%>
+              <span style="color:red;">II.2. is required field.</span>
+              <script>
+                document.getElementById("coloritred13").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q14 cant be blank'%>
+              <span style="color:red;">II.3. is required field.</span>
+              <script>
+                document.getElementById("coloritred14").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% elsif  message == 'Q15 cant be blank'%>
+              <span style="color:red;">II.4. is required field.</span>
+              <script>
+                document.getElementById("coloritred15").style.color = "red";
+                document.getElementById('mod').id = 'modx';
+              </script>
+
+            <% else %>
+              <span style="color:red;">Please complete the survey.</span>
+                <script>
+                    document.getElementById('mod').id = 'modx';
+                </script>
+              
+            <% end %>
+
+          </span>
+
+      </div>     
+   
+      <% end %>
+
+    </div>
+  <% end #end error message popup%>
+
+
+<script>
+//Get the button
+var mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
+
+
+
+
