@@ -374,15 +374,9 @@ class PagesController < ApplicationController
   def check_covidbulletin
     if PortalCovidbulletin.where(EmployeeRefNo: current_user.EmployeeRefNo).exists? == false
       redirect_to '/portal_covidbulletins/new'
-    end  
+    end
   end
-
-  def check_user_viewed_ads
-    if current_user.had_viewed_ads.blank? == true
-      redirect_to '/portal_temp_ads/new'
-    end    
-  end
-
+  
   #emp satisfaction survey
   private
   def emp_satis_survey_checker

@@ -444,7 +444,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
                 check_within_1yr = ''
                 emprec.each do |emprec|
-                    get_existing_datechanged_plus_1yr = emprec.DateChanged + 1.year
+                       = emprec.DateChanged + 1.year
                     check_within_1yr = current_datetime.between? emprec.DateChanged, get_existing_datechanged_plus_1yr
 
                 end
